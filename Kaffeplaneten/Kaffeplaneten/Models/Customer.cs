@@ -13,7 +13,7 @@ namespace Kaffeplaneten.Models
 
         [Display(Name = "Postnummer")]
         [Required(ErrorMessage = "Postnummer må oppgis")]
-        [RegularExpression(@"[0-9]{4}", ErrorMessage = "Postnummer må være 4 siffer")]
+        [RegularExpression(@"[0-9]{4}", ErrorMessage = "Postnummeret må være 4 siffer")]
         public string zipCode { get; set; }
 
         [Display(Name = "Poststed")]
@@ -30,6 +30,7 @@ namespace Kaffeplaneten.Models
 
         [Display(Name = "Betalingspostnummer")]
         [Required(ErrorMessage = "Betalingspostnummer må oppgis")]
+        [RegularExpression(@"[0-9]{4}", ErrorMessage = "Postnummeret må være 4 siffer")]
         public string payZipcode { get; set; }
 
         [Display(Name = "Betalingspoststed")]

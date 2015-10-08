@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -75,6 +76,7 @@ namespace Kaffeplaneten.Controllers
                     newUser.payZipCode = PayZipcode;
                     db.Customers.Add(newUser);
                     db.SaveChanges();
+                    Debug.WriteLine("test1");
                     return RedirectToAction("LoginView");
 
                 }
@@ -82,6 +84,7 @@ namespace Kaffeplaneten.Controllers
 
             catch(Exception feil)
             {
+                Debug.WriteLine("TEST2!!!!");
                 return View();
             }
 
