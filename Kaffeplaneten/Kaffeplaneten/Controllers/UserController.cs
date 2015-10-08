@@ -27,16 +27,64 @@ namespace Kaffeplaneten.Controllers
             {
                 using (var db = new Models.CustomerContext())
                 {
-                    var newUser = new Models.Customer();
-                    newUser.firstName = incList.["firstname"];
-                    newUser.lastName = incList.["surname"];
-                    newUser.adress = incList.["adress"];
-                    newUser.payAdress = incList.["payAdress"];
-                    newUser.firstName = incList.["firstname"];
-                    newUser.firstName = incList.["firstname"];
-                    newUser.firstName = incList.["firstname"];
+                    var newUser = new Models.Customers();
+                    newUser.firstName = incList["firstname"];
+                    newUser.lastName = incList["surname"];
+                    newUser.email = incList["email"];
+                    newUser.phone = incList["cellphone"];
+                    newUser.adress = incList["adress"];
+                    newUser.payAdress = incList["payAdress"];
+
+                    string zipcode = incList["zipcode"];
+
+                    var findProvince = db.Provinces.FirstOrDefault(z => z.zipCode == zipcode);
+
+                    if(findProvince == null )
+                    {
+                        var newProvince = new Models.Provinces();
+                        newProvince.zipCode = incList["zipcode"];
+                        newProvince.province = incList["province"];
+                        db.Provinces.Add(newProvince);
+
+                        newUser.provinces = newProvince;
+                    }
+                    else
+                    {   
+                        newUser.provinces = findProvince;
+                    }
+                    newUser.zipCode = zipcode;
+
+                    //Samme koden igjen for betalingsadressen
+                    string PayZipcode = incList["zipcode"];
+
+                    var findPayProvince = db.Provinces.FirstOrDefault(z => z.zipCode == zipcode);
+
+                    if (findPayProvince == null)
+                    {
+                        var newProvince = new Models.Provinces();
+                        newProvince.zipCode = incList["zipcode"];
+                        newProvince.province = incList["province"];
+                        db.Provinces.Add(newProvince);
+
+                        newUser.payProvince = newProvince.province;
+                    }
+                    else
+                    {
+                        newUser.payProvince = findPayProvince.province;
+                    }
+                    newUser.payZipCode = PayZipcode;
+                    db.Customers.Add(newUser);
+                    db.SaveChanges();
+                    return RedirectToAction("LoginView");
+
                 }
             }
+
+            catch(Exception feil)
+            {
+                return View();
+            }
+
         }
     }
 }

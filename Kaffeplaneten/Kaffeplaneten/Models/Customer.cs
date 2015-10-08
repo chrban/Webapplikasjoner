@@ -21,7 +21,7 @@ namespace Kaffeplaneten.Models
         public string province { get; set; }
 
         [Display(Name = "Adresse")]
-        [Required(ErrorMessage = "Adresse må oppgis")]
+        [Required(ErrorMessage = "Adresse må oppgis")]  
         public string adress { get; set; }
 
         [Display(Name = "Betalingsadresse")]
