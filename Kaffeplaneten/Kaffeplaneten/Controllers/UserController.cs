@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Kaffeplaneten.Models;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -22,86 +23,86 @@ namespace Kaffeplaneten.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult createUser(FormCollection incList)
+        public ActionResult createUser(Customer newCustomer)
         {
-            try
-            {
-                using (var db = new Models.CustomerContext())
-                {
-                    var newUser = new Models.Customers();
-                    newUser.firstName = incList["firstname"];
-                    newUser.lastName = incList["surname"];
-                    newUser.email = incList["email"];
-                    newUser.phone = incList["cellphone"];
-                    newUser.adress = incList["adress"];
-                    newUser.payAdress = incList["payAdress"];
-
-                    string zipcode = incList["zipcode"];
-
-                    var findProvince = db.Provinces.FirstOrDefault(z => z.zipCode == zipcode);
-
-                    if(findProvince == null )
-                    {
-                        var newProvince = new Models.Provinces();
-                        newProvince.zipCode = incList["zipcode"];
-                        newProvince.province = incList["province"];
-                        db.Provinces.Add(newProvince);
-
-                        newUser.provinces = newProvince;
-                    }
-                    else
-                    {   
-                        newUser.provinces = findProvince;
-                    }
-                    newUser.zipCode = zipcode;
-
-                    //Samme koden igjen for betalingsadressen
-                    string PayZipcode = incList["zipcode"];
-
-                    var findPayProvince = db.Provinces.FirstOrDefault(z => z.zipCode == zipcode);
-
-                    if (findPayProvince == null)
-                    {
-                        var newProvince = new Models.Provinces();
-                        newProvince.zipCode = incList["zipcode"];
-                        newProvince.province = incList["province"];
-                        db.Provinces.Add(newProvince);
-
-                        newUser.payProvince = newProvince.province;
-                    }
-                    else
-                    {
-                        newUser.payProvince = findPayProvince.province;
-                    }
-                    newUser.payZipCode = PayZipcode;
-                    db.Customers.Add(newUser);
-                    db.SaveChanges();
-                    Debug.WriteLine("test1");
-                    return RedirectToAction("LoginView");
-
-                }
 
 
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(Bruker bruker)
-        {
             if (ModelState.IsValid)
             {
-                db.Brukere.Add(bruker);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            return View(bruker);
-        }
+                var customerDB = new DBCustomer();
+                bool insertOK = customerDB.add(newCustomer);
+                if (insertOK)
+                {
+                    return RedirectToAction("Loginview");
+                }
 
-            catch(Exception feil)
+            }
+            return View();   
+
+         }
+
+
+
+
+
+
+
+
+        /*
+            Eldre metode
+            
+            var newUser = new Models.Customers();
+            newUser.firstName = incList["firstname"];
+            newUser.lastName = incList["surname"];
+            newUser.email = incList["email"];
+            newUser.phone = incList["cellphone"];
+            newUser.adress = incList["adress"];
+            newUser.payAdress = incList["payAdress"];
+
+            string zipcode = incList["zipcode"];
+
+            var findProvince = db.Provinces.FirstOrDefault(z => z.zipCode == zipcode);
+
+            if(findProvince == null )
             {
-                Debug.WriteLine("TEST2!!!!");
-                return View();
-            }
+                var newProvince = new Models.Provinces();
+                newProvince.zipCode = incList["zipcode"];
+                newProvince.province = incList["province"];
+                db.Provinces.Add(newProvince);
 
+                newUser.provinces = newProvince;
+            }
+            else
+            {   
+                newUser.provinces = findProvince;
+            }
+            newUser.zipCode = zipcode;
+
+            //Samme koden igjen for betalingsadressen
+            string PayZipcode = incList["zipcode"];
+
+            var findPayProvince = db.Provinces.FirstOrDefault(z => z.zipCode == zipcode);
+
+            if (findPayProvince == null)
+            {
+                var newProvince = new Models.Provinces();
+                newProvince.zipCode = incList["zipcode"];
+                newProvince.province = incList["province"];
+                db.Provinces.Add(newProvince);
+
+                newUser.payProvince = newProvince.province;
+            }
+            else
+            {
+                newUser.payProvince = findPayProvince.province;
+            }
+            newUser.payZipCode = PayZipcode;
+            db.Customers.Add(newUser);
+            db.SaveChanges();
+            Debug.WriteLine("test1");
+            return RedirectToAction("LoginView");
+
+        } */    
         }
     }
-}
+    

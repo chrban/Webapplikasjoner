@@ -28,12 +28,12 @@ namespace Kaffeplaneten.Models
         [Required(ErrorMessage = "Betalingsadresse må oppgis")]
         public string payAdress { get; set; }
 
-        [Display(Name = "Betalingspostnummer")]
+        [Display(Name = "Bet. Postnummer")]
         [Required(ErrorMessage = "Betalingspostnummer må oppgis")]
         [RegularExpression(@"[0-9]{4}", ErrorMessage = "Postnummeret må være 4 siffer")]
         public string payZipcode { get; set; }
 
-        [Display(Name = "Betalingspoststed")]
+        [Display(Name = "Bet. Poststed")]
         [Required(ErrorMessage = "Betalingspoststed må oppgis")]
         public string payProvince { get; set; }
        
