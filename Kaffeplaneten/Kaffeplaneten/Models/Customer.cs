@@ -18,7 +18,7 @@ namespace Kaffeplaneten.Models
 
         [Display(Name = "Poststed")]
         [Required(ErrorMessage = "Poststed må oppgis")]
-        public string provinces { get; set; }
+        public string province { get; set; }
 
         [Display(Name = "Adresse")]
         [Required(ErrorMessage = "Adresse må oppgis")]
@@ -30,7 +30,7 @@ namespace Kaffeplaneten.Models
 
         [Display(Name = "Betalingspostnummer")]
         [Required(ErrorMessage = "Betalingspostnummer må oppgis")]
-        public string payZipCode { get; set; }
+        public string payZipcode { get; set; }
 
         [Display(Name = "Betalingspoststed")]
         [Required(ErrorMessage = "Betalingspoststed må oppgis")]
