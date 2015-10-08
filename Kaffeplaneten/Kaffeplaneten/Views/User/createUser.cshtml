@@ -1,0 +1,99 @@
+﻿
+@model Kaffeplaneten.Models.Customer
+
+@{
+    ViewBag.Title = "createUser";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>User</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.firstName)
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.lastName)
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.email)
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.phone)
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.adress)
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.zipCode)
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.province)
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.payAdress)
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.payZipcode)
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.payProvince)
+        </div>
+        <p>
+            <input type="submit" value="createUser" />
+        </p>
+        
+    </fieldset>
+}   
+
+        //Gammel metode
+        <h2>Opprett bruker:</h2>
+        <form action="/User/createUser" method="post">
+            <table>
+                <tr>
+                    <td>Fornavn: </td>
+                    <td><input type="text" name="firstname"/></td><
+                </tr>
+                <tr>
+                    <td>Etternavn: </td>
+                    <td><input type="text" name="surname"/></td>
+                </tr>
+                <tr>
+                    <td>E-post: </td>
+                    <td><input type="text" name="email"/></td>
+                </tr>
+                <tr>
+                    <td>Cellphone: </td>
+                    <td><input type="text" name="cellphone"/></td>
+                </tr>
+                <tr>
+                    <td>Hjemmeadresse: </td>
+                    <td><input type="text" name="adress"/></td></tr>
+                <tr>
+                    <td>Postnr: </td>
+                    <td><input type="text" name="zipcode"/></td>
+                    <td>Poststed: </td>
+                    <td><input type="text" name="province"/></td>
+                </tr>
+                <tr>
+                    <td>Betalingsadresse: </td>
+                    <td><input type="text" name="payAdress"/></td>
+                </tr>
+                <tr>
+                    <td>Postnr: </td>
+                    <td><input type="text" name="payZipcode" /></td>
+                    <td>Poststed: </td>
+                    <td><input type="text" name="payProvince"/></td>
+                </tr>
+            </table>
+            @Html.ActionLink("Opprett bruker", "CreateUser")
+        </form>
+    </div>
+</body>
+</html>
+
+

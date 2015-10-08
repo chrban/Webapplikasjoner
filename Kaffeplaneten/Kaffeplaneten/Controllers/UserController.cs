@@ -80,7 +80,21 @@ namespace Kaffeplaneten.Controllers
                     return RedirectToAction("LoginView");
 
                 }
+
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create(Bruker bruker)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Brukere.Add(bruker);
+                db.SaveChanges();
+                return RedirectToAction("Index");
             }
+            return View(bruker);
+        }
 
             catch(Exception feil)
             {
