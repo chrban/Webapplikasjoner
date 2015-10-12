@@ -103,6 +103,12 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\img1.jpg" />
+    <Content Include="Content\img2.jpg" />
+    <Content Include="Content\img3.jpg" />
+    <Content Include="Content\img4.jpg" />
+    <Content Include="Content\img5.jpg" />
+    <Content Include="Content\img6.jpg" />
     <Content Include="Content\Site.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -131,7 +137,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="DBProduct.cs" />
     <Compile Include="Models\CustomerContext.cs" />
     <Compile Include="DBCustomer.cs" />
     <Compile Include="Global.asax.cs">
@@ -148,6 +156,8 @@
     <Content Include="Scripts\jquery-2.1.4.min.map" />
     <Content Include="Views\User\createUser.cshtml" />
     <Content Include="Views\User\Loginview.cshtml" />
+    <Content Include="Views\Product\Index.cshtml" />
+    <Content Include="Views\Product\AllProducts.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
