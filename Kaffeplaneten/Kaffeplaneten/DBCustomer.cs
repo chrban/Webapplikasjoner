@@ -6,6 +6,7 @@ using System.Web;
 
 namespace Kaffeplaneten
 {
+
     public class DBCustomer
     {
         public bool add(Customer IncCustomer)
@@ -43,7 +44,7 @@ namespace Kaffeplaneten
                 return false;
             }
         }
-        
+
         /*   
          SLETTE-METODE SOM TILHØRER TØNSAGER SIN DEL   
 
