@@ -22,6 +22,7 @@ namespace Kaffeplaneten.Controllers
 
             return View();
         }
+
         [HttpPost]
         public ActionResult createUser(Customer newCustomer)
         {

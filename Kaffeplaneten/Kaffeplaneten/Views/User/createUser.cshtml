@@ -75,9 +75,11 @@
             @Html.ValidationMessageFor(model => model.payProvince)
         </div>
   
-        <p>
-            <input type="submit" value="Opprett bruker" />
-        </p>
+
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Opprett bruker" class="btn btn-success" />
+                @Html.ActionLink("test", "Liste", new { tom = "" }, new { @class = "btn btn-primary" })
+            </div>
         
     </fieldset>
 }   

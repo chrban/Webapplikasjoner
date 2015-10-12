@@ -69,6 +69,6 @@ C:\Users\minik\Dropbox\Skole\GitHub\Webapplikasjoner\Webapplikasjoner\Kaffeplane
 C:\Users\minik\Dropbox\Skole\GitHub\Webapplikasjoner\Webapplikasjoner\Kaffeplaneten\Kaffeplaneten\bin\System.Web.Webpages.Razor.xml
 C:\Users\minik\Dropbox\Skole\GitHub\Webapplikasjoner\Webapplikasjoner\Kaffeplaneten\Kaffeplaneten\bin\System.Web.Helpers.xml
 C:\Users\minik\Dropbox\Skole\GitHub\Webapplikasjoner\Webapplikasjoner\Kaffeplaneten\Kaffeplaneten\bin\System.Web.Mvc.xml
-C:\Users\minik\Dropbox\Skole\GitHub\Webapplikasjoner\Webapplikasjoner\Kaffeplaneten\Kaffeplaneten\obj\Debug\Kaffeplaneten.csprojResolveAssemblyReference.cache
 C:\Users\minik\Dropbox\Skole\GitHub\Webapplikasjoner\Webapplikasjoner\Kaffeplaneten\Kaffeplaneten\obj\Debug\Kaffeplaneten.dll
 C:\Users\minik\Dropbox\Skole\GitHub\Webapplikasjoner\Webapplikasjoner\Kaffeplaneten\Kaffeplaneten\obj\Debug\Kaffeplaneten.pdb
+C:\Users\minik\Dropbox\Skole\GitHub\Webapplikasjoner\Webapplikasjoner\Kaffeplaneten\Kaffeplaneten\obj\Debug\Kaffeplaneten.csprojResolveAssemblyReference.cache
