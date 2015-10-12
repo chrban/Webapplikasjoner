@@ -21,7 +21,7 @@ namespace Kaffeplaneten
 
             };
 
-            var db = new CustomerContext();
+            var db = new Database();
             try
             {
                 var ExistingZipcode = db.Provinces.Find(IncCustomer.zipCode);
