@@ -137,10 +137,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\UserController.cs" />
-    <Compile Include="DBProduct.cs" />
     <Compile Include="Models\CustomerContext.cs" />
+    <Compile Include="DBProduct.cs" />
     <Compile Include="DBCustomer.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -158,6 +159,7 @@
     <Content Include="Views\User\Loginview.cshtml" />
     <Content Include="Views\Product\Index.cshtml" />
     <Content Include="Views\Product\AllProducts.cshtml" />
+    <Content Include="Views\Order\OrderView.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

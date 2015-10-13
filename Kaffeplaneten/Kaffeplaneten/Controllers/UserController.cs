@@ -43,12 +43,6 @@ namespace Kaffeplaneten.Controllers
          }
 
 
-
-
-
-
-
-
         /*
             Eldre metode
             

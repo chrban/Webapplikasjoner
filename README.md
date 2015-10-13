@@ -1,69 +1,68 @@
 # Webapplikasjoner
 
-Database:
--	brukerdatabase
--	varedatabase
--	database klasser
+*Database:*
+-	Brukerdatabase
+-	Varedatabase
+-	Database klasser
 -	EF diagram
 
-HTML:
--	web side, design
--	css/bootsrap
+*HTML:*
+-	Web side, Design
+-	CSS/Bootsrap
 
 Kode:
--	innloggingsystem
--	kode for behandling av brukerdata
--	validering
+-	Innloggingsystem
+-	Kode for behandling av brukerdata
+-	Validering
 
 Struktur
--	classediagram
--	sekvensdiagram
+-	Klassediagram
+-	Sekvensdiagram
 
 
 Database
-Generere databasen. 
+=========
+_Generere databasen._ 
 
-Controllers
-UserController -  lage nye brukere, endre brukere, slette brukere
-LoginController - Innlogging
-ProductController - kontroller for generering av produktlister. Hente ut produktdetaljer. 
-SecurityController - validering, passordkryptering
-OrderController - Handlevogn, registrering av ordre.
+### Controllers:
 
-Views:
-HomeView/index
-<Et view for hver kaffekategori>ikke nødvendig
-ProductDetailsView
-LoginView
-NewUserView
-ChoppingCartView
-OrderView(bekrefte pris, adresse og kortinformasjon)
-ReceipView
-AcountView(navn, adresse, telefon
-OrderHistoryView
+* UserController -  lage nye brukere, endre brukere, slette brukere. 
+* LoginController - Innlogging. 
+* ProductController - kontroller for generering av produktlister. Hente ut produktdetaljer. 
+* SecurityController - validering, passordkryptering. 
+* OrderController - Handlevogn, registrering av ordre. 
+
+### Views:
+
+* HomeView/index
+* ProductDetailsView
+* LoginView
+* NewUserView
+* ShoppingCartView
+* OrderView(bekrefte pris, adresse og kortinformasjon)
+* ReceiptView
+* AccountView(navn, adresse, telefon
+* OrderHistoryView
 
 
+##### Knalstad:
+-	UserController+LoginController:
+-	LoginView
+-	NewUserView
 
-**Generere databasen**
+##### Christer:
+-	ProductController
+-	HomeView/index
+-	<Et view for hver kaffekategori>ikke nødvendig
+-	ProductDetailsView
 
-Knalstad:
-UserController+LoginController:
-LoginView
-NewUserView
+##### Sondre:
+-	OrderController
+-	ShoppingCartView
+-	OrderView(bekrefte pris, adresse og kortinformasjon)
+-	ReceiptView
 
-Christer:
-ProductController
-HomeView/index
-<Et view for hver kaffekategori>ikke nødvendig
-ProductDetailsView
-
-Sondre:
-OrderController
-ShoppingCartView
-OrderView(bekrefte pris, adresse og kortinformasjon)
-ReceipView
-
-Tønsager:
-SecurityController
-AccountView(navn, adresse, telefon)
-OrderHistoryView
+##### Tønsager:
+-	SecurityController
+-	AccountView(navn, adresse, telefon)
+-	OrderHistoryView
