@@ -1,7 +1,19 @@
-﻿
+﻿@model Kaffeplaneten.Models.Customer
 @{
     ViewBag.Title = "Loginview";
 }
 
-<h2>Loginview</h2>
+<fieldset>
+    <legend>Brukerregistrering</legend>
 
+
+    
+    <div>
+        @Html.LabelFor(model => model.email)
+        @Html.EditorFor(model => model.email)
+        @Html.ValidationMessageFor(model => model.email)
+    </div>
+    <div>
+
+    </div>
+</fieldset>
