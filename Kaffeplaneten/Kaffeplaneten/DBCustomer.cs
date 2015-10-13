@@ -15,25 +15,28 @@ namespace Kaffeplaneten
         public bool add(Customer IncCustomer)
         {
             Debug.WriteLine("Test1");
-            var newPerson = new Persons()
+
+            var newCustomer = new Customers()
             {
                 firstName = IncCustomer.firstName,
                 lastName = IncCustomer.lastName,
                 email = IncCustomer.email,
-                phone = IncCustomer.phone
+                phone = IncCustomer.phone,
             };
-
-            var newCustomer = new Customers()
+            var newPayAdress = new Adresses()
             {
-                adress = IncCustomer.adress,
-                zipCode = IncCustomer.zipCode,
-                payAdress = IncCustomer.payAdress,
-                payZipCode = IncCustomer.payZipcode,
-                payProvince = IncCustomer.payProvince
-
+                streetName = IncCustomer.payAdress,
+                zipCode = IncCustomer.payZipcode,
+                payAdress = true,
+                deliveryAdress = false
             };
-
-            
+            var newDeliveryAdress = new Adresses()
+            {
+                streetName = IncCustomer.adress,
+                zipCode = IncCustomer.zipCode,
+                deliveryAdress = true,
+                payAdress = false
+            };
             Debug.WriteLine("Test2");
             var db = new CustomerContext();
             try
@@ -45,33 +48,34 @@ namespace Kaffeplaneten
                     Debug.WriteLine("test444444444444444444444444444444444");
                     var newProvince = new Provinces()
                     {
-                        zipCode = IncCustomer.zipCode, 
+                        zipCode = IncCustomer.zipCode,
                         province = IncCustomer.province
                     };
-                    newCustomer.provinces = newProvince;
                     db.Provinces.Add(newProvince);
+                    newDeliveryAdress.province = newProvince;
                 }
                 else
-                    newCustomer.provinces = db.Provinces.Find(IncCustomer.province); 
+                    newDeliveryAdress.province = db.Provinces.Find(IncCustomer.zipCode);
+                    //newCustomer.deliveryAdress.province = db.Provinces.Find(IncCustomer.province);
 
-                //Sjekker om betalingsadressen også eksisterer
                 ExistingZipcode = db.Provinces.Find(IncCustomer.payZipcode);
                 if (ExistingZipcode == null)
                 {
-                    Debug.WriteLine("Test5");
+                    Debug.WriteLine("test444444444444444444444444444444444");
                     var newProvince = new Provinces()
                     {
                         zipCode = IncCustomer.payZipcode,
                         province = IncCustomer.payProvince
                     };
-                    newCustomer.payProvince = newProvince.province.ToString();
-                    Debug.WriteLine(newCustomer.payProvince);
                     db.Provinces.Add(newProvince);
+                    newPayAdress.province = newProvince;
+                    //newCustomer.payAdress.province = newProvince;
                 }
                 else
-                    newCustomer.payProvince = IncCustomer.payProvince;  
+                    newPayAdress.province = db.Provinces.Find(IncCustomer.payZipcode);
 
-                db.Persons.Add(newPerson);
+                //newCustomer.payAdress.province = db.Provinces.Find(IncCustomer.payZipcode);
+
                 db.Customers.Add(newCustomer);
                 
                 Debug.WriteLine("Test7");

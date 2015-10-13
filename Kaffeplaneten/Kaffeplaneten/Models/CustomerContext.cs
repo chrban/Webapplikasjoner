@@ -18,18 +18,18 @@ namespace Kaffeplaneten
             Database.CreateIfNotExists();
         }
 
-        public DbSet<Persons> Persons { get; set; }
-        public DbSet<Customers> Customers { get; set; }
+        public DbSet<Persons> Customers { get; set; }
         public DbSet<Provinces> Provinces { get; set; }
         public DbSet<Products> Products { get; set; }
         public DbSet<Orders> Orders { get; set; }
 
-      /*  protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Provinces>()
-                        .HasKey(p => p.zipCode);
-            modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
-         } */ 
+            //modelBuilder.Entity<Provinces>().HasKey(p => p.zipCode);
+            modelBuilder.Entity<ProductOrders>().HasKey(p => new { p.orderNr, p.productID });
+            modelBuilder.Entity<Adresses>().HasKey(p => new { p.customerID, p.zipCode });
+            //modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
+        }
     }
     public class Persons
     {
@@ -42,17 +42,23 @@ namespace Kaffeplaneten
 
     }
 
-    public class Customers
+    public class Customers:Persons
     {
         [Key]
         public int customerID { get; set; }
+        public virtual List<Adresses> adresses { get; set; }
+        public virtual List<Orders> orders { get; set; }
+    }
+
+    public class Adresses
+    {
+        public bool payAdress { get; set; }
+        public bool deliveryAdress { get; set; }
+        public int customerID { get; set; }
         public string zipCode { get; set; }
-        public string adress { get; set; }
-        public string payAdress { get; set; }
-        public string payZipCode { get; set; }
-        public string payProvince { get; set; }
-        public string email { get; set; }
-        public virtual Provinces provinces { get; set; }
+        public string streetName { get; set; }
+        public virtual Customer customer { get; set; }
+        public virtual Provinces province { get; set; }
     }
 
     public class Provinces
@@ -60,7 +66,7 @@ namespace Kaffeplaneten
         [Key]
         public string zipCode { get; set; }
         public string province { get; set; }
-        public virtual List<Customers> Customers { get; set; }
+        public virtual List<Adresses> adresses { get; set; }
 
     }
 
@@ -74,15 +80,26 @@ namespace Kaffeplaneten
         public double price { get; set; }
         public string category { get; set; }
         public string description { get; set; }
+        public virtual List<ProductOrders> productOrders { get; set; }
 
+    }
+
+    public class ProductOrders
+    {
+        //[Key]
+        public int orderNr { get; set; }
+        //[Key]
+        public int productID { get; set; }
+        public int quantity { get; set; }
     }
 
     public class Orders
     {
         [Key]
         public int orderNr { get; set; }
+        public int customerID { get; set; }
         public virtual Customer Customers { get; set; }
-        public virtual List<Products> Products { get; set; }
+        public virtual List<ProductOrders> productOrders { get; set; }
 
     }
 
