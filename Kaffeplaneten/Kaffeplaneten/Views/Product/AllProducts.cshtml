@@ -1,0 +1,32 @@
+﻿
+@model List<Kaffeplaneten.Products>
+@{
+    ViewBag.Title = "Products";
+}
+
+<h2>AllProductsView</h2>
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ListAllProducts</title>
+</head>
+<body>
+        @foreach (var product in Model)
+        {
+            <div class="collum">
+                <div class="col-sm-6 col-md-4">
+                    <div class="thumbnail">
+                        <img src="~/Content/@product.imageURL" alt="ProductImage" style="width:150px;height:150px">
+                        <div class="caption">
+                            <h3>@product.productName</h3>
+                            <p>@product.description</p>
+                            <p><a href="#" class="btn btn-primary" role="button">Info</a> <a href="#" class="btn btn-default" role="button"><span class="glyphicon glyphicon-shopping-cart"></span></a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+</body>
+</html>
