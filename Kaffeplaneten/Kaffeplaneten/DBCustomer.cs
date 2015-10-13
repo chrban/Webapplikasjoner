@@ -69,10 +69,11 @@ namespace Kaffeplaneten
                     db.Provinces.Add(newProvince);
                 }
                 else
-                    newCustomer.payProvince = IncCustomer.payProvince;
+                    newCustomer.payProvince = IncCustomer.payProvince;  
 
-                db.Customers.Add(newCustomer);
                 db.Persons.Add(newPerson);
+                db.Customers.Add(newCustomer);
+                
                 Debug.WriteLine("Test7");
                 db.SaveChanges();
                 Debug.WriteLine("Test8");
