@@ -21,11 +21,17 @@ namespace Kaffeplaneten.Models
         [Required(ErrorMessage = "Epost må oppgis")]
         public string email { get; set; }
 
+        [Display(Name = "Brukernavn")]
+        [Required(ErrorMessage = "Epost må oppgis")]
+        public string Brukernavn { get; set; }
+
+        [Display(Name = "Passord")]
+        [Required(ErrorMessage = "Epost må oppgis")]
+        public string Passord { get; set; }
+
         [Display(Name = "Telefon")]
         [Required(ErrorMessage = "Telefon må oppgis")]
         public string phone { get; set; }
-
-        public int customerID { get; set; }
 
         [Display(Name = "Postnummer")]
         [Required(ErrorMessage = "Postnummer må oppgis")]

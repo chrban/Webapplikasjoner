@@ -53,6 +53,7 @@ namespace Kaffeplaneten
         public string payProvince { get; set; }
         public string email { get; set; }
         public virtual Provinces provinces { get; set; }
+        public virtual Persons persons { get; set; }
     }
 
     public class Provinces
