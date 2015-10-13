@@ -47,6 +47,7 @@ namespace Kaffeplaneten
                 {
                     Debug.WriteLine("test444444444444444444444444444444444");
                     var newProvince = new Provinces()
+
                     {
                         zipCode = IncCustomer.zipCode,
                         province = IncCustomer.province

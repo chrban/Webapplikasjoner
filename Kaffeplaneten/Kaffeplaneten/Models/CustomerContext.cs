@@ -41,7 +41,6 @@ namespace Kaffeplaneten
 
 
     }
-
     public class Customers:Persons
     {
         [Key]

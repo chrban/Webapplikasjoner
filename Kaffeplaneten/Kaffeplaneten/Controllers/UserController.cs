@@ -27,7 +27,6 @@ namespace Kaffeplaneten.Controllers
         public ActionResult createUser(Customer newCustomer)
         {
 
-
             if (ModelState.IsValid)
             {
                 var customerDB = new DBCustomer();
