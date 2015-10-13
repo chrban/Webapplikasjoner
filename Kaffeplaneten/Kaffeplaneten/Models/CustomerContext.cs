@@ -6,6 +6,7 @@ namespace Kaffeplaneten
     using System.ComponentModel.DataAnnotations;
     using System.Data.Entity;
     using System.Data.Entity.ModelConfiguration.Conventions;
+    using System.Diagnostics;
     using System.Linq;
 
 
@@ -13,7 +14,7 @@ namespace Kaffeplaneten
     {
 
         public CustomerContext()
-            : base("name=Database")
+         : base("name=Database")
         {
             Database.CreateIfNotExists();
         }
@@ -39,7 +40,7 @@ namespace Kaffeplaneten
         public string email { get; set; }
         public string phone { get; set; }
         public virtual Provinces provinces { get; set; }
-        public virtual Customers customers { get; set; }
+       // public virtual Customers customers { get; set; }
 
 
     }
@@ -57,7 +58,7 @@ namespace Kaffeplaneten
         public string payProvince { get; set; }
         public string email { get; set; }
         public virtual Provinces provinces { get; set; }
-        public virtual Persons persons { get; set; }
+        //public virtual Persons persons { get; set; }
     }
 
     public class Provinces
