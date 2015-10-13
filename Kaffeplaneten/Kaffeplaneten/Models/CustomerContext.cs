@@ -29,7 +29,7 @@ namespace Kaffeplaneten
             modelBuilder.Entity<ProductOrders>().HasKey(p => new { p.orderNr, p.productID });
             modelBuilder.Entity<Adresses>().HasKey(p => new { p.customerID, p.zipCode });
             //modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
-        }
+    }
     }
     public class Persons
     {

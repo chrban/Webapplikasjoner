@@ -39,6 +39,7 @@ namespace Kaffeplaneten
             };
             Debug.WriteLine("Test2");
             var db = new CustomerContext();
+            Debug.WriteLine("Test3");
             try
             {
                 
