@@ -6,7 +6,6 @@ namespace Kaffeplaneten
     using System.ComponentModel.DataAnnotations;
     using System.Data.Entity;
     using System.Data.Entity.ModelConfiguration.Conventions;
-    using System.Diagnostics;
     using System.Linq;
 
 
@@ -14,7 +13,7 @@ namespace Kaffeplaneten
     {
 
         public CustomerContext()
-         : base("name=Database")
+            : base("name=DatabaseKaffeplaneten")
         {
             Database.CreateIfNotExists();
         }
@@ -25,12 +24,12 @@ namespace Kaffeplaneten
         public DbSet<Products> Products { get; set; }
         public DbSet<Orders> Orders { get; set; }
 
-        /*  protected override void OnModelCreating(DbModelBuilder modelBuilder)
-          {
-              modelBuilder.Entity<Provinces>()
-                          .HasKey(p => p.zipCode);
-              modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
-           } */
+      /*  protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Provinces>()
+                        .HasKey(p => p.zipCode);
+            modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
+         } */ 
     }
     public class Persons
     {
@@ -39,8 +38,6 @@ namespace Kaffeplaneten
         [Key]
         public string email { get; set; }
         public string phone { get; set; }
-        public virtual Provinces provinces { get; set; }
-       // public virtual Customers customers { get; set; }
 
 
     }
@@ -48,9 +45,7 @@ namespace Kaffeplaneten
     public class Customers
     {
         [Key]
-        public string Brukernavn { get; set; }
-        private string passwordHash { get; set; }
-        private string salt { get; set; }
+        public int customerID { get; set; }
         public string zipCode { get; set; }
         public string adress { get; set; }
         public string payAdress { get; set; }
@@ -58,7 +53,6 @@ namespace Kaffeplaneten
         public string payProvince { get; set; }
         public string email { get; set; }
         public virtual Provinces provinces { get; set; }
-        //public virtual Persons persons { get; set; }
     }
 
     public class Provinces

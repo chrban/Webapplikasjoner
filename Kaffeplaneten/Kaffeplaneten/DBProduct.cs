@@ -13,9 +13,9 @@ namespace Kaffeplaneten
         public List<Products> MakeList()
         {
             var db = new CustomerContext();
-            // List<Products> listOfAllProducts = db.Products.ToList();
+            List<Products> listOfAllProducts = db.Products.ToList();
 
-            return null; //listOfAllProducts;
+            return listOfAllProducts;
 
         }
 
