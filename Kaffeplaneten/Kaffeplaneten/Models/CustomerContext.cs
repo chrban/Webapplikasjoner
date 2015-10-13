@@ -31,6 +31,7 @@ namespace Kaffeplaneten
             //modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
         } 
     }
+
     public class Persons
     {
         public string firstName { get; set; }
