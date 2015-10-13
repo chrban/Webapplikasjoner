@@ -35,7 +35,7 @@ namespace Kaffeplaneten
 
             
             Debug.WriteLine("Test2");
-            var db = new Database();
+            var db = new CustomerContext();
             try
             {
                 

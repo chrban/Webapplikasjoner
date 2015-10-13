@@ -9,11 +9,11 @@ namespace Kaffeplaneten
     using System.Linq;
 
 
-    public class Database : DbContext
+    public class CustomerContext : DbContext
     {
 
-        public Database()
-            : base("name=Database")
+        public CustomerContext()
+            : base("name=DatabaseKaffeplaneten")
         {
             Database.CreateIfNotExists();
         }
