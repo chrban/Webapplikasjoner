@@ -24,15 +24,16 @@ Database
 =========
 _Generere databasen._ 
 
-*Controllers:*
+*_Controllers:_*
 
-UserController -  lage nye brukere, endre brukere, slette brukere.
-LoginController - Innlogging.
+UserController -  lage nye brukere, endre brukere, slette brukere. 
+LoginController - Innlogging. 
 ProductController - kontroller for generering av produktlister. Hente ut produktdetaljer. 
-SecurityController - validering, passordkryptering.
-OrderController - Handlevogn, registrering av ordre.
+SecurityController - validering, passordkryptering. 
+OrderController - Handlevogn, registrering av ordre. 
 
-*Views:*
+*_Views:_*
+
 HomeView/index
 <Et view for hver kaffekategori>ikke nødvendig
 ProductDetailsView
