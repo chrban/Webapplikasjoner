@@ -160,6 +160,8 @@
     <Content Include="Views\Product\Index.cshtml" />
     <Content Include="Views\Product\AllProducts.cshtml" />
     <Content Include="Views\Order\OrderView.cshtml" />
+    <Content Include="Views\Order\ShoppingCartView.cshtml" />
+    <Content Include="Views\Order\ReceiptView.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

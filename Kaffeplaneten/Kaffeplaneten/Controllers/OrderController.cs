@@ -11,10 +11,21 @@ namespace Kaffeplaneten.Controllers
         // GET: Ordre
         public ActionResult Index()
         {
+            RedirectToAction("ShoppingCartView");
             return View();
         }
 
         public ActionResult OrderView()
+        {
+            return View();
+        }
+
+        public ActionResult ShoppingCartView()
+        {
+            return View();
+        }
+
+        public ActionResult ReceiptView()
         {
             return View();
         }
