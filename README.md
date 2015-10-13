@@ -24,7 +24,7 @@ Database
 =========
 _Generere databasen._ 
 
-## Controllers:
+### Controllers:
 
 * UserController -  lage nye brukere, endre brukere, slette brukere. 
 * LoginController - Innlogging. 
@@ -32,7 +32,7 @@ _Generere databasen._
 * SecurityController - validering, passordkryptering. 
 * OrderController - Handlevogn, registrering av ordre. 
 
-## Views:
+### Views:
 
 * HomeView/index
 * ProductDetailsView
@@ -45,24 +45,24 @@ _Generere databasen._
 * OrderHistoryView
 
 
-### Knalstad:
+##### Knalstad:
 -	UserController+LoginController:
 -	LoginView
 -	NewUserView
 
-### Christer:
+##### Christer:
 -	ProductController
 -	HomeView/index
 -	<Et view for hver kaffekategori>ikke nødvendig
 -	ProductDetailsView
 
-### Sondre:
+##### Sondre:
 -	OrderController
 -	ShoppingCartView
 -	OrderView(bekrefte pris, adresse og kortinformasjon)
 -	ReceiptView
 
-### Tønsager:
+##### Tønsager:
 -	SecurityController
 -	AccountView(navn, adresse, telefon)
 -	OrderHistoryView
