@@ -11,7 +11,7 @@ namespace Kaffeplaneten
     public class DBuser
     {
 
-        public bool add(byte[] IncPassword, Customers IncCustomer)
+        public bool add(byte[] IncPassword, Customers newCustomer)
         {
             try
             {
@@ -20,11 +20,12 @@ namespace Kaffeplaneten
                 Debug.WriteLine("Test2");
                 var newUser = new Users()
                 {
-                    email = IncCustomer.email,
+                    email = newCustomer.email,
                     password = IncPassword
                 };
-                newUser.customer = IncCustomer;
-                 db.SaveChanges();
+                newUser.customer = newCustomer;
+                db.Users.Find(newUser);
+                db.SaveChanges();
                 Debug.WriteLine("Lagring fullført!");
                 return true;
             }
