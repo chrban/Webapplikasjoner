@@ -19,5 +19,25 @@ namespace Kaffeplaneten
 
         }
 
+        public Products getProduct(int pID)
+        {
+            var db = new CustomerContext();
+
+            var product = db.Products.FirstOrDefault(p => p.productID == pID);
+
+            return product;
+
+        }
+
+
+
     }
+
+
+
+
+
+
+    
+   
 }

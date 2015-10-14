@@ -20,13 +20,15 @@ namespace Kaffeplaneten.Controllers
         {
 
             if (ModelState.IsValid)
-            {
-                
+            {  
                 var productDB = new DBProduct();
 
- 
-                ViewData.Model = productDB.MakeList();
-              
+                var liste = productDB.MakeList();
+                
+                
+
+                return View(liste.ToList());
+
             }
             return View();
 

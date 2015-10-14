@@ -24,7 +24,7 @@ namespace Kaffeplaneten
                     password = IncPassword
                 };
                 newUser.customer = newCustomer;
-                db.Users.Find(newUser);
+                //db.Users.Find(newUser);
                 db.SaveChanges();
                 Debug.WriteLine("Lagring fullført!");
                 return true;
