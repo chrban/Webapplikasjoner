@@ -24,23 +24,44 @@ namespace Kaffeplaneten.Controllers
         }
 
         [HttpPost]
-        public ActionResult createUser(Customer newCustomer)
+        public ActionResult createUser(CustomerModel newCustomer)
         {
-
-
+            Debug.WriteLine("Test0");
             if (ModelState.IsValid)
             {
+
+                Debug.WriteLine("Test1");
                 var customerDB = new DBCustomer();
-                bool insertOK = customerDB.add(newCustomer);
-                if (insertOK)
+                var Customerobject = customerDB.add(newCustomer);
+
+                if(Customerobject != null)
                 {
-                    return RedirectToAction("Loginview");
+                    Debug.WriteLine("Test2");
+                    byte[] passwordDB = createHash(newCustomer.password);
+                    var userDB = new DBuser();
+
+                    var insertOK = userDB.add(passwordDB, Customerobject);
+
+                    if(insertOK)
+                    {
+                        return RedirectToAction("Loginview");
+                    }
                 }
 
-            }
-            return View();   
 
+            }
+            return View();
+          
          }
+
+        private static byte[] createHash(string incPassword)
+        {
+            var algorithm = System.Security.Cryptography.SHA512.Create();
+            byte[] incData, outData;
+            incData = System.Text.Encoding.ASCII.GetBytes(incPassword);
+            outData = algorithm.ComputeHash(incData);
+            return outData;
+        }
 
 
 
