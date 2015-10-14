@@ -6,7 +6,7 @@ using System.Web;
 
 namespace Kaffeplaneten.Models
 {
-    public class Customer
+    public class CustomerModel
     {
 
         [Display(Name = "Fornavn")]
@@ -16,22 +16,30 @@ namespace Kaffeplaneten.Models
         [Display(Name = "Etternavn")]
         [Required(ErrorMessage = "Etternavn må oppgis")]
         public string lastName { get; set; }
+        
+        
+        [Display(Name = "Brukernavn")]
+        [Required(ErrorMessage = "Brukernavn må oppgis")]
+        public string username { get; set; }
 
+        
+        [Display(Name = "Passord")]
+        [Required(ErrorMessage = "Passord må oppgis")]
+        public string password { get; set; }
+
+        [Display(Name = "Passwordverify")]
+        [Required(ErrorMessage = "Passordverifiseringen må oppgis")]
+        public string passwordVerifier { get; set; }
+        
         [Display(Name = "Epost")]
         [Required(ErrorMessage = "Epost må oppgis")]
         public string email { get; set; }
 
-        [Display(Name = "Brukernavn")]
-        [Required(ErrorMessage = "Epost må oppgis")]
-        public string Brukernavn { get; set; }
-
-        [Display(Name = "Passord")]
-        [Required(ErrorMessage = "Epost må oppgis")]
-        public string Passord { get; set; }
-
         [Display(Name = "Telefon")]
         [Required(ErrorMessage = "Telefon må oppgis")]
         public string phone { get; set; }
+
+        public int customerID { get; set; }
 
         [Display(Name = "Postnummer")]
         [Required(ErrorMessage = "Postnummer må oppgis")]

@@ -1,5 +1,5 @@
 ﻿
-@model Kaffeplaneten.Models.Customer
+@model Kaffeplaneten.Models.CustomerModel
 
 @{
     ViewBag.Title = "createUser";
@@ -25,14 +25,38 @@
         </div>
         <div class="editor-field">
             @Html.EditorFor(model => model.lastName)
-            @Html.ValidationMessageFor(model => model.firstName)
+            @Html.ValidationMessageFor(model => model.lastName)
         </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.username)
+        </div>
+    <div class="editor-field">
+        @Html.EditorFor(model => model.username)
+        @Html.ValidationMessageFor(model => model.username)
+    </div>
+    <div class="editor-label">
+        @Html.LabelFor(model => model.password)
+    </div>
+    <div class="editor-field">
+        @Html.EditorFor(model => model.password)
+        @Html.ValidationMessageFor(model => model.password)
+    </div>
+    <div class="editor-label">
+        @Html.LabelFor(model => model.passwordVerifier)
+    </div>
+
+    <div class="editor-field">
+        @Html.EditorFor(model => model.passwordVerifier)
+        @Html.ValidationMessageFor(model => model.passwordVerifier)
+        </div>
+
         <div class="editor-label">
             @Html.LabelFor(model => model.email)
         </div>
         <div class="editor-field">
             @Html.EditorFor(model => model.email)
-            @Html.ValidationMessageFor(model => model.firstName)
+            @Html.ValidationMessageFor(model => model.email)
         </div>
         <div class="editor-label">
             @Html.LabelFor(model => model.phone)
