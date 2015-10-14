@@ -18,8 +18,6 @@ namespace Kaffeplaneten.Models
         {
             Database.CreateIfNotExists();
         }
-
-        public DbSet<Persons> Persons { get; set; }
         public DbSet<Customers> Customers { get; set; }
         public DbSet<Provinces> Provinces { get; set; }
         public DbSet<Products> Products { get; set; }
@@ -32,15 +30,14 @@ namespace Kaffeplaneten.Models
              //modelBuilder.Entity<Provinces>().HasKey(p => p.zipCode);
              modelBuilder.Entity<ProductOrders>().HasKey(p => new { p.orderNr, p.productID });
              modelBuilder.Entity<Adresses>().HasKey(p => new { p.customerID, p.zipCode });
-            modelBuilder.Entity<Users>().HasKey(p => p.email);
+            modelBuilder.Entity<Users>().HasKey(p => p.customerID);
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
         }
     }
-    public class Persons
+    public abstract class Persons
     {
         public string firstName { get; set; }
         public string lastName { get; set; }
-        [Key]
         public string email { get; set; }
         public string phone { get; set; }
 
@@ -58,6 +55,7 @@ namespace Kaffeplaneten.Models
 
     public class Users
     {
+        public int customerID { get; set; }
         public string email { get; set; }
         public byte[] password { get; set; }
         [Required]

@@ -18,108 +18,112 @@ namespace Kaffeplaneten
 
             try
             {
-                var newCustomer = new Customers()
+                var db = new CustomerContext();
+                if (db.Customers.Find(IncCustomer.customerID) == null)
                 {
-                    email = IncCustomer.email,
-                    firstName = IncCustomer.firstName,
-                    lastName = IncCustomer.lastName,
-                    phone = IncCustomer.phone
-                };
-                Debug.WriteLine("Test2");
-                //Sjekker om adressene er like
-                if (IncCustomer.payAdress.Equals(IncCustomer.adress))
-                {
-                    var newAdress = new Adresses()
+                    var newCustomer = new Customers()
                     {
-                        payAdress = true,
-                        deliveryAdress = true,
-                        zipCode = IncCustomer.zipCode,
-                        streetName = IncCustomer.adress,
+                        email = IncCustomer.email,
+                        firstName = IncCustomer.firstName,
+                        lastName = IncCustomer.lastName,
+                        phone = IncCustomer.phone
                     };
-                    newAdress.customers = newCustomer;
-                    Debug.WriteLine("Test3");
-                    var db = new CustomerContext();
-                    Debug.WriteLine("Test4");
-                    var ExistingProvince = db.Provinces.Find(IncCustomer.payZipcode);
-                    Debug.WriteLine("test5");
-
-                    if (ExistingProvince == null)
+                    Debug.WriteLine("Test2");
+                    //Sjekker om adressene er like
+                    if (IncCustomer.payAdress.Equals(IncCustomer.adress))
                     {
-                        var newProvince = new Provinces()
+                        var newAdress = new Adresses()
                         {
+                            payAdress = true,
+                            deliveryAdress = true,
                             zipCode = IncCustomer.zipCode,
-                            province = IncCustomer.province
+                            streetName = IncCustomer.adress,
                         };
-                        newAdress.province = newProvince;
-                        db.Provinces.Add(newProvince);
-                    }
-                    else
-                        newAdress.province = ExistingProvince;
+                        newAdress.customers = newCustomer;
+                        Debug.WriteLine("Test3");
+                        Debug.WriteLine("Test4");
+                        var ExistingProvince = db.Provinces.Find(IncCustomer.payZipcode);
+                        Debug.WriteLine("test5");
 
-                    db.Adresses.Add(newAdress);
-
-                    db.SaveChanges();
-                    Debug.WriteLine("SAVEDCHANGED CONFIRMED");
-                }
-                //Ulike adresser
-                else
-                {
-                    var newPaymentAdress = new Adresses()
-                    {
-                        payAdress = true,
-                        deliveryAdress = false,
-                        zipCode = IncCustomer.payZipcode,
-                        streetName = IncCustomer.payAdress,
-
-                    };
-                    newPaymentAdress.customers = newCustomer;
-                    var db = new CustomerContext();
-                    var ExistingProvince = db.Provinces.Find(IncCustomer.payZipcode);
-                    if (ExistingProvince == null)
-                    {
-                        var newPaymentProvince = new Provinces()
+                        if (ExistingProvince == null)
                         {
+                            var newProvince = new Provinces()
+                            {
+                                zipCode = IncCustomer.zipCode,
+                                province = IncCustomer.province
+                            };
+                            newAdress.province = newProvince;
+                            db.Provinces.Add(newProvince);
+                        }
+                        else
+                            newAdress.province = ExistingProvince;
+
+                        db.Adresses.Add(newAdress);
+
+                        db.SaveChanges();
+                        Debug.WriteLine("SAVEDCHANGED CONFIRMED");
+                    }
+                    //Ulike adresser
+                    else
+                    {
+                        var newPaymentAdress = new Adresses()
+                        {
+                            payAdress = true,
+                            deliveryAdress = false,
                             zipCode = IncCustomer.payZipcode,
-                            province = IncCustomer.payProvince
+                            streetName = IncCustomer.payAdress,
+
                         };
-                        newPaymentAdress.province = newPaymentProvince;
-                        db.Provinces.Add(newPaymentProvince);
-                    }
-                    else
-                        newPaymentAdress.province = ExistingProvince;
-                    db.Adresses.Add(newPaymentAdress);
-
-                    var newAdress = new Adresses()
-                    {
-                        payAdress = false,
-                        deliveryAdress = true,
-                        zipCode = IncCustomer.zipCode,
-                        streetName = IncCustomer.adress,
-
-                    };
-                    ExistingProvince = db.Provinces.Find(IncCustomer.zipCode);
-                    if (ExistingProvince == null)
-                    {
-                        var newProvince = new Provinces()
+                        newPaymentAdress.customers = newCustomer;
+                        var ExistingProvince = db.Provinces.Find(IncCustomer.payZipcode);
+                        if (ExistingProvince == null)
                         {
+                            var newPaymentProvince = new Provinces()
+                            {
+                                zipCode = IncCustomer.payZipcode,
+                                province = IncCustomer.payProvince
+                            };
+                            newPaymentAdress.province = newPaymentProvince;
+                            db.Provinces.Add(newPaymentProvince);
+                        }
+                        else
+                            newPaymentAdress.province = ExistingProvince;
+                        db.Adresses.Add(newPaymentAdress);
+
+                        var newAdress = new Adresses()
+                        {
+                            payAdress = false,
+                            deliveryAdress = true,
                             zipCode = IncCustomer.zipCode,
-                            province = IncCustomer.province
+                            streetName = IncCustomer.adress,
+
                         };
-                        newAdress.province = newProvince;
-                        db.Provinces.Add(newProvince);
+                        ExistingProvince = db.Provinces.Find(IncCustomer.zipCode);
+                        if (ExistingProvince == null)
+                        {
+                            var newProvince = new Provinces()
+                            {
+                                zipCode = IncCustomer.zipCode,
+                                province = IncCustomer.province
+                            };
+                            newAdress.province = newProvince;
+                            db.Provinces.Add(newProvince);
+                        }
+
+                        else
+                            newAdress.province = ExistingProvince;
+                        db.Adresses.Add(newAdress);
+
+                        db.Customers.Add(newCustomer);
+
+                        Debug.WriteLine("Test7");
+                        db.SaveChanges();
+                        Debug.WriteLine("Test8");
                     }
-
-                    else
-                        newAdress.province = ExistingProvince;
-                    db.Adresses.Add(newAdress);
-
-                    db.Customers.Add(newCustomer);
-
-                    Debug.WriteLine("Test7");
-                    db.SaveChanges();
-                    Debug.WriteLine("Test8");
+                    return newCustomer;
                 }
-                return newCustomer;
+                return null;
+                
             }
 
             catch (DbEntityValidationException dbEx)
