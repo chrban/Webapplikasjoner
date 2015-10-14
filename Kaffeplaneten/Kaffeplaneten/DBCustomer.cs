@@ -12,13 +12,12 @@ namespace Kaffeplaneten
 
     public class DBCustomer
     {
-        public Customers add(CustomerModel IncCustomer)
+        public Customers add(CustomerModel IncCustomer,  CustomerContext db)
         {
             Debug.WriteLine("Test1");
 
             try
             {
-                var db = new CustomerContext();
                 if (db.Customers.Find(IncCustomer.customerID) == null)
                 {
                     var newCustomer = new Customers()
@@ -60,7 +59,6 @@ namespace Kaffeplaneten
 
                         db.Adresses.Add(newAdress);
 
-                        db.SaveChanges();
                         Debug.WriteLine("SAVEDCHANGED CONFIRMED");
                     }
                     //Ulike adresser
@@ -117,7 +115,6 @@ namespace Kaffeplaneten
                         db.Customers.Add(newCustomer);
 
                         Debug.WriteLine("Test7");
-                        db.SaveChanges();
                         Debug.WriteLine("Test8");
                     }
                     return newCustomer;
