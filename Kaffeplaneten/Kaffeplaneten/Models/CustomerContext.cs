@@ -30,7 +30,7 @@ namespace Kaffeplaneten.Models
              //modelBuilder.Entity<Provinces>().HasKey(p => p.zipCode);
              modelBuilder.Entity<ProductOrders>().HasKey(p => new { p.orderNr, p.productID });
              modelBuilder.Entity<Adresses>().HasKey(p => new { p.customerID, p.zipCode });
-            modelBuilder.Entity<Users>().HasKey(p => p.email);
+            modelBuilder.Entity<Users>().HasKey(p => p.customerID);
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
         }
     }
@@ -55,6 +55,7 @@ namespace Kaffeplaneten.Models
 
     public class Users
     {
+        public int customerID { get; set; }
         public string email { get; set; }
         public byte[] password { get; set; }
         [Required]

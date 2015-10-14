@@ -19,7 +19,7 @@ namespace Kaffeplaneten
             try
             {
                 var db = new CustomerContext();
-                if (db.Customers.Find(IncCustomer.email) == null)
+                if (db.Customers.Find(IncCustomer.customerID) == null)
                 {
                     var newCustomer = new Customers()
                     {
