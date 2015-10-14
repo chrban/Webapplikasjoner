@@ -31,8 +31,10 @@ namespace Kaffeplaneten.Controllers
             {
 
                 Debug.WriteLine("Test1");
+                var db = new CustomerContext();
+
                 var customerDB = new DBCustomer();
-                var Customerobject = customerDB.add(newCustomer);
+                var Customerobject = customerDB.add(newCustomer, db);
 
                 if(Customerobject != null)
                 {
@@ -40,10 +42,11 @@ namespace Kaffeplaneten.Controllers
                     byte[] passwordDB = createHash(newCustomer.password);
                     var userDB = new DBuser();
 
-                    var insertOK = userDB.add(passwordDB, Customerobject);
+                    var insertOK = userDB.add(passwordDB, Customerobject, db);
 
                     if(insertOK)
                     {
+                        db.SaveChanges();
                         return RedirectToAction("Loginview");
                     }
                 }
