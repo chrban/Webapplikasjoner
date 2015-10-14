@@ -18,8 +18,6 @@ namespace Kaffeplaneten.Models
         {
             Database.CreateIfNotExists();
         }
-
-        public DbSet<Persons> Persons { get; set; }
         public DbSet<Customers> Customers { get; set; }
         public DbSet<Provinces> Provinces { get; set; }
         public DbSet<Products> Products { get; set; }
@@ -36,11 +34,10 @@ namespace Kaffeplaneten.Models
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
         }
     }
-    public class Persons
+    public abstract class Persons
     {
         public string firstName { get; set; }
         public string lastName { get; set; }
-        [Key]
         public string email { get; set; }
         public string phone { get; set; }
 
