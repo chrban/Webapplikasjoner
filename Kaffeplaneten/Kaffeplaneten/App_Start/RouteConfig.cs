@@ -16,7 +16,7 @@ namespace Kaffeplaneten
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "User", action = "CreateUser", id = UrlParameter.Optional }
+                defaults: new { controller = "Product", action = "AllProducts", id = UrlParameter.Optional }
             );
         }
     }
