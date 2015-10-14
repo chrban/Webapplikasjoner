@@ -103,12 +103,12 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="Content\img1.jpg" />
-    <Content Include="Content\img2.jpg" />
-    <Content Include="Content\img3.jpg" />
-    <Content Include="Content\img4.jpg" />
-    <Content Include="Content\img5.jpg" />
-    <Content Include="Content\img6.jpg" />
+    <Content Include="Content\NewFolder1\img1.jpg" />
+    <Content Include="Content\NewFolder1\img2.jpg" />
+    <Content Include="Content\NewFolder1\img3.jpg" />
+    <Content Include="Content\NewFolder1\img4.jpg" />
+    <Content Include="Content\NewFolder1\img5.jpg" />
+    <Content Include="Content\NewFolder1\img6.jpg" />
     <Content Include="Content\Site.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -133,10 +133,10 @@
     </Content>
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Models\CustomerContext.cs" />
@@ -147,7 +147,9 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\CustomerModel.cs" />
+    <Compile Include="Models\ProductModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ShoppingCart.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config">
@@ -159,6 +161,8 @@
     <Content Include="Views\User\Loginview.cshtml" />
     <Content Include="Views\Product\Index.cshtml" />
     <Content Include="Views\Product\AllProducts.cshtml" />
+    <Content Include="Views\OrderView.cshtml" />
+    <Content Include="Views\ShoppingCartView.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
