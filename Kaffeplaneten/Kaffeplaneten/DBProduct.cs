@@ -10,6 +10,7 @@ namespace Kaffeplaneten
     public class DBProduct
     {
 
+
         public List<Products> MakeList()
         {
             var db = new CustomerContext();
