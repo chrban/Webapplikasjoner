@@ -158,5 +158,51 @@ namespace Kaffeplaneten
                    }
                } */
         }
+        public static CustomerModel findCustomer(int id)
+        {
+            var customerModel = new CustomerModel();
+            try
+            {
+                var db = new CustomerContext();
+                var temp = (from c in db.Customers
+                            where c.customerID == id
+                            select c).FirstOrDefault();
+
+                customerModel.customerID = temp.customerID;
+                customerModel.firstName = temp.firstName;
+                customerModel.lastName = temp.lastName;
+                customerModel.email = temp.email;
+                customerModel.phone = temp.phone;
+                List<Adresses> adresses = (from a in db.Adresses
+                                           where a.customerID == customerModel.customerID
+                                           select a).ToList();
+                foreach (var a in adresses)
+                {
+                    if (a.deliveryAdress)
+                    {
+                        customerModel.adress = a.streetName;
+                        customerModel.province = a.province.province;
+                        customerModel.zipCode = a.zipCode;
+                    }
+                    if (a.payAdress)
+                    {
+                        customerModel.payAdress = a.streetName;
+                        customerModel.payProvince = a.province.province;
+                        customerModel.payZipcode = a.zipCode;
+                    }
+                }
+                return customerModel;
+            }
+
+            catch (Exception ex)
+            {
+                /*Viser nyttig informasjon om alle excetions i debug.out. Avslutter programmet*/
+                Debug.WriteLine("\nERROR!\nMelding:\n" + ex.Message + "\nInner exception:" + ex.InnerException + "\nKastet fra\n" + ex.TargetSite + "\nSource:\n" + ex.Source);
+                Trace.TraceInformation("Property: {0} Error: {1}", ex.Source, ex.InnerException);
+                //Environment.Exit(1);
+            }
+            return null;
+        }
+
     }
 }

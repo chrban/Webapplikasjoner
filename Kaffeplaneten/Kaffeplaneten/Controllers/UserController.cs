@@ -57,6 +57,14 @@ namespace Kaffeplaneten.Controllers
           
          }
 
+        public ActionResult accountView()
+        {
+            //test
+            var customer = DBCustomer.findCustomer(1);
+            //slutt test
+            return View(customer);
+        }
+
         private static byte[] createHash(string incPassword)
         {
             var algorithm = System.Security.Cryptography.SHA512.Create();
