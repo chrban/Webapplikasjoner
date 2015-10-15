@@ -9,7 +9,7 @@ namespace Kaffeplaneten
 {
     public class DBOrder
     {
-        public static OrderModel findOrder(int nr)
+        public static OrderModel find(int nr)
         {
             try
             {

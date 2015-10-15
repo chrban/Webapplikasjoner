@@ -66,10 +66,14 @@ namespace Kaffeplaneten
                 productOrder.price = product.price * 2;
                 db.ProductOrders.Add(productOrder);
                 /*******/
+                customerModel.customerID = 1;
                 db.SaveChanges();
+                Debug.WriteLine( editCustomer(customerModel));
+                //editCustomer(customerModel);
+
 
             }
-            catch(Exception ex)
+            catch (Exception ex)
             { 
                 /*Viser nyttig informasjon om alle excetions i debug.out. Avslutter programmet*/
                 Debug.WriteLine("\nERROR!\nMelding:\n"+ex.Message+"\nInner exception:"+ex.InnerException+"\nKastet fra\n"+ex.TargetSite+"\nSource:\n"+ex.Source);
@@ -113,6 +117,13 @@ namespace Kaffeplaneten
             order.products.Add(createProduct());
             order.total=20000;
             return order;
+        }
+        public static bool editCustomer(CustomerModel customerModel)
+        {
+            customerModel.firstName="Trond";
+            customerModel.email = "Trond@tronno.rønning";
+            customerModel.adress = "Tronnoland";
+            return DBCustomer.update(customerModel);
         }
     }
 }

@@ -60,7 +60,7 @@ namespace Kaffeplaneten.Controllers
         public ActionResult accountView()
         {
             //test
-            var customer = DBCustomer.findCustomer(1);
+            var customer = DBCustomer.find(1);
             //var customer = Session["user"];
             //slutt test
             return View(customer);
@@ -69,7 +69,7 @@ namespace Kaffeplaneten.Controllers
         public ActionResult orderHistoryView()
         {
             //test
-            var order = DBOrder.findOrder(1);
+            var order = DBOrder.find(1);
             //var customer = Session["user"];
             //slutt test
 

@@ -147,6 +147,7 @@
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="DBOrder.cs" />
+    <Compile Include="Models\AdressModel.cs" />
     <Compile Include="Models\CustomerContext.cs" />
     <Compile Include="DBProduct.cs" />
     <Compile Include="DBuser.cs" />
