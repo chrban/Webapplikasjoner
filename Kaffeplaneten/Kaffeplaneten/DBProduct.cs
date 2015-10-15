@@ -50,7 +50,7 @@ namespace Kaffeplaneten
         }
 
        
-        public ProductModel toObject(Products inProd)
+        public static ProductModel toObject(Products inProd)
         {
             var db = new CustomerContext();
             var i = db.Products.Find(inProd.productID);

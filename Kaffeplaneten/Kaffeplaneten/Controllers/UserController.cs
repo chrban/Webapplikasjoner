@@ -61,8 +61,19 @@ namespace Kaffeplaneten.Controllers
         {
             //test
             var customer = DBCustomer.findCustomer(1);
+            //var customer = Session["user"];
             //slutt test
             return View(customer);
+        }
+
+        public ActionResult orderHistoryView()
+        {
+            //test
+            var order = DBOrder.findOrder(1);
+            //var customer = Session["user"];
+            //slutt test
+
+            return View(order);
         }
 
         private static byte[] createHash(string incPassword)

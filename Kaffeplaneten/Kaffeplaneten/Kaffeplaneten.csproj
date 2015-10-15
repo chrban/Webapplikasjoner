@@ -133,6 +133,7 @@
     <Content Include="Web.config" />
     <Content Include="Views\Product\ProductDetailsView.cshtml" />
     <Content Include="Views\User\accountView.cshtml" />
+    <Content Include="Views\User\orderHistoryView.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -145,6 +146,7 @@
     <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="DBOrder.cs" />
     <Compile Include="Models\CustomerContext.cs" />
     <Compile Include="DBProduct.cs" />
     <Compile Include="DBuser.cs" />

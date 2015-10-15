@@ -1,4 +1,5 @@
-﻿
+﻿@model Kaffeplaneten.Models.CustomerModel
+
 @{
     ViewBag.Title = "Brukerinnlogging";
 }
@@ -12,19 +13,27 @@
         <legend>Logg inn</legend>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.Navn)
+            @Html.LabelFor(model => model.firstName)
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.Navn)
-            @Html.ValidationMessageFor(model => model.Navn)
+            @Html.EditorFor(model => model.firstName)
+            @Html.ValidationMessageFor(model => model.firstName)
         </div>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.Passord)
+            @Html.LabelFor(model => model.lastName)
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.Passord)
-            @Html.ValidationMessageFor(model => model.Passord)
+            @Html.EditorFor(model => model.lastName)
+            @Html.ValidationMessageFor(model => model.lastName)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.password)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.password)
+            @Html.ValidationMessageFor(model => model.password)
         </div>
 
         <p>
@@ -39,3 +48,4 @@
             <p style="color:red">Ikke logget inn</p>
         }
     </fieldset>
+}
