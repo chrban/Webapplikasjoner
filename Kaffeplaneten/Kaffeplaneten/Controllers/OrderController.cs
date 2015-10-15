@@ -25,6 +25,10 @@ namespace Kaffeplaneten.Controllers
             return Session["ShoppingCart"] as ShoppingCart;
         }
 
+        public ActionResult testView() {
+            return View();
+        }
+
         public ActionResult OrderView()
         {
             return View();

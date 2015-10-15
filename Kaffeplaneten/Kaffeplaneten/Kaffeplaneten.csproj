@@ -169,8 +169,8 @@
     <Content Include="Views\User\Loginview.cshtml" />
     <Content Include="Views\Product\Index.cshtml" />
     <Content Include="Views\Product\AllProducts.cshtml" />
-    <Content Include="Views\OrderView.cshtml" />
-    <Content Include="Views\ShoppingCartView.cshtml" />
+    <Content Include="Views\Order\OrderView.cshtml" />
+    <Content Include="Views\Order\ShoppingCartView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
