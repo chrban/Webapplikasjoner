@@ -63,7 +63,7 @@ namespace Kaffeplaneten
             };
         }
 
-        public double calculateShoppingCartTotal()
+        public double calculateTotal()
         {
             double totalPrice = 0;
             foreach (var item in ItemsInShoppingCart)
@@ -71,6 +71,11 @@ namespace Kaffeplaneten
                 totalPrice += (item.product.price * item.Quanitity);
             }
             return totalPrice;
+        }
+
+        public int amountOfItems()
+        {
+            return ItemsInShoppingCart.Count;
         }
     }
 
