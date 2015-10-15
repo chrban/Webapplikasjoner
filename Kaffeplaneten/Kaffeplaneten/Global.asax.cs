@@ -14,6 +14,7 @@ namespace Kaffeplaneten
         void Application_Start(object sender, EventArgs e)
         {
             // Code that runs on application startup
+            //TestingClass.main(new string[0]);
            AreaRegistration.RegisterAllAreas();
            RouteConfig.RegisterRoutes(RouteTable.Routes);
         }

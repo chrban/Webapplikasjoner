@@ -22,6 +22,7 @@ namespace Kaffeplaneten.Models
         public DbSet<Provinces> Provinces { get; set; }
         public DbSet<Products> Products { get; set; }
         public DbSet<Orders> Orders { get; set; }
+        public DbSet<ProductOrders> ProductOrders { get; set; }
         public DbSet<Users> Users { get; set; }
         public DbSet<Adresses> Adresses { get; set; }
 
@@ -93,6 +94,7 @@ namespace Kaffeplaneten.Models
         public double price { get; set; }
         public string category { get; set; }
         public string description { get; set; }
+        public virtual List<ProductOrders> productOrders { get; set; }
 
     }
 
@@ -100,18 +102,20 @@ namespace Kaffeplaneten.Models
     {
         [Key]
         public int orderNr { get; set; }
-        public virtual CustomerModel Customers { get; set; }
-        public virtual List<Products> Products { get; set; }
+        public int customerID { get; set; }
+        public virtual Customers Customers { get; set; }
+        public virtual List<ProductOrders> Products { get; set; }
 
     }
 
     public class ProductOrders
     {
-        //[Key]
         public int orderNr { get; set; }
-        //[Key]
         public int productID { get; set; }
         public int quantity { get; set; }
+        public double price { get; set; }
+        public virtual Orders orders { get; set; }
+        public virtual Products products { get; set; }
     }
 
 }

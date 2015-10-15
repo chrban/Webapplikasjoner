@@ -147,9 +147,11 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\CustomerModel.cs" />
+    <Compile Include="Models\OrderModel.cs" />
     <Compile Include="Models\ProductModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ShoppingCart.cs" />
+    <Compile Include="TestingClass.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config">
