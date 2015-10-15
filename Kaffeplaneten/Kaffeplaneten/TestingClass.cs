@@ -23,15 +23,18 @@ namespace Kaffeplaneten
                 customer.phone = customerModel.phone;
                 db.Customers.Add(customer);
                 /*********/
-                var province = new Provinces();
-                province.province = customerModel.payProvince;
-                province.zipCode = customerModel.payZipcode;
-                db.Provinces.Add(province);
+                if (db.Provinces.Find(customerModel.zipCode) == null)
+                {
+                    var province = new Provinces();
+                    province.province = customerModel.payProvince;
+                    province.zipCode = customerModel.payZipcode;
+                    db.Provinces.Add(province);
+                }
                 /*********/
                 var adress = new Adresses();
                 adress.deliveryAdress = true;
                 adress.payAdress = true;
-                adress.province = province;
+                adress.province = db.Provinces.Find(customerModel.zipCode);
                 adress.streetName = customerModel.adress;
                 adress.customers = customer;
                 db.Adresses.Add(adress);
@@ -62,6 +65,7 @@ namespace Kaffeplaneten
                 productOrder.quantity = 2;
                 productOrder.price = product.price * 2;
                 db.ProductOrders.Add(productOrder);
+                /*******/
                 db.SaveChanges();
 
             }
@@ -76,6 +80,12 @@ namespace Kaffeplaneten
                                                 validationError.ErrorMessage);
                     }
                 }
+            }
+            catch(Exception ex)
+            {
+                Debug.WriteLine("*********************************\n"+ex.Source);
+                Trace.TraceInformation("Property: {0} Error: {1}",ex.Source,ex.InnerException);
+                Environment.Exit(1);
             }
 
         }
