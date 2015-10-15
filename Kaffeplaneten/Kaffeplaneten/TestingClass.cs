@@ -69,21 +69,10 @@ namespace Kaffeplaneten
                 db.SaveChanges();
 
             }
-            catch (DbEntityValidationException dbEx)
-            {
-                foreach (var validationErrors in dbEx.EntityValidationErrors)
-                {
-                    foreach (var validationError in validationErrors.ValidationErrors)
-                    {
-                        Trace.TraceInformation("Property: {0} Error: {1}",
-                                                validationError.PropertyName,
-                                                validationError.ErrorMessage);
-                    }
-                }
-            }
             catch(Exception ex)
-            {
-                Debug.WriteLine("*********************************\n"+ex.Source);
+            { 
+                /*Viser nyttig informasjon om alle excetions i debug.out. Avslutter programmet*/
+                Debug.WriteLine("\nERROR!\nMelding:\n"+ex.Message+"\nInner exception:"+ex.InnerException+"\nKastet fra\n"+ex.TargetSite+"\nSource:\n"+ex.Source);
                 Trace.TraceInformation("Property: {0} Error: {1}",ex.Source,ex.InnerException);
                 Environment.Exit(1);
             }
