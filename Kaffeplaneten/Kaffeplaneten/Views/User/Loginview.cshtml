@@ -1,7 +1,41 @@
 ﻿
 @{
-    ViewBag.Title = "Loginview";
+    ViewBag.Title = "Brukerinnlogging";
 }
 
-<h2>Loginview</h2>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
 
+    <fieldset>
+        <legend>Logg inn</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Navn)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Navn)
+            @Html.ValidationMessageFor(model => model.Navn)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Passord)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Passord)
+            @Html.ValidationMessageFor(model => model.Passord)
+        </div>
+
+        <p>
+            <input type="submit" value="Logg inn" />
+        </p>
+        @if (ViewBag.Innlogget)
+        {
+            <p style="color:blue">Logget inn</p>
+        }
+        else
+        {
+            <p style="color:red">Ikke logget inn</p>
+        }
+    </fieldset>

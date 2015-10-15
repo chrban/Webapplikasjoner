@@ -29,17 +29,18 @@
         </div>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.username)
+            @Html.LabelFor(model => model.email)
         </div>
-    <div class="editor-field">
-        @Html.EditorFor(model => model.username)
-        @Html.ValidationMessageFor(model => model.username)
-    </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.email)
+            @Html.ValidationMessageFor(model => model.email)
+        </div>
+  
     <div class="editor-label">
         @Html.LabelFor(model => model.password)
     </div>
     <div class="editor-field">
-        @Html.EditorFor(model => model.password)
+        @Html.PasswordFor(model => model.password)
         @Html.ValidationMessageFor(model => model.password)
     </div>
     <div class="editor-label">
@@ -47,17 +48,10 @@
     </div>
 
     <div class="editor-field">
-        @Html.EditorFor(model => model.passwordVerifier)
+        @Html.PasswordFor(model => model.passwordVerifier)
         @Html.ValidationMessageFor(model => model.passwordVerifier)
         </div>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.email)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.email)
-            @Html.ValidationMessageFor(model => model.email)
-        </div>
         <div class="editor-label">
             @Html.LabelFor(model => model.phone)
         </div>
@@ -74,6 +68,7 @@
         </div>
         <div class="editor-label">
             @Html.LabelFor(model => model.zipCode)
+            @Html.LabelFor(model => model.province)
         </div>
         <div class="editor-field">
             @Html.EditorFor(model => model.zipCode)
@@ -81,8 +76,13 @@
             @Html.EditorFor(model => model.province)
             @Html.ValidationMessageFor(model => model.province)
         </div>
+        
+        <div class="checkbox-label">
+            @Html.LabelFor(model => model.sameAdresses)
+            @Html.CheckBoxFor(model => model.sameAdresses)
+        </div>
        
-        <div class="editor-label">
+        <div class="editor-label">  
             @Html.LabelFor(model => model.payAdress)
         </div>
         <div class="editor-field">
@@ -91,6 +91,7 @@
         </div>
         <div class="editor-label">
             @Html.LabelFor(model => model.payZipcode)
+            @Html.LabelFor(model => model.payProvince)
         </div>
         <div class="editor-field">
             @Html.EditorFor(model => model.payZipcode)
@@ -102,7 +103,6 @@
 
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Opprett bruker" class="btn btn-success" />
-                @Html.ActionLink("test", "Liste", new { tom = "" }, new { @class = "btn btn-primary" })
             </div>
         
     </fieldset>

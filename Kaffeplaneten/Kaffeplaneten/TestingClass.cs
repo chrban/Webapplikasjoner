@@ -92,7 +92,6 @@ namespace Kaffeplaneten
             customer.province = customer.payProvince;
             customer.zipCode = customer.payZipcode;
             customer.email = "hei@hei.hei";
-            customer.username = customer.email;
             customer.phone = "12345678";
             return customer;
         }
