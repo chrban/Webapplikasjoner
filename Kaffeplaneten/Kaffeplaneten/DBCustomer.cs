@@ -276,7 +276,7 @@ namespace Kaffeplaneten
             return null;
         }
 
-        public static bool addAdress(AdressModel adressModel)//Legger til 
+        public static bool addAdress(AdressModel adressModel)/*Legger til ny adresse for bruker med customerID==adressModel.customerID. Alle felter unntatt adressID må være fylt ut*/
         {
             var adressesList = new List<Adresses>();
             if (adressModel.payAdress)
@@ -330,8 +330,6 @@ namespace Kaffeplaneten
             {
                 Debug.WriteLine("\nERROR!\nMelding:\n" + ex.Message + "\nInner exception:" + ex.InnerException + "\nKastet fra\n" + ex.TargetSite + "\nTrace:\n" + ex.StackTrace);
                 Trace.TraceInformation("Property: {0} Error: {1}", ex.Source, ex.InnerException);
-                Environment.Exit(1);
-
             }
             return false;
         }
