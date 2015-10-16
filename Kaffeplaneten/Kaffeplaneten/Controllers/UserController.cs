@@ -97,15 +97,6 @@ namespace Kaffeplaneten.Controllers
 
         }
 
-        public ActionResult orderHistoryView()
-        {
-            if(Session["CustomerID"] == null)
-                return RedirectToAction("Loginview", "Security", new { area = "" });
-            var order = DBOrder.findOrders((int)Session["CustomerID"]);
-            return View(order);
-
-        }
-
     }
 }
     

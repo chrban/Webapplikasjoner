@@ -12,7 +12,7 @@ namespace Kaffeplaneten
     
     public class DBOrder
     {
-        public static bool add(OrderModel orderModel)
+        public static bool add(OrderModel orderModel)/*Legger Orders og ProductOrders inn i databasen. CustomerID og pruductID-ene må være med i modellen*/
         {
             using (var db = new CustomerContext())
             {
@@ -38,7 +38,7 @@ namespace Kaffeplaneten
             }
         }
 
-        public static bool addProductOrders(OrderModel orderModel)
+        public static bool addProductOrders(OrderModel orderModel)/*Legger ProductOrders inn i databasen. OrderNr og pruductID-ene må være med i modellen*/
         {
             using (var db = new CustomerContext())
             {

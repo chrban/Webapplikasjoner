@@ -57,5 +57,25 @@ namespace Kaffeplaneten.Controllers
              }
             return View();
         } */// END OF METHOD: CREATEORDER
+
+        public ActionResult orderHistoryView()
+        {
+            if (Session["CustomerID"] == null)
+                return RedirectToAction("Loginview", "Security", new { area = "" });
+            var order = DBOrder.findOrders((int)Session["CustomerID"]);
+            return View(order);
+        }
+        public ActionResult recitView(int nr = -1)
+        {
+            var orderModel = DBOrder.find(nr);
+            if (orderModel == null)
+            {
+                ModelState.AddModelError("", "Feil ved henting av data");
+                return View(new OrderModel());
+            }
+            return View(orderModel);
+        }
     }
+
+
 }
