@@ -21,11 +21,10 @@ namespace Kaffeplaneten.Controllers
         [HttpPost]
         public ActionResult createUser(CustomerModel newCustomer)
         {
-            Debug.WriteLine("Test0");
+
             if (ModelState.IsValid)
             {
 
-                Debug.WriteLine("Test1");
                 using (var db = new CustomerContext())
                 {
                     var checkUser = (from c in db.Customers
@@ -38,7 +37,6 @@ namespace Kaffeplaneten.Controllers
 
                         if (Customerobject != null)
                         {
-                            Debug.WriteLine("Test2");
                             byte[] passwordDB = base.getHash(newCustomer.password);
                             var userDB = new DBuser();
 
@@ -68,9 +66,6 @@ namespace Kaffeplaneten.Controllers
             //slutt test
             return View(customer);
         }
-
-
-
 
         public ActionResult editAccountView()
         {

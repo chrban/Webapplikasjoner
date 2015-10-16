@@ -135,6 +135,8 @@
     <Content Include="Views\User\accountView.cshtml" />
     <Content Include="Views\User\orderHistoryView.cshtml" />
     <Content Include="Views\User\editAccountView.cshtml" />
+    <Content Include="Views\Security\Loginview" />
+    <Content Include="Views\Security\Loginview.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -175,7 +177,6 @@
     <Content Include="packages.config" />
     <Content Include="Scripts\jquery-2.1.4.min.map" />
     <Content Include="Views\User\createUser.cshtml" />
-    <Content Include="Views\User\Loginview.cshtml" />
     <Content Include="Views\Product\Index.cshtml" />
     <Content Include="Views\Product\AllProducts.cshtml" />
     <Content Include="Views\Order\OrderView.cshtml" />
