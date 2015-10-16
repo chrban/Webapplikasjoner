@@ -60,16 +60,34 @@ namespace Kaffeplaneten.Controllers
         public ActionResult accountView()
         {
             //test
-            var customer = DBCustomer.findCustomer(1);
+            var customer = DBCustomer.find(1);
             //var customer = Session["user"];
             //slutt test
             return View(customer);
         }
 
+        public ActionResult editAccountView()
+        {
+            var customerModel = DBCustomer.find(1);
+            return View(customerModel);
+
+        }
+
+        [HttpPost]
+        public ActionResult editAccountView(CustomerModel customerModel)
+        {
+            //customerModel.customerID = Session[< signed in user >].customerID;
+            customerModel.customerID = 1;
+            //Debug.WriteLine(customerModel.adress);
+            DBCustomer.update(customerModel);
+            return RedirectToAction("accountView");
+
+        }
+
         public ActionResult orderHistoryView()
         {
             //test
-            var order = DBOrder.findOrder(1);
+            var order = DBOrder.find(1);
             //var customer = Session["user"];
             //slutt test
 
