@@ -7,7 +7,7 @@ using Kaffeplaneten;
 
 namespace Kaffeplaneten.Controllers
 {
-    public class OrderController : Controller
+    public class OrderController : SuperController
     {
         // GET: Order
         public ActionResult ShoppingCartView()

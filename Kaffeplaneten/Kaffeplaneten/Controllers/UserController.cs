@@ -8,15 +8,11 @@ using System.Web.Mvc;
 
 
 namespace Kaffeplaneten.Controllers
-{
-    public class UserController : Controller
-    {
-        // GET: User
-        public ActionResult Loginview()
-        {
-            return View();
-        }
+{   
 
+    public class UserController : SuperController
+    {
+        //GET : User
         public ActionResult createUser()
         {
 
@@ -29,27 +25,37 @@ namespace Kaffeplaneten.Controllers
             Debug.WriteLine("Test0");
             if (ModelState.IsValid)
             {
-
+                
                 Debug.WriteLine("Test1");
-                var db = new CustomerContext();
-
-                var customerDB = new DBCustomer();
-                var Customerobject = customerDB.add(newCustomer, db);
-
-                if(Customerobject != null)
+                using (var db = new CustomerContext())
                 {
-                    Debug.WriteLine("Test2");
-                    byte[] passwordDB = createHash(newCustomer.password);
-                    var userDB = new DBuser();
-
-                    var insertOK = userDB.add(passwordDB, Customerobject, db);
-
-                    if(insertOK)
+                    var checkUser = (from c in db.Customers
+                                     where c.email == newCustomer.email
+                                     select c).FirstOrDefault();
+                    if (checkUser == null)
                     {
-                        db.SaveChanges();
-                        return RedirectToAction("Loginview");
+                        var customerDB = new DBCustomer();
+                        var Customerobject = customerDB.add(newCustomer, db);
+
+                        if (Customerobject != null)
+                        {
+                            Debug.WriteLine("Test2");
+                            byte[] passwordDB = base.getHash(newCustomer.password);
+                            var userDB = new DBuser();
+
+                            var insertOK = userDB.add(passwordDB, Customerobject, db);
+
+                            if (insertOK)
+                            {
+                                db.SaveChanges();
+                                return RedirectToAction("Loginview", "Security", new { area = "" });
+                            }
+                        }
                     }
                 }
+
+                ModelState.AddModelError("", "Eposten du prøver å registrere finnes allerede. Vennligst benytt en annen adresse");
+                return View(newCustomer);
 
 
             }
@@ -57,77 +63,6 @@ namespace Kaffeplaneten.Controllers
           
          }
 
-        private static byte[] createHash(string incPassword)
-        {
-            var algorithm = System.Security.Cryptography.SHA512.Create();
-            byte[] incData, outData;
-            incData = System.Text.Encoding.ASCII.GetBytes(incPassword);
-            outData = algorithm.ComputeHash(incData);
-            return outData;
-        }
-
-
-
-
-
-
-
-
-        /*
-            Eldre metode
-            
-            var newUser = new Models.Customers();
-            newUser.firstName = incList["firstname"];
-            newUser.lastName = incList["surname"];
-            newUser.email = incList["email"];
-            newUser.phone = incList["cellphone"];
-            newUser.adress = incList["adress"];
-            newUser.payAdress = incList["payAdress"];
-
-            string zipcode = incList["zipcode"];
-
-            var findProvince = db.Provinces.FirstOrDefault(z => z.zipCode == zipcode);
-
-            if(findProvince == null )
-            {
-                var newProvince = new Models.Provinces();
-                newProvince.zipCode = incList["zipcode"];
-                newProvince.province = incList["province"];
-                db.Provinces.Add(newProvince);
-
-                newUser.provinces = newProvince;
-            }
-            else
-            {   
-                newUser.provinces = findProvince;
-            }
-            newUser.zipCode = zipcode;
-
-            //Samme koden igjen for betalingsadressen
-            string PayZipcode = incList["zipcode"];
-
-            var findPayProvince = db.Provinces.FirstOrDefault(z => z.zipCode == zipcode);
-
-            if (findPayProvince == null)
-            {
-                var newProvince = new Models.Provinces();
-                newProvince.zipCode = incList["zipcode"];
-                newProvince.province = incList["province"];
-                db.Provinces.Add(newProvince);
-
-                newUser.payProvince = newProvince.province;
-            }
-            else
-            {
-                newUser.payProvince = findPayProvince.province;
-            }
-            newUser.payZipCode = PayZipcode;
-            db.Customers.Add(newUser);
-            db.SaveChanges();
-            Debug.WriteLine("test1");
-            return RedirectToAction("LoginView");
-
-        } */    
         }
     }
     
