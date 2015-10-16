@@ -9,6 +9,7 @@ using System.Web;
 
 namespace Kaffeplaneten
 {
+    
     public class DBOrder
     {
         public bool add(Customers customer, CustomerContext db)            // Adds a new order.
@@ -82,5 +83,5 @@ namespace Kaffeplaneten
             }
             return null;
         }
-    }
+    } 
 }
