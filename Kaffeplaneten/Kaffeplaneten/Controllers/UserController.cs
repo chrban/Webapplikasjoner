@@ -49,6 +49,8 @@ namespace Kaffeplaneten.Controllers
 
         public ActionResult accountView()
         {
+            if (Session["CustomerID"] == null)
+                return RedirectToAction("Loginview", "Security", new { area = "" });
             var customer = DBCustomer.find((int)Session["CustomerID"]);
             return View(customer);
         }
@@ -58,6 +60,8 @@ namespace Kaffeplaneten.Controllers
 
         public ActionResult editAccountView()
         {
+            if (Session["CustomerID"] == null)
+                return RedirectToAction("Loginview", "Security", new { area = "" });
             var customerModel = DBCustomer.find((int)Session["CustomerID"]);
             return View(customerModel);
 
@@ -96,7 +100,7 @@ namespace Kaffeplaneten.Controllers
         public ActionResult orderHistoryView()
         {
             if(Session["CustomerID"] == null)
-                return RedirectToAction("Loginview");
+                return RedirectToAction("Loginview", "Security", new { area = "" });
             var order = DBOrder.find((int)Session["CustomerID"]);
             return View(order);
 
