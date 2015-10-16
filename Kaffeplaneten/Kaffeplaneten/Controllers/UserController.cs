@@ -84,7 +84,12 @@ namespace Kaffeplaneten.Controllers
         {
             //customerModel.customerID = Session[< signed in user >].customerID;
             customerModel.customerID = 1;
-            //Debug.WriteLine(customerModel.adress);
+
+            var userModel = DBuser.get(customerModel.customerID);
+            if (!(customerModel.password == null))
+                userModel.passwordHash = base.getHash(customerModel.password);
+
+            DBuser.update(userModel);
             DBCustomer.update(customerModel);
             return RedirectToAction("accountView");
 
