@@ -168,14 +168,18 @@ namespace Kaffeplaneten
                             where c.customerID == id
                             select c).FirstOrDefault();
 
+                if (temp == null)
+                    return null;
                 customerModel.customerID = temp.customerID;
                 customerModel.firstName = temp.firstName;
                 customerModel.lastName = temp.lastName;
                 customerModel.email = temp.email;
                 customerModel.phone = temp.phone;
+
                 List<Adresses> adresses = (from a in db.Adresses
                                            where a.customerID == customerModel.customerID
                                            select a).ToList();
+
                 foreach (var a in adresses)
                 {
                     if (a.deliveryAdress)
@@ -197,7 +201,7 @@ namespace Kaffeplaneten
             catch (Exception ex)
             {
                 /*Viser nyttig informasjon om alle excetions i debug.out. Avslutter programmet*/
-                Debug.WriteLine("\nERROR!\nMelding:\n" + ex.Message + "\nInner exception:" + ex.InnerException + "\nKastet fra\n" + ex.TargetSite + "\nSource:\n" + ex.Source);
+                Debug.WriteLine("\nERROR!\nMelding:\n" + ex.Message + "\nInner exception:" + ex.InnerException + "\nKastet fra\n" + ex.TargetSite + "\nTrace:\n" + ex.StackTrace);
                 Trace.TraceInformation("Property: {0} Error: {1}", ex.Source, ex.InnerException);
                 //Environment.Exit(1);
             }
@@ -213,10 +217,8 @@ namespace Kaffeplaneten
                                 where c.customerID == customerModel.customerID
                                 select c).FirstOrDefault();
                 if (customer == null)
-                {
                     return false;
-
-                }
+                
                 //Persondataendring:
                 customer.email = customerModel.email;
                 customer.firstName = customerModel.firstName;
@@ -227,123 +229,138 @@ namespace Kaffeplaneten
                 db.SaveChanges();
 
                 //Adresseendring:
-                db = new CustomerContext();
-                var adresses = (from a in db.Adresses
-                                where a.customerID == customerModel.customerID
-                                select a).ToList();
-                db.Dispose();
-                bool newPayAdress = true;
-                bool newDeliveryAdress = true;
-                foreach (var a in adresses)
+                var adressModel = new AdressModel();
+                adressModel.customerID = customerModel.customerID;
+                adressModel.deliveryAdress = true;
+                adressModel.payAdress = customerModel.sameAdresses;
+                adressModel.province = customerModel.province;
+                adressModel.streetName = customerModel.adress;
+                adressModel.zipCode = customerModel.zipCode;
+                addAdress(adressModel);
+                if(!customerModel.sameAdresses)
                 {
-
-                    if (a.deliveryAdress && a.streetName.Equals(customerModel.adress) && a.zipCode.Equals(customerModel.zipCode))
-                        newDeliveryAdress=false;
-                    if (a.payAdress && a.streetName.Equals(customerModel.payAdress) && a.zipCode.Equals(customerModel.payZipcode))
-                        newPayAdress=false;
-
-                }
-
-                if (newPayAdress)
-                {
-
-                    var adressModel = new AdressModel();
+                    adressModel = new AdressModel();
                     adressModel.customerID = customerModel.customerID;
-                    adressModel.streetName = customerModel.payAdress;
-                    adressModel.province = customerModel.payProvince;
-                    adressModel.zipCode = customerModel.payZipcode;
-                    adressModel.delivieryAdress = customerModel.sameAdresses;
+                    adressModel.deliveryAdress = false;
                     adressModel.payAdress = true;
+                    adressModel.province = customerModel.payProvince;
+                    adressModel.streetName = customerModel.payAdress;
+                    adressModel.zipCode = customerModel.payZipcode;
+                    addAdress(adressModel);
                 }
-                if (newDeliveryAdress && !customerModel.sameAdresses)
-                {
-                    var adressModel = new AdressModel();
-                    adressModel.customerID = customerModel.customerID;
-                    adressModel.streetName = customerModel.adress;
-                    adressModel.province = customerModel.province;
-                    adressModel.zipCode = customerModel.zipCode;
-                    adressModel.delivieryAdress = true;
-                    adressModel.payAdress = false;
-                }
+
+                //***********************************************
                 return true;
             }
             catch (Exception ex)
             {
-                Debug.WriteLine("\nERROR!\nMelding:\n" + ex.Message + "\nInner exception:" + ex.InnerException + "\nKastet fra\n" + ex.TargetSite + "\nSource:\n" + ex.Source);
+                Debug.WriteLine("\nERROR!\nMelding:\n" + ex.Message + "\nInner exception:" + ex.InnerException + "\nKastet fra\n" + ex.TargetSite + "\nTrace:\n" + ex.StackTrace);
                 Trace.TraceInformation("Property: {0} Error: {1}", ex.Source, ex.InnerException);
             }
             return false;
         }
 
-        public static Provinces getProvince(string zipCode)
+        public static string getProvince(string zipCode)
         {
             try
             {
                 var db = new CustomerContext();
                 var province = db.Provinces.Find(zipCode);
-                return province;
+                return province.province;
             }
             catch(Exception ex)
             {
-                Debug.WriteLine("\nERROR!\nMelding:\n" + ex.Message + "\nInner exception:" + ex.InnerException + "\nKastet fra\n" + ex.TargetSite + "\nSource:\n" + ex.Source);
+                Debug.WriteLine("\nERROR!\nMelding:\n" + ex.Message + "\nInner exception:" + ex.InnerException + "\nKastet fra\n" + ex.TargetSite + "\nTrace:\n" + ex.StackTrace);
                 Trace.TraceInformation("Property: {0} Error: {1}", ex.Source, ex.InnerException);
             }
             return null;
         }
 
-        public static Adresses addAdress(AdressModel adressModel)
+        public static bool addAdress(AdressModel adressModel)//Legger til 
         {
+            var adressesList = new List<Adresses>();
+            if (adressModel.payAdress)
+            {
+                var temp = new Adresses();
+                temp.payAdress = true;
+                temp.deliveryAdress= false;
+                temp.streetName = adressModel.streetName;
+                temp.zipCode = adressModel.zipCode;
+                adressesList.Add(temp);
+            }
+            if (adressModel.deliveryAdress)
+            {
+                var temp = new Adresses();
+                temp.payAdress = false;
+                temp.deliveryAdress = true;
+                temp.streetName = adressModel.streetName;
+                temp.zipCode = adressModel.zipCode;
+                adressesList.Add(temp);
+            }
             try
             {
                 var db = new CustomerContext();
-                var adress = new Adresses();
-                adress.payAdress = adressModel.payAdress;
-                adress.deliveryAdress = adressModel.delivieryAdress;
-                adress.streetName = adressModel.streetName;
-                adress.customers = db.Customers.Find(adressModel.customerID);
-                adress.province = addProvince(adressModel.zipCode, adressModel.province);
-                db.Adresses.Add(adress);
+                //Kan fjernes hvis støtte for mer enn to adresser implementeres
+                var adresses = (from a in db.Adresses
+                            where a.customerID == adressModel.customerID
+                            select a).ToList();
+
+                foreach(var a in adresses)
+                    foreach(var am in adressesList)
+                        if(a.deliveryAdress == am.deliveryAdress && a.payAdress == am.payAdress)
+                            db.Adresses.Remove(a);
+                //*****************************
+                foreach(var a in adressesList)
+                {
+                    if (db.Provinces.Find(adressModel.zipCode) == null)
+                    {
+                        var province = new Provinces();
+                        province.province = adressModel.province;
+                        province.zipCode = adressModel.zipCode;
+                        db.Provinces.Add(province);
+                    }
+                    a.province = db.Provinces.Find(adressModel.zipCode);
+                    a.customers = db.Customers.Find(adressModel.customerID);
+                    db.Adresses.Add(a);
+                }
                 db.SaveChanges();
-                return adress;
+                return true;
             }
             catch (Exception ex)
             {
-                Debug.WriteLine("\nERROR!\nMelding:\n" + ex.Message + "\nInner exception:" + ex.InnerException + "\nKastet fra\n" + ex.TargetSite + "\nSource:\n" + ex.Source);
+                Debug.WriteLine("\nERROR!\nMelding:\n" + ex.Message + "\nInner exception:" + ex.InnerException + "\nKastet fra\n" + ex.TargetSite + "\nTrace:\n" + ex.StackTrace);
                 Trace.TraceInformation("Property: {0} Error: {1}", ex.Source, ex.InnerException);
+                Environment.Exit(1);
+
             }
-            return null;
+            return false;
         }
 
-        public static Provinces addProvince(string zipCode, string province)
+        public static bool addProvince(AdressModel adress)
         {
             try
             {
                 var db = new CustomerContext();
-                var temp = (from p in db.Provinces
-                            where p.zipCode.Equals(zipCode)
-                            select p).FirstOrDefault();
-                db.Dispose();
+                var temp = db.Provinces.Find(adress.zipCode);
                 if (temp == null)
                 {
-
-                    var newProvinve = new Provinces();
-                    newProvinve.province = province;
-                    newProvinve.zipCode = zipCode;
-                    db = new CustomerContext();
-                    db.Provinces.Add(newProvinve);
-                    db.SaveChanges();
-                    return newProvinve;
+                    temp = new Provinces();
+                    temp.province = adress.province;
+                    temp.zipCode = adress.zipCode;
+                    db.Provinces.Add(temp);
+                    return true;
                 }
-                return temp;
+                db.SaveChanges();
+                return false;
             }
             catch (Exception ex)
             {
-                Debug.WriteLine("\nERROR!\nMelding:\n" + ex.Message + "\nInner exception:" + ex.InnerException + "\nKastet fra\n" + ex.TargetSite + "\nSource:\n" + ex.Source);
+                Debug.WriteLine("\nERROR!\nMelding:\n" + ex.Message + "\nInner exception:" + ex.InnerException + "\nKastet fra\n" + ex.TargetSite + "\nTrace:\n" + ex.StackTrace);
                 Trace.TraceInformation("Property: {0} Error: {1}", ex.Source, ex.InnerException);
                 //Environment.Exit(1);
             }
 
-            return null;
+            return false;
         }
 
     }

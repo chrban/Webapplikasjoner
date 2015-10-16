@@ -26,10 +26,10 @@ namespace Kaffeplaneten
                                      select p).ToList();
 
                 orderModel.total = 0;
-                orderModel.products = new List<ProductModel>();
                 foreach(var o in orders)
                 {
-                    orderModel.products.Add(DBProduct.toObject(o.products));
+                    for(int i = 0; i < o.quantity; i++)
+                        orderModel.products.Add(DBProduct.toObject(o.products));
                     orderModel.total += o.price;
                 }
                 return orderModel;

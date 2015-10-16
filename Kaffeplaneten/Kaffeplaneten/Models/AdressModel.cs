@@ -11,7 +11,7 @@ namespace Kaffeplaneten.Models
         public int customerID { get; set; }
         public int adressID { get; set; }
         public bool payAdress { get; set; }
-        public bool delivieryAdress { get; set; }
+        public bool deliveryAdress { get; set; }
 
         [Display(Name = "Postnummer:")]
         [Required(ErrorMessage = "Postnummer må oppgis")]

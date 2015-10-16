@@ -134,6 +134,7 @@
     <Content Include="Views\Product\ProductDetailsView.cshtml" />
     <Content Include="Views\User\accountView.cshtml" />
     <Content Include="Views\User\orderHistoryView.cshtml" />
+    <Content Include="Views\User\editAccountView.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
