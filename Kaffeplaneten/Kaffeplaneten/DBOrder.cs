@@ -57,9 +57,15 @@ namespace Kaffeplaneten
                         productOrder.quantity = 1;
                         var temp = productOrders.Find(x => x.products.productID == p.productID);
                         if (temp == null)
+                        {
+                            productOrder.price = p.price;
                             productOrders.Add(productOrder);
+                        }
                         else
+                        {
+                            temp.price += p.price;
                             temp.quantity++;
+                        }
                     }
                     foreach (var po in productOrders)
                     {
