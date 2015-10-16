@@ -1,4 +1,5 @@
-﻿using Kaffeplaneten.Models;
+﻿using Kaffeplaneten.Controllers;
+using Kaffeplaneten.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity.Validation;
@@ -15,10 +16,10 @@ namespace Kaffeplaneten
             try
             {
                 var newOrders = new Orders();
-                newOrders.customerID =customer.customerID;                                             // Apparently it needs the customer ID inside the order... ?
+                newOrders.customerID = customer.customerID;                                             // Apparently it needs the customer ID inside the order... ?
                 newOrders.Customers = db.Customers.Find(customer.customerID);                          // Finds the actual customer object from the database.
                 db.Orders.Add(newOrders);                                                              // Allows it to get a OrderNr
-                foreach(var product in incomingOrder)
+                foreach (var product in incomingOrder)
                 {
                     product.orderNr = newOrders.orderNr;                                               // Adding orderNr to all products.
                     product.orders = newOrders;                                                        // Adding the order object to the products
@@ -39,6 +40,43 @@ namespace Kaffeplaneten
                 }
                 return false;
 
+            }
+        }
+        public bool add(Customers customer, CustomerContext db)            // Adds a new order.
+        {
+            var cartController = new ShoppingCartController();
+            try
+            {
+                var newOrders = new Orders();
+                newOrders.customerID = customer.customerID;                                          
+                newOrders.Customers = db.Customers.Find(customer.customerID);                        // Finds the actual customer object from the database.
+                List<ProductOrders> listOfProducts = new List<ProductOrders>();                      // Converts Shopping Cart into ProductOrders.
+                foreach (var cartItem in cartController.getShoppingCart().ItemsInShoppingCart)              
+                {
+                    var newProductOrder = new ProductOrders();
+                    newProductOrder.price = cartItem.product.price;
+                    newProductOrder.productID = cartItem.product.productID;
+                    newProductOrder.products = cartItem.product;
+                    newProductOrder.quantity = cartItem.Quanitity;
+                    listOfProducts.Add(newProductOrder);
+                }
+                newOrders.Products = listOfProducts;                                                   // New order are assigned the list of products to be ordered.
+                db.Orders.Add(newOrders);                                                              // Allows it to get a OrderNr 
+                db.SaveChanges();
+                return true;                                                                           // Returns to OrderController to be saved.
+            }
+            catch (DbEntityValidationException dbEx)
+            {
+                foreach (var validationErrors in dbEx.EntityValidationErrors)
+                {
+                    foreach (var validationError in validationErrors.ValidationErrors)
+                    {
+                        Trace.TraceInformation("Property: {0} Error: {1}",
+                                                validationError.PropertyName,
+                                                validationError.ErrorMessage);
+                    }
+                }
+                return false;
             }
         }
 
@@ -62,7 +100,7 @@ namespace Kaffeplaneten
                 foreach(var o in orders)
                 {
                     for(int i = 0; i < o.quantity; i++)
-                        orderModel.products.Add(DBProduct.toObject(o.products));
+                    orderModel.products.Add(DBProduct.toObject(o.products));
                     orderModel.total += o.price;
                 }
                 return orderModel;

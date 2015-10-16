@@ -146,6 +146,9 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
+    <Compile Include="Controllers\SecurityController.cs" />
+    <Compile Include="Controllers\ShoppingCartController.cs" />
+    <Compile Include="Controllers\SuperController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="DBOrder.cs" />
     <Compile Include="Models\AdressModel.cs" />
@@ -159,6 +162,8 @@
     <Compile Include="Models\CustomerModel.cs" />
     <Compile Include="Models\OrderModel.cs" />
     <Compile Include="Models\ProductModel.cs" />
+    <Compile Include="Models\ShoppingCartModel.cs" />
+    <Compile Include="Models\UserModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ShoppingCart.cs" />
     <Compile Include="TestingClass.cs" />
