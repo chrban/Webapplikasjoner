@@ -130,11 +130,11 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Web.config" />
     <Content Include="Views\Product\ProductDetailsView.cshtml" />
-    <Content Include="Views\User\accountView.cshtml" />
-    <Content Include="Views\User\orderHistoryView.cshtml" />
-    <Content Include="Views\User\editAccountView.cshtml" />
+    <Content Include="Web.config" />
+    <Content Include="Views\Order\OrderView.cshtml" />
+    <Content Include="Views\Order\ShoppingCartView.cshtml" />
+    <Content Include="Views\Security\Loginview.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -147,9 +147,9 @@
     <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\ShoppingCartController.cs" />
+    <Compile Include="Controllers\SecurityController.cs" />
+    <Compile Include="Controllers\SuperController.cs" />
     <Compile Include="Controllers\UserController.cs" />
-    <Compile Include="DBOrder.cs" />
-    <Compile Include="Models\AdressModel.cs" />
     <Compile Include="Models\CustomerContext.cs" />
     <Compile Include="DBProduct.cs" />
     <Compile Include="DBuser.cs" />
@@ -160,6 +160,7 @@
     <Compile Include="Models\CustomerModel.cs" />
     <Compile Include="Models\OrderModel.cs" />
     <Compile Include="Models\ProductModel.cs" />
+    <Compile Include="Models\UserModel.cs" />
     <Compile Include="Models\ShoppingCartModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestingClass.cs" />
@@ -171,14 +172,12 @@
     <Content Include="packages.config" />
     <Content Include="Scripts\jquery-2.1.4.min.map" />
     <Content Include="Views\User\createUser.cshtml" />
-    <Content Include="Views\User\Loginview.cshtml" />
     <Content Include="Views\Product\Index.cshtml" />
     <Content Include="Views\Product\AllProducts.cshtml" />
-    <Content Include="Views\Order\OrderView.cshtml" />
-    <Content Include="Views\Order\ShoppingCartView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Super\" />
     <Folder Include="Views\ShoppingCart\" />
   </ItemGroup>
   <PropertyGroup>
