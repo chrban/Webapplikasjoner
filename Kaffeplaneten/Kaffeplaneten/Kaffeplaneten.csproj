@@ -150,6 +150,7 @@
     <Compile Include="Controllers\SecurityController.cs" />
     <Compile Include="Controllers\SuperController.cs" />
     <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="DBOrder.cs" />
     <Compile Include="Models\CustomerContext.cs" />
     <Compile Include="DBProduct.cs" />
     <Compile Include="DBuser.cs" />
@@ -177,8 +178,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Super\" />
     <Folder Include="Views\ShoppingCart\" />
+    <Folder Include="Views\Super\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
