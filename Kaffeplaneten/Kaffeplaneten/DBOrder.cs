@@ -12,6 +12,71 @@ namespace Kaffeplaneten
     
     public class DBOrder
     {
+        public static bool add(OrderModel orderModel)
+        {
+            using (var db = new CustomerContext())
+            {
+                try
+                {
+                    var customer = db.Customers.Find(orderModel.customerID);
+                    if (customer == null)
+                        return false;
+                    var order = new Orders();
+                    order.Customers = customer;
+                    db.Orders.Add(order);
+                    db.SaveChanges();
+                    orderModel.orderNr = order.orderNr;
+                    return addProductOrders(orderModel);
+                    
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine("\nERROR!\nMelding:\n" + ex.Message + "\nInner exception:" + ex.InnerException + "\nKastet fra\n" + ex.TargetSite + "\nTrace:\n" + ex.StackTrace);
+                    Trace.TraceInformation("Property: {0} Error: {1}", ex.Source, ex.InnerException);
+                }
+                return false;
+            }
+        }
+
+        public static bool addProductOrders(OrderModel orderModel)
+        {
+            using (var db = new CustomerContext())
+            {
+                try
+                {
+                    var order = db.Orders.Find(orderModel.orderNr);
+                    if (order == null)
+                        return false;
+                    var productOrders = new List<ProductOrders>();
+                    foreach (var p in orderModel.products)
+                    {
+                        var productOrder = new ProductOrders();
+                        productOrder.orders = order;
+                        productOrder.price = p.price;
+                        productOrder.products = db.Products.Find(p.productID);
+                        productOrder.quantity = 1;
+                        var temp = productOrders.Find(x => x.products.productID == p.productID);
+                        if (temp == null)
+                            productOrders.Add(productOrder);
+                        else
+                            temp.quantity++;
+                    }
+                    foreach (var po in productOrders)
+                    {
+                        db.ProductOrders.Add(po);
+                        Debug.WriteLine(po.productID);
+                    }
+                    db.SaveChanges();
+                    return true;
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine("\nERROR!\nMelding:\n" + ex.Message + "\nInner exception:" + ex.InnerException + "\nKastet fra\n" + ex.TargetSite + "\nTrace:\n" + ex.StackTrace);
+                    Trace.TraceInformation("Property: {0} Error: {1}", ex.Source, ex.InnerException);
+                }
+                return false;
+            }
+        }
         public bool add(ShoppingCartModel cart, Customers customer, CustomerContext db)            // Adds a new order.
             {
 

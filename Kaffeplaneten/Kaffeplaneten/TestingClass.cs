@@ -22,7 +22,7 @@ namespace Kaffeplaneten
                 order.customerID = customer.customerID;
                 addProduct(createProduct());
                 order.orderNr = addOrder(order);
-                addProductOrder(order);
+                //addProductOrder(order);
                 //editCustomer(customer);
 
             }
@@ -82,12 +82,8 @@ namespace Kaffeplaneten
         }
         public static int addOrder(OrderModel orderModel)
         {
-            var db = new CustomerContext();
-            Orders order = new Orders();
-            order.Customers = db.Customers.Find(orderModel.customerID);
-            db.Orders.Add(order);
-            db.SaveChanges();
-            return order.orderNr;
+            DBOrder.add(orderModel);
+            return orderModel.customerID;
         }
         public static void addProductOrder(OrderModel orderModel)
         {
@@ -139,6 +135,7 @@ namespace Kaffeplaneten
             product.price = 10000;
             product.productName = "KaffeKaffe";
             product.stock = 1;
+            product.productID = 1;
             return product;
         }
         public static OrderModel createOrder()
