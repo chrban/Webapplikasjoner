@@ -7,7 +7,7 @@ using System.Web;
 
 namespace Kaffeplaneten
 {
-    public class ShoppingCart
+    /*public class ShoppingCart
     {
         public List<CartItem> ItemsInShoppingCart { get; set; }
 
@@ -77,5 +77,5 @@ namespace Kaffeplaneten
         {
             return ItemsInShoppingCart.Count;
         }
-    }
+    }*/
 }

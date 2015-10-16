@@ -21,7 +21,7 @@ namespace Kaffeplaneten
                 newOrders.customerID = customer.customerID;                                          
                 newOrders.Customers = db.Customers.Find(customer.customerID);                        // Finds the actual customer object from the database.
                 List<ProductOrders> listOfProducts = new List<ProductOrders>();                      // Converts Shopping Cart into ProductOrders.
-                foreach (var cartItem in cart.ItemsInShoppingCart)              
+                /*foreach (var cartItem in cart.ItemsInShoppingCart)              
                 {
                     var newProductOrder = new ProductOrders();
                     newProductOrder.price = cartItem.product.price;
@@ -29,7 +29,7 @@ namespace Kaffeplaneten
                     newProductOrder.products = cartItem.product;
                     newProductOrder.quantity = cartItem.Quanitity;
                     listOfProducts.Add(newProductOrder);
-                }
+                }*/
                 newOrders.Products = listOfProducts;                                                   // New order are assigned the list of products to be ordered.
                 db.Orders.Add(newOrders);                                                              // Allows it to get a OrderNr 
                 db.SaveChanges();
@@ -74,7 +74,7 @@ namespace Kaffeplaneten
                         foreach (var or in orders)
                     {
                             for (int i = 0; i < or.quantity; i++)
-                                orderModel.products.Add(DBProduct.toObject(or.products));
+                                orderModel.products.Add(DBProduct.find(or.products.productID));
                             orderModel.total += or.price;
                         }
                         orderList.Add(orderModel);

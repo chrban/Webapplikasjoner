@@ -14,7 +14,8 @@ namespace Kaffeplaneten.Controllers
 
         public ActionResult ShoppingCartView()              // Returns the Shopping Cart View. Shows all current products in the cart.
         {
-            return View(getShoppingCart());
+            //return View(getShoppingCart());
+            return View();
         }
 
         public void createCart()
@@ -22,16 +23,16 @@ namespace Kaffeplaneten.Controllers
 
         }
 
-        public ActionResult getShoppingCartItems(ShoppingCartModel model)              // Gets the ShoppingCart object through the current Session. This object contains all the products.
+        /*public ActionResult getShoppingCartItems(ShoppingCartModel model)              // Gets the ShoppingCart object through the current Session. This object contains all the products.
         {
             foreach (var items in model)
             {
                 var test = new JsonResult();  
             }
             return View(outputString);
-        }
+        }*/
 
-        public bool addToCart(JsonResult newProd, int quantity)
+        /*public bool addToCart(JsonResult newProd, int quantity)
         {
             try
             {
@@ -53,9 +54,9 @@ namespace Kaffeplaneten.Controllers
                 Console.WriteLine("FAILED TO ADD ITEM: " + newProd.productID + " TO CART!");
             };
             return false;
-        }
+        }*/
 
-        public void removeFromCart(int prodId, int quantity)
+        /*public void removeFromCart(int prodId, int quantity)
         {
             try
             {
@@ -72,9 +73,9 @@ namespace Kaffeplaneten.Controllers
             {
                 Console.WriteLine("FAILED TO REMOVE ITEM: " + prodId + " TO CART!");
             };
-        }
+        }*/
 
-        public double calculateTotal()
+        /*public double calculateTotal()
         {
             double totalPrice = 0;
             foreach (var item in getShoppingCart().ItemsInShoppingCart)
@@ -87,6 +88,6 @@ namespace Kaffeplaneten.Controllers
         public int amountOfItems()
         {
             return getShoppingCart().ItemsInShoppingCart.Count;
-        }
+        }*/
     }
 }

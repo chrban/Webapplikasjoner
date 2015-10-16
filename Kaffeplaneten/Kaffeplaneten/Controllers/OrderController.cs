@@ -14,7 +14,7 @@ namespace Kaffeplaneten.Controllers
             return View();
         }
 
-        public ActionResult createOrder()                                                       // Creates the order.
+        /*public ActionResult createOrder()                                                       // Creates the order.
         {
             if (getShoppingCart().amountOfItems() > 0)                                           // ----- ALSO NEEDS TO CHECK FOR LOGGED IN SESSION!!! ----
             {
@@ -56,6 +56,6 @@ namespace Kaffeplaneten.Controllers
                 }
              }
             return View();
-        } // END OF METHOD: CREATEORDER
+        } */// END OF METHOD: CREATEORDER
     }
 }

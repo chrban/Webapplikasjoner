@@ -9,7 +9,7 @@ namespace Kaffeplaneten.Models
 {
     public class ShoppingCartModel
     {
-        public List<JsonResult> ItemsInCart { get; set; };
+        public List<JsonResult> ItemsInCart { get; set; }
         public int Quanitity { get; set; }
     }
 }
