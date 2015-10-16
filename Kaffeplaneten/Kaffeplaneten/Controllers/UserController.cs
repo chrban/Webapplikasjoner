@@ -101,7 +101,7 @@ namespace Kaffeplaneten.Controllers
         {
             if(Session["CustomerID"] == null)
                 return RedirectToAction("Loginview", "Security", new { area = "" });
-            var order = DBOrder.find((int)Session["CustomerID"]);
+            var order = DBOrder.findOrders((int)Session["CustomerID"]);
             return View(order);
 
         }

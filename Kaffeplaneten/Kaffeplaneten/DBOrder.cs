@@ -49,43 +49,61 @@ namespace Kaffeplaneten
                 return false;
             }
         }
-
-        public static List<OrderModel> find(int nr)
+        public static OrderModel find(int nr)
         {
-
             using (var db = new CustomerContext())
             {
                 try
                 {
                     var order = (from o in db.Orders
                                  where o.orderNr == nr
-                                 select o).ToList();
-                    var orderList = new List<OrderModel>();
-                    foreach (var o in order)
-                    {
-                        var orderModel = new OrderModel();
-                        orderModel.orderNr = o.orderNr;
-                        orderModel.customerID = o.customerID;
-                    var orders = (from p in db.ProductOrders
-                                  where p.orderNr == nr
-                                  select p).ToList();
+                                 select o).FirstOrDefault();
+                    var orderModel = new OrderModel();
+
+                    orderModel.orderNr = order.orderNr;
+                    orderModel.customerID = order.customerID;
+                    var productOrders = (from p in db.ProductOrders
+                                    where p.orderNr == nr
+                                    select p).ToList();
 
                     orderModel.total = 0;
-                        foreach (var or in orders)
+                    foreach (var o in productOrders)
                     {
-                            for (int i = 0; i < or.quantity; i++)
-                                orderModel.products.Add(DBProduct.find(or.products.productID));
-                            orderModel.total += or.price;
-                        }
-                        orderList.Add(orderModel);
+                        for (int i = 0; i < o.quantity; i++)
+                            orderModel.products.Add(DBProduct.find(o.products.productID));
+                        orderModel.total += o.price;
                     }
-                    return orderList;
+                    return orderModel;
                 }
                 catch (Exception ex)
                 {
                     Debug.WriteLine("\nERROR!\nMelding:\n" + ex.Message + "\nInner exception:" + ex.InnerException + "\nKastet fra\n" + ex.TargetSite + "\nSource:\n" + ex.Source);
                     Trace.TraceInformation("Property: {0} Error: {1}", ex.Source, ex.InnerException);
                     //Environment.Exit(1);
+                }
+            }
+            return null;
+        }
+
+        public static List<OrderModel> findOrders(int id)
+        {
+
+            using (var db = new CustomerContext())
+            {
+                try
+                {
+                    var orders = (from o in db.Orders
+                                 where o.orderNr == id
+                                 select o).ToList();
+                    var orderModelList = new List<OrderModel>();
+                    foreach (var o in orders)
+                        orderModelList.Add(find(o.orderNr));
+                    return orderModelList;
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine("\nERROR!\nMelding:\n" + ex.Message + "\nInner exception:" + ex.InnerException + "\nKastet fra\n" + ex.TargetSite + "\nTrace:\n" + ex.StackTrace);
+                    Trace.TraceInformation("Property: {0} Error: {1}", ex.Source, ex.InnerException);
                 }
             }
             return null;
