@@ -11,16 +11,16 @@ namespace Kaffeplaneten
 {
     public class DBOrder
     {
-        public bool add(Customers customer, CustomerContext db)            // Adds a new order.
+        public bool add(ShoppingCartModel cart, Customers customer, CustomerContext db)            // Adds a new order.
         {
-            var cartController = new ShoppingCartController();
+
             try
             {
                 var newOrders = new Orders();
                 newOrders.customerID = customer.customerID;                                          
                 newOrders.Customers = db.Customers.Find(customer.customerID);                        // Finds the actual customer object from the database.
                 List<ProductOrders> listOfProducts = new List<ProductOrders>();                      // Converts Shopping Cart into ProductOrders.
-                foreach (var cartItem in cartController.getShoppingCart().ItemsInShoppingCart)              
+                foreach (var cartItem in cart.ItemsInShoppingCart)              
                 {
                     var newProductOrder = new ProductOrders();
                     newProductOrder.price = cartItem.product.price;

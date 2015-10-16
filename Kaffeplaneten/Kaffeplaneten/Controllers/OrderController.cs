@@ -8,7 +8,6 @@ namespace Kaffeplaneten.Controllers
     public class OrderController : SuperController
     {
         // GET: Order
-       
         public ActionResult OrderView()                    // Returns the order confirmation view.
         {
             return View();

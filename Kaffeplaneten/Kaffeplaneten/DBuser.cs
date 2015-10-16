@@ -14,7 +14,7 @@ namespace Kaffeplaneten
 
         public bool add(byte[] IncPassword, Customers newCustomer, CustomerContext db)
         {
-            try
+            tryC:\Users\VM\Source\Repos\Webapplikasjoner\Kaffeplaneten\Kaffeplaneten\DBuser.cs
             {
                 Debug.WriteLine("Test1,5");
                 Debug.WriteLine("Test2");
