@@ -28,10 +28,8 @@ namespace Kaffeplaneten
             }
             catch (Exception ex)
             {
-                /*Viser nyttig informasjon om alle excetions i debug.out. Avslutter programmet*/
                 Debug.WriteLine("\nERROR!\nMelding:\n" + ex.Message + "\nInner exception:" + ex.InnerException + "\nKastet fra\n" + ex.TargetSite + "\nTrace:\n" + ex.StackTrace);
                 Trace.TraceInformation("Property: {0} Error: {1}", ex.Source, ex.InnerException);
-                Environment.Exit(1);
             }
         }
 
@@ -158,5 +156,6 @@ namespace Kaffeplaneten
             customerModel.adress = "Tronnoland";
             return DBCustomer.update(customerModel);
         }
+
     }
 }

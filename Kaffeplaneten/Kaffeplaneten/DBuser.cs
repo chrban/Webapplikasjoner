@@ -43,5 +43,59 @@ namespace Kaffeplaneten
 
             }
         }
+        public static bool update(UserModel userModel)
+        {
+            using (var db = new CustomerContext())
+            {
+                try
+                {
+                    var user = db.Users.Find(userModel.customerID);
+                    if (user == null)
+                        return false;
+                    var customer = db.Customers.Find(userModel.customerID);
+                    if (customer == null)
+                        return false;
+                    if(!userModel.username.Equals(user.email))
+                    {
+                        var email = (from p in db.Users
+                                     where p.email.Equals(userModel.username)
+                                     select p).FirstOrDefault();
+                        if (!(email == null))
+                            return false;
+                        user.email = userModel.username;
+                    }
+                    user.password = userModel.passwordHash;
+                    db.SaveChanges();
+                    return true;
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine("\nERROR!\nMelding:\n" + ex.Message + "\nInner exception:" + ex.InnerException + "\nKastet fra\n" + ex.TargetSite + "\nTrace:\n" + ex.StackTrace);
+                    Trace.TraceInformation("Property: {0} Error: {1}", ex.Source, ex.InnerException);
+                }
+                return false;
+            }
+        }
+        public static UserModel get(int id)
+        {
+            using (var db = new CustomerContext())
+            {
+                try
+                {
+                    var userModel = new UserModel();
+                    var user = db.Users.Find(id);
+                    userModel.customerID = id;
+                    userModel.passwordHash = user.password;
+                    userModel.username = user.email;
+                    return userModel;
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine("\nERROR!\nMelding:\n" + ex.Message + "\nInner exception:" + ex.InnerException + "\nKastet fra\n" + ex.TargetSite + "\nTrace:\n" + ex.StackTrace);
+                    Trace.TraceInformation("Property: {0} Error: {1}", ex.Source, ex.InnerException);
+                }
+                return null;
+            }
+        }
     }
 }

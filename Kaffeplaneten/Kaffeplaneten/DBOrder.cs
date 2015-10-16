@@ -9,6 +9,7 @@ using System.Web;
 
 namespace Kaffeplaneten
 {
+    
     public class DBOrder
     {
         public bool add(ShoppingCartModel cart, Customers customer, CustomerContext db)            // Adds a new order.
@@ -51,10 +52,12 @@ namespace Kaffeplaneten
 
         public static OrderModel find(int nr)
         {
+
+            using (var db = new CustomerContext())
+            {
             try
             {
                 var orderModel = new OrderModel();
-                var db = new CustomerContext();
                 var order = (from o in db.Orders
                              where o.orderNr == nr
                              select o).FirstOrDefault();
@@ -66,19 +69,20 @@ namespace Kaffeplaneten
                                      select p).ToList();
 
                 orderModel.total = 0;
-                foreach(var o in orders)
+                    foreach (var o in orders)
                 {
-                    for(int i = 0; i < o.quantity; i++)
+                        for (int i = 0; i < o.quantity; i++)
                         orderModel.products.Add(DBProduct.toObject(o.products));
                     orderModel.total += o.price;
                 }
                 return orderModel;
             }
-            catch(Exception ex)
+                catch (Exception ex)
             {
                 Debug.WriteLine("\nERROR!\nMelding:\n" + ex.Message + "\nInner exception:" + ex.InnerException + "\nKastet fra\n" + ex.TargetSite + "\nSource:\n" + ex.Source);
                 Trace.TraceInformation("Property: {0} Error: {1}", ex.Source, ex.InnerException);
                 //Environment.Exit(1);
+            }
             }
             return null;
         }
