@@ -86,11 +86,14 @@ namespace Kaffeplaneten.Controllers
             customerModel.customerID = 1;
 
             var userModel = DBuser.get(customerModel.customerID);
+            userModel.username = customerModel.email;
             if (!(customerModel.password == null))
                 userModel.passwordHash = base.getHash(customerModel.password);
 
-            DBuser.update(userModel);
-            DBCustomer.update(customerModel);
+            if(!DBuser.update(userModel))
+                return RedirectToAction("editAccountView");
+            if(!DBCustomer.update(customerModel))
+                return RedirectToAction("editAccountView");
             return RedirectToAction("accountView");
 
         }

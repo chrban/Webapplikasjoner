@@ -55,7 +55,15 @@ namespace Kaffeplaneten
                     var customer = db.Customers.Find(userModel.customerID);
                     if (customer == null)
                         return false;
-                    user.email = userModel.username;
+                    if(!userModel.username.Equals(user.email))
+                    {
+                        var email = (from p in db.Users
+                                     where p.email.Equals(userModel.username)
+                                     select p).FirstOrDefault();
+                        if (!(email == null))
+                            return false;
+                        user.email = userModel.username;
+                    }
                     user.password = userModel.passwordHash;
                     db.SaveChanges();
                     return true;
