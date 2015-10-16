@@ -1,29 +1,10 @@
-﻿@using Kaffeplaneten.Models;
+﻿@using Kaffeplaneten.Controllers;
 @using Kaffeplaneten;
 @{
     ViewBag.Title = "ShoppingCartView";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    ShoppingCart currentCart = (ShoppingCart)HttpContext.Current.Session["ShoppingCart"];
-
-    // -------------- TESTING SHIT ----------------------------
-    Products testProdukt = new Products();
-    testProdukt.productID = 0;
-    testProdukt.productName = "TestProdukt";
-    testProdukt.description = "Hei, jeg er et test!";
-    testProdukt.imageURL = "img1.jpg";
-    testProdukt.price = 200;
-    testProdukt.stock = 2;
-    currentCart.addToCart(testProdukt, 2);
-
-    Products testProdukt2 = new Products();
-    testProdukt2.productID = 5;
-    testProdukt2.imageURL = "img2.jpg";
-    testProdukt2.productName = "TestProdukt2";
-    testProdukt2.description = "Hei, jeg er et test!";
-    testProdukt2.price = 400;
-    testProdukt2.stock = 5;
-    currentCart.addToCart(testProdukt2, 3);
-    // -------------- END OF TEST ------------------------------
+    ShoppingCartController currentCart = new ShoppingCartController();
+    currentCart.TESTAddProducts();
 }
 <html>
     <body>
@@ -41,7 +22,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var items in currentCart.ItemsInShoppingCart)
+                    @foreach (var items in currentCart.getShoppingCart().ItemsInShoppingCart)
                     {
                         <tr>
                             <td data-th="Product">

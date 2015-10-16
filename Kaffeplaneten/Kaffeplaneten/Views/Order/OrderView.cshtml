@@ -1,22 +1,15 @@
-﻿@model Kaffeplaneten.Models.CustomerModel
-@using Kaffeplaneten
+﻿@using Kaffeplaneten.Controllers
+@using Kaffeplaneten.Models
+@model Kaffeplaneten.Models.CustomerModel
+
 @{
     ViewBag.Title = "OrderView";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    ShoppingCart currentCart = (ShoppingCart)HttpContext.Current.Session["ShoppingCart"];
+    OrderController test = new OrderController();
+    var cartController = new ShoppingCartController();
+    cartController.TESTAddProducts();
+    var currentCart = cartController.getShoppingCart();
 }
-
-<--> 
-
-    ----------------------------------------------------------------------------------------------------------------------------
-
-    UNDER CONSTRUCTION... 
-    
-    NOTE: GIVES EXCEPTION ERROR NOW DUE TO SHOPPING CART IS NULL IF NOT CREATED THROUGH SHOPPING CART FIRST. 
-
-    ----------------------------------------------------------------------------------------------------------------------------
-
-</--> 
 
 <h2>Bekreft Ordre</h2>
 
@@ -26,7 +19,7 @@
 {
    <p>@items.product.productName x @items.Quanitity</p>
 }
-<p>Total: @currentCart.calculateTotal()</p>
+<p>Total: @cartController.calculateTotal()</p>
 
 @using (Html.BeginForm())
 {
