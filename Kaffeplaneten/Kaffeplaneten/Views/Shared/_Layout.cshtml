@@ -14,20 +14,22 @@
         @Html.ActionLink("Logg inn", "Loginview", "Security", new { area = "" })
     </div>
     <ul class="nav nav-tabs">
-            <li role="presentation" class="showAlways" >@Html.ActionLink("Kaffeplaneten", "AllProducts", "Product", new { area = "" }, new { @class = "navbar-brand" })</li>
-            <li role="presentation" class="showAlways"> @Html.ActionLink("Handlekurv", "ShoppingCartView", "Order", new { area = "" }, new { @class = "navbar-brand" })</li>
-            <li role="presentation" class="NotLoggedIn"> @Html.ActionLink("Registrer", "createUser", "User", new { area = "" }, new { @class = "navbar-brand" })</li>
+        <li role="presentation" class="active">@Html.ActionLink("Kaffeplaneten", "AllProducts", "Product", new { area = "" }, new { @class = "navbar-brand" })</li>
+        <li role="presentation"> @Html.ActionLink("Registrer", "createUser", "User", new { area = "" }, new { @class = "navbar-brand" })</li>
+        <li role="presentation"> @Html.ActionLink("Logg inn", "Loginview", "Security", new { area = "" }, new { @class = "navbar-brand" }) </li>
+        <li role="presentation"> @Html.ActionLink("Handlekurv", "ShoppingCartView", "Order", new { area = "" }, new { @class = "navbar-brand" })</li>
+        <li role="presentation"> @Html.ActionLink("Kontoinstillinger", "accountView", "User", new { area = "" }, new { @class = "navbar-brand" })</li>
     </ul>
     <div id="kropp">
-            @RenderBody()
-            <hr />
-            <footer>
-                <p>&copy; @DateTime.Now.Year - Kaffeplaneten</p>
-            </footer>
-        </div>
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - Kaffeplaneten</p>
+        </footer>
+    </div>
 
-        <script src="~/Scripts/jquery-1.10.2.min.js"></script>
-        <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
     </div>
 </body>
 </html>
