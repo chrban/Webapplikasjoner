@@ -78,9 +78,4 @@ namespace Kaffeplaneten
             return ItemsInShoppingCart.Count;
         }
     }
-
-    public class CartItem{
-        public Products product { get; set; }
-        public int Quanitity { get; set; }
-    }
 }

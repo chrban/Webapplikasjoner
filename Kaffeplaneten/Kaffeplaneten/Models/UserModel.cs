@@ -8,8 +8,15 @@ namespace Kaffeplaneten.Models
 {
     public class UserModel
     {
-        [Required(ErrorMessage="Du må oppgi brukernavn")]
+        public int customerID { get; set; }
+
+        public byte[] passwordHash { get; set; }
+
+        [Display(Name = "Brukernavn(Epost):")]
+        [Required(ErrorMessage="Du må oppgi epostadresse")]
         public string username { get; set; }
+
+        [Display(Name = "Passord:")]
         [Required(ErrorMessage = "Du må oppgi passord")]
         public string password { get; set; }
 

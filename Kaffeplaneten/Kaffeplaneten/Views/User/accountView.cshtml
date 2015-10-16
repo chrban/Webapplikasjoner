@@ -47,4 +47,7 @@
         @Html.DisplayFor(model => model.payZipcode)
     </div>
 
+    @Html.ActionLink("Endre", "editAccountView", "User", new { area = "" }, new { @class = "btn btn-success" })
+    @Html.ActionLink("Se ordrehistorie", "orderHistoryView", "User", new { area = "" }, new { @class = "btn btn-success" })
+
 </fieldset>

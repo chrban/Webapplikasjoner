@@ -1,5 +1,10 @@
-﻿
-@model Kaffeplaneten.Models.CustomerModel
+﻿@model Kaffeplaneten.Models.CustomerModel
+
+@{
+    ViewBag.Title = "editAccountView";
+}
+
+<h2>Endre Opplysninger</h2>
 
 @{
     ViewBag.Title = "createUser";
@@ -11,8 +16,8 @@
     @Html.ValidationSummary(true)
 
     <fieldset>
-        <legend>Brukerregistrering</legend>
-
+        <legend>Endre opplysninger</legend>
+        @Html.LabelFor(model => model.customerID)
         <div class="editor-label">
             @Html.LabelFor(model => model.firstName)
         </div>
@@ -31,13 +36,19 @@
         <div class="editor-label">
             @Html.LabelFor(model => model.email)
         </div>
-        <div class="editor-field">  
+        <div class="editor-field">
             @Html.EditorFor(model => model.email)
             @Html.ValidationMessageFor(model => model.email)
         </div>
-  
         <div class="editor-label">
-            @Html.LabelFor(model => model.password)
+            Gammelt passord:
+        </div>
+        <div class="editor-field">
+            @Html.PasswordFor(model => model.password)
+            @Html.ValidationMessageFor(model => model.password)
+        </div>
+        <div class="editor-label">
+            Nytt Passord
         </div>
         <div class="editor-field">
             @Html.PasswordFor(model => model.password)
@@ -76,13 +87,13 @@
             @Html.EditorFor(model => model.province)
             @Html.ValidationMessageFor(model => model.province)
         </div>
-        
+
         <div class="checkbox-label">
             @Html.LabelFor(model => model.sameAdresses)
             @Html.CheckBoxFor(model => model.sameAdresses)
         </div>
-       
-        <div class="editor-label">  
+
+        <div class="editor-label">
             @Html.LabelFor(model => model.payAdress)
         </div>
         <div class="editor-field">
@@ -99,14 +110,13 @@
             @Html.EditorFor(model => model.payProvince)
             @Html.ValidationMessageFor(model => model.payProvince)
         </div>
-  
 
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Opprett bruker" class="btn btn-success" />
-            </div>
-        
+
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Oppdater" class="btn btn-success" />
+        </div>
+
     </fieldset>
-}   
+}
 
-     
 

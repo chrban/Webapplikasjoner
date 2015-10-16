@@ -1,10 +1,27 @@
-﻿@using Kaffeplaneten.Controllers;
-@using Kaffeplaneten;
-@{
+﻿@{
     ViewBag.Title = "ShoppingCartView";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    ShoppingCartController currentCart = new ShoppingCartController();
-    currentCart.TESTAddProducts();
+    ShoppingCart currentCart = (ShoppingCart)HttpContext.Current.Session["ShoppingCart"];
+
+    // -------------- TESTING SHIT -----------------------------
+    Products testProdukt = new Products();
+    testProdukt.productID = 0;
+    testProdukt.productName = "TestProdukt";
+    testProdukt.description = "Hei, jeg er et test!";
+    testProdukt.imageURL = "img1.jpg";
+    testProdukt.price = 200;
+    testProdukt.stock = 2;
+    currentCart.addToCart(testProdukt, 2);
+
+    Products testProdukt2 = new Products();
+    testProdukt2.productID = 5;
+    testProdukt2.imageURL = "img2.jpg";
+    testProdukt2.productName = "TestProdukt2";
+    testProdukt2.description = "Hei, jeg er et test!";
+    testProdukt2.price = 400;
+    testProdukt2.stock = 5;
+    currentCart.addToCart(testProdukt2, 3);
+    // -------------- END OF TEST ------------------------------
 }
 <html>
     <body>
@@ -22,7 +39,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var items in currentCart.getShoppingCart().ItemsInShoppingCart)
+                    @foreach (var items in currentCart.ItemsInShoppingCart)
                     {
                         <tr>
                             <td data-th="Product">
@@ -40,20 +57,20 @@
                             </td>
                             <td data-th="Subtotal" class="text-center">@((items.product.price)*(items.Quanitity))</td>
                             <td class="actions" data-th="">
-                                <button class="btn btn-info btn-sm"><i class="glyphicon-refresh"></i></button>
-                                <button class="btn btn-danger btn-sm"><i class="glyphicon-trash"></i></button>
+                                <button class="btn btn-info btn-sm"><i class="fa fa-refresh"></i></button>
+                                <button class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i></button>
                             </td>
                         </tr>
                     }
                 </tbody>
                 <tfoot>
                     <tr class="visible-xs">
-                        <td class="text-center"><strong>@currentCart.calculateTotal()</strong></td>
+                        <td class="text-center"><strong>@currentCart.calculateShoppingCartTotal()</strong></td>
                     </tr>
                     <tr>
                         <td><a href="#" class="btn btn-warning"><i class="fa fa-angle-left"></i>Continue Shopping</a></td>
                         <td colspan="2" class="hidden-xs"></td>
-                        <td class="hidden-xs text-center"><strong>Total: @currentCart.calculateTotal()</strong></td>
+                        <td class="hidden-xs text-center"><strong>Total: @currentCart.calculateShoppingCartTotal()</strong></td>
                         <td><a href="#" class="btn btn-success btn-block">Checkout <i class="fa fa-angle-right"></i></a></td>
                     </tr>
                 </tfoot>

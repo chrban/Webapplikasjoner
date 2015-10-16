@@ -29,6 +29,6 @@ namespace Kaffeplaneten
             var produkter = db.Products.Where(s => s.productID == 1);
 
             return produkter.ToList();
-         }
-    }   
+        }
+    }
 }

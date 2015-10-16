@@ -74,9 +74,6 @@ namespace Kaffeplaneten.Models
         [Required(ErrorMessage = "Betalingspoststed må oppgis")]
         public string payProvince { get; set; }
 
-
-       
-
     }
 }
     

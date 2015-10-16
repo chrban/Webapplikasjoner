@@ -8,7 +8,7 @@ using System.Web.Mvc;
 
 namespace Kaffeplaneten.Controllers
 {
-    public class ProductController : Controller
+    public class ProductController : SuperController
     {
         // GET: Product
         public ActionResult Index()
@@ -34,9 +34,6 @@ namespace Kaffeplaneten.Controllers
             return ut;
             
         }
-
-        
-
     }
 }
 

@@ -1,8 +1,106 @@
-﻿
+﻿@using Kaffeplaneten.Controllers
+@using Kaffeplaneten.Models
+@model Kaffeplaneten.Models.CustomerModel
+
 @{
     ViewBag.Title = "OrderView";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    OrderController test = new OrderController();
+    var cartController = new ShoppingCartController();
+    cartController.TESTAddProducts();
+    var currentCart = cartController.getShoppingCart();
 }
 
-<h2>OrderView</h2>
+<h2>Bekreft Ordre</h2>
 
+<h1>Varer:</h1>
+
+@foreach (var items in currentCart.ItemsInShoppingCart)
+{
+   <p>@items.product.productName x @items.Quanitity</p>
+}
+<p>Total: @cartController.calculateTotal()</p>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <table>
+        <tr>
+            <td>
+                <fieldset>
+                    <legend>Leveringsaddresse:</legend>
+
+                    <div class="editor-label">
+                        @Html.LabelFor(model => model.firstName)
+                    </div>
+                    <div class="editor-field">
+                        @Html.EditorFor(model => model.firstName)
+                        @Html.ValidationMessageFor(model => model.firstName)
+                    </div>
+                    <div class="editor-label">
+                        @Html.LabelFor(model => model.lastName)
+                    </div>
+                    <div class="editor-field">
+                        @Html.EditorFor(model => model.lastName)
+                        @Html.ValidationMessageFor(model => model.lastName)
+                    </div>
+
+                    <div class="editor-label">
+                        @Html.LabelFor(model => model.email)
+                    </div>
+
+                    <div class="editor-label">
+                        @Html.LabelFor(model => model.phone)
+                    </div>
+                    <div class="editor-field">
+                        @Html.EditorFor(model => model.phone)
+                        @Html.ValidationMessageFor(model => model.phone)
+                    </div>
+                    <div class="editor-label">
+                        @Html.LabelFor(model => model.adress)
+                    </div>
+                    <div class="editor-field">
+                        @Html.EditorFor(model => model.adress)
+                        @Html.ValidationMessageFor(model => model.adress)
+                    </div>
+                    <div class="editor-label">
+                        @Html.LabelFor(model => model.zipCode)
+                        @Html.LabelFor(model => model.province)
+                    </div>
+                    <div class="editor-field">
+                        @Html.EditorFor(model => model.zipCode)
+                        @Html.ValidationMessageFor(model => model.zipCode)
+                        @Html.EditorFor(model => model.province)
+                        @Html.ValidationMessageFor(model => model.province)
+                    </div>
+                </fieldset>
+            </td><td>
+    <fieldset>
+        <legend>Betalingsaddresse</legend>
+        <div class="checkbox-label">
+            @Html.LabelFor(model => model.sameAdresses)
+            @Html.CheckBoxFor(model => model.sameAdresses)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.payAdress)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.payAdress)
+            @Html.ValidationMessageFor(model => model.payAdress)
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.payZipcode)
+            @Html.LabelFor(model => model.payProvince)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.payZipcode)
+            @Html.ValidationMessageFor(model => model.payZipcode)
+            @Html.EditorFor(model => model.payProvince)
+            @Html.ValidationMessageFor(model => model.payProvince)
+        </div>
+    </fieldset>
+</td>
+        </tr>
+    </table>
+}

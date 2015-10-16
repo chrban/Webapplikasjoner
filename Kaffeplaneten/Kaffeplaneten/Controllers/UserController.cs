@@ -9,17 +9,12 @@ using System.Web.Mvc;
 
 namespace Kaffeplaneten.Controllers
 {
-    public class UserController : Controller
-    {
-        // GET: User
-        public ActionResult Loginview()
-        {
-            return View();
-        }
 
+    public class UserController : SuperController
+    {
+        //GET : User
         public ActionResult createUser()
         {
-
             return View();
         }
 
@@ -31,111 +26,88 @@ namespace Kaffeplaneten.Controllers
             {
 
                 Debug.WriteLine("Test1");
-                var db = new CustomerContext();
-
-                var customerDB = new DBCustomer();
-                var Customerobject = customerDB.add(newCustomer, db);
-
-                if(Customerobject != null)
+                using (var db = new CustomerContext())
                 {
-                    Debug.WriteLine("Test2");
-                    byte[] passwordDB = createHash(newCustomer.password);
-                    var userDB = new DBuser();
-
-                    var insertOK = userDB.add(passwordDB, Customerobject, db);
-
-                    if(insertOK)
+                    var checkUser = (from c in db.Customers
+                                     where c.email == newCustomer.email
+                                     select c).FirstOrDefault();
+                    if (checkUser == null)
                     {
-                        db.SaveChanges();
-                        return RedirectToAction("Loginview");
+                        var customerDB = new DBCustomer();
+                        var Customerobject = customerDB.add(newCustomer, db);
+
+                        if (Customerobject != null)
+                        {
+                            Debug.WriteLine("Test2");
+                            byte[] passwordDB = base.getHash(newCustomer.password);
+                            var userDB = new DBuser();
+
+                            var insertOK = userDB.add(passwordDB, Customerobject, db);
+
+                            if (insertOK)
+                            {
+                                db.SaveChanges();
+                                return RedirectToAction("Loginview", "Security", new { area = "" });
+                            }
+
+                        }
                     }
+                    ModelState.AddModelError("", "Eposten du prøver å registrere finnes allerede. Vennligst benytt en annen adresse");
+                    return View(newCustomer);
                 }
-
-
             }
             return View();
-          
-         }
+        }
+
 
         public ActionResult accountView()
         {
             //test
-            var customer = DBCustomer.findCustomer(1);
+            var customer = DBCustomer.find(1);
+            //var customer = Session["user"];
             //slutt test
             return View(customer);
         }
 
-        private static byte[] createHash(string incPassword)
+
+
+
+        public ActionResult editAccountView()
         {
-            var algorithm = System.Security.Cryptography.SHA512.Create();
-            byte[] incData, outData;
-            incData = System.Text.Encoding.ASCII.GetBytes(incPassword);
-            outData = algorithm.ComputeHash(incData);
-            return outData;
+            var customerModel = DBCustomer.find(1);
+            return View(customerModel);
+
         }
 
+        [HttpPost]
+        public ActionResult editAccountView(CustomerModel customerModel)
+        {
+            //customerModel.customerID = Session[< signed in user >].customerID;
+            customerModel.customerID = 1;
 
+            var userModel = DBuser.get(customerModel.customerID);
+            userModel.username = customerModel.email;
+            if (!(customerModel.password == null))
+                userModel.passwordHash = base.getHash(customerModel.password);
 
+            if(!DBuser.update(userModel))
+                return RedirectToAction("editAccountView");
+            if(!DBCustomer.update(customerModel))
+                return RedirectToAction("editAccountView");
+            return RedirectToAction("accountView");
 
-
-
-
-
-        /*
-            Eldre metode
-            
-            var newUser = new Models.Customers();
-            newUser.firstName = incList["firstname"];
-            newUser.lastName = incList["surname"];
-            newUser.email = incList["email"];
-            newUser.phone = incList["cellphone"];
-            newUser.adress = incList["adress"];
-            newUser.payAdress = incList["payAdress"];
-
-            string zipcode = incList["zipcode"];
-
-            var findProvince = db.Provinces.FirstOrDefault(z => z.zipCode == zipcode);
-
-            if(findProvince == null )
-            {
-                var newProvince = new Models.Provinces();
-                newProvince.zipCode = incList["zipcode"];
-                newProvince.province = incList["province"];
-                db.Provinces.Add(newProvince);
-
-                newUser.provinces = newProvince;
-            }
-            else
-            {   
-                newUser.provinces = findProvince;
-            }
-            newUser.zipCode = zipcode;
-
-            //Samme koden igjen for betalingsadressen
-            string PayZipcode = incList["zipcode"];
-
-            var findPayProvince = db.Provinces.FirstOrDefault(z => z.zipCode == zipcode);
-
-            if (findPayProvince == null)
-            {
-                var newProvince = new Models.Provinces();
-                newProvince.zipCode = incList["zipcode"];
-                newProvince.province = incList["province"];
-                db.Provinces.Add(newProvince);
-
-                newUser.payProvince = newProvince.province;
-            }
-            else
-            {
-                newUser.payProvince = findPayProvince.province;
-            }
-            newUser.payZipCode = PayZipcode;
-            db.Customers.Add(newUser);
-            db.SaveChanges();
-            Debug.WriteLine("test1");
-            return RedirectToAction("LoginView");
-
-        } */    
         }
+
+        public ActionResult orderHistoryView()
+        {
+            //test
+            var order = DBOrder.find(1);
+            //var customer = Session["user"];
+            //slutt test
+            return View(order);
+
+        }
+
     }
+}
     
