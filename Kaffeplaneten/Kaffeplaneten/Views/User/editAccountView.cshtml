@@ -1,0 +1,122 @@
+﻿@model Kaffeplaneten.Models.CustomerModel
+
+@{
+    ViewBag.Title = "editAccountView";
+}
+
+<h2>Endre Opplysninger</h2>
+
+@{
+    ViewBag.Title = "createUser";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Endre opplysninger</legend>
+        @Html.LabelFor(model => model.customerID)
+        <div class="editor-label">
+            @Html.LabelFor(model => model.firstName)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.firstName)
+            @Html.ValidationMessageFor(model => model.firstName)
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.lastName)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.lastName)
+            @Html.ValidationMessageFor(model => model.lastName)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.email)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.email)
+            @Html.ValidationMessageFor(model => model.email)
+        </div>
+        <div class="editor-label">
+            Gammelt passord:
+        </div>
+        <div class="editor-field">
+            @Html.PasswordFor(model => model.password)
+            @Html.ValidationMessageFor(model => model.password)
+        </div>
+        <div class="editor-label">
+            Nytt Passord
+        </div>
+        <div class="editor-field">
+            @Html.PasswordFor(model => model.password)
+            @Html.ValidationMessageFor(model => model.password)
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.passwordVerifier)
+        </div>
+
+        <div class="editor-field">
+            @Html.PasswordFor(model => model.passwordVerifier)
+            @Html.ValidationMessageFor(model => model.passwordVerifier)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.phone)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.phone)
+            @Html.ValidationMessageFor(model => model.phone)
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.adress)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.adress)
+            @Html.ValidationMessageFor(model => model.adress)
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.zipCode)
+            @Html.LabelFor(model => model.province)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.zipCode)
+            @Html.ValidationMessageFor(model => model.zipCode)
+            @Html.EditorFor(model => model.province)
+            @Html.ValidationMessageFor(model => model.province)
+        </div>
+
+        <div class="checkbox-label">
+            @Html.LabelFor(model => model.sameAdresses)
+            @Html.CheckBoxFor(model => model.sameAdresses)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.payAdress)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.payAdress)
+            @Html.ValidationMessageFor(model => model.payAdress)
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.payZipcode)
+            @Html.LabelFor(model => model.payProvince)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.payZipcode)
+            @Html.ValidationMessageFor(model => model.payZipcode)
+            @Html.EditorFor(model => model.payProvince)
+            @Html.ValidationMessageFor(model => model.payProvince)
+        </div>
+
+
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Oppdater" class="btn btn-success" />
+        </div>
+
+    </fieldset>
+}
+
+

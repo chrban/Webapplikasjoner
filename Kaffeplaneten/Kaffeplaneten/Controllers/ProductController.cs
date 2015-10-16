@@ -42,7 +42,7 @@ namespace Kaffeplaneten.Controllers
             {
                 return HttpNotFound();
             }
-            var ut = productDB.toObject(funnetProd);
+            var ut = DBProduct.toObject(funnetProd);
             return View(ut);
         }
        
