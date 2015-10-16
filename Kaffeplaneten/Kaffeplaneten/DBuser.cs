@@ -17,34 +17,34 @@ namespace Kaffeplaneten
             using (var db = new CustomerContext())
             {
                 try
+            {
+                Debug.WriteLine("Test1,5");
+                Debug.WriteLine("Test2");
+                var newUser = new Users()
                 {
-                    Debug.WriteLine("Test1,5");
-                    Debug.WriteLine("Test2");
-                    var newUser = new Users()
-                    {
                         email = userModel.username,
                         password = userModel.passwordHash
-                    };
+                };
                     newUser.customer = db.Customers.Find(userModel.customerID);
                     if (newUser.customer == null)
                         return false;
-                    db.Users.Add(newUser);
+                db.Users.Add(newUser);
                     db.SaveChanges();
-                    Debug.WriteLine("Lagring fullført!");
-                    return true;
-                }
-                catch (DbEntityValidationException dbEx)
+                Debug.WriteLine("Lagring fullført!");
+                return true;
+            }
+            catch (DbEntityValidationException dbEx)
+            {
+                foreach (var validationErrors in dbEx.EntityValidationErrors)
                 {
-                    foreach (var validationErrors in dbEx.EntityValidationErrors)
+                    foreach (var validationError in validationErrors.ValidationErrors)
                     {
-                        foreach (var validationError in validationErrors.ValidationErrors)
-                        {
-                            Trace.TraceInformation("Property: {0} Error: {1}",
-                                                    validationError.PropertyName,
-                                                    validationError.ErrorMessage);
-                        }
+                        Trace.TraceInformation("Property: {0} Error: {1}",
+                                                validationError.PropertyName,
+                                                validationError.ErrorMessage);
                     }
-                    return false;
+                }
+                return false;
                 }
             }
         }

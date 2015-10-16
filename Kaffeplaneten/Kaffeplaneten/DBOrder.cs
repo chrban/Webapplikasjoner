@@ -12,47 +12,16 @@ namespace Kaffeplaneten
     
     public class DBOrder
     {
-        public bool add(List<ProductOrders> incomingOrder, Customers customer, CustomerContext db)      // Adds a new order.
-        {
-            try
+        public bool add(ShoppingCartModel cart, Customers customer, CustomerContext db)            // Adds a new order.
             {
-                var newOrders = new Orders();
-                newOrders.customerID = customer.customerID;                                             // Apparently it needs the customer ID inside the order... ?
-                newOrders.Customers = db.Customers.Find(customer.customerID);                          // Finds the actual customer object from the database.
-                db.Orders.Add(newOrders);                                                              // Allows it to get a OrderNr
-                foreach (var product in incomingOrder)
-                {
-                    product.orderNr = newOrders.orderNr;                                               // Adding orderNr to all products.
-                    product.orders = newOrders;                                                        // Adding the order object to the products
-                }
-                newOrders.Products = incomingOrder;                                                    // New order are assigned the list of products to be ordered.
-                return true;                                                                           // Returns to OrderController to be saved.
-            }
-            catch (DbEntityValidationException dbEx)
-            {
-                foreach (var validationErrors in dbEx.EntityValidationErrors)
-                {
-                    foreach (var validationError in validationErrors.ValidationErrors)
-                    {
-                        Trace.TraceInformation("Property: {0} Error: {1}",
-                                                validationError.PropertyName,
-                                                validationError.ErrorMessage);
-                    }
-                }
-                return false;
 
-            }
-        }
-        public bool add(Customers customer, CustomerContext db)            // Adds a new order.
-        {
-            var cartController = new ShoppingCartController();
             try
             {
                 var newOrders = new Orders();
                 newOrders.customerID = customer.customerID;                                          
                 newOrders.Customers = db.Customers.Find(customer.customerID);                        // Finds the actual customer object from the database.
                 List<ProductOrders> listOfProducts = new List<ProductOrders>();                      // Converts Shopping Cart into ProductOrders.
-                foreach (var cartItem in cartController.getShoppingCart().ItemsInShoppingCart)              
+                foreach (var cartItem in cart.ItemsInShoppingCart)              
                 {
                     var newProductOrder = new ProductOrders();
                     newProductOrder.price = cartItem.product.price;
@@ -97,13 +66,13 @@ namespace Kaffeplaneten
                         var orderModel = new OrderModel();
                         orderModel.orderNr = o.orderNr;
                         orderModel.customerID = o.customerID;
-                        var orders = (from p in db.ProductOrders
-                                      where p.orderNr == nr
-                                      select p).ToList();
+                    var orders = (from p in db.ProductOrders
+                                  where p.orderNr == nr
+                                  select p).ToList();
 
-                        orderModel.total = 0;
+                    orderModel.total = 0;
                         foreach (var or in orders)
-                        {
+                    {
                             for (int i = 0; i < or.quantity; i++)
                                 orderModel.products.Add(DBProduct.toObject(or.products));
                             orderModel.total += or.price;
