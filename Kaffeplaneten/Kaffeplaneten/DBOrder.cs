@@ -81,32 +81,36 @@ namespace Kaffeplaneten
             }
         }
 
-        public static OrderModel find(int nr)
+        public static List<OrderModel> find(int nr)
         {
 
             using (var db = new CustomerContext())
             {
                 try
                 {
-                    var orderModel = new OrderModel();
                     var order = (from o in db.Orders
                                  where o.orderNr == nr
-                                 select o).FirstOrDefault();
-
-                    orderModel.orderNr = order.orderNr;
-                    orderModel.customerID = order.customerID;
-                    var orders = (from p in db.ProductOrders
-                                  where p.orderNr == nr
-                                  select p).ToList();
-
-                    orderModel.total = 0;
-                    foreach (var o in orders)
+                                 select o).ToList();
+                    var orderList = new List<OrderModel>();
+                    foreach (var o in order)
                     {
-                        for (int i = 0; i < o.quantity; i++)
-                            orderModel.products.Add(DBProduct.toObject(o.products));
-                        orderModel.total += o.price;
+                        var orderModel = new OrderModel();
+                        orderModel.orderNr = o.orderNr;
+                        orderModel.customerID = o.customerID;
+                        var orders = (from p in db.ProductOrders
+                                      where p.orderNr == nr
+                                      select p).ToList();
+
+                        orderModel.total = 0;
+                        foreach (var or in orders)
+                        {
+                            for (int i = 0; i < or.quantity; i++)
+                                orderModel.products.Add(DBProduct.toObject(or.products));
+                            orderModel.total += or.price;
+                        }
+                        orderList.Add(orderModel);
                     }
-                    return orderModel;
+                    return orderList;
                 }
                 catch (Exception ex)
                 {

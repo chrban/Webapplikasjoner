@@ -9,38 +9,70 @@ using System.Threading.Tasks;
 
 namespace Kaffeplaneten
 {
-    public class DBuser
+    public class DBUser
     {
 
-        public bool add(byte[] IncPassword, Customers newCustomer, CustomerContext db)
+        public static bool add(UserModel userModel)
         {
-            try
+            using (var db = new CustomerContext())
             {
-                Debug.WriteLine("Test1,5");
-                Debug.WriteLine("Test2");
-                var newUser = new Users()
+                try
                 {
-                    email = newCustomer.email,
-                    password = IncPassword
-                };
-                newUser.customer = newCustomer;
-                db.Users.Add(newUser);
-                Debug.WriteLine("Lagring fullført!");
-                return true;
-            }
-            catch (DbEntityValidationException dbEx)
-            {
-                foreach (var validationErrors in dbEx.EntityValidationErrors)
-                {
-                    foreach (var validationError in validationErrors.ValidationErrors)
+                    Debug.WriteLine("Test1,5");
+                    Debug.WriteLine("Test2");
+                    var newUser = new Users()
                     {
-                        Trace.TraceInformation("Property: {0} Error: {1}",
-                                                validationError.PropertyName,
-                                                validationError.ErrorMessage);
-                    }
+                        email = userModel.username,
+                        password = userModel.passwordHash
+                    };
+                    newUser.customer = db.Customers.Find(userModel.customerID);
+                    if (newUser.customer == null)
+                        return false;
+                    db.Users.Add(newUser);
+                    db.SaveChanges();
+                    Debug.WriteLine("Lagring fullført!");
+                    return true;
                 }
-                return false;
+                catch (DbEntityValidationException dbEx)
+                {
+                    foreach (var validationErrors in dbEx.EntityValidationErrors)
+                    {
+                        foreach (var validationError in validationErrors.ValidationErrors)
+                        {
+                            Trace.TraceInformation("Property: {0} Error: {1}",
+                                                    validationError.PropertyName,
+                                                    validationError.ErrorMessage);
+                        }
+                    }
+                    return false;
+                }
+            }
+        }
 
+        public static UserModel get(string email)
+        {
+            using (var db = new CustomerContext())
+            {
+                try
+                {
+                    var user = (from u in db.Users
+                                where u.email.Equals(email)
+                                select u).FirstOrDefault();
+                    if (user == null)
+                        return null;
+
+                    var userModel = new UserModel();
+                    userModel.customerID = user.customerID;
+                    userModel.passwordHash = user.password;
+                    userModel.username = user.email;
+                    return userModel;
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine("\nERROR!\nMelding:\n" + ex.Message + "\nInner exception:" + ex.InnerException + "\nKastet fra\n" + ex.TargetSite + "\nTrace:\n" + ex.StackTrace);
+                    Trace.TraceInformation("Property: {0} Error: {1}", ex.Source, ex.InnerException);
+                }
+                return null;
             }
         }
         public static bool update(UserModel userModel)

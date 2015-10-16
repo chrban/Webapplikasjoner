@@ -1,4 +1,4 @@
-﻿@model Kaffeplaneten.Models.OrderModel
+﻿@model List<Kaffeplaneten.Models.OrderModel>
 @{
     ViewBag.Title = "orderHistoryView";
 }
@@ -8,38 +8,43 @@
 <h2>Order History</h2>
 
 <div class="container">
-    <div class="row">
-        <h3>
-            Ordre nummer:
-            @Model.orderNr
-        </h3>
-    </div>
-    <div class="row">
-        <h4>Produkter:</h4>
-    </div>
-
-    @foreach (var o in Model.products)
+    @foreach (var o in Model)
     {
-
         <div class="row">
-
-            @Html.LabelFor(model => o.productName)
-            @Html.DisplayFor(model => o.productName)
+            <h3>
+                Ordre nummer:
+                @Model.orderNr
+            </h3>
         </div>
         <div class="row">
-
-            @Html.LabelFor(model => o.description)
-            @Html.DisplayFor(model => o.description)
+            <h4>Produkter:</h4>
         </div>
+
+        foreach (var or in o.products)
+        {
+
+            <div class="row">
+
+                @Html.LabelFor(model => or.productName)
+                @Html.DisplayFor(model => or.productName)
+            </div>
+            <div class="row">
+
+                @Html.LabelFor(model => or.description)
+                @Html.DisplayFor(model => or.description)
+            </div>
+            <div class="row">
+
+                @Html.LabelFor(model => or.price)
+                @Html.DisplayFor(model => or.price)
+            </div>
+            <br />
+        }
         <div class="row">
-
-            @Html.LabelFor(model => o.price)
-            @Html.DisplayFor(model => o.price)
+            Totalt:
+            @o.total
         </div>
-        <br />
     }
-    <div class="row">
-        Totalt: 
-        @Model.total
-    </div>
+
+
 </div>

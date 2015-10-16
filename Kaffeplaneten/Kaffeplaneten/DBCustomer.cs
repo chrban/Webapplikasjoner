@@ -12,14 +12,15 @@ namespace Kaffeplaneten
 
     public class DBCustomer
     {
-        public Customers add(CustomerModel IncCustomer,  CustomerContext db)
+        public static bool add(CustomerModel IncCustomer)
         {
             Debug.WriteLine("Test1");
-
-            try
+            using (var db = new CustomerContext())
             {
-                if (db.Customers.Find(IncCustomer.customerID) == null)
+                try
                 {
+                    if (!(db.Customers.Find(IncCustomer.customerID) == null))
+                        return false;
                     var newCustomer = new Customers()
                     {
                         email = IncCustomer.email,
@@ -27,136 +28,76 @@ namespace Kaffeplaneten
                         lastName = IncCustomer.lastName,
                         phone = IncCustomer.phone
                     };
-                    Debug.WriteLine("Test2");
-                    //Sjekker om adressene er like
-                    if (IncCustomer.payAdress.Equals(IncCustomer.adress))
-                    {
-                        var newAdress = new Adresses()
-                        {
-                            payAdress = true,
-                            deliveryAdress = true,
-                            zipCode = IncCustomer.zipCode,
-                            streetName = IncCustomer.adress,
-                        };
-                        newAdress.customers = newCustomer;
-                        Debug.WriteLine("Test3");
-                        Debug.WriteLine("Test4");
-                        var ExistingProvince = db.Provinces.Find(IncCustomer.payZipcode);
-                        Debug.WriteLine("test5");
-
-                        if (ExistingProvince == null)
-                        {
-                            var newProvince = new Provinces()
-                            {
-                                zipCode = IncCustomer.zipCode,
-                                province = IncCustomer.province
-                            };
-                            newAdress.province = newProvince;
-                            db.Provinces.Add(newProvince);
-                        }
-                        else
-                            newAdress.province = ExistingProvince;
-
-                        db.Adresses.Add(newAdress);
-
-                        Debug.WriteLine("SAVEDCHANGED CONFIRMED");
-                    }
-                    //Ulike adresser
-                    else
-                    {
-                        var newPaymentAdress = new Adresses()
-                        {
-                            payAdress = true,
-                            deliveryAdress = false,
-                            zipCode = IncCustomer.payZipcode,
-                            streetName = IncCustomer.payAdress,
-
-                        };
-                        newPaymentAdress.customers = newCustomer;
-                        var ExistingProvince = db.Provinces.Find(IncCustomer.payZipcode);
-                        if (ExistingProvince == null)
-                        {
-                            var newPaymentProvince = new Provinces()
-                            {
-                                zipCode = IncCustomer.payZipcode,
-                                province = IncCustomer.payProvince
-                            };
-                            newPaymentAdress.province = newPaymentProvince;
-                            db.Provinces.Add(newPaymentProvince);
-                        }
-                        else
-                            newPaymentAdress.province = ExistingProvince;
-                        db.Adresses.Add(newPaymentAdress);
-
-                        var newAdress = new Adresses()
-                        {
-                            payAdress = false,
-                            deliveryAdress = true,
-                            zipCode = IncCustomer.zipCode,
-                            streetName = IncCustomer.adress,
-
-                        };
-                        ExistingProvince = db.Provinces.Find(IncCustomer.zipCode);
-                        if (ExistingProvince == null)
-                        {
-                            var newProvince = new Provinces()
-                            {
-                                zipCode = IncCustomer.zipCode,
-                                province = IncCustomer.province
-                            };
-                            newAdress.province = newProvince;
-                            db.Provinces.Add(newProvince);
-                        }
-
-                        else
-                            newAdress.province = ExistingProvince;
-                        db.Adresses.Add(newAdress);
-
-                        db.Customers.Add(newCustomer);
-
-                        Debug.WriteLine("Test7");
-                        Debug.WriteLine("Test8");
-                    }
-                    return newCustomer;
+                    newCustomer = db.Customers.Add(newCustomer);
+                    db.SaveChanges();
+                    IncCustomer.customerID = newCustomer.customerID;
                 }
-                return null;
-                
-            }
-
-            catch (DbEntityValidationException dbEx)
-            {
-                foreach (var validationErrors in dbEx.EntityValidationErrors)
+                catch (DbEntityValidationException dbEx)
                 {
-                    foreach (var validationError in validationErrors.ValidationErrors)
+                    foreach (var validationErrors in dbEx.EntityValidationErrors)
                     {
-                        Trace.TraceInformation("Property: {0} Error: {1}",
-                                                validationError.PropertyName,
-                                                validationError.ErrorMessage);
-                    }
-                }
-                return null;
+                        foreach (var validationError in validationErrors.ValidationErrors)
+                        {
+                            Trace.TraceInformation("Property: {0} Error: {1}",
+                                                    validationError.PropertyName,
+                                                    validationError.ErrorMessage);
+                        }
+                    }//end foreach
+                    return false;
+                }//end catch
+            }//end using
+
+            Debug.WriteLine(IncCustomer.customerID);
+
+            //Sjekker om adressene er like
+            if (IncCustomer.payAdress.Equals(IncCustomer.adress))
+            {
+                var adressModel = new AdressModel()
+                {
+                    customerID = IncCustomer.customerID,
+                    payAdress = true,
+                    deliveryAdress = true,
+                    zipCode = IncCustomer.zipCode,
+                    streetName = IncCustomer.adress,
+                    province = IncCustomer.province
+                };
+
+
+                addAdress(adressModel);
+
+                Debug.WriteLine("SAVEDCHANGED CONFIRMED");
             }
+            //Ulike adresser
+            else
+            {
+                var newPaymentAdress = new AdressModel()
+                {
+                    customerID = IncCustomer.customerID,
+                    payAdress = true,
+                    deliveryAdress = false,
+                    zipCode = IncCustomer.payZipcode,
+                    streetName = IncCustomer.payAdress,
+                    province = IncCustomer.payProvince
 
+                };
+                addAdress(newPaymentAdress);
 
-            /*   
-             SLETTE-METODE SOM TILHØRER TØNSAGER SIN DEL   
+                var newAdress = new AdressModel()
+                {
+                    customerID = IncCustomer.customerID,
+                    payAdress = false,
+                    deliveryAdress = true,
+                    zipCode = IncCustomer.zipCode,
+                    streetName = IncCustomer.adress,
+                    province = IncCustomer.province
 
-                public bool delete(string email)
+                };
+                addAdress(newAdress);
 
-               {
-                   var db = new CustomerContext();
-                   try
-                   {
-                       Customer deleteCustomer = db.Customers.Find(mail);
-                       db.Customers.Remove(deleteCustomer);
-                       db.SaveChanges();
-                       return true;
-                   }
-                   catch (Exception feil)
-                   {
-                       return false;
-                   }
-               } */
+                Debug.WriteLine("Test7");
+                Debug.WriteLine("Test8");
+            }
+            return true;
         }
         public static CustomerModel find(int id)
         {
