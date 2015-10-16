@@ -12,7 +12,7 @@ namespace Kaffeplaneten.Controllers
     public class SecurityController : SuperController
     {
         // GET: Security
-
+        
         public ActionResult Loginview()
         {
             if (Session["LoggedIn"] == null)
@@ -47,7 +47,6 @@ namespace Kaffeplaneten.Controllers
             if (Session["LoggedIn"] != null)
             {
                 bool loggetInn = (bool)Session["LoggetInn"];
-                int CustomerID = (int)Session["CustomerID"];
                 if (loggetInn)
                 {
                     return View();

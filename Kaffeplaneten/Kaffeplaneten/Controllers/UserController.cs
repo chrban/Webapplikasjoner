@@ -76,7 +76,7 @@ namespace Kaffeplaneten.Controllers
                 return RedirectToAction("editAccountView");
             }
             //customerModel.customerID = Session[< signed in user >].customerID;
-            customerModel.customerID = (int)Session["CustomerID"];
+            customerModel.customerID = getActiveUserID();
 
             var userModel = DBUser.get(customerModel.customerID);
             userModel.username = customerModel.email;
