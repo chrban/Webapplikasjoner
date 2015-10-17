@@ -26,17 +26,87 @@ namespace Kaffeplaneten.Controllers
             return View();
         }
 
-        public JsonResult GetAllProducts()
+        public ActionResult GetAllProducts()
         {
             var productDB = new DBProduct();
 
-            Debug.WriteLine("json metoden kjører");
-            JsonResult ut = Json(productDB.getAllProducts(), JsonRequestBehavior.AllowGet);
+            var ProduktList = productDB.getAllProducts();
 
-            return ut;
+            Session["ProductList"] = ProduktList;
+
+            return View(ProduktList);
+        }
+        public ActionResult ProductDetails(int id)
+        {
+
+            var ProduktList = (List<ProductModel>)Session["ProductList"];
+
+            Debug.WriteLine("Id i Detailcontroller" + id);
+            foreach(var product in ProduktList)
+            {
+                if (product.productID == id)
+                {
+                    return View(product);
+                }
+            }
+
+
+            return View();
         }
 
-        
+        /*
+                [HttpPost]
+                public JsonResult GetProductById(int id)
+                {
+                    Debug.WriteLine("getProduct metoden kjører ----------- motatt id: " + id);
+
+                    var listen = (List<Products>)Session["list"];
+                    listen.ToList();
+                    foreach(var i in listen)
+                    {
+                        if (i.productID == id )
+                        {
+                            Session["ProduktID"] = id;
+
+                            return Json(i, JsonRequestBehavior.AllowGet);
+                        }
+
+                    }
+                            return Json("Error", JsonRequestBehavior.AllowGet);
+                }
+
+                public void setSessionId(int id)
+                {
+                    Debug.WriteLine("SetSessionID = " + id);
+                    Session["ProduktID"] = id;
+                }
+
+                    */
+
+
+
+
+        /* public JsonResult GetUniqeCategories()
+         {
+             var productDb = new DBProduct();
+
+             var listen = productDb.getAllCategories();
+
+             foreach (var b in listen)
+             {
+                 if (!nedtrekk.Contains(b.Sjanger))
+                 {
+                     nedtrekk.Add(b.Sjanger);
+                 }
+             }
+
+             Debug.Write("liste " + listen);
+
+             JsonResult ut = Json(listen, JsonRequestBehavior.AllowGet);
+             return ut;
+         }
+         */
+
 
 
 

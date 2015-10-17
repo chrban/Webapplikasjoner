@@ -136,12 +136,12 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Web.config" />
-    <Content Include="Views\Product\ProductDetailsView.cshtml" />
     <Content Include="Views\User\accountView.cshtml" />
     <Content Include="Views\User\editAccountView.cshtml" />
     <Content Include="Views\Security\Loginview.cshtml" />
     <Content Include="Views\Order\orderHistoryView.cshtml" />
     <Content Include="Views\Order\recitView.cshtml" />
+    <Content Include="Views\Product\ProductDetails.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

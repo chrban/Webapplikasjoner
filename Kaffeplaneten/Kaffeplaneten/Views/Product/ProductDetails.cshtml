@@ -1,0 +1,22 @@
+﻿@model Kaffeplaneten.Models.ProductModel
+
+@{
+    ViewBag.Title = "ProductDetails";
+}
+
+<h2>ProductDetails</h2>
+<div class="cat-{{category}}">
+    <div id="template" class="col-sm-6 col-md-6">
+        <div class="thumbnail">
+            <img img src="../../Content/img/@Html.DisplayFor(Model => Model.imageURL)" alt="ProductImage" data-toggle="modal" data-target="#myModal" style="width:150px;height:150px">
+            <div class="caption">
+                <h3 id="pName">@Html.DisplayFor(Model => Model.productName)</h3>
+                <h2>@Html.DisplayFor(Model => Model.price)</h2>
+                <p id="pDes">@Html.DisplayFor(Model => Model.description)</p>
+            </div>
+            <p>@Model.productID</p>
+
+        </div>
+    </div>
+</div>
+

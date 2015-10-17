@@ -10,20 +10,45 @@ namespace Kaffeplaneten
     public class DBProduct
     {
 
-        public List<Products> getAllProducts()
+        public List<ProductModel> getAllProducts()
         {
             var db = new CustomerContext();
+            List<ProductModel> ProductList = new List<ProductModel>();
 
             var produkter = (from p in db.Products select p).ToList();
+            foreach (var p in produkter)
+            {
+                var newProductModel = new ProductModel();
+                newProductModel.productID = p.productID;
+                newProductModel.category = p.category;
+                newProductModel.productName = p.productName;
+                newProductModel.price = p.price;
+                newProductModel.imageURL = p.imageURL;
+                newProductModel.description = p.description;
+                newProductModel.stock = p.stock;
+                ProductList.Add(newProductModel);
+                
+            }
 
-            return produkter;
+
+            return ProductList;
         }
 
-       /* public List<Products> getAllCategories()
+     /*   public List<Products> getAllCategories()
         {
             var db = new CustomerContext();
+
+            var catergories =(from c in db.Products
+                              select)
+                
+                
+                //(p => p.category).Distinct().ToList();
+
+           // foreach (var p in db.Products.Select(p => p.category).Distinct().Select(p));
+            //    return catergories;
         }
         */
+        
         //TODO - Christer: Skal endres (return hele ProductsDBlist)
         public List<Products> getProductsByCategory(string kategori)
         {
@@ -41,6 +66,7 @@ namespace Kaffeplaneten
             var db = new CustomerContext();
 
             var produkter = db.Products.Where(s => s.productID == 1);
+            
 
             return produkter.ToList();
         }

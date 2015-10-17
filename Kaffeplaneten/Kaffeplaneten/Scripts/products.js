@@ -7,13 +7,24 @@ function getAllProductsInitial() {
             var template = $('#productTemplate').html();
             var html = Mustache.to_html(template, data[i]);
             $('#productCanvas').append(html);
+            
 
-            //TODO- Christer: fikse dette
-            //var template2 = $('#categoryTemplate').html();
-            //var html2 = Mustache.to_html(template2, data[i]);
-            //$('#categoryCanvas').append(html2);
+
         }
     });
+}
+
+function testfunc(id) {
+    window.alert("motatt id før " + id);
+    $.getJSON("/Product/GetProductById", { id},
+        function (data) {
+            
+                var template = $('#testTemplate').html();
+                var html = Mustache.to_html(template, data);
+                $('#testCanvas').append(html);
+            
+        });
+   
 }
 
 
