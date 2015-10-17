@@ -30,7 +30,7 @@ namespace Kaffeplaneten.Controllers
         [HttpPost]
         public ActionResult Loginview(UserModel user)
         {
-            if (findCustomer(user))
+            if (loginUser(user))
             {
                 Debug.WriteLine("Test - Fant kunde");
                 Session["LoggedIn"] = true;
@@ -39,6 +39,7 @@ namespace Kaffeplaneten.Controllers
 
             }
             Debug.WriteLine("Returnerer view!");
+            ModelState.AddModelError("", "Feil brukernavn eller passord");
             return View();
         }
 
@@ -63,7 +64,7 @@ namespace Kaffeplaneten.Controllers
 
 
 
-        private bool findCustomer(UserModel incUser)
+        private bool loginUser(UserModel incUser)//Tester om brukernavn og passord er riktig
         {
             Debug.WriteLine(incUser.username);
 

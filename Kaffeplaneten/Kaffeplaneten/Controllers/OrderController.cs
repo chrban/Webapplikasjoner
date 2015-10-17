@@ -76,6 +76,4 @@ namespace Kaffeplaneten.Controllers
             return View(orderModel);
         }
     }
-
-
 }

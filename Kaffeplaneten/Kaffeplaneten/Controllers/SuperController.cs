@@ -15,7 +15,7 @@ namespace Kaffeplaneten.Controllers
         {
             return View();
         }
-        public int getActiveUserID()
+        public int getActiveUserID()//Returnerer customerID til inlogget customer. -1 hvis inger er innlogget
         {
             if (Session["CustomerID"] == null)
                 return -1;
