@@ -1,6 +1,7 @@
 ﻿using Kaffeplaneten.Models;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -10,84 +11,97 @@ namespace Kaffeplaneten.Controllers
     public class ShoppingCartController : Controller
     {
 
-        ShoppingCartModel cart = new ShoppingCartModel();
+        public ShoppingCartModel cart;                          // This is the cart. It will be initialized by the createCart() method.
 
-        public ActionResult ShoppingCartView()              // Returns the Shopping Cart View. Shows all current products in the cart.
+        public ActionResult ShoppingCartView()                  // Returns the Shopping Cart View. Shows all current products in the cart.
         {
             //return View(getShoppingCart());
             return View();
         }
-
+        [HttpPost]
         public void createCart()
         {
-
+            if(cart == null)                                    // Already created?
+            {
+                cart = new ShoppingCartModel();
+                Debug.WriteLine("KLARTE Å LAGE EN NY CART!");
+                testProducts();
+                return;
+            }
+            Debug.WriteLine("FAILED TO MAKE NEW CART!");
         }
 
-        /*public ActionResult getShoppingCartItems(ShoppingCartModel model)              // Gets the ShoppingCart object through the current Session. This object contains all the products.
+        public List<JsonResult> getShoppingCartItems()              // Gets the ShoppingCart object through the current Session. This object contains all the products.
         {
-            foreach (var items in model)
+            if(cart != null)
             {
-                var test = new JsonResult();  
+                return cart.ItemsInCart;
             }
-            return View(outputString);
-        }*/
-
-        /*public bool addToCart(JsonResult newProd, int quantity)
+            return null;
+        }
+        
+        public bool addToCart(JsonResult newProd, int quantity)
         {
             try
             {
-                foreach (var item in ItemsInShoppingCart)
-                {
-                    if (item.product.productID == newProd.productID)
+                for(int i = 0; i < cart.ItemsInCart.Count; i++)
+                {                
+                    if (cart.ItemsInCart[i].Equals(newProd))
                     {
-                        item.Quanitity += quantity;
+                        cart.Quantity[i] += quantity;
                         return true;
                     }
                 }
-                var newCartItem = new CartItem();
-                newCartItem.product = newProd;
-                newCartItem.Quanitity = quantity;
-                getShoppingCart().ItemsInShoppingCart.Add(newCartItem);
+                cart.ItemsInCart.Add(newProd);
+                cart.Quantity.Add(quantity);
+                return true;
             }
             catch (Exception error)
             {
-                Console.WriteLine("FAILED TO ADD ITEM: " + newProd.productID + " TO CART!");
+                Console.WriteLine("FAILED TO ADD ITEM TO CART!");
             };
             return false;
-        }*/
+        }
 
-        /*public void removeFromCart(int prodId, int quantity)
+        public bool removeFromCart(JsonResult productToBeRemoved, int quantity)
         {
             try
             {
-                foreach (var item in getShoppingCart().ItemsInShoppingCart)
+                foreach (var item in cart.ItemsInCart)
                 {
-                    if (item.product.productID == prodId)
+                    if (item.Equals(productToBeRemoved))
                     {
-                        getShoppingCart().ItemsInShoppingCart.Remove(item);
-                        return;
+                        cart.ItemsInCart.Remove(item);
+                        return true;
                     }
                 }
             }
             catch (Exception error)
             {
-                Console.WriteLine("FAILED TO REMOVE ITEM: " + prodId + " TO CART!");
+                Console.WriteLine("FAILED TO REMOVE ITEM TO CART!");
             };
-        }*/
-
-        /*public double calculateTotal()
-        {
-            double totalPrice = 0;
-            foreach (var item in getShoppingCart().ItemsInShoppingCart)
-            {
-                totalPrice += (item.product.price * item.Quanitity);
-            }
-            return totalPrice;
+            return false;
         }
 
         public int amountOfItems()
         {
-            return getShoppingCart().ItemsInShoppingCart.Count;
-        }*/
+            return cart.ItemsInCart.Count;
+        }
+
+        public void testProducts()
+        {
+            var productDB = new DBProduct();
+
+            JsonResult one = Json(productDB.getProductsByCategory("Test"), JsonRequestBehavior.AllowGet);
+            JsonResult two = Json(productDB.getProductsByCategory("Test2"), JsonRequestBehavior.AllowGet);
+            JsonResult three = Json(productDB.getProductsByCategory("Test3"), JsonRequestBehavior.AllowGet);
+
+            addToCart(one, 1);
+            Debug.WriteLine("1 ADDED!");
+            addToCart(two, 2);
+            Debug.WriteLine("2 ADDED!");
+            addToCart(three, 3);
+            Debug.WriteLine("3 ADDED!");
+        }
     }
 }

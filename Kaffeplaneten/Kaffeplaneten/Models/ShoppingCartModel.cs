@@ -10,6 +10,6 @@ namespace Kaffeplaneten.Models
     public class ShoppingCartModel
     {
         public List<JsonResult> ItemsInCart { get; set; }
-        public int Quanitity { get; set; }
+        public List<int> Quantity { get; set; }
     }
 }

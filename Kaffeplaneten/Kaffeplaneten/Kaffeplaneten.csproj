@@ -139,6 +139,7 @@
     <Content Include="Views\User\orderHistoryView.cshtml" />
     <Content Include="Views\User\editAccountView.cshtml" />
     <Content Include="Views\Security\Loginview.cshtml" />
+    <Content Include="Views\ShoppingCart\ShoppingCartView.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -183,7 +184,6 @@
     <Content Include="Views\Product\Index.cshtml" />
     <Content Include="Views\Product\AllProducts.cshtml" />
     <Content Include="Views\Order\OrderView.cshtml" />
-    <Content Include="Views\Order\ShoppingCartView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

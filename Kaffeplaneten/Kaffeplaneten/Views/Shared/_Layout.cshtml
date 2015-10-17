@@ -24,6 +24,21 @@
             <p>&copy; @DateTime.Now.Year - Kaffeplaneten</p>
         </footer>
     </div>
+    <script type="text/javascript">
+        window.onload = function createShoppingCart () {
+            $.ajax({
+                url: "/ShoppingCart/createCart",
+                datatype: "text",
+                type: "POST",
+                success: function (data) {
+                    $('#testarea').html("SUCCESS!!!!");
+                },
+                error: function () {
+                    $("#testarea").html("ERROR");
+                }
+            });
+        };
+    </script>
     <script src="~/Scripts/jquery-1.10.2.min.js"></script>
     <script src="~/Scripts/bootstrap.min.js"></script>
     <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
