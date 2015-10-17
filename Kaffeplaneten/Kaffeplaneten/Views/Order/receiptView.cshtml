@@ -1,0 +1,11 @@
+﻿@model Kaffeplaneten.Models.OrderModel
+
+@{
+    ViewBag.Title = "receiptView";
+}
+@Html.ValidationSummary(true)
+
+<h2>Kvittering</h2>
+@Html.Partial("OrderView");
+
+@Html.ActionLink("Hjem", "AllProducts", "Product", new { area = "" }, new { @class = "btn btn-success" })

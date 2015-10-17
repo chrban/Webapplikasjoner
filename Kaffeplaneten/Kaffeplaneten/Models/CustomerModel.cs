@@ -12,12 +12,12 @@ namespace Kaffeplaneten.Models
 
         [Display(Name = "Fornavn:")]
         [Required(ErrorMessage = "Fornavn må oppgis")]
-        [RegularExpression(@"[A-ZÆØÅ][a-z ,.'-]{2,50}", ErrorMessage = "Du må ha stor forbokstav og fornavnet må være lengre enn 3 bokstaver. Max-lengde er 50 ")]
+        [RegularExpression(@"[A-ZÆØÅ][a-zæøå ,.'-]{2,50}", ErrorMessage = "Du må ha stor forbokstav og fornavnet må være lengre enn 3 bokstaver. Max-lengde er 50 ")]
         public string firstName { get; set; }
 
         [Display(Name = "Etternavn:")]
         [Required(ErrorMessage = "Etternavn må oppgis")]
-        [RegularExpression(@"[A-ZÆØÅ][a-z]{1,50}", ErrorMessage = "Du må ha stor forbokstav og etternavnet må være lengre enn 2 bokstaver. Max-lengde er 50 ")]
+        [RegularExpression(@"[A-ZÆØÅ][a-zæøå]{1,50}", ErrorMessage = "Du må ha stor forbokstav og etternavnet må være lengre enn 2 bokstaver. Max-lengde er 50 ")]
         public string lastName { get; set; }
 
         [Display(Name = "Brukernavn(Epost):")]

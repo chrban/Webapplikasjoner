@@ -8,44 +8,7 @@
 <fieldset>
     <legend>Brukerdetaljer</legend>
 
-    <div class="editor-label">
-        @Html.LabelFor(model => model.customerID)
-        @Html.DisplayFor(model => model.customerID)
-    </div>
-    <div class="editor-label">
-        @Html.LabelFor(model => model.firstName)
-        @Html.DisplayFor(model => model.firstName)
-    </div>
-
-    <div class="editor-label">
-        @Html.LabelFor(model => model.lastName)
-        @Html.DisplayFor(model => model.lastName)
-    </div>
-
-    <div class="editor-label">
-        @Html.LabelFor(model => model.email)
-        @Html.DisplayFor(model => model.email)
-    </div>
-    <div class="editor-label">
-        @Html.LabelFor(model => model.phone)
-        @Html.DisplayFor(model => model.phone)
-    </div>
-    <div class="editor-label">
-        @Html.LabelFor(model => model.adress)
-        @Html.DisplayFor(model => model.adress)
-    </div>
-    <div class="editor-label">
-        @Html.LabelFor(model => model.zipCode)
-        @Html.DisplayFor(model => model.zipCode)
-    </div>
-    <div class="editor-label">
-        @Html.LabelFor(model => model.payAdress)
-        @Html.DisplayFor(model => model.payAdress)
-    </div>
-    <div class="editor-label">
-        @Html.LabelFor(model => model.payZipcode)
-        @Html.DisplayFor(model => model.payZipcode)
-    </div>
+    @Html.Partial("customerView", Model)
 
     @Html.ActionLink("Endre", "editAccountView", "User", new { area = "" }, new { @class = "btn btn-success" })
     @Html.ActionLink("Se ordrehistorie", "orderHistoryView", "Order", new { area = "" }, new { @class = "btn btn-success" })

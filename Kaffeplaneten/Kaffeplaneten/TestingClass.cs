@@ -1,4 +1,5 @@
-﻿using Kaffeplaneten.Models;
+﻿using Kaffeplaneten.Controllers;
+using Kaffeplaneten.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity.Validation;
@@ -59,13 +60,12 @@ namespace Kaffeplaneten
         }
         public static void addUser(CustomerModel customerModel)
         {
-            var db = new CustomerContext();
-            var user = new Users();
-            user.email = customerModel.email;
-            user.password = new byte[10];
-            user.customer = db.Customers.Find(customerModel.customerID);
-            db.Users.Add(user);
-            db.SaveChanges();
+            var temp = new SuperController();
+            var userModel = new UserModel();
+            userModel.customerID = customerModel.customerID;
+            userModel.passwordHash= temp.getHash(customerModel.password);
+            userModel.username = customerModel.email;
+            DBUser.add(userModel);
         }
         public static void addProduct(ProductModel productModel)
         {
@@ -114,7 +114,7 @@ namespace Kaffeplaneten
             var customer = new CustomerModel();
             customer.firstName = "Ola";
             customer.lastName = "Nordmann";
-            customer.password = "123";
+            customer.password = "Gt123456789";
             customer.passwordVerifier = customer.password;
             customer.payAdress = "Bætaveien 2";
             customer.payZipcode = "1234";
@@ -142,7 +142,8 @@ namespace Kaffeplaneten
         {
             var order = new OrderModel();
             order.products.Add(createProduct());
-            order.products.Add(createProduct());
+            foreach (var p in order.products)
+                p.quantity = 2;
             order.total=20000;
             return order;
         }
