@@ -36,7 +36,7 @@ namespace Kaffeplaneten.Controllers
                 Session["LoggedIn"] = true;
                 Session["CustomerID"] = DBUser.get(user.username).customerID;
                 ViewBag.LoggedOn = true;
-
+                return View();
             }
             Debug.WriteLine("Returnerer view!");
             ModelState.AddModelError("", "Feil brukernavn eller passord");

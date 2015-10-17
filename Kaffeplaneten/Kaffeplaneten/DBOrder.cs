@@ -16,17 +16,17 @@ namespace Kaffeplaneten
         {
             using (var db = new CustomerContext())
             {
-            try
-            {
+                try
+                {
                     var customer = db.Customers.Find(orderModel.customerID);
-                    if (customer == null)
+                    if (customer == null)//tester om ordren tilhører en eksisterende kunde
                         return false;
                     var order = new Orders();
                     order.Customers = customer;
                     db.Orders.Add(order);
                     db.SaveChanges();
-                    orderModel.orderNr = order.orderNr;
-                    return addProductOrders(orderModel);
+                    orderModel.orderNr = order.orderNr;//lagrer ordrenummeret i modellen for senere bruk
+                    return addProductOrders(orderModel);//legger til produkt ordrene
                     
                 }
                 catch (Exception ex)
@@ -45,17 +45,17 @@ namespace Kaffeplaneten
                 try
                 {
                     var order = db.Orders.Find(orderModel.orderNr);
-                    if (order == null)
+                    if (order == null)//tester om ordren eksisterer
                         return false;
                     var productOrders = new List<ProductOrders>();
-                    foreach (var p in orderModel.products)
+                    foreach (var p in orderModel.products)//Opretter ProductOrders fra modellen
                     {
                         var productOrder = new ProductOrders();
                         productOrder.orders = order;
                         productOrder.price = p.price;
                         productOrder.products = db.Products.Find(p.productID);
                         productOrder.quantity = 1;
-                        var temp = productOrders.Find(x => x.products.productID == p.productID);
+                        var temp = productOrders.Find(x => x.products.productID == p.productID);//tester om dette produktet finnes i ordren fra før
                         if (temp == null)
                         {
                             productOrder.price = p.price;
@@ -67,11 +67,8 @@ namespace Kaffeplaneten
                             temp.quantity++;
                         }
                     }
-                    foreach (var po in productOrders)
-                    {
+                    foreach (var po in productOrders)//legger ProductOrders inn i databasen
                         db.ProductOrders.Add(po);
-                        Debug.WriteLine(po.productID);
-                    }
                     db.SaveChanges();
                     return true;
                     }
@@ -120,7 +117,7 @@ namespace Kaffeplaneten
                 return false;
             }
         }
-        public static OrderModel find(int nr)
+        public static OrderModel find(int nr)//Henter ut en OrderModel fra en ordre med ordreNr lik nr
         {
             using (var db = new CustomerContext())
             {
@@ -129,16 +126,18 @@ namespace Kaffeplaneten
                     var order = (from o in db.Orders
                                  where o.orderNr == nr
                                  select o).FirstOrDefault();
-                    var orderModel = new OrderModel();
+                    if (order == null)//tester om orderen finnes
+                        return null;
 
+                    var orderModel = new OrderModel();
                     orderModel.orderNr = order.orderNr;
                     orderModel.customerID = order.customerID;
+
                     var productOrders = (from p in db.ProductOrders
                                   where p.orderNr == nr
                                   select p).ToList();
-
                     orderModel.total = 0;
-                    foreach (var o in productOrders)
+                    foreach (var o in productOrders)//legger produktene til i order modellen
                     {
                         for (int i = 0; i < o.quantity; i++)
                             orderModel.products.Add(DBProduct.find(o.products.productID));
@@ -156,7 +155,7 @@ namespace Kaffeplaneten
             return null;
         }
 
-        public static List<OrderModel> findOrders(int id)
+        public static List<OrderModel> findOrders(int id)//Henter ut en liste med alle ordre for kunde med customerID lik id
         {
 
             using (var db = new CustomerContext())
@@ -167,7 +166,7 @@ namespace Kaffeplaneten
                                  where o.orderNr == id
                                  select o).ToList();
                     var orderModelList = new List<OrderModel>();
-                    foreach (var o in orders)
+                    foreach (var o in orders)//legger order modellene inn i listen
                         orderModelList.Add(find(o.orderNr));
                     return orderModelList;
                 }
@@ -176,8 +175,8 @@ namespace Kaffeplaneten
                     Debug.WriteLine("\nERROR!\nMelding:\n" + ex.Message + "\nInner exception:" + ex.InnerException + "\nKastet fra\n" + ex.TargetSite + "\nTrace:\n" + ex.StackTrace);
                     Trace.TraceInformation("Property: {0} Error: {1}", ex.Source, ex.InnerException);
                 }
-            }
+            }//end using
             return null;
-        }
-    } 
-}
+        }//end findOrders()
+    } //end namespace
+}//end class

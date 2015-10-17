@@ -301,6 +301,5 @@ namespace Kaffeplaneten
 
             return false;
         }
-
-    }
-}
+    }//end namespace
+}//end class

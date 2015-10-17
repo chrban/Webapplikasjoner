@@ -75,11 +75,6 @@ namespace Kaffeplaneten.Controllers
         [HttpPost]
         public ActionResult editAccountView(CustomerModel customerModel)
         {
-            if (!ModelState.IsValid)
-            {
-                ModelState.AddModelError("", "Feil ved registrering av data");
-                return RedirectToAction("editAccountView");
-            }
             customerModel.customerID = getActiveUserID();
 
             var userModel = DBUser.get(customerModel.customerID);//henter ut user modellen
