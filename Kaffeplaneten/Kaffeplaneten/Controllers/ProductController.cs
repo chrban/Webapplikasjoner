@@ -68,9 +68,8 @@ namespace Kaffeplaneten.Controllers
 
         public ActionResult GetAllProducts()
         {
-            //var productDB = new DBProduct();
-            //var ProductList = productDB.getAllProducts();
-            var ProductList = ProductModel.getAllProducts();
+            var productDB = new DBProduct();
+            var ProductList = productDB.getAllProducts();
 
 
             Session["ProductList"] = ProductList;
