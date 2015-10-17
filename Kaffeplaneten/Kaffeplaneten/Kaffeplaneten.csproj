@@ -142,6 +142,7 @@
     <Content Include="Views\Security\Loginview.cshtml" />
     <Content Include="Views\Order\orderHistoryView.cshtml" />
     <Content Include="Views\Order\recitView.cshtml" />
+    <Content Include="Views\ShoppingCart\ShoppingCartView.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

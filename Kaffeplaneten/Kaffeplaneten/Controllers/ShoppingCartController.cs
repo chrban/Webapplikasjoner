@@ -11,8 +11,6 @@ namespace Kaffeplaneten.Controllers
     public class ShoppingCartController : Controller
     {
 
-        public ShoppingCartModel cart;                          // This is the cart. It will be initialized by the createCart() method.
-
         public ActionResult ShoppingCartView()                  // Returns the Shopping Cart View. Shows all current products in the cart.
         {
             //return View(getShoppingCart());
@@ -21,9 +19,13 @@ namespace Kaffeplaneten.Controllers
         [HttpPost]
         public void createCart()
         {
-            if(cart == null)                                    // Already created?
+
+            if (Session["ShoppingCart"] == null)                                    // Already created?
             {
-                cart = new ShoppingCartModel();
+                Session["ShoppingCart"] = new ShoppingCartModel();                          // This is the cart. It will be initialized by the createCart() method.
+                var cart = ((ShoppingCartModel)Session["ShoppingCart"]);
+                cart.ItemsInCart = new List<JsonResult>();
+                cart.Quantity = new List<int>();
                 Debug.WriteLine("KLARTE Å LAGE EN NY CART!");
                 testProducts();
                 return;
@@ -31,17 +33,30 @@ namespace Kaffeplaneten.Controllers
             Debug.WriteLine("FAILED TO MAKE NEW CART!");
         }
 
+        [HttpGet]
         public List<JsonResult> getShoppingCartItems()              // Gets the ShoppingCart object through the current Session. This object contains all the products.
         {
-            if(cart != null)
+            var cart = ((ShoppingCartModel)Session["ShoppingCart"]);
+            if (cart != null)
             {
                 return cart.ItemsInCart;
             }
             return null;
         }
-        
+
+        public JsonResult getItemAt(int spot)              // Gets the ShoppingCart object through the current Session. This object contains all the products.
+        {
+            var cart = ((ShoppingCartModel)Session["ShoppingCart"]);
+            if (cart != null)
+            {
+                return cart.ItemsInCart.ElementAt(spot);
+            }
+            return null;
+        }
+
         public bool addToCart(JsonResult newProd, int quantity)
         {
+            var cart = ((ShoppingCartModel)Session["ShoppingCart"]);
             try
             {
                 for(int i = 0; i < cart.ItemsInCart.Count; i++)
@@ -54,6 +69,8 @@ namespace Kaffeplaneten.Controllers
                 }
                 cart.ItemsInCart.Add(newProd);
                 cart.Quantity.Add(quantity);
+                Debug.WriteLine("Added" + quantity);
+                Debug.WriteLine("Amount:" + amountOfItems());
                 return true;
             }
             catch (Exception error)
@@ -65,6 +82,7 @@ namespace Kaffeplaneten.Controllers
 
         public bool removeFromCart(JsonResult productToBeRemoved, int quantity)
         {
+            var cart = ((ShoppingCartModel)Session["ShoppingCart"]);
             try
             {
                 foreach (var item in cart.ItemsInCart)
@@ -85,7 +103,7 @@ namespace Kaffeplaneten.Controllers
 
         public int amountOfItems()
         {
-            return cart.ItemsInCart.Count;
+            return ((ShoppingCartModel)Session["ShoppingCart"]).ItemsInCart.Count;
         }
 
         public void testProducts()
