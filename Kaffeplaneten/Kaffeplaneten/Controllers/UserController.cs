@@ -27,29 +27,34 @@ namespace Kaffeplaneten.Controllers
             Debug.WriteLine("Test1");
 
             var userModel = DBUser.get(newCustomer.email);
-            if (!(userModel == null))
+            if (!(userModel == null))//tester om en bruker med samme epost finnes fra før
             {
                 ModelState.AddModelError("", "Eposten du prøver å registrere finnes allerede. Vennligst benytt en annen adresse");
                 return View(newCustomer);
             }
-            if (DBCustomer.add(newCustomer))
+            if (!DBCustomer.add(newCustomer))//registrerer ny customer
             {
-                Debug.WriteLine("Test2");
-                userModel = new UserModel();
-                userModel.username = newCustomer.email;
-                userModel.passwordHash = base.getHash(newCustomer.password);
-                userModel.customerID = newCustomer.customerID;
-
-                if (DBUser.add(userModel))
-                    return RedirectToAction("Loginview", "Security", new { area = "" });
+                ModelState.AddModelError("", "Feil ved registrering av bruker");
+                return View(newCustomer);
             }
-            return View();
+            Debug.WriteLine("Test2");
+            userModel = new UserModel();
+            userModel.username = newCustomer.email;
+            userModel.passwordHash = base.getHash(newCustomer.password);
+            userModel.customerID = newCustomer.customerID;
+
+            if (!DBUser.add(userModel))//registrerer ny user
+            {
+                ModelState.AddModelError("", "Feil ved registrering av bruker");
+                return View(newCustomer);
+            }
+            return RedirectToAction("Loginview", "Security", new { area = "" });
         }
 
 
         public ActionResult accountView()
         {
-            if (Session["CustomerID"] == null)
+            if (getActiveUserID() == -1)
                 return RedirectToAction("Loginview", "Security", new { area = "" });
             var customer = DBCustomer.find((int)Session["CustomerID"]);
             return View(customer);
@@ -60,7 +65,7 @@ namespace Kaffeplaneten.Controllers
 
         public ActionResult editAccountView()
         {
-            if (Session["CustomerID"] == null)
+            if (getActiveUserID() == -1)
                 return RedirectToAction("Loginview", "Security", new { area = "" });
             var customerModel = DBCustomer.find((int)Session["CustomerID"]);
             return View(customerModel);
@@ -70,39 +75,24 @@ namespace Kaffeplaneten.Controllers
         [HttpPost]
         public ActionResult editAccountView(CustomerModel customerModel)
         {
-            if (!ModelState.IsValid)
-            {
-                ModelState.AddModelError("", "Feil ved registrering av data");
-                return RedirectToAction("editAccountView");
-            }
-            //customerModel.customerID = Session[< signed in user >].customerID;
             customerModel.customerID = getActiveUserID();
 
-            var userModel = DBUser.get(customerModel.customerID);
+            var userModel = DBUser.get(customerModel.customerID);//henter ut user modellen
             userModel.username = customerModel.email;
-            if (!(customerModel.password == null))
+            if (!(customerModel.password == null))//tester om passord skal endres
                 userModel.passwordHash = base.getHash(customerModel.password);
 
-            if(!DBUser.update(userModel))
+            if(!DBUser.update(userModel))//registrerer endinger i user
             {
                 ModelState.AddModelError("", "Epost finnes fra før");
                 return RedirectToAction("editAccountView");
             }
-            if (!DBCustomer.update(customerModel))
+            if (!DBCustomer.update(customerModel))//registrerer endring i customer
             {
                 ModelState.AddModelError("", "Feil ved registrering av data");
                 return RedirectToAction("editAccountView");
             }
             return RedirectToAction("accountView");
-
-        }
-
-        public ActionResult orderHistoryView()
-        {
-            if(Session["CustomerID"] == null)
-                return RedirectToAction("Loginview", "Security", new { area = "" });
-            var order = DBOrder.findOrders((int)Session["CustomerID"]);
-            return View(order);
 
         }
 

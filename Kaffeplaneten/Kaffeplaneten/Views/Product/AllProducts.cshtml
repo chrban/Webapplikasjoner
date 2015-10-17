@@ -2,48 +2,40 @@
 @{
     ViewBag.Title = "Products";
 }
-<div class="btn-group" role="group" aria-label="Kategori">
-    <button type="button" id="Arabica" class="btn btn-default" onclick="hentProdukter(this.id)">Arabica</button>
-    <button type="button" id="Robusta" class="btn btn-default" onclick="hentProdukter(this.id)">Robusta</button>
-    <button type="button" id="Bønner" class="btn btn-default" onclick="hentProdukter(this.id)">Bønner</button>
-    <button type="button" id="Kaffe" class="btn btn-default" onclick="hentProdukter(this.id)">Kaffe</button>
-</div>
 
+<body onload="getAllProductsInitial()">
+    <div class="btn-group" role="group" aria-label="Kategori">
+            <button type="button" id="Arabica" class="btn btn-default" onclick="hideUnwanted(this.id)">Arabica</button>
+            <button type="button" id="Robusta" class="btn btn-default" onclick="hideUnwanted(this.id)">Robusta</button>
+            <button type="button" id="Bønner" class="btn btn-default" onclick="hideUnwanted(this.id)">Bønner</button>
+            <button type="button" id="Kaffe" class="btn btn-default" onclick="hideUnwanted(this.id)">Kaffe</button>
+            <button type="button" id="test" class="btn btn-default" onclick="hideUnwanted(this.id)">Hide</button>
+        </div>
 
-<div id="productCanvas">
-    Siden er loaded, men ingen produkter er hentet ut. Velg produktkategori
-</div>
+    <div id="productCanvas">
+        Har du produkter i databasen?
+        Siden er loadet, men ingen produkter er hentet ut.
+    </div>
 
-<script type="text/javascript">
-    function hentProdukter(id)
-    {
-        $.getJSON("/Product/hentProdukter", { kategori: id }, function (data) {
-            $('#productCanvas').empty();
-            for (var i in data)
-                {
-                var template = $('#productTemplate').html();
-                    var html = Mustache.to_html(template, data[i])
-                    $('#productCanvas').append(html);
-                   
-                 }
-          });
-    }
-</script>
+    <script id="productTemplate" type="text/template">
+        <div class="cat-{{category}}">
+            <div id="template" class="col-sm-6 col-md-6">
+                <div class="thumbnail">
+                    <img img src="../../Content/img/{{imageURL}}" alt="ProductImage" data-toggle="modal" data-target="#myModal" style="width:150px;height:150px">
+                    <div class="caption">
+                        <h3 id="pName">{{productName}}</h3>
+                        <h2>{{price}},-</h2>
+                        <p id="pDes">{{description}}</p>
+                        <div id="{{productID}}"></div>
+                    </div>
 
-
-<script id="productTemplate" type="text/template">
-        <div id="template" class="col-sm-6 col-md-6">
-            <div id="utRes" class="thumbnail">
-                <img id="image" img src="../../Content/img/{{imageURL}}" alt="ProductImage" data-toggle="modal" data-target="#myModal" style="width:150px;height:150px">
-                <div class="caption">
-                    <h3 id="pName">{{productName}}</h3>
-                    <h2>{{price}},-</h2>
-                    <p id="pDes">{{description}}</p>
                 </div>
             </div>
         </div>
+    </script>
+</body>
+
+<script id="categoryTemplate" type="text/template">
+        <button type="button" id="{{category}}" class="btn btn-default" onclick="hideUnwanted(this.id)">{{category}}</button>
 </script>
-
-
-
 

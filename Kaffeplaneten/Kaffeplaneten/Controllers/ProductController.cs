@@ -13,16 +13,31 @@ namespace Kaffeplaneten.Controllers
         // GET: Product
         public ActionResult Index()
         {
+           
             RedirectToAction("AllProductsView");
+            
 
             return View();
         }
 
         public ActionResult AllProducts()
         {
-
+            GetAllProducts();
             return View();
         }
+
+        public JsonResult GetAllProducts()
+        {
+            var productDB = new DBProduct();
+
+            Debug.WriteLine("json metoden kjører");
+            JsonResult ut = Json(productDB.getAllProducts(), JsonRequestBehavior.AllowGet);
+
+            return ut;
+        }
+
+        
+
 
 
         //TODO - Christer: Endre metode til å holde Jsonobjektet alive for å sortere på klientside

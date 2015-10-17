@@ -28,9 +28,7 @@ namespace Kaffeplaneten.Models
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
          {
-             //modelBuilder.Entity<Provinces>().HasKey(p => p.zipCode);
-             modelBuilder.Entity<ProductOrders>().HasKey(p => new { p.orderNr, p.productID });
-             //modelBuilder.Entity<Adresses>().HasKey(p => new { p.customerID, p.zipCode });
+            modelBuilder.Entity<ProductOrders>().HasKey(p => new { p.orderNr, p.productID });
             modelBuilder.Entity<Users>().HasKey(p => p.customerID);
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
         }

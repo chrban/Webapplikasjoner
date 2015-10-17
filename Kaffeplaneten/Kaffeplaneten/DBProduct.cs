@@ -10,6 +10,20 @@ namespace Kaffeplaneten
     public class DBProduct
     {
 
+        public List<Products> getAllProducts()
+        {
+            var db = new CustomerContext();
+
+            var produkter = (from p in db.Products select p).ToList();
+
+            return produkter;
+        }
+
+       /* public List<Products> getAllCategories()
+        {
+            var db = new CustomerContext();
+        }
+        */
         //TODO - Christer: Skal endres (return hele ProductsDBlist)
         public List<Products> getProductsByCategory(string kategori)
         {

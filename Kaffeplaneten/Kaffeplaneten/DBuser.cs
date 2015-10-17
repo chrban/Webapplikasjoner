@@ -12,44 +12,42 @@ namespace Kaffeplaneten
     public class DBUser
     {
 
-        public static bool add(UserModel userModel)
+        public static bool add(UserModel userModel)//Legger en Users inn i databasen
         {
             using (var db = new CustomerContext())
             {
                 try
-            {
-                Debug.WriteLine("Test1,5");
-                Debug.WriteLine("Test2");
-                var newUser = new Users()
                 {
+                    var newUser = new Users()
+                    {
                         email = userModel.username,
                         password = userModel.passwordHash
-                };
+                    };
                     newUser.customer = db.Customers.Find(userModel.customerID);
-                    if (newUser.customer == null)
+                    if (newUser.customer == null)//tester om Users sin customer finnes
                         return false;
-                db.Users.Add(newUser);
+                    db.Users.Add(newUser);
                     db.SaveChanges();
-                Debug.WriteLine("Lagring fullført!");
-                return true;
-            }
-            catch (DbEntityValidationException dbEx)
-            {
-                foreach (var validationErrors in dbEx.EntityValidationErrors)
+                    Debug.WriteLine("Lagring fullført!");
+                    return true;
+                }
+                catch (DbEntityValidationException dbEx)
                 {
-                    foreach (var validationError in validationErrors.ValidationErrors)
+                    foreach (var validationErrors in dbEx.EntityValidationErrors)
                     {
-                        Trace.TraceInformation("Property: {0} Error: {1}",
-                                                validationError.PropertyName,
-                                                validationError.ErrorMessage);
-                    }
-                }
+                        foreach (var validationError in validationErrors.ValidationErrors)
+                        {
+                            Trace.TraceInformation("Property: {0} Error: {1}",
+                                                    validationError.PropertyName,
+                                                    validationError.ErrorMessage);
+                        }//end foreach
+                    }//end foreach
+                }//end catch
                 return false;
-                }
-            }
+            }//end using
         }
 
-        public static UserModel get(string email)
+        public static UserModel get(string email)//henter ut en UserModel med Users.email lik email
         {
             using (var db = new CustomerContext())
             {
@@ -58,7 +56,7 @@ namespace Kaffeplaneten
                     var user = (from u in db.Users
                                 where u.email.Equals(email)
                                 select u).FirstOrDefault();
-                    if (user == null)
+                    if (user == null)//tester om brukeren finnes
                         return null;
 
                     var userModel = new UserModel();
@@ -75,24 +73,24 @@ namespace Kaffeplaneten
                 return null;
             }
         }
-        public static bool update(UserModel userModel)
+        public static bool update(UserModel userModel)//Oppdaterer Users data med dataen i userModel
         {
             using (var db = new CustomerContext())
             {
                 try
                 {
                     var user = db.Users.Find(userModel.customerID);
-                    if (user == null)
+                    if (user == null)//tester om brukeren finnes
                         return false;
                     var customer = db.Customers.Find(userModel.customerID);
-                    if (customer == null)
+                    if (customer == null)//tester om kunden finnes
                         return false;
                     if(!userModel.username.Equals(user.email))
                     {
                         var email = (from p in db.Users
                                      where p.email.Equals(userModel.username)
                                      select p).FirstOrDefault();
-                        if (!(email == null))
+                        if (!(email == null))//tester om epostadressen finnes fra før
                             return false;
                         user.email = userModel.username;
                     }
@@ -108,7 +106,7 @@ namespace Kaffeplaneten
                 return false;
             }
         }
-        public static UserModel get(int id)
+        public static UserModel get(int id)//henter ut en UserModel fra User med customerID lik id
         {
             using (var db = new CustomerContext())
             {
@@ -127,7 +125,7 @@ namespace Kaffeplaneten
                     Trace.TraceInformation("Property: {0} Error: {1}", ex.Source, ex.InnerException);
                 }
                 return null;
-            }
-        }
-    }
-}
+            }//end using
+        }//end get()
+    }//end namespace
+}//end class
