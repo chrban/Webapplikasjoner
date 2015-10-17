@@ -30,7 +30,8 @@ namespace Kaffeplaneten.Controllers
         [HttpPost]
         public ActionResult Loginview(UserModel user)
         {
-            if (loginUser(user))
+            user.passwordHash = base.getHash(user.password);
+            if (DBUser.varifyUser(user))
             {
                 Debug.WriteLine("Test - Fant kunde");
                 Session["LoggedIn"] = true;
@@ -60,20 +61,6 @@ namespace Kaffeplaneten.Controllers
             Session["LoggetInn"] = false;
             Session["CustomerID"] = -1;
             return RedirectToAction("index");
-        }
-
-
-
-        private bool loginUser(UserModel incUser)//Tester om brukernavn og passord er riktig
-        {
-            Debug.WriteLine(incUser.username);
-
-            var existingUser = DBUser.get(incUser.username);
-            if (existingUser == null)
-                return false;
-            if (existingUser.passwordHash.SequenceEqual(base.getHash(incUser.password)))
-                return true;
-            return false;
         }
     }
 }
