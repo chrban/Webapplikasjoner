@@ -39,7 +39,7 @@ namespace Kaffeplaneten.Controllers
                 cart.ItemsInCart = new List<JsonResult>();
                 cart.Quantity = new List<int>();
                 Debug.WriteLine("KLARTE Å LAGE EN NY CART!");
-                testProducts();
+                //testProducts();
                 return;
             }
             Debug.WriteLine("FAILED TO MAKE NEW CART!");
@@ -118,7 +118,8 @@ namespace Kaffeplaneten.Controllers
             return ((ShoppingCartModel)Session["ShoppingCart"]).ItemsInCart.Count;
         }
 
-        public void testProducts()
+        //Denne kan vel slettes?? (christer)
+       /* public void testProducts()
         {
             var productDB = new DBProduct();
 
@@ -133,5 +134,6 @@ namespace Kaffeplaneten.Controllers
             addToCart(three, 3);
             Debug.WriteLine("3 ADDED!");
         }
+        */
     }
 }

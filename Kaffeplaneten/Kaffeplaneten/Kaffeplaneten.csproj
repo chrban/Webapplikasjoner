@@ -149,6 +149,8 @@
     <Content Include="Views\Security\LoggedIn.cshtml" />
     <Content Include="Views\Layout\HeaderAndMenuBar.cshtml" />
     <Content Include="Views\Product\ProductDetails.cshtml" />
+    <Content Include="Views\Product\ProductCategories.cshtml" />
+    <Content Include="Views\Product\ProductsInCategory.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -5,43 +5,78 @@ using System.Diagnostics;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-
+//TODO: Legge til feilhåndtering. Hvorfor fungerer ikke: using(var productBD = new DBProduct() ) ??
 namespace Kaffeplaneten.Controllers
 {
-    public class ProductController : SuperController
+    public class ProductController : SuperController 
     {
         // GET: Product
         public ActionResult Index()
         {
-           
             RedirectToAction("AllProductsView");
-            
-
             return View();
         }
 
         public ActionResult AllProducts()
         {
             GetAllProducts();
+
             return View();
         }
+
+        //public void FilterFroducts(List<ProductModel> ProductList)
+
+        public ActionResult ProductCategories()
+        {
+            var uniqeCategories = new List<string>();
+            var ProductList = (List<ProductModel>)Session["ProductList"];
+            if (ProductList == null)
+                    {
+                        try
+                        {
+                            var productDB = new DBProduct();
+                            ProductList = productDB.getAllProducts();
+                            if (ProductList == null)
+                                throw new Exception();
+                        }
+                        catch(Exception NPF)
+                        {
+                            return PartialView("No products found.. " + NPF.Message); // riktig å gi denne til bruker?
+                        }
+                    }
+                    foreach (var c in ProductList)
+                    {
+                        if (!uniqeCategories.Contains(c.category))
+                            uniqeCategories.Add(c.category);
+                    }
+            Session["UniqueCategories"] = uniqeCategories;
+            return View(uniqeCategories);
+        }
+
+        public PartialViewResult ProductsInCategory(string category)
+        {
+            var ProductList = (List<ProductModel>)Session["ProductList"];
+            var utListe = new List<ProductModel>();
+            foreach(var product in ProductList)
+            {
+                if (product.category == category)
+                    utListe.Add(product);
+            }
+            return PartialView(utListe);
+        }
+
 
         public ActionResult GetAllProducts()
         {
             var productDB = new DBProduct();
+            var ProductList = productDB.getAllProducts();
 
-            var ProduktList = productDB.getAllProducts();
-
-            Session["ProductList"] = ProduktList;
-
-            return View(ProduktList);
+            Session["ProductList"] = ProductList;
+            return View(ProductList);
         }
         public ActionResult ProductDetails(int id)
         {
-
             var ProduktList = (List<ProductModel>)Session["ProductList"];
-
-            Debug.WriteLine("Id i Detailcontroller" + id);
             foreach(var product in ProduktList)
             {
                 if (product.productID == id)
@@ -49,64 +84,10 @@ namespace Kaffeplaneten.Controllers
                     return View(product);
                 }
             }
-
-
             return View();
         }
 
-        /*
-                [HttpPost]
-                public JsonResult GetProductById(int id)
-                {
-                    Debug.WriteLine("getProduct metoden kjører ----------- motatt id: " + id);
 
-                    var listen = (List<Products>)Session["list"];
-                    listen.ToList();
-                    foreach(var i in listen)
-                    {
-                        if (i.productID == id )
-                        {
-                            Session["ProduktID"] = id;
-
-                            return Json(i, JsonRequestBehavior.AllowGet);
-                        }
-
-                    }
-                            return Json("Error", JsonRequestBehavior.AllowGet);
-                }
-
-                public void setSessionId(int id)
-                {
-                    Debug.WriteLine("SetSessionID = " + id);
-                    Session["ProduktID"] = id;
-                }
-
-                    */
-
-
-
-
-        /* public JsonResult GetUniqeCategories()
-         {
-             var productDb = new DBProduct();
-
-             var listen = productDb.getAllCategories();
-
-             foreach (var b in listen)
-             {
-                 if (!nedtrekk.Contains(b.Sjanger))
-                 {
-                     nedtrekk.Add(b.Sjanger);
-                 }
-             }
-
-             Debug.Write("liste " + listen);
-
-             JsonResult ut = Json(listen, JsonRequestBehavior.AllowGet);
-            return ut;
-        }
-         */
-        
         public void addToCart(ProductModel productModel)
         {
             var orderModel = (OrderModel)Session[SHOPPING_CART];
@@ -120,17 +101,6 @@ namespace Kaffeplaneten.Controllers
                 }
             orderModel.products.Add(productModel);
             Session[SHOPPING_CART] = orderModel;
-        }
-
-
-        //TODO - Christer: Endre metode til å holde Jsonobjektet alive for å sortere på klientside
-        public JsonResult hentProdukter(String kategori)
-        {
-            var productDB = new DBProduct();
-
-            JsonResult ut = Json(productDB.getProductsByCategory(kategori), JsonRequestBehavior.AllowGet);
-            return ut;
-            
         }
     }
 }

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Web;
-
+// Legge til feilhåndtering: Using, try catch osv
 namespace Kaffeplaneten
 {
     public class DBProduct
@@ -27,28 +27,17 @@ namespace Kaffeplaneten
                 newProductModel.description = p.description;
                 newProductModel.stock = p.stock;
                 ProductList.Add(newProductModel);
-                
             }
-
-
             return ProductList;
         }
 
-     /*   public List<Products> getAllCategories()
-        {
-            var db = new CustomerContext();
 
-            var catergories =(from c in db.Products
-                              select)
-                
-                
-                //(p => p.category).Distinct().ToList();
 
-           // foreach (var p in db.Products.Select(p => p.category).Distinct().Select(p));
-            //    return catergories;
-        }
-        */
-        
+        //allt under denne linjen kan slettes for Christer sin del!! ______________________________________________________________________________________
+
+
+
+
         //TODO - Christer: Skal endres (return hele ProductsDBlist)
         public List<Products> getProductsByCategory(string kategori)
         {
@@ -66,7 +55,7 @@ namespace Kaffeplaneten
             var db = new CustomerContext();
 
             var produkter = db.Products.Where(s => s.productID == 1);
-            
+
 
             return produkter.ToList();
         }
@@ -88,7 +77,7 @@ namespace Kaffeplaneten
                     productModel.stock = product.stock;
                     return productModel;
                 }
-                catch(Exception)
+                catch (Exception)
                 {
                     return null;
                 }
@@ -96,4 +85,8 @@ namespace Kaffeplaneten
 
         }
     }
+
+
+
+
 }
