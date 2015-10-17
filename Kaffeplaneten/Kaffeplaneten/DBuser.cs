@@ -107,7 +107,7 @@ namespace Kaffeplaneten
             }
         }
 
-        public static bool varifyUser(UserModel userModel)
+        public static bool verifyUser(UserModel userModel)
         {
             using (var db = new CustomerContext())
             {

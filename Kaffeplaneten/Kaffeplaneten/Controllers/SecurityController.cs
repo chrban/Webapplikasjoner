@@ -31,7 +31,7 @@ namespace Kaffeplaneten.Controllers
         public ActionResult Loginview(UserModel user)
         {
             user.passwordHash = base.getHash(user.password);
-            if (DBUser.varifyUser(user))
+            if (DBUser.verifyUser(user))
             {
                 Debug.WriteLine("Test - Fant kunde");
                 Session["LoggedIn"] = true;
