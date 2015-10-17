@@ -47,28 +47,16 @@ namespace Kaffeplaneten
                     var order = db.Orders.Find(orderModel.orderNr);
                     if (order == null)//tester om ordren eksisterer
                         return false;
-                    var productOrders = new List<ProductOrders>();
                     foreach (var p in orderModel.products)//Opretter ProductOrders fra modellen
                     {
                         var productOrder = new ProductOrders();
                         productOrder.orders = order;
                         productOrder.price = p.price;
                         productOrder.products = db.Products.Find(p.productID);
-                        productOrder.quantity = 1;
-                        var temp = productOrders.Find(x => x.products.productID == p.productID);//tester om dette produktet finnes i ordren fra før
-                        if (temp == null)
-                        {
-                            productOrder.price = p.price;
-                            productOrders.Add(productOrder);
-                        }
-                        else
-                        {
-                            temp.price += p.price;
-                            temp.quantity++;
-                        }
+                        productOrder.quantity = p.quantity;
+                        productOrder.price = p.price * p.quantity;
+                        db.ProductOrders.Add(productOrder);
                     }
-                    foreach (var po in productOrders)//legger ProductOrders inn i databasen
-                        db.ProductOrders.Add(po);
                     db.SaveChanges();
                     return true;
                     }
