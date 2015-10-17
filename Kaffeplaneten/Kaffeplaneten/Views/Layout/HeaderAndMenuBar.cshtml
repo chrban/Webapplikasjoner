@@ -1,0 +1,45 @@
+﻿
+@{
+    ViewBag.Title = "HeaderAndMenuBar";
+}
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <script src="~/Scripts/modernizr-2.6.2.js"></script>
+</head>
+
+
+<h2>Kaffeplaneten</h2>
+<header>
+
+    <ul class="nav nav-tabs">
+        @if (ViewBag.Inlogged == true)
+        {
+
+            <li role="presentation" class="showAlways">@Html.ActionLink("Home", "AllProducts", "Product", new { area = "" }, new { @class = "navbar-brand" })</li>
+            <li role="presentation" class="showAlways"> @Html.ActionLink("Handlekurv", "ShoppingCartView", "Order", new { area = "" }, new { @class = "navbar-brand" })</li>
+            <li role="presentation" id="showLoggedIn"> @Html.ActionLink("Kontoinstillinger", "accountView", "User", new { area = "" }, new { @class = "navbar-brand" })</li>
+            <li role="presentation" id="showLoggedIn">@Html.ActionLink("Logg Ut", "LoggedOut", "Security", new { area = "" }, new { @class = "navbar-brand" })</li>
+
+        }
+        else
+        {
+            <li role="presentation" class="showAlways">@Html.ActionLink("Home", "AllProducts", "Product", new { area = "" }, new { @class = "navbar-brand" })</li>
+            <li role="presentation" class="showLoggedOut"> @Html.ActionLink("Registrer", "createUser", "User", new { area = "" }, new { @class = "navbar-brand" })</li>
+            <li role="presentation" class="showAlways"> @Html.ActionLink("Handlekurv", "ShoppingCartView", "Order", new { area = "" }, new { @class = "navbar-brand" })</li>
+            <li role="presentation" id="showLoggedIn">@Html.ActionLink("Logg inn", "Loginview", "Security", new { area = "" }, new { @class = "navbar-brand" })</li>
+        }
+
+    </ul>
+
+</header>
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/bootstrap.min.js"></script>
+<script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+<script src="~/Scripts/mustache.js"></script>
+<script src="~/Scripts/products.js"></script>
+<script src="~/Scripts/JavascriptFunksjoner.js"></script>

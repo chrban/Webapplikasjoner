@@ -3,8 +3,8 @@
     ViewBag.Title = "Products";
 
 }
-
-
+@Html.Action("HeaderAndMenuBar", "Layout")
+<body onload="getAllProductsInitial()">
     <div class="btn-group" role="group" aria-label="Kategori">
             <button type="button" id="Arabica" class="btn btn-default" onclick="hideUnwanted(this.id)">Arabica</button>
             <button type="button" id="Robusta" class="btn btn-default" onclick="hideUnwanted(this.id)">Robusta</button>
@@ -31,20 +31,20 @@
 
         @foreach(var produkt in Model)  
        {
-            <div class="cat-{{category}}">
-                <div id="template" class="col-sm-6 col-md-6">
-                    <div class="thumbnail">
+        <div class="cat-{{category}}">
+            <div id="template" class="col-sm-6 col-md-6">
+                <div class="thumbnail">
                         <img img src="../../Content/img/@Html.DisplayFor(model => produkt.imageURL)" alt="ProductImage" data-toggle="modal" data-target="#myModal" style="width:150px;height:150px">
-                        <div class="caption">
+                    <div class="caption">
                             <h3 id="pName">@Html.DisplayFor(model => produkt.productName)</h3>
                             <h2>@Html.DisplayFor(model => produkt.price)</h2>
                             <p id="pDes">@Html.DisplayFor(model => produkt.description)</p>
-                        </div>
+                    </div>
                        <p>@produkt.productID</p>
                         @Html.ActionLink("Info", "ProductDetails", "Product", new { id = produkt.productID },null)
-                    </div>
                 </div>
             </div>
+        </div>
        }
 
 
@@ -53,3 +53,8 @@
         <button type="button" id="{{category}}" class="btn btn-default" onclick="hideUnwanted(this.id)">{{category}}</button>
 </script>
 
+<script type="text/javascript">
+    window.onload = function () {
+        createShoppingCart();
+    }
+</script>

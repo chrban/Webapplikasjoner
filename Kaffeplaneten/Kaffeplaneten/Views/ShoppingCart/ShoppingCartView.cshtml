@@ -1,40 +1,96 @@
 ﻿
 @{
-    ViewBag.Title = "ShoppingCartView";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+        ViewBag.Title = "ShoppingCartView";
+        Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>ShoppingCartView</h2>
-
-<div id="info"></div>
+<div class="container">
+    <table id="cart" class="table table-hover table-condensed">
+        <thead>
+            <tr>
+                <th style="width:50%">Produkt</th>
+                <th style="width:10%">Pris pr. Enhet</th>
+                <th style="width:8%">Antall</th>
+                <th style="width:22%" class="text-center">Pris</th>
+                <th style="width:10%"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <div id="information"></div>
+        </tbody>
+        <tfoot>
+            <tr class="visible-xs">
+                <td class="text-center"><strong></strong></td>
+            </tr>
+            <tr>
+                <td><a href="#" class="btn btn-warning"><i class="glyphicon-triangle-left"></i>Continue Shopping</a></td>
+                <td colspan="2" class="hidden-xs"></td>
+                <td class="hidden-xs text-center"><strong>Total: MoNEy GoES ErE</strong></td>
+                <td><a href="#" class="btn btn-success btn-block">Checkout <i class="glyphicon-triangle-right"></i></a></td>
+            </tr>
+        </tfoot>
+    </table>
+</div>
 
 <script type="text/javascript">
-    window.onload = function hentProdukter()
-    {
-        $.getJSON("/ShoppingCart/getShoppingCartItems", function (data) {
-            $('#productCanvas').empty();
-            alert("DONE SOMETHING");
-            for (var i in data)
-            {
-                for (var y in i) {
-                var template = $('#productTemplate').html();
-                var html = Mustache.to_html(template, i[y])
-                $('#info').append(html);
-                }
-            }
-          });
+    window.onload = function getCartProducts() {
+        checkForAll();
     }
 </script>
 
+<script type="text/javascript">
+    var amount = 0;
+    function checkForAll() {
+        $.ajaxSetup({
+            async: false
+        });
+
+        $.getJSON("/ShoppingCart/amountOfItems", function (paramount) {
+            amount += paramount;
+        });
+
+        var crnt = 0;
+        for (crnt = 0; crnt < amount; crnt++) {
+            $.getJSON("/ShoppingCart/getItemAt", { spot: crnt }, function (data) {
+                addInformation(data);
+                alert("ADDED INFO");
+            });
+        }
+        
+    }
+</script>
+
+<script type="text/javascript">
+    function addInformation(jsonresult) {
+        for (var i in jsonresult) {
+            var template = $('#productTemplate').html();
+            var html = Mustache.to_html(template, jsonresult[i])
+            $('#information').append(html);
+        }
+    }
+
+</script>
+
 <script id="productTemplate" type="text/template">
-    <div id="template" class="col-sm-6 col-md-6">
-        <div id="utRes" class="thumbnail">
-            <img id="image" img src="../../Content/img/{{imageURL}}" alt="ProductImage" data-toggle="modal" data-target="#myModal" style="width:150px;height:150px">
-            <div class="caption">
-                <h3 id="pName">{{productName}}</h3>
-                <h2>{{price}},-</h2>
-                <p id="pDes">{{description}}</p>
-            </div>
-        </div>
-    </div>
+    <tbody>
+        <tr>
+            <td data-th="Product">
+                <div class="row">
+                    <div class="col-sm-2 hidden-xs"><img src="../../Content/img/{{imageURL}}" class="img-thumbnail" style="max-width:150px; max-height:150px" /></div>
+                    <div class="col-sm-offset-6">
+                        <h4 class="nomargin">{{productName}}</h4>
+                        <p>{{description}}</p>
+                    </div>
+                </div>
+            </td>
+            <td data-th="Price">{{price}}</td>
+            <td data-th="Quantity">
+                <input type="number" class="form-control text-center" value="1">
+            </td>
+            <td data-th="Subtotal" class="text-center">1.99</td>
+            <td class="actions" data-th="">
+                <button class="btn btn-danger btn-sm"><i class="glyphicon-trash"></i></button>
+            </td>
+        </tr>
+    </tbody>
 </script>

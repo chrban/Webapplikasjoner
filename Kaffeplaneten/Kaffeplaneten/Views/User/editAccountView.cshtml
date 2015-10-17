@@ -14,6 +14,7 @@
 {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
+    @Html.Action("HeaderAndMenuBar", "Layout")
 
     <fieldset>
         <legend>Endre opplysninger</legend>
