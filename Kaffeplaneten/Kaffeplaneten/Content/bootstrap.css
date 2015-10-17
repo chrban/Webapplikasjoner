@@ -27,8 +27,8 @@ section,
 summary {
   display: block;
 }
-#kropp{
-
+#LogginBar{
+margin-left: 50%;
 }
 audio,
 canvas,

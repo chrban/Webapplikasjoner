@@ -10,26 +10,38 @@
 </head>
 
 <body>
-    <div id="LoggInBar">
-        @Html.ActionLink("Logg inn", "Loginview", "Security", new { area = "" })
+        
+    <div id="LogOutBox" style="display: none">
+        <p style="color:blue">Pålogget</p>
+        <input type="button" id="LogOut" text="Logg Ut" onclick="showLogOutBox()" />
+        
     </div>
-    <ul class="nav nav-tabs">
-        <li role="presentation" class="active">@Html.ActionLink("Kaffeplaneten", "AllProducts", "Product", new { area = "" }, new { @class = "navbar-brand" })</li>
-        <li role="presentation"> @Html.ActionLink("Registrer", "createUser", "User", new { area = "" }, new { @class = "navbar-brand" })</li>
-        <li role="presentation"> @Html.ActionLink("Logg inn", "Loginview", "Security", new { area = "" }, new { @class = "navbar-brand" }) </li>
-        <li role="presentation"> @Html.ActionLink("Handlekurv", "ShoppingCartView", "Order", new { area = "" }, new { @class = "navbar-brand" })</li>
-        <li role="presentation"> @Html.ActionLink("Kontoinstillinger", "accountView", "User", new { area = "" }, new { @class = "navbar-brand" })</li>
-    </ul>
-    <div id="kropp">
-        @RenderBody()
-        <hr />
+    <div id="LogInBox">
+        <p style="color:red">Ikke pålogget</p>
+        @Html.ActionLink("Logg inn", "Loginview", "Security")
+     </div>
+        <div id="innMat">
+            </div>
+            <ul class="nav nav-tabs">
+                <li role="presentation" class="showAlways">@Html.ActionLink("Kaffeplaneten", "AllProducts", "Product", new { area = "" }, new { @class = "navbar-brand" })</li>
+                <li role="presentation" class="showLoggedOut"> @Html.ActionLink("Registrer", "createUser", "User", new { area = "" }, new { @class = "navbar-brand" })</li>
+                <li role="presentation" class="showAlways"> @Html.ActionLink("Handlekurv", "ShoppingCartView", "Order", new { area = "" }, new { @class = "navbar-brand" })</li>
+                <li role="presentation" class="showLoggedIn"> @Html.ActionLink("Kontoinstillinger", "accountView", "User", new { area = "" }, new { @class = "navbar-brand" } )</li>
+            </ul>
+            @RenderBody()
+            
+            
+
+        </div>
+
         <footer>
             <p>&copy; @DateTime.Now.Year - Kaffeplaneten</p>
         </footer>
-    </div>
 
-    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
-    <script src="~/Scripts/bootstrap.min.js"></script>
-    </div>
+
+        <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+        <script src="~/Scripts/bootstrap.min.js"></script>
+        <script src="~/Scripts/JavascriptFunksjoner.js"></script>
+    
 </body>
 </html>
