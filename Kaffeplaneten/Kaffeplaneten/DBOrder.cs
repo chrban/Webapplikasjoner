@@ -16,8 +16,8 @@ namespace Kaffeplaneten
         {
             using (var db = new CustomerContext())
             {
-                try
-                {
+            try
+            {
                     var customer = db.Customers.Find(orderModel.customerID);
                     if (customer == null)
                         return false;
@@ -39,9 +39,9 @@ namespace Kaffeplaneten
         }
 
         public static bool addProductOrders(OrderModel orderModel)/*Legger ProductOrders inn i databasen. OrderNr og pruductID-ene må være med i modellen*/
-        {
-            using (var db = new CustomerContext())
             {
+            using (var db = new CustomerContext())
+                {
                 try
                 {
                     var order = db.Orders.Find(orderModel.orderNr);
@@ -74,7 +74,7 @@ namespace Kaffeplaneten
                     }
                     db.SaveChanges();
                     return true;
-                }
+                    }
                 catch (Exception ex)
                 {
                     Debug.WriteLine("\nERROR!\nMelding:\n" + ex.Message + "\nInner exception:" + ex.InnerException + "\nKastet fra\n" + ex.TargetSite + "\nTrace:\n" + ex.StackTrace);
@@ -84,7 +84,7 @@ namespace Kaffeplaneten
             }
         }
         public bool add(ShoppingCartModel cart, Customers customer, CustomerContext db)            // Adds a new order.
-            {
+        {
 
             try
             {
@@ -134,8 +134,8 @@ namespace Kaffeplaneten
                     orderModel.orderNr = order.orderNr;
                     orderModel.customerID = order.customerID;
                     var productOrders = (from p in db.ProductOrders
-                                    where p.orderNr == nr
-                                    select p).ToList();
+                                  where p.orderNr == nr
+                                  select p).ToList();
 
                     orderModel.total = 0;
                     foreach (var o in productOrders)
