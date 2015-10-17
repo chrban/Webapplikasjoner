@@ -10,7 +10,7 @@
 {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
-
+    @Html.Action("HeaderAndMenuBar", "Layout")
     <fieldset>
         <legend>Innlogging:</legend>
 
@@ -31,31 +31,25 @@
                 @Html.EditorFor(userModel => userModel.password)
                 @Html.ValidationMessageFor(userModel => userModel.password)
             </div>
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Logg inn" onclick="showLogOutBox()"class="btn btn-success">
-            </div>
+           <input type="submit" value="Logg inn"class = "btn btn-success" />
         </div>
 
     </fieldset>
-
-    <div>
-              
-                 @if(ViewBag.LoggedOn == true)
+}
+                @if (ViewBag.LoggedOn)
                 {
-                    <p style="color:blue">Pålogget</p>
-                    
+                    <div id="showUser">
+                        <p style="color:blue">Pålogget</p>
+                        @Html.DisplayFor(userModel => userModel.username)
+                    </div>
 
-                 }
-                 else
-                 {
+                }
+                else
+                {
                     <p style="color:red">Ikke logget inn</p>
-                 
-                 }
-            </div>
+                    <div class="col-md-offset-2 col-md-10"> </div>
 
-            <div>
-                @Html.ActionLink("Innlogget side", "LoggedInPage")<br />
-                @Html.ActionLink("Registrer ny bruker", "createUser", "User")
-            </div>
-        }
+                }
+              
+
 

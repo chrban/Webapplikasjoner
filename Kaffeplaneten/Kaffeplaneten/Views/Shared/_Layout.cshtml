@@ -10,30 +10,14 @@
     <script src="~/Scripts/modernizr-2.6.2.js"></script>
 </head>
 
+
+
+
 <body>
         
-    <div id="LogOutBox" style="display: none">
-        <p style="color:blue">Pålogget</p>
-        <input type="button" id="LogOut" text="Logg Ut" onclick="showLogOutBox()" />
         
-    </div>
-    <div id="LogInBox">
-        <p style="color:red">Ikke pålogget</p>
-        @Html.ActionLink("Logg inn", "Loginview", "Security")
-     </div>
-        <div id="innMat">
-            </div>
-    <ul class="nav nav-tabs">
-                <li role="presentation" class="showAlways">@Html.ActionLink("Kaffeplaneten", "AllProducts", "Product", new { area = "" }, new { @class = "navbar-brand" })</li>
-                <li role="presentation" class="showLoggedOut"> @Html.ActionLink("Registrer", "createUser", "User", new { area = "" }, new { @class = "navbar-brand" })</li>
-                <li role="presentation" class="showAlways"> @Html.ActionLink("Handlekurv", "ShoppingCartView", "Order", new { area = "" }, new { @class = "navbar-brand" })</li>
-                <li role="presentation" class="showLoggedIn"> @Html.ActionLink("Kontoinstillinger", "accountView", "User", new { area = "" }, new { @class = "navbar-brand" } )</li>
-    </ul>
         @RenderBody()
             
-            
-
-        </div>
 
         <footer>
             <p>&copy; @DateTime.Now.Year - Kaffeplaneten</p>
@@ -45,7 +29,7 @@
     <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
     <script src="~/Scripts/mustache.js"></script>
     <script src="~/Scripts/products.js"></script>
-        <script src="~/Scripts/JavascriptFunksjoner.js"></script>
+    <script src="~/Scripts/JavascriptFunksjoner.js"></script>
     
 </body>
 </html>

@@ -33,17 +33,17 @@ namespace Kaffeplaneten.Controllers
             user.passwordHash = base.getHash(user.password);
             if (DBUser.verifyUser(user))
             {
-                Debug.WriteLine("Test - Fant kunde");
                 Session["LoggedIn"] = true;
                 Session["CustomerID"] = DBUser.get(user.username).customerID;
                 ViewBag.LoggedOn = true;
-                return View();
+                //Session["User"] = user.username;
+                return View(user);
             }
-            Debug.WriteLine("Returnerer view!");
             ModelState.AddModelError("", "Feil brukernavn eller passord");
             return View();
         }
 
+       
         public ActionResult LoggedIn()
         {
             if (Session["LoggedIn"] != null)
@@ -58,9 +58,9 @@ namespace Kaffeplaneten.Controllers
         }
         public ActionResult LoggedOut()
         {
-            Session["LoggetInn"] = false;
+            Session["LoggedIn"] = null;
             Session["CustomerID"] = -1;
-            return RedirectToAction("index");
+            return RedirectToAction("Loginview");
         }
     }
 }

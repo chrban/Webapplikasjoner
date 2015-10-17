@@ -2,7 +2,7 @@
 @{
     ViewBag.Title = "Products";
 }
-
+@Html.Action("HeaderAndMenuBar", "Layout")
 <body onload="getAllProductsInitial()">
     <div class="btn-group" role="group" aria-label="Kategori">
             <button type="button" id="Arabica" class="btn btn-default" onclick="hideUnwanted(this.id)">Arabica</button>

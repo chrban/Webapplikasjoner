@@ -142,6 +142,8 @@
     <Content Include="Views\Security\Loginview.cshtml" />
     <Content Include="Views\Order\orderHistoryView.cshtml" />
     <Content Include="Views\Order\recitView.cshtml" />
+    <Content Include="Views\Security\LoggedIn.cshtml" />
+    <Content Include="Views\Layout\HeaderAndMenuBar.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -151,6 +153,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\LayoutController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\SecurityController.cs" />
