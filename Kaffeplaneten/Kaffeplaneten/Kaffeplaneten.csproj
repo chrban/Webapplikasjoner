@@ -141,6 +141,11 @@
     <Content Include="Views\User\editAccountView.cshtml" />
     <Content Include="Views\Security\Loginview.cshtml" />
     <Content Include="Views\Order\orderHistoryView.cshtml" />
+    <Content Include="Views\ShoppingCart\ShoppingCartView.cshtml" />
+    <Content Include="Views\Order\receiptView.cshtml" />
+    <Content Include="Views\Shared\OrderView.cshtml" />
+    <Content Include="Views\Shared\customerView.cshtml" />
+    <Content Include="Views\Order\confirmOrderView.cshtml" />
     <Content Include="Views\Order\recitView.cshtml" />
     <Content Include="Views\Security\LoggedIn.cshtml" />
     <Content Include="Views\Layout\HeaderAndMenuBar.cshtml" />
@@ -187,7 +192,6 @@
     <Content Include="Views\User\createUser.cshtml" />
     <Content Include="Views\Product\Index.cshtml" />
     <Content Include="Views\Product\AllProducts.cshtml" />
-    <Content Include="Views\Order\OrderView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

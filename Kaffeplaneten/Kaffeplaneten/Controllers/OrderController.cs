@@ -9,9 +9,16 @@ namespace Kaffeplaneten.Controllers
     public class OrderController : SuperController
     {
         // GET: Order
-        public ActionResult OrderView()                    // Returns the order confirmation view.
+        public ActionResult confirmOrderView()
         {
-            return View();
+            var orderModel = (OrderModel)Session[CHECKOUT_ORDER];
+            if (orderModel == null)
+                return RedirectToAction("AllProducts", "Product", new { area = "" });
+            var customerModel = DBCustomer.find(orderModel.customerID);
+            if (customerModel == null)
+                return RedirectToAction("AllProducts", "Product", new { area = "" });
+            ViewBag.customerModel = customerModel;
+            return View(orderModel);
         }
 
         /*public ActionResult createOrder()                                                       // Creates the order.
@@ -60,20 +67,32 @@ namespace Kaffeplaneten.Controllers
 
         public ActionResult orderHistoryView()
         {
-            if (Session["CustomerID"] == null)
+            var order = DBOrder.findOrders(getActiveUserID());
+            if(order == null)
                 return RedirectToAction("Loginview", "Security", new { area = "" });
-            var order = DBOrder.findOrders((int)Session["CustomerID"]);
             return View(order);
         }
-        public ActionResult recitView(int nr = -1)
+        public ActionResult receiptView()
         {
-            var orderModel = DBOrder.find(nr);
+            var orderModel = (OrderModel)Session[CHECKOUT_ORDER];
             if (orderModel == null)
             {
-                ModelState.AddModelError("", "Feil ved henting av data");
+                ModelState.AddModelError("", "Orderen er allerede registrert");
+                return View(new OrderModel());
+            }
+            if(!saveOrder(orderModel))
+            {
+                ModelState.AddModelError("", "Feil ved registrering av data");
                 return View(new OrderModel());
             }
             return View(orderModel);
+        }
+        public bool saveOrder(OrderModel orderModel)
+        {
+            if (orderModel == null)
+                return false;
+            Session[CHECKOUT_ORDER] = null;
+            return DBOrder.add(orderModel);
         }
     }
 }

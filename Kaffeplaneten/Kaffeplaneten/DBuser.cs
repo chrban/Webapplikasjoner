@@ -18,15 +18,20 @@ namespace Kaffeplaneten
             {
                 try
                 {
-                    var newUser = new Users()
+                    var user = (from u in db.Users
+                                where u.email.Equals(userModel.username)
+                                select u).FirstOrDefault();
+                    if (user != null)
+                        return false;
+                    user = new Users()
                     {
                         email = userModel.username,
                         password = userModel.passwordHash
                     };
-                    newUser.customer = db.Customers.Find(userModel.customerID);
-                    if (newUser.customer == null)//tester om Users sin customer finnes
+                    user.customer = db.Customers.Find(userModel.customerID);
+                    if (user.customer == null)//tester om Users sin customer finnes
                         return false;
-                    db.Users.Add(newUser);
+                    db.Users.Add(user);
                     db.SaveChanges();
                     Debug.WriteLine("Lagring fullført!");
                     return true;
@@ -90,7 +95,7 @@ namespace Kaffeplaneten
                         var email = (from p in db.Users
                                      where p.email.Equals(userModel.username)
                                      select p).FirstOrDefault();
-                        if (!(email == null))//tester om epostadressen finnes fra før
+                        if (email != null)//tester om epostadressen finnes fra før
                             return false;
                         user.email = userModel.username;
                     }
