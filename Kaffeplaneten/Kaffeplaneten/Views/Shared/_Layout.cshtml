@@ -8,7 +8,7 @@
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <script src="~/Scripts/modernizr-2.6.2.js"></script>
 </head>
-
+<body>
     <ul class="nav nav-tabs">
         <li role="presentation" class="active">@Html.ActionLink("Kaffeplaneten", "AllProducts", "Product", new { area = "" }, new { @class = "navbar-brand" })</li>
         <li role="presentation"> @Html.ActionLink("Registrer", "createUser", "User", new { area = "" }, new { @class = "navbar-brand" })</li>
@@ -16,8 +16,9 @@
         <li role="presentation"> @Html.ActionLink("Handlekurv", "ShoppingCartView", "Order", new { area = "" }, new { @class = "navbar-brand" })</li>
         <li role="presentation"> @Html.ActionLink("Kontoinstillinger", "accountView", "User", new { area = "" }, new { @class = "navbar-brand" })</li>
     </ul>
-<body>
+
     <div class="container body-content">
+
         @RenderBody()
         <hr />
         <footer>
@@ -29,5 +30,6 @@
     <script src="~/Scripts/bootstrap.min.js"></script>
     <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
     <script src="~/Scripts/mustache.js"></script>
+    <script src="~/Scripts/products.js"></script>
 </body>
 </html>

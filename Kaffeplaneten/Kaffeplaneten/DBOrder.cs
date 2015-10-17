@@ -103,7 +103,7 @@ namespace Kaffeplaneten
                     foreach (var o in orders)
                     {
                         for (int i = 0; i < o.quantity; i++)
-                            orderModel.products.Add(DBProduct.toObject(o.products));
+                            //orderModel.products.Add(DBProduct.toObject(o.products)); Finnes ike lenger
                         orderModel.total += o.price;
                     }
                     return orderModel;
