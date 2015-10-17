@@ -9,27 +9,12 @@ namespace Kaffeplaneten.Controllers
     public class OrderController : SuperController
     {
         // GET: Order
-        public ActionResult ShoppingCartView()              // Returns the Shopping Cart View. Shows all current products in the cart.
-        {
-            return View(getShoppingCart());
-        }
-
-        public ShoppingCart getShoppingCart()              // Gets the ShoppingCart object through the current Session. This object contains all the products.
-        {
-            if (Session["ShoppingCart"] == null)           // Create a new Shopping Cart if the user doesn't have one yet.
-            {
-                Session["ShoppingCart"] = new ShoppingCart();
-                ((ShoppingCart)Session["ShoppingCart"]).createShoppingCart();
-            }
-            return Session["ShoppingCart"] as ShoppingCart;
-        }
-
         public ActionResult OrderView()                    // Returns the order confirmation view.
         {
             return View();
         }
 
-        public ActionResult createOrder()                                                       // Creates the order.
+        /*public ActionResult createOrder()                                                       // Creates the order.
         {
             if (getShoppingCart().amountOfItems() > 0)                                           // ----- ALSO NEEDS TO CHECK FOR LOGGED IN SESSION!!! ----
             {
@@ -69,8 +54,28 @@ namespace Kaffeplaneten.Controllers
                         return RedirectToAction("OrderView");       // ------- SKAL BLI RECEIPTVIEW NÅR DET ER LAGET! ------
                     }
                 }
-            }
+             }
             return View();
-        } // END OF METHOD: CREATEORDER
+        } */// END OF METHOD: CREATEORDER
+
+        public ActionResult orderHistoryView()
+        {
+            if (Session["CustomerID"] == null)
+                return RedirectToAction("Loginview", "Security", new { area = "" });
+            var order = DBOrder.findOrders((int)Session["CustomerID"]);
+            return View(order);
+        }
+        public ActionResult recitView(int nr = -1)
+        {
+            var orderModel = DBOrder.find(nr);
+            if (orderModel == null)
+            {
+                ModelState.AddModelError("", "Feil ved henting av data");
+                return View(new OrderModel());
+            }
+            return View(orderModel);
+        }
     }
+
+
 }

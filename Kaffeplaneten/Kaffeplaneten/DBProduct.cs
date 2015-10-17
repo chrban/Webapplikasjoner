@@ -44,5 +44,30 @@ namespace Kaffeplaneten
 
             return produkter.ToList();
         }
+
+        public static ProductModel find(int id)
+        {
+            using (var db = new CustomerContext())
+            {
+                try
+                {
+                    var product = db.Products.Find(id);
+                    var productModel = new ProductModel();
+                    productModel.productID = product.productID;
+                    productModel.productName = product.productName;
+                    productModel.price = product.price;
+                    productModel.imageURL = product.imageURL;
+                    productModel.description = product.description;
+                    productModel.category = product.category;
+                    productModel.stock = product.stock;
+                    return productModel;
+                }
+                catch(Exception)
+                {
+                    return null;
+                }
+            }
+
+        }
     }
 }

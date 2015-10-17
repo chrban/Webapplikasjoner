@@ -137,8 +137,10 @@
     <Content Include="Web.config" />
     <Content Include="Views\Product\ProductDetailsView.cshtml" />
     <Content Include="Views\User\accountView.cshtml" />
-    <Content Include="Views\User\orderHistoryView.cshtml" />
     <Content Include="Views\User\editAccountView.cshtml" />
+    <Content Include="Views\Security\Loginview.cshtml" />
+    <Content Include="Views\Order\orderHistoryView.cshtml" />
+    <Content Include="Views\Order\recitView.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -158,7 +160,7 @@
     <Compile Include="Models\AdressModel.cs" />
     <Compile Include="Models\CustomerContext.cs" />
     <Compile Include="DBProduct.cs" />
-    <Compile Include="DBuser.cs" />
+    <Compile Include="DBUser.cs" />
     <Compile Include="DBCustomer.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

@@ -1,12 +1,11 @@
 ﻿@model Kaffeplaneten.Models.OrderModel
+
 @{
-    ViewBag.Title = "orderHistoryView";
+    ViewBag.Title = "recitView";
 }
+@Html.ValidationSummary(true)
 
-
-
-<h2>Order History</h2>
-
+<h2>Recit</h2>
 <div class="container">
     <div class="row">
         <h3>
@@ -14,13 +13,11 @@
             @Model.orderNr
         </h3>
     </div>
-    <div class="row">
-        <h4>Produkter:</h4>
-    </div>
-
     @foreach (var o in Model.products)
     {
-
+        <div class="row">
+            <h4>Produkter:</h4>
+        </div>
         <div class="row">
 
             @Html.LabelFor(model => o.productName)
@@ -39,7 +36,7 @@
         <br />
     }
     <div class="row">
-        Totalt: 
+        Totalt:
         @Model.total
     </div>
 </div>
