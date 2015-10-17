@@ -11,9 +11,13 @@ namespace Kaffeplaneten.Controllers
         // GET: Order
         public ActionResult confirmOrderView()
         {
-            var orderModel = DBOrder.find(getCheckoutOrderNr());
+            var orderModel = getCheckoutOrder();
             if (orderModel == null)
-                return View(new OrderModel());
+                return RedirectToAction("AllProducts", "Product", new { area = "" });
+            var customerModel = DBCustomer.find(orderModel.customerID);
+            if (customerModel == null)
+                return RedirectToAction("AllProducts", "Product", new { area = "" });
+            ViewBag.customerModel = customerModel;
             return View(orderModel);
         }
 
@@ -70,13 +74,25 @@ namespace Kaffeplaneten.Controllers
         }
         public ActionResult receiptView()
         {
-            var orderModel = DBOrder.find(getCheckoutOrderNr());
+            var orderModel = getCheckoutOrder();
             if (orderModel == null)
             {
-                ModelState.AddModelError("", "Feil ved henting av data");
+                ModelState.AddModelError("", "Orderen er allerede registrert");
+                return View(new OrderModel());
+            }
+            if(!saveOrder(orderModel))
+            {
+                ModelState.AddModelError("", "Feil ved registrering av data");
                 return View(new OrderModel());
             }
             return View(orderModel);
+        }
+        public bool saveOrder(OrderModel orderModel)
+        {
+            if (orderModel == null)
+                return false;
+            Session[CHECKOUT_ORDER] = null;
+            return DBOrder.add(orderModel);
         }
     }
 }

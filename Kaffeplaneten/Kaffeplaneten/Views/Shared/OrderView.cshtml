@@ -3,15 +3,17 @@
 @{
     ViewBag.Title = "orderView";
 }
-@Html.ValidationSummary(true)
 
 <div class="table">
     <div class="row">
         <div class="col-sm-4">
-            <h3>
-                Ordre nummer:
-                @Model.orderNr
-            </h3>
+            @if (Model.orderNr > 0)
+            {
+                <h3>
+                    Ordre nummer:
+                    @Model.orderNr
+                </h3>
+            }
         </div>
     </div>
     @foreach (var o in Model.products)

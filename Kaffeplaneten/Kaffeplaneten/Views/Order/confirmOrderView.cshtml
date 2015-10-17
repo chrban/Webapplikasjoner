@@ -1,8 +1,8 @@
 ﻿@model Kaffeplaneten.Models.OrderModel
 @{
     ViewBag.Title = "confirmOrderView";
-    Session["CheckoutOrderNr"] = Model.orderNr;
 }
+@Html.ValidationSummary(true)
 
 <h2>Bekreft Ordre</h2>
 
@@ -12,7 +12,7 @@
     Kundeopplysninger
 </h3>
 
-@Html.Partial("customerView", DBCustomer.find(Model.customerID));
+@Html.Partial("customerView", (Kaffeplaneten.Models.CustomerModel)ViewBag.customerModel)
 
 
 @Html.ActionLink("Avbryt", "AllProducts", "Product", new { area = "" }, new { @class = "btn btn-danger" })
