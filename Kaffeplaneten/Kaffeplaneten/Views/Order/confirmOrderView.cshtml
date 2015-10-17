@@ -1,0 +1,19 @@
+﻿@model Kaffeplaneten.Models.OrderModel
+@{
+    ViewBag.Title = "confirmOrderView";
+    Session["CheckoutOrderNr"] = Model.orderNr;
+}
+
+<h2>Bekreft Ordre</h2>
+
+@Html.Partial("OrderView", Model)
+
+<h3>
+    Kundeopplysninger
+</h3>
+
+@Html.Partial("customerView", DBCustomer.find(Model.customerID));
+
+
+@Html.ActionLink("Avbryt", "AllProducts", "Product", new { area = "" }, new { @class = "btn btn-danger" })
+@Html.ActionLink("Bekreft ordre", "receiptView", "Order", new { area = "" }, new { @class = "btn btn-success" })

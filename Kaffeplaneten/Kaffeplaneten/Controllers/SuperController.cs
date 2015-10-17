@@ -22,6 +22,14 @@ namespace Kaffeplaneten.Controllers
             return (int)Session["CustomerID"];
         }
 
+        public int getCheckoutOrderNr()
+        {
+            if (Session["CheckoutOrderNr"] == null)
+                return -1;
+            return (int)Session["CheckoutOrderNr"];
+
+        }
+
         private static byte[] createHash(string incPassword)
         {
             var algorithm = System.Security.Cryptography.SHA512.Create();

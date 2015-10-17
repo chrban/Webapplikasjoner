@@ -9,9 +9,12 @@ namespace Kaffeplaneten.Controllers
     public class OrderController : SuperController
     {
         // GET: Order
-        public ActionResult OrderView()                    // Returns the order confirmation view.
+        public ActionResult confirmOrderView()
         {
-            return View();
+            var orderModel = DBOrder.find(getCheckoutOrderNr());
+            if (orderModel == null)
+                return View(new OrderModel());
+            return View(orderModel);
         }
 
         /*public ActionResult createOrder()                                                       // Creates the order.
@@ -60,14 +63,14 @@ namespace Kaffeplaneten.Controllers
 
         public ActionResult orderHistoryView()
         {
-            if (Session["CustomerID"] == null)
+            var order = DBOrder.findOrders(getActiveUserID());
+            if(order == null)
                 return RedirectToAction("Loginview", "Security", new { area = "" });
-            var order = DBOrder.findOrders((int)Session["CustomerID"]);
             return View(order);
         }
-        public ActionResult recitView(int nr = -1)
+        public ActionResult receiptView()
         {
-            var orderModel = DBOrder.find(nr);
+            var orderModel = DBOrder.find(getCheckoutOrderNr());
             if (orderModel == null)
             {
                 ModelState.AddModelError("", "Feil ved henting av data");
