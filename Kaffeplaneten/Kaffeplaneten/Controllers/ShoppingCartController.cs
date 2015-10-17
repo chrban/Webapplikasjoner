@@ -8,13 +8,25 @@ using System.Web.Mvc;
 
 namespace Kaffeplaneten.Controllers
 {
-    public class ShoppingCartController : Controller
+    public class ShoppingCartController : SuperController
     {
 
         public ActionResult ShoppingCartView()                  // Returns the Shopping Cart View. Shows all current products in the cart.
         {
+            var orderModel = (OrderModel)Session[SHOPPING_CART];
+            if (orderModel == null)
+                return View();
             //return View(getShoppingCart());
-            return View();
+            return View(orderModel);
+        }
+        [HttpPost]
+        public ActionResult ShoppingCartView(OrderModel orderModel)
+        {
+            if (orderModel == null)
+                return View();
+            Session[SHOPPING_CART] = null;
+            Session[CHECKOUT_ORDER] = orderModel;
+            return RedirectToAction("confirmOrderView", "Order");
         }
         [HttpPost]
         public void createCart()

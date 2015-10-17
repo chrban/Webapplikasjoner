@@ -11,6 +11,7 @@ namespace Kaffeplaneten.Controllers
     {
         public const string CHECKOUT_ORDER = "CheckoutOrder";
         public const string CUSTOMER_ID = "CustomerID";
+        public const string SHOPPING_CART = "ChoppingCart";
 
         // GET: Super
 
@@ -25,15 +26,6 @@ namespace Kaffeplaneten.Controllers
                 return -1;
             return (int)Session[CUSTOMER_ID];
         }
-
-        public OrderModel getCheckoutOrder()
-        {
-            if (Session[CHECKOUT_ORDER] == null)
-                return null;
-            return (OrderModel)Session[CHECKOUT_ORDER];
-
-        }
-
         private static byte[] createHash(string incPassword)
         {
             var algorithm = System.Security.Cryptography.SHA512.Create();

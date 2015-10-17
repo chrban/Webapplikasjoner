@@ -11,7 +11,7 @@
 <h3>
     Kundeopplysninger
 </h3>
-
+@((Kaffeplaneten.Models.CustomerModel)ViewBag.customerModel).customer
 @Html.Partial("customerView", (Kaffeplaneten.Models.CustomerModel)ViewBag.customerModel)
 
 

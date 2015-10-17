@@ -11,7 +11,7 @@ namespace Kaffeplaneten.Controllers
         // GET: Order
         public ActionResult confirmOrderView()
         {
-            var orderModel = getCheckoutOrder();
+            var orderModel = (OrderModel)Session[CHECKOUT_ORDER];
             if (orderModel == null)
                 return RedirectToAction("AllProducts", "Product", new { area = "" });
             var customerModel = DBCustomer.find(orderModel.customerID);
@@ -74,7 +74,7 @@ namespace Kaffeplaneten.Controllers
         }
         public ActionResult receiptView()
         {
-            var orderModel = getCheckoutOrder();
+            var orderModel = (OrderModel)Session[CHECKOUT_ORDER];
             if (orderModel == null)
             {
                 ModelState.AddModelError("", "Orderen er allerede registrert");
