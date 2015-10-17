@@ -13,36 +13,41 @@ namespace Kaffeplaneten.Controllers
         // GET: Product
         public ActionResult Index()
         {
+           
             RedirectToAction("AllProductsView");
+            
 
             return View();
         }
 
         public ActionResult AllProducts()
         {
-
-            if (ModelState.IsValid)
-            {  
-                var productDB = new DBProduct();
-
-                var liste = productDB.MakeList();
-                
-                return View(liste.ToList());
-            }
+            GetAllProducts();
             return View();
-
         }
 
-        public ActionResult ProductDetailsView(int id = 0)
+        public JsonResult GetAllProducts()
         {
             var productDB = new DBProduct();
-            var funnetProd = productDB.getProduct(id);
-            if(funnetProd == null)
-            {
-                return HttpNotFound();
-            }
-            var ut = DBProduct.toObject(funnetProd);
-            return View(ut);
+
+            Debug.WriteLine("json metoden kjører");
+            JsonResult ut = Json(productDB.getAllProducts(), JsonRequestBehavior.AllowGet);
+
+            return ut;
+        }
+
+        
+
+
+
+        //TODO - Christer: Endre metode til å holde Jsonobjektet alive for å sortere på klientside
+        public JsonResult hentProdukter(String kategori)
+        {
+            var productDB = new DBProduct();
+
+            JsonResult ut = Json(productDB.getProductsByCategory(kategori), JsonRequestBehavior.AllowGet);
+            return ut;
+            
         }
     }
 }

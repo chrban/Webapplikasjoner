@@ -1,25 +1,12 @@
-﻿@using Kaffeplaneten.Controllers
-@using Kaffeplaneten.Models
-@model Kaffeplaneten.Models.CustomerModel
-
+﻿@model Kaffeplaneten.Models.CustomerModel
 @{
     ViewBag.Title = "OrderView";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    OrderController test = new OrderController();
-    var cartController = new ShoppingCartController();
-    cartController.TESTAddProducts();
-    var currentCart = cartController.getShoppingCart();
 }
 
 <h2>Bekreft Ordre</h2>
 
 <h1>Varer:</h1>
-
-@foreach (var items in currentCart.ItemsInShoppingCart)
-{
-   <p>@items.product.productName x @items.Quanitity</p>
-}
-<p>Total: @cartController.calculateTotal()</p>
 
 @using (Html.BeginForm())
 {

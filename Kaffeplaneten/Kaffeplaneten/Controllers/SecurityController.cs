@@ -12,7 +12,7 @@ namespace Kaffeplaneten.Controllers
     public class SecurityController : SuperController
     {
         // GET: Security
-     
+        
         public ActionResult Loginview()
         {
             if (Session["LoggedIn"] == null)
@@ -30,14 +30,16 @@ namespace Kaffeplaneten.Controllers
         [HttpPost]
         public ActionResult Loginview(UserModel user)
         {
-            if (findCustomer(user))
+            if (loginUser(user))
             {
                 Debug.WriteLine("Test - Fant kunde");
                 Session["LoggedIn"] = true;
+                Session["CustomerID"] = DBUser.get(user.username).customerID;
                 ViewBag.LoggedOn = true;
-                
+                return View();
             }
             Debug.WriteLine("Returnerer view!");
+            ModelState.AddModelError("", "Feil brukernavn eller passord");
             return View();
         }
 
@@ -56,31 +58,22 @@ namespace Kaffeplaneten.Controllers
         public ActionResult LoggedOut()
         {
             Session["LoggetInn"] = false;
+            Session["CustomerID"] = -1;
             return RedirectToAction("index");
         }
 
 
 
-        private  bool findCustomer(UserModel incUser)
+        private bool loginUser(UserModel incUser)//Tester om brukernavn og passord er riktig
         {
+            Debug.WriteLine(incUser.username);
 
-                using (var db = new CustomerContext())
-                {
-                    byte[] PasswordDB = base.getHash(incUser.password);
-                    Users foundUser = db.Users.SingleOrDefault(
-                    u => ((u.password == PasswordDB) && (u.email == incUser.username)));
-
-                    if (foundUser == null)
-                    {
-                        return false;
-                    }
-                    return true;
-                
-                }
-
+            var existingUser = DBUser.get(incUser.username);
+            if (existingUser == null)
+                return false;
+            if (existingUser.passwordHash.SequenceEqual(base.getHash(incUser.password)))
+                return true;
+            return false;
         }
-
-
-
     }
 }

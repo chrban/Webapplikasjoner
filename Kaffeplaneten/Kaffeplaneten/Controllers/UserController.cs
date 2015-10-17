@@ -21,55 +21,50 @@ namespace Kaffeplaneten.Controllers
         [HttpPost]
         public ActionResult createUser(CustomerModel newCustomer)
         {
+            Debug.WriteLine("Test0");
+            if (!ModelState.IsValid)
+                return View();
+            Debug.WriteLine("Test1");
 
-            if (ModelState.IsValid)
-            {
-
-                using (var db = new CustomerContext())
-                {
-                    var checkUser = (from c in db.Customers
-                                     where c.email == newCustomer.email
-                                     select c).FirstOrDefault();
-                    if (checkUser == null)
-                    {
-                        var customerDB = new DBCustomer();
-                        var Customerobject = customerDB.add(newCustomer, db);
-
-                        if (Customerobject != null)
+            var userModel = DBUser.get(newCustomer.email);
+            if (!(userModel == null))//tester om en bruker med samme epost finnes fra før
                         {
-                            byte[] passwordDB = base.getHash(newCustomer.password);
-                            var userDB = new DBuser();
-
-                            var insertOK = userDB.add(passwordDB, Customerobject, db);
-
-                            if (insertOK)
+                ModelState.AddModelError("", "Eposten du prøver å registrere finnes allerede. Vennligst benytt en annen adresse");
+                return View(newCustomer);
+            }
+            if (!DBCustomer.add(newCustomer))//registrerer ny customer
                             {
-                                db.SaveChanges();
-                                return RedirectToAction("Loginview", "Security", new { area = "" });
+                ModelState.AddModelError("", "Feil ved registrering av bruker");
+                return View(newCustomer);
                             }
+            Debug.WriteLine("Test2");
+            userModel = new UserModel();
+            userModel.username = newCustomer.email;
+            userModel.passwordHash = base.getHash(newCustomer.password);
+            userModel.customerID = newCustomer.customerID;
 
-                        }
-                    }
-                    ModelState.AddModelError("", "Eposten du prøver å registrere finnes allerede. Vennligst benytt en annen adresse");
+            if (!DBUser.add(userModel))//registrerer ny user
+            {
+                ModelState.AddModelError("", "Feil ved registrering av bruker");
                     return View(newCustomer);
                 }
-            }
-            return View();
+            return RedirectToAction("Loginview", "Security", new { area = "" });
         }
 
 
         public ActionResult accountView()
         {
-            //test
-            var customer = DBCustomer.find(1);
-            //var customer = Session["user"];
-            //slutt test
+            if (getActiveUserID() == -1)
+                return RedirectToAction("Loginview", "Security", new { area = "" });
+            var customer = DBCustomer.find((int)Session["CustomerID"]);
             return View(customer);
         }
 
         public ActionResult editAccountView()
         {
-            var customerModel = DBCustomer.find(1);
+            if (getActiveUserID() == -1)
+                return RedirectToAction("Loginview", "Security", new { area = "" });
+            var customerModel = DBCustomer.find((int)Session["CustomerID"]);
             return View(customerModel);
 
         }
@@ -77,26 +72,24 @@ namespace Kaffeplaneten.Controllers
         [HttpPost]
         public ActionResult editAccountView(CustomerModel customerModel)
         {
-            //customerModel.customerID = Session[< signed in user >].customerID;
-            customerModel.customerID = 1;
+            customerModel.customerID = getActiveUserID();
 
-            var userModel = DBuser.get(customerModel.customerID);
-            if (!(customerModel.password == null))
+            var userModel = DBUser.get(customerModel.customerID);//henter ut user modellen
+            userModel.username = customerModel.email;
+            if (!(customerModel.password == null))//tester om passord skal endres
                 userModel.passwordHash = base.getHash(customerModel.password);
 
-            DBuser.update(userModel);
-            DBCustomer.update(customerModel);
-            return RedirectToAction("accountView");
-
+            if(!DBUser.update(userModel))//registrerer endinger i user
+            {
+                ModelState.AddModelError("", "Epost finnes fra før");
+                return RedirectToAction("editAccountView");
         }
-
-        public ActionResult orderHistoryView()
+            if (!DBCustomer.update(customerModel))//registrerer endring i customer
         {
-            //test
-            var order = DBOrder.find(1);
-            //var customer = Session["user"];
-            //slutt test
-            return View(order);
+                ModelState.AddModelError("", "Feil ved registrering av data");
+                return RedirectToAction("editAccountView");
+            }
+            return RedirectToAction("accountView");
 
         }
 

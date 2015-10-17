@@ -128,16 +128,20 @@
     <None Include="Scripts\jquery-2.1.4.intellisense.js" />
     <Content Include="Scripts\jquery-2.1.4.js" />
     <Content Include="Scripts\jquery-2.1.4.min.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\mustache.js" />
+    <Content Include="Scripts\products.js" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Web.config" />
     <Content Include="Views\Product\ProductDetailsView.cshtml" />
     <Content Include="Views\User\accountView.cshtml" />
-    <Content Include="Views\User\orderHistoryView.cshtml" />
     <Content Include="Views\User\editAccountView.cshtml" />
-    <Content Include="Views\Security\Loginview" />
     <Content Include="Views\Security\Loginview.cshtml" />
+    <Content Include="Views\Order\orderHistoryView.cshtml" />
+    <Content Include="Views\Order\recitView.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -157,7 +161,7 @@
     <Compile Include="Models\AdressModel.cs" />
     <Compile Include="Models\CustomerContext.cs" />
     <Compile Include="DBProduct.cs" />
-    <Compile Include="DBuser.cs" />
+    <Compile Include="DBUser.cs" />
     <Compile Include="DBCustomer.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -181,7 +185,6 @@
     <Content Include="Views\Product\Index.cshtml" />
     <Content Include="Views\Product\AllProducts.cshtml" />
     <Content Include="Views\Order\OrderView.cshtml" />
-    <Content Include="Views\Order\ShoppingCartView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,0 +1,50 @@
+﻿@model List<Kaffeplaneten.Models.OrderModel>
+@{
+    ViewBag.Title = "orderHistoryView";
+}
+
+
+
+<h2>Order History</h2>
+
+<div class="container">
+    @foreach (var o in Model)
+    {
+        <div class="row">
+            <h3>
+                Ordre nummer:
+                @o.orderNr
+            </h3>
+        </div>
+        <div class="row">
+            <h4>Produkter:</h4>
+        </div>
+
+        foreach (var or in o.products)
+        {
+
+            <div class="row">
+
+                @Html.LabelFor(model => or.productName)
+                @Html.DisplayFor(model => or.productName)
+            </div>
+            <div class="row">
+
+                @Html.LabelFor(model => or.description)
+                @Html.DisplayFor(model => or.description)
+            </div>
+            <div class="row">
+
+                @Html.LabelFor(model => or.price)
+                @Html.DisplayFor(model => or.price)
+            </div>
+            <br />
+        }
+        <div class="row">
+            Totalt:
+            @o.total
+        </div>
+    }
+
+
+</div>

@@ -15,6 +15,12 @@ namespace Kaffeplaneten.Controllers
         {
             return View();
         }
+        public int getActiveUserID()//Returnerer customerID til inlogget customer. -1 hvis inger er innlogget
+        {
+            if (Session["CustomerID"] == null)
+                return -1;
+            return (int)Session["CustomerID"];
+        }
 
         private static byte[] createHash(string incPassword)
         {

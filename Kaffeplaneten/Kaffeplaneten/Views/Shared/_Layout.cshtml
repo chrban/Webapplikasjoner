@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using Kaffeplaneten.Models;
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -22,13 +23,13 @@
      </div>
         <div id="innMat">
             </div>
-            <ul class="nav nav-tabs">
+    <ul class="nav nav-tabs">
                 <li role="presentation" class="showAlways">@Html.ActionLink("Kaffeplaneten", "AllProducts", "Product", new { area = "" }, new { @class = "navbar-brand" })</li>
                 <li role="presentation" class="showLoggedOut"> @Html.ActionLink("Registrer", "createUser", "User", new { area = "" }, new { @class = "navbar-brand" })</li>
                 <li role="presentation" class="showAlways"> @Html.ActionLink("Handlekurv", "ShoppingCartView", "Order", new { area = "" }, new { @class = "navbar-brand" })</li>
                 <li role="presentation" class="showLoggedIn"> @Html.ActionLink("Kontoinstillinger", "accountView", "User", new { area = "" }, new { @class = "navbar-brand" } )</li>
-            </ul>
-            @RenderBody()
+    </ul>
+        @RenderBody()
             
             
 
@@ -39,8 +40,11 @@
         </footer>
 
 
-        <script src="~/Scripts/jquery-1.10.2.min.js"></script>
-        <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+    <script src="~/Scripts/mustache.js"></script>
+    <script src="~/Scripts/products.js"></script>
         <script src="~/Scripts/JavascriptFunksjoner.js"></script>
     
 </body>

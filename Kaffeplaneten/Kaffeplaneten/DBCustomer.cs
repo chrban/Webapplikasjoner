@@ -12,153 +12,90 @@ namespace Kaffeplaneten
 
     public class DBCustomer
     {
-        public Customers add(CustomerModel IncCustomer,  CustomerContext db)
+        public static bool add(CustomerModel IncCustomer)//Legger customer inn i datatbasen
         {
             Debug.WriteLine("Test1");
-
-            try
+            using (var db = new CustomerContext())
             {
-                if (db.Customers.Find(IncCustomer.customerID) == null)
+                try
                 {
-                    var newCustomer = new Customers()
+                    if (!(db.Customers.Find(IncCustomer.customerID) == null))//Hvis IncCustomer har customerID som finnes fra før
+                        return false;
+                    var newCustomer = new Customers()//Opretter ny customer
                     {
                         email = IncCustomer.email,
                         firstName = IncCustomer.firstName,
                         lastName = IncCustomer.lastName,
                         phone = IncCustomer.phone
                     };
-                    Debug.WriteLine("Test2");
-                    //Sjekker om adressene er like
-                    if (IncCustomer.payAdress.Equals(IncCustomer.adress))
-                    {
-                        var newAdress = new Adresses()
-                        {
-                            payAdress = true,
-                            deliveryAdress = true,
-                            zipCode = IncCustomer.zipCode,
-                            streetName = IncCustomer.adress,
-                        };
-                        newAdress.customers = newCustomer;
-                        Debug.WriteLine("Test3");
-                        Debug.WriteLine("Test4");
-                        var ExistingProvince = db.Provinces.Find(IncCustomer.payZipcode);
-                        Debug.WriteLine("test5");
-
-                        if (ExistingProvince == null)
-                        {
-                            var newProvince = new Provinces()
-                            {
-                                zipCode = IncCustomer.zipCode,
-                                province = IncCustomer.province
-                            };
-                            newAdress.province = newProvince;
-                            db.Provinces.Add(newProvince);
-                        }
-                        else
-                            newAdress.province = ExistingProvince;
-
-                        db.Adresses.Add(newAdress);
-
-                        Debug.WriteLine("SAVEDCHANGED CONFIRMED");
-                    }
-                    //Ulike adresser
-                    else
-                    {
-                        var newPaymentAdress = new Adresses()
-                        {
-                            payAdress = true,
-                            deliveryAdress = false,
-                            zipCode = IncCustomer.payZipcode,
-                            streetName = IncCustomer.payAdress,
-
-                        };
-                        newPaymentAdress.customers = newCustomer;
-                        var ExistingProvince = db.Provinces.Find(IncCustomer.payZipcode);
-                        if (ExistingProvince == null)
-                        {
-                            var newPaymentProvince = new Provinces()
-                            {
-                                zipCode = IncCustomer.payZipcode,
-                                province = IncCustomer.payProvince
-                            };
-                            newPaymentAdress.province = newPaymentProvince;
-                            db.Provinces.Add(newPaymentProvince);
-                        }
-                        else
-                            newPaymentAdress.province = ExistingProvince;
-                        db.Adresses.Add(newPaymentAdress);
-
-                        var newAdress = new Adresses()
-                        {
-                            payAdress = false,
-                            deliveryAdress = true,
-                            zipCode = IncCustomer.zipCode,
-                            streetName = IncCustomer.adress,
-
-                        };
-                        ExistingProvince = db.Provinces.Find(IncCustomer.zipCode);
-                        if (ExistingProvince == null)
-                        {
-                            var newProvince = new Provinces()
-                            {
-                                zipCode = IncCustomer.zipCode,
-                                province = IncCustomer.province
-                            };
-                            newAdress.province = newProvince;
-                            db.Provinces.Add(newProvince);
-                        }
-
-                        else
-                            newAdress.province = ExistingProvince;
-                        db.Adresses.Add(newAdress);
-
-                        db.Customers.Add(newCustomer);
-
-                        Debug.WriteLine("Test7");
-                        Debug.WriteLine("Test8");
-                    }
-                    return newCustomer;
+                    newCustomer = db.Customers.Add(newCustomer);
+                    db.SaveChanges();
+                    IncCustomer.customerID = newCustomer.customerID;//Lagrer customerID i modellen for senere bruk
                 }
-                return null;
-                
-            }
-
-            catch (DbEntityValidationException dbEx)
-            {
-                foreach (var validationErrors in dbEx.EntityValidationErrors)
+                catch (DbEntityValidationException dbEx)
                 {
-                    foreach (var validationError in validationErrors.ValidationErrors)
+                    foreach (var validationErrors in dbEx.EntityValidationErrors)
                     {
-                        Trace.TraceInformation("Property: {0} Error: {1}",
-                                                validationError.PropertyName,
-                                                validationError.ErrorMessage);
-                    }
-                }
-                return null;
+                        foreach (var validationError in validationErrors.ValidationErrors)
+                        {
+                            Trace.TraceInformation("Property: {0} Error: {1}",
+                                                    validationError.PropertyName,
+                                                    validationError.ErrorMessage);
+                        }
+                    }//end foreach
+                    return false;
+                }//end catch
+            }//end using
+            
+            //Legger til adresser
+            //Sjekker om adressene er like
+            if (IncCustomer.payAdress.Equals(IncCustomer.adress))
+            {
+                var adressModel = new AdressModel()
+                {
+                    customerID = IncCustomer.customerID,
+                    payAdress = true,
+                    deliveryAdress = true,
+                    zipCode = IncCustomer.zipCode,
+                    streetName = IncCustomer.adress,
+                    province = IncCustomer.province
+                };
+
+
+                addAdress(adressModel);
+
+                Debug.WriteLine("SAVEDCHANGED CONFIRMED");
             }
+            //Ulike adresser
+            else
+            {
+                var newPaymentAdress = new AdressModel()
+                {
+                    customerID = IncCustomer.customerID,
+                    payAdress = true,
+                    deliveryAdress = false,
+                    zipCode = IncCustomer.payZipcode,
+                    streetName = IncCustomer.payAdress,
+                    province = IncCustomer.payProvince
 
+                };
+                addAdress(newPaymentAdress);
 
-            /*   
-             SLETTE-METODE SOM TILHØRER TØNSAGER SIN DEL   
+                var newAdress = new AdressModel()
+                {
+                    customerID = IncCustomer.customerID,
+                    payAdress = false,
+                    deliveryAdress = true,
+                    zipCode = IncCustomer.zipCode,
+                    streetName = IncCustomer.adress,
+                    province = IncCustomer.province
 
-                public bool delete(string email)
-
-               {
-                   var db = new CustomerContext();
-                   try
-                   {
-                       Customer deleteCustomer = db.Customers.Find(mail);
-                       db.Customers.Remove(deleteCustomer);
-                       db.SaveChanges();
-                       return true;
-                   }
-                   catch (Exception feil)
-                   {
-                       return false;
-                   }
-               } */
+                };
+                addAdress(newAdress);
+            }
+            return true;
         }
-        public static CustomerModel find(int id)
+        public static CustomerModel find(int id)//Henter ut en CustomerModel for customer med customerID lik id
         {
             var customerModel = new CustomerModel();
             using (var db = new CustomerContext())
@@ -169,7 +106,7 @@ namespace Kaffeplaneten
                                 where c.customerID == id
                                 select c).FirstOrDefault();
 
-                    if (temp == null)
+                    if (temp == null)//Tester om customeren finnes
                         return null;
                     customerModel.customerID = temp.customerID;
                     customerModel.firstName = temp.firstName;
@@ -181,7 +118,7 @@ namespace Kaffeplaneten
                                                where a.customerID == customerModel.customerID
                                                select a).ToList();
 
-                    foreach (var a in adresses)
+                    foreach (var a in adresses)//Legger adressene inn i CustomerModelen
                     {
                         if (a.deliveryAdress)
                         {
@@ -197,8 +134,7 @@ namespace Kaffeplaneten
                         }
                     }
                     return customerModel;
-                }
-
+                }//end try
                 catch (Exception ex)
                 {
                     /*Viser nyttig informasjon om alle excetions i debug.out. Avslutter programmet*/
@@ -206,11 +142,11 @@ namespace Kaffeplaneten
                     Trace.TraceInformation("Property: {0} Error: {1}", ex.Source, ex.InnerException);
                     //Environment.Exit(1);
                 }
-            }
+            }//end using
             return null;
         }
 
-        public static bool update(CustomerModel customerModel)
+        public static bool update(CustomerModel customerModel)//Oppdaterer customeren som har customerID lik customerModel.customerID
         {
             using (var db = new CustomerContext())
             {
@@ -219,7 +155,7 @@ namespace Kaffeplaneten
                     var customer = (from c in db.Customers
                                     where c.customerID == customerModel.customerID
                                     select c).FirstOrDefault();
-                    if (customer == null)
+                    if (customer == null)//tester om customeren finnes
                         return false;
 
                     //Persondataendring:
@@ -251,39 +187,41 @@ namespace Kaffeplaneten
                         adressModel.zipCode = customerModel.payZipcode;
                         addAdress(adressModel);
                     }
-
-                    //***********************************************
                     return true;
+                }//emd try
+                catch (Exception ex)
+                {
+                    Debug.WriteLine("\nERROR!\nMelding:\n" + ex.Message + "\nInner exception:" + ex.InnerException + "\nKastet fra\n" + ex.TargetSite + "\nTrace:\n" + ex.StackTrace);
+                    Trace.TraceInformation("Property: {0} Error: {1}", ex.Source, ex.InnerException);
+                }
+            }//end using
+            return false;
+        }
+
+        public static string getProvince(string zipCode)//Henter ut navnet på poststedet med postkode lik zipCode
+        {
+            using (var db = new CustomerContext())
+            {
+                try
+                {
+                    var province = db.Provinces.Find(zipCode);
+                    if (province == null)
+                        return "";
+                    return province.province;
                 }
                 catch (Exception ex)
                 {
                     Debug.WriteLine("\nERROR!\nMelding:\n" + ex.Message + "\nInner exception:" + ex.InnerException + "\nKastet fra\n" + ex.TargetSite + "\nTrace:\n" + ex.StackTrace);
                     Trace.TraceInformation("Property: {0} Error: {1}", ex.Source, ex.InnerException);
                 }
-            }
-            return false;
-        }
-
-        public static string getProvince(string zipCode)
-        {
-            try
-            {
-                var db = new CustomerContext();
-                var province = db.Provinces.Find(zipCode);
-                return province.province;
-            }
-            catch(Exception ex)
-            {
-                Debug.WriteLine("\nERROR!\nMelding:\n" + ex.Message + "\nInner exception:" + ex.InnerException + "\nKastet fra\n" + ex.TargetSite + "\nTrace:\n" + ex.StackTrace);
-                Trace.TraceInformation("Property: {0} Error: {1}", ex.Source, ex.InnerException);
-            }
+            }//end using
             return null;
         }
 
-        public static bool addAdress(AdressModel adressModel)/*Legger til ny adresse for bruker med customerID==adressModel.customerID. Alle felter unntatt adressID må være fylt ut*/
+        public static bool addAdress(AdressModel adressModel)//Legger til ny adresse for bruker med customerID==adressModel.customerID. Alle felter unntatt adressID må være fylt ut
         {
             var adressesList = new List<Adresses>();
-            if (adressModel.payAdress)
+            if (adressModel.payAdress)//Lager ny betalingsadresse
             {
                 var temp = new Adresses();
                 temp.payAdress = true;
@@ -292,7 +230,7 @@ namespace Kaffeplaneten
                 temp.zipCode = adressModel.zipCode;
                 adressesList.Add(temp);
             }
-            if (adressModel.deliveryAdress)
+            if (adressModel.deliveryAdress)//lager ny leveringsadresse
             {
                 var temp = new Adresses();
                 temp.payAdress = false;
@@ -305,7 +243,8 @@ namespace Kaffeplaneten
             {
                 try
                 {
-                    //Kan fjernes hvis støtte for mer enn to adresser implementeres
+                    /*Kan fjernes hvis støtte for mer enn to adresser implementeres***********************/
+                    //Fjerner betalingsadresse og/eller leveringsadresse fra databasen dersom ny adresse er av samme type
                     var adresses = (from a in db.Adresses
                                     where a.customerID == adressModel.customerID
                                     select a).ToList();
@@ -314,16 +253,10 @@ namespace Kaffeplaneten
                         foreach (var am in adressesList)
                             if (a.deliveryAdress == am.deliveryAdress && a.payAdress == am.payAdress)
                                 db.Adresses.Remove(a);
-                    //*****************************
-                    foreach (var a in adressesList)
+                    /*************************************************************************************/
+                    foreach (var a in adressesList)//Legger adressene inn i databasen
                     {
-                        if (db.Provinces.Find(adressModel.zipCode) == null)
-                        {
-                            var province = new Provinces();
-                            province.province = adressModel.province;
-                            province.zipCode = adressModel.zipCode;
-                            db.Provinces.Add(province);
-                        }
+                        addProvince(adressModel);
                         a.province = db.Provinces.Find(adressModel.zipCode);
                         a.customers = db.Customers.Find(adressModel.customerID);
                         db.Adresses.Add(a);
@@ -340,7 +273,7 @@ namespace Kaffeplaneten
             }
         }
 
-        public static bool addProvince(AdressModel adress)
+        public static bool addProvince(AdressModel adress)//Legger en province inn i databasen dersom den ikke finnes fra før
         {
             using (var db = new CustomerContext())
             {
@@ -353,9 +286,9 @@ namespace Kaffeplaneten
                         temp.province = adress.province;
                         temp.zipCode = adress.zipCode;
                         db.Provinces.Add(temp);
+                        db.SaveChanges();
                         return true;
                     }
-                    db.SaveChanges();
                     return false;
                 }
                 catch (Exception ex)
@@ -368,6 +301,5 @@ namespace Kaffeplaneten
 
             return false;
         }
-
-    }
-}
+    }//end namespace
+}//end class
