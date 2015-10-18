@@ -5,43 +5,28 @@
 
 }
 @Html.Action("HeaderAndMenuBar", "Layout")
+
 <div class="jumbotron">
     <div class="container">
         <img class="img-responsive" src="../../Content/img/logo.png" />
     </div>
 </div>
 
-<script src="~/Scripts/products.js"></script>
-<div id="categoryCanvas">Her kommer kategorier!</div>
-<div id="productCanvas">Her kommer produktene!
-    @foreach (var produkt in Model)
-    {
-        <div class="@Html.DisplayFor(model => produkt.category)">
-            <div id="template" class="col-sm-6 col-md-6">
-                <div class="thumbnail">
-                    <img img src="../../Content/img/@Html.DisplayFor(model => produkt.imageURL)" alt="ProductImage" data-toggle="modal" data-target="#myModal" style="width:150px;height:150px">
-                    <div class="caption">
-                        <h3 id="pName">@Html.DisplayFor(model => produkt.productName)</h3>
-                        <h2>@Html.DisplayFor(model => produkt.price)</h2>
-                        <p id="pDes">@Html.DisplayFor(model => produkt.description)</p>
-                    </div>
-                    <p>@produkt.category</p>
-                    @Html.ActionLink("Info", "ProductDetails", "Product", new { id = produkt.productID }, new { @class = "btn btn-default" })
-                    <button type="button" id="@produkt.productID" class="btn btn-default" onclick="putInCart(@produkt.productID)">Legg i handlekurv</button>
-
-                </div>
-            </div>
-        </div>
-    }
-    </div>
+<div id="categoryCanvas">@Html.Action("ProductCategories", "Product")</div>
+<div id="productCanvas">Ingen produkter å vise! Finnes det produkter i databasen??</div>
 
 
-
-    <script type="text/javascript">
-        $(window).load(function () {
-            $("#categoryCanvas").load("@Url.Content("/Product/ProductCategories")");
-            $("#categoryCanvas").show();
-
+<script type="text/javascript">
+    $(window).load(function () {
+        var all = "INITIAL";
+        $.ajax({
+            url: "/Product/ProductsInCategory", data: {
+                category: all
+            }, success: function (retur) {
+                $("#productCanvas").empty();
+                $("#productCanvas").html(retur);
+            }
         });
+    });        
+</script>
 
-    </script>
