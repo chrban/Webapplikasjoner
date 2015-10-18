@@ -70,8 +70,9 @@ namespace Kaffeplaneten.Controllers
             {                
                 if (productInList.productID == newProd)
                 {
+                    productInList.quantity++;
                     calculateTotal();
-                    return false;                                                       // Product already exists in cart.
+                    return true;                                                       // Product already exists in cart.
                 }
             }
             foreach (var product in ProductList)
@@ -121,7 +122,7 @@ namespace Kaffeplaneten.Controllers
             {
                 if(productInList.productID == productId)
                 {
-                    if(quantity == 0)
+                    if(quantity < 0)
                     {
                         removeFromCart(productInList.productID);
                         return 0;
