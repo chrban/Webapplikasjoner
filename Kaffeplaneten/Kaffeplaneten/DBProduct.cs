@@ -39,7 +39,7 @@ namespace Kaffeplaneten
                 catch (Exception error)
                 {
                 }
-                return ProductList;
+                return null;
             }
         }
 
@@ -81,7 +81,7 @@ namespace Kaffeplaneten
                     var product = db.Products.Find(id);
                     var productModel = new ProductModel();
                     if (product == null)
-                        return productModel;
+                        return null;
                     productModel.productID = product.productID;
                     productModel.productName = product.productName;
                     productModel.price = product.price;

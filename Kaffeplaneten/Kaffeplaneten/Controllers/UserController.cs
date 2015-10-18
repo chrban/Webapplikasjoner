@@ -27,16 +27,16 @@ namespace Kaffeplaneten.Controllers
             Debug.WriteLine("Test1");
 
             var userModel = DBUser.get(newCustomer.email);
-            if (!(userModel == null))//tester om en bruker med samme epost finnes fra før
-                        {
+            if (userModel != null)//tester om en bruker med samme epost finnes fra før
+            {
                 ModelState.AddModelError("", "Eposten du prøver å registrere finnes allerede. Vennligst benytt en annen adresse");
                 return View(newCustomer);
             }
             if (!DBCustomer.add(newCustomer))//registrerer ny customer
-                            {
+            {
                 ModelState.AddModelError("", "Feil ved registrering av bruker");
                 return View(newCustomer);
-                            }
+            }
             Debug.WriteLine("Test2");
             userModel = new UserModel();
             userModel.username = newCustomer.email;
