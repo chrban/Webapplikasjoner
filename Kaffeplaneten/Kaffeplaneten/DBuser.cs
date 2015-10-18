@@ -111,7 +111,7 @@ namespace Kaffeplaneten
             }
         }
 
-        public static bool verifyUser(UserModel userModel)
+        public static bool verifyUser(UserModel userModel)//Bekrefter brukernavn og passord for user
         {
             using (var db = new CustomerContext())
             {

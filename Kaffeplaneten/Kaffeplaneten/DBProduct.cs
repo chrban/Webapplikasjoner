@@ -41,7 +41,7 @@ namespace Kaffeplaneten
                 return null;
             }
         }
-        public static bool add(ProductModel productModel)
+        public static bool add(ProductModel productModel)//Legger et produkt inn i databasen
         {
             using (var db = new CustomerContext())
             {
@@ -64,7 +64,7 @@ namespace Kaffeplaneten
                 }
             }
         }
-        public static bool updateQuantity(ProductModel productModel)
+        public static bool updateQuantity(ProductModel productModel)//Oppdaterer lagerstatur på produkt. Bruker productModel.stock som ny verdi
         {
             using (var db = new CustomerContext())
             {
@@ -87,7 +87,7 @@ namespace Kaffeplaneten
                 }
             }
         }
-        public static ProductModel find(int id)
+        public static ProductModel find(int id)//Henter ut produkt med id lik id
         {
             using (var db = new CustomerContext())
             {

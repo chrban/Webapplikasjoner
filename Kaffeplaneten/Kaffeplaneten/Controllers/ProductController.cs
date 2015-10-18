@@ -5,18 +5,10 @@ using System.Diagnostics;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-//TODO: Legge til feilhåndtering. Hvorfor fungerer ikke: using(var productBD = new DBProduct() ) ??
-//Sette const variabler til sessions
 namespace Kaffeplaneten.Controllers
 {
     public class ProductController : SuperController 
     {
-        public ActionResult Index()
-        {
-            RedirectToAction("AllProductsView");
-            return View();
-        }
-
         public ActionResult AllProducts()
         {
             ProductsInCategory(INITIAL_LOAD);

@@ -4,12 +4,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-
+/*
+Superkontroller alle andre kontrollere arver. Har metoder som er felles for alle kontrollerene
+*/
 namespace Kaffeplaneten.Controllers
 {
     public class SuperController : Controller
     {
-        //cont variabler for Session
+        //const variabler for Session
         public const string CUSTOMER_ID = "CustomerID";
         public const string SHOPPING_CART = "ShoppingCart";
         public const string LOGGED_INN = "LoggedInn";
