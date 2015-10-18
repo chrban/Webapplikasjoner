@@ -108,14 +108,14 @@ namespace Kaffeplaneten
                                 where c.email == email
                                 select new { c.firstName, c.lastName }).SingleOrDefault();
                     if (temp == null) //I prinsippet ikke nødvendig da denne metoden blir trigget da en kunde eksisterer
-                        return null;
+                        return sb.ToString();
                     sb.Append(temp.firstName);
                     sb.Append(" ");
                     sb.Append(temp.lastName);
                 }
                 catch (Exception ex)
                 {
-                    return null;
+                    return sb.ToString();
                 }
                 return sb.ToString();
             }
@@ -231,7 +231,7 @@ namespace Kaffeplaneten
                 {
                     var province = db.Provinces.Find(zipCode);
                     if (province == null)
-                        return "";
+                        return null;
                     return province.province;
                 }
                 catch (Exception ex)

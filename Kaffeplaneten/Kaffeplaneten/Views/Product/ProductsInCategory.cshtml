@@ -12,10 +12,11 @@
                     <p id="pDes">@Html.DisplayFor(model => produkt.description)</p>
                 </div>
                 <p>@produkt.productID</p>
-                @Html.ActionLink("Info", "ProductDetails", "Product", new { id = produkt.productID }, null)
-                <button type="button" id="@produkt.productID" class="btn btn-default" onclick="putInCart(@produkt.productID,1)">Legg i handlekurv</button>
+                @Html.ActionLink("Info", "ProductDetails", "Product", new { id = produkt.productID }, new { @class = "btn btn-default" })
+                <button type="button" id="@Html.DisplayFor(model => produkt.productID)" class="btn btn-default" onclick="putInCart(@Html.DisplayFor(model => produkt.productID),1)">Legg i handlekurv <span class="glyphicon glyphicon-shopping-cart"></span></button>
 
             </div>
         </div>
     </div>
 }
+

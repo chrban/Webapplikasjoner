@@ -1,9 +1,7 @@
 ﻿@model Kaffeplaneten.Models.OrderModel
-@using Kaffeplaneten.Models;
 @{
     ViewBag.Title = "ShoppingCartView";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    var currentCart = ((OrderModel)Session[Kaffeplaneten.Controllers.SuperController.SHOPPING_CART]);
 }
 @Html.Action("HeaderAndMenuBar", "Layout")
 
@@ -20,7 +18,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (var product in currentCart.products)
+                @foreach (var product in Model.products)
             {
                     <tr id="entireProduct_@product.productID">
                         <td data-th="Produkt">
@@ -67,7 +65,7 @@
                 <tr>
                     <td>@Html.ActionLink("Tilbake til butikk", "AllProducts", "Product", new { area = "" }, new { @class = "btn btn-warning" })<i class="fa fa-angle-right"></i></td>
                     <td colspan="2" class="hidden-xs"></td>
-                    <td id="orderTotal" class="hidden-xs text-center"><strong>Total: @currentCart.total </strong></td>
+                    <td id="orderTotal" class="hidden-xs text-center"><strong>Total: @Model.total </strong></td>
                     <td>@Html.ActionLink("Gå til kasse", "confirmOrderView", "Order", new { area = "" }, new { @class = "btn btn-success btn-block" })<i class="fa fa-angle-right"></i></td>
                 </tr>
             </tfoot>

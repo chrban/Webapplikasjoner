@@ -54,6 +54,7 @@ namespace Kaffeplaneten
 
         public static UserModel get(string email)//henter ut en UserModel med Users.email lik email
         {
+            var userModel = new UserModel();
             using (var db = new CustomerContext())
             {
                 try
@@ -64,7 +65,6 @@ namespace Kaffeplaneten
                     if (user == null)//tester om brukeren finnes
                         return null;
 
-                    var userModel = new UserModel();
                     userModel.customerID = user.customerID;
                     userModel.passwordHash = user.password;
                     userModel.username = user.email;
@@ -135,11 +135,11 @@ namespace Kaffeplaneten
         }
         public static UserModel get(int id)//henter ut en UserModel fra User med customerID lik id
         {
+            var userModel = new UserModel();
             using (var db = new CustomerContext())
             {
                 try
                 {
-                    var userModel = new UserModel();
                     var user = db.Users.Find(id);
                     if (user == null)
                         return null;

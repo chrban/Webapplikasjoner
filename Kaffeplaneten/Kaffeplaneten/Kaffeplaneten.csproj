@@ -132,8 +132,6 @@
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
-    <Content Include="Scripts\mustache.js" />
-    <Content Include="Scripts\products.js" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Web.config" />
@@ -145,7 +143,7 @@
     <Content Include="Views\Order\receiptView.cshtml" />
     <Content Include="Views\Shared\OrderView.cshtml" />
     <Content Include="Views\Shared\customerView.cshtml" />
-    <Content Include="Views\Product\confirmOrderView.cshtml" />
+    <Content Include="Views\Order\confirmOrderView.cshtml" />
     <Content Include="Views\Order\recitView.cshtml" />
     <Content Include="Views\Security\LoggedIn.cshtml" />
     <Content Include="Views\Layout\HeaderAndMenuBar.cshtml" />

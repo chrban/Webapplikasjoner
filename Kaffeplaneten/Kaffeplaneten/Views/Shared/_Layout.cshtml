@@ -5,12 +5,9 @@
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>@ViewBag.Title - Kaffeplaneten</title>
-        <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
         <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
+        <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
         <script src="~/Scripts/modernizr-2.6.2.js"></script>
-        <script type="text/javascript">
-            window.onload = createCart();
-        </script>
     </head>
 
 
@@ -19,7 +16,9 @@
     <body>
         
             @RenderBody()
-            
+        <script type="text/javascript">
+                        window.onload = createCart();
+        </script>
 
 
 
@@ -27,7 +26,6 @@
         <script src="~/Scripts/bootstrap.min.js"></script>
         <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
         <script src="~/Scripts/mustache.js"></script>
-        <script src="~/Scripts/products.js"></script>
         <script src="~/Scripts/JavascriptFunksjoner.js"></script>
     
     </body>

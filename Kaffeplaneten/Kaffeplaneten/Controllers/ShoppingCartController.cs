@@ -34,17 +34,8 @@ namespace Kaffeplaneten.Controllers
         [HttpPost]
         public void createCart()
         {
-
             if (Session[SHOPPING_CART] == null)                                    // Already created?
-            {
                 Session[SHOPPING_CART] = new OrderModel();                          // This is the cart. It will be initialized by the createCart() method.
-                var cart = ((OrderModel)Session[SHOPPING_CART]);
-                //cart.products = new List<ProductModel>();//gjøres av konstruktør
-                Debug.WriteLine("KLARTE Å LAGE EN NY CART!");
-                //testProducts();                                         // ---- DENNE MÅ FJERNES FØR INNLEVERING. TESTEMETODE!
-                return;
-            }
-            Debug.WriteLine("FAILED TO MAKE NEW CART!");
         }
 
         [HttpGet]
@@ -52,10 +43,8 @@ namespace Kaffeplaneten.Controllers
         {
             var cart = ((OrderModel)Session[SHOPPING_CART]);
             if (cart != null)
-            {
                 return cart.products;
-            }
-            return null;
+            return new List<ProductModel>();
         }
 
         [HttpPost]
@@ -65,12 +54,14 @@ namespace Kaffeplaneten.Controllers
             var cart = ((OrderModel)Session[SHOPPING_CART]);
             if (cart == null)
                 cart = new OrderModel();
+            if (ProductList == null)
+                ProductList = new List<ProductModel>();
            
             foreach(var productInList in cart.products)
             {                
                 if (productInList.productID == newProd)
                 {
-                    productInList.quantity++;
+                    productInList.quantity += inQuantity;
                     calculateTotal();
                     return true;                                                       // Product already exists in cart.
                 }
@@ -81,7 +72,6 @@ namespace Kaffeplaneten.Controllers
                 {
                     product.quantity = inQuantity;
                     cart.products.Add(product);
-                    Debug.WriteLine("Produkt lagt til: " + product.productName);
             calculateTotal();
             return true;
         }
@@ -97,6 +87,8 @@ namespace Kaffeplaneten.Controllers
         {
 
             var cart = ((OrderModel)Session[SHOPPING_CART]);
+            if (cart == null)
+                return false;
             try
             {
                 foreach (var productInList in cart.products)
@@ -119,7 +111,9 @@ namespace Kaffeplaneten.Controllers
         [HttpGet]
         public int updateQuantity(int productId, int quantity)
         {
-            foreach(var productInList in ((OrderModel)Session[SHOPPING_CART]).products)
+            if (Session[SHOPPING_CART] == null)
+                return 0;
+            foreach (var productInList in ((OrderModel)Session[SHOPPING_CART]).products)
             {
                 if(productInList.productID == productId)
                 {
@@ -137,6 +131,8 @@ namespace Kaffeplaneten.Controllers
 
         public double getSubTotal(int prodId)
         {
+            if (Session[SHOPPING_CART] == null)
+                return 0;
             foreach (var productInList in ((OrderModel)Session[SHOPPING_CART]).products)
             {
                 if (productInList.productID == prodId)
@@ -150,11 +146,13 @@ namespace Kaffeplaneten.Controllers
         [HttpGet]
         public double calculateTotal()
         {
+            if (Session[SHOPPING_CART] == null)
+                return 0;
             double currentTotal = 0;
+
             foreach(var item in ((OrderModel)Session[SHOPPING_CART]).products)
-        {
                 currentTotal += (item.price * item.quantity);
-            }
+
             Debug.WriteLine("Nå er total: " + currentTotal);
             ((OrderModel)Session[SHOPPING_CART]).total = currentTotal;
             return currentTotal;

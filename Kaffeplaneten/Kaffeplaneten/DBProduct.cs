@@ -10,7 +10,7 @@ namespace Kaffeplaneten
     public class DBProduct
     {
         //Henter alle produkter fra databasen og oppretter liste av modelobjekter 
-        public List<ProductModel> getAllProducts()
+        public static List<ProductModel> getAllProducts()
         {
             using (var db = new CustomerContext())
             {
@@ -39,7 +39,7 @@ namespace Kaffeplaneten
                 catch (Exception error)
                 {
                 }
-                return ProductList;
+                return null;
             }
         }
 
@@ -51,7 +51,7 @@ namespace Kaffeplaneten
 
 
         //TODO - Christer: Skal endres (return hele ProductsDBlist)
-        public List<Products> getProductsByCategory(string kategori)
+        public static List<Products> getProductsByCategory(string kategori)
         {
             var db = new CustomerContext();
 
@@ -62,7 +62,7 @@ namespace Kaffeplaneten
         }
 
         //Brukes ikke
-        public List<Products> henteProdukter()
+        public static List<Products> henteProdukter()
         {
             var db = new CustomerContext();
 
@@ -80,6 +80,8 @@ namespace Kaffeplaneten
                 {
                     var product = db.Products.Find(id);
                     var productModel = new ProductModel();
+                    if (product == null)
+                        return null;
                     productModel.productID = product.productID;
                     productModel.productName = product.productName;
                     productModel.price = product.price;

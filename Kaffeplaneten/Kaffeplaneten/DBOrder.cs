@@ -107,6 +107,7 @@ namespace Kaffeplaneten
         }
         public static OrderModel find(int nr)//Henter ut en OrderModel fra en ordre med ordreNr lik nr
         {
+            var orderModel = new OrderModel();
             using (var db = new CustomerContext())
             {
                 try
@@ -117,7 +118,6 @@ namespace Kaffeplaneten
                     if (order == null)//tester om orderen finnes
                         return null;
 
-                    var orderModel = new OrderModel();
                     orderModel.orderNr = order.orderNr;
                     orderModel.customerID = order.customerID;
 
@@ -146,7 +146,7 @@ namespace Kaffeplaneten
 
         public static List<OrderModel> findOrders(int id)//Henter ut en liste med alle ordre for kunde med customerID lik id
         {
-
+            var orderModelList = new List<OrderModel>();
             using (var db = new CustomerContext())
             {
                 try
@@ -154,7 +154,6 @@ namespace Kaffeplaneten
                     var orders = (from o in db.Orders
                                  where o.customerID == id
                                  select o).ToList();
-                    var orderModelList = new List<OrderModel>();
                     foreach (var o in orders)//legger order modellene inn i listen
                         orderModelList.Add(find(o.orderNr));
                     return orderModelList;
