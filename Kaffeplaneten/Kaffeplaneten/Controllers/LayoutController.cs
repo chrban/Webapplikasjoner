@@ -11,18 +11,18 @@ namespace Kaffeplaneten.Controllers
     {
 
 
-       public ActionResult HeaderAndMenuBar()
-       {
-             if(Session[LOGGED_INN] != null)
-             {
-                 if ((bool)Session[LOGGED_INN])
-                 {
-                     ViewBag.Inlogged = true;
-                 }
+        public ActionResult HeaderAndMenuBar(UserModel user)
+        {
+            if (Session[LOGGED_INN] != null)
+            {
+                if ((bool)Session[LOGGED_INN])
+                {
+                    ViewBag.Inlogged = true;
+                }
             }
 
             ViewBag.notInlogged = false;
-            return PartialView();
-       }
+            return PartialView(user);
+        }
     }
 }

@@ -36,8 +36,9 @@ namespace Kaffeplaneten.Controllers
                 Session[LOGGED_INN] = true;
                 Session[CUSTOMER_ID] = DBUser.get(user.username).customerID;
                 ViewBag.LoggedOn = true;
-                //Session["User"] = user.username;
-                return View(user);
+                var DBCustomer = new DBCustomer();
+                Session["User"] = DBCustomer.find(user.username);
+                return RedirectToAction("HeaderAndMenuBar", "Layout", user.username);
             }
             ModelState.AddModelError("", "Feil brukernavn eller passord");
             return View();

@@ -1,4 +1,5 @@
-﻿function createCart(){
+﻿
+function createCart() {
     $.ajax({
         url: "/ShoppingCart/createCart",
         datatype: "text",
@@ -10,3 +11,4 @@
         }
     });
 }
+

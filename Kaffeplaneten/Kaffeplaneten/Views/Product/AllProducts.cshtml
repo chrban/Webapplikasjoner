@@ -5,37 +5,35 @@
 
 }
 @Html.Action("HeaderAndMenuBar", "Layout")
-
-<script src="~/Scripts/products.js"></script>
-<div id="categoryCanvas" class="navbar-static-top"></div>
-<div id="productCanvas" class="container">
-    @foreach (var produkt in Model)
-    {
-        <div class="@Html.DisplayFor(model => produkt.category)">
-            <div id="template" class="col-md-4">
-                <div class="thumbnail">
-                    <img img src="../../Content/img/@Html.DisplayFor(model => produkt.imageURL)" alt="ProductImage" data-toggle="modal" data-target="#myModal" style="width:150px;height:150px">
-                    <div class="caption">
-                        <h3 id="pName">@Html.DisplayFor(model => produkt.productName)</h3>
-                        <h2>@Html.DisplayFor(model => produkt.price)</h2>
-                        <p id="pDes">@Html.DisplayFor(model => produkt.description)</p>
-                    </div>
-                    <p>@produkt.category</p>
-                    @Html.ActionLink("Info", "ProductDetails", "Product",null, new { id = produkt.productID })
-                    <button type="button" id="@produkt.productID" class="btn btn-default" onclick="putInCart(@produkt.productID)">Legg i handlekurv</button>
-
-                </div>
-            </div>
-        </div>
-    }
+<div class="jumbotron">
+    <div class="container">
+        <img class="img-responsive" src="../../Content/img/logo.png" />
     </div>
+</div>
 
 
-    <script type="text/javascript">
-        $(window).load(function () {
-            $("#categoryCanvas").load("@Url.Content("/Product/ProductCategories")");
-            $("#categoryCanvas").show();
+<div id="categoryBtns" class="btn-group" role="group" aria-label="Kategori">
+    <button type="button" id="Arabica" class="btn btn-default" onclick="getProductsInCat(this.id)">Arabica</button>
+    <button type="button" id="Robusta" class="btn btn-default" onclick="getProductsInCat(this.id)">Robusta</button>
+    <button type="button" id="Svensk" class="btn btn-default" onclick="getProductsInCat(this.id)">Svensk</button>
+    <button type="button" id="Deluxe" class="btn btn-default" onclick="getProductsInCat(this.id)">Deluxe</button>
+    <button type="button" id="Curry" class="btn btn-default" onclick="getProductsInCat(this.id)">Curry</button>
+</div>
 
+<div id="productCanvas">Ingen produkter å vise! Finnes det produkter i databasen??</div>
+
+
+<script type="text/javascript">
+    $(window).load(function () {
+        var all = "INITIAL";
+        $.ajax({
+            url: "/Product/ProductsInCategory", data: {
+                category: all
+            }, success: function (retur) {
+                $("#productCanvas").empty();
+                $("#productCanvas").html(retur);
+            }
         });
+    });        
+</script>
 
-    </script>

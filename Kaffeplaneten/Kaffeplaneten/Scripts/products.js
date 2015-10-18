@@ -12,14 +12,21 @@
 
 
 function putInCart(id) {
+    var antall = $('#quantity').val();
+    if (antall == null)
+        antall = 1;
     $.ajax({
         url: "/ShoppingCart/addToCart",
         type: 'POST',
-        data: {newProd: id
-        }, success: function (retur) {
-            //window.alert(retur); display message
+        data: {
+            newProd: id,
+            inQuantity: antall
             
-
+        }, success: function (retur) {
+            window.alert(retur + "antalL:" + antall);
+            
         }
     });
+    $('#quantity').val(1);
 }
+
