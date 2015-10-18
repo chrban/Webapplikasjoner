@@ -1,0 +1,21 @@
+﻿@model Kaffeplaneten.Models.OrderModel
+@{
+    ViewBag.Title = "confirmOrderView";
+}
+@Html.ValidationSummary(true)
+@Html.Action("HeaderAndMenuBar", "Layout")
+
+<div class="col-lg-3">
+    <h2>Bekreft Ordre</h2>
+
+    @Html.Partial("OrderView", Model)
+    @Html.ActionLink("Avbryt", "AllProducts", "Product", new { area = "" }, new { @class = "btn btn-danger" })
+    @Html.ActionLink("Bekreft ordre", "receiptView", "Order", new { area = "" }, new { @class = "btn btn-success" })
+</div>
+<div class="col-lg-5">
+    <h3>
+        Kundeopplysninger
+    </h3>
+    @((Kaffeplaneten.Models.CustomerModel)ViewBag.customerModel).customer
+    @Html.Partial("customerView", (Kaffeplaneten.Models.CustomerModel)ViewBag.customerModel)
+</div>

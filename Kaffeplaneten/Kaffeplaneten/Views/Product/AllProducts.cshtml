@@ -5,8 +5,13 @@
 
 }
 @Html.Action("HeaderAndMenuBar", "Layout")
-<script src="~/Scripts/products.js"></script>
+<div class="jumbotron">
+    <div class="container">
+        <img class="img-responsive" src="../../Content/img/logo.png" />
+    </div>
+</div>
 
+<script src="~/Scripts/products.js"></script>
 <div id="categoryCanvas">Her kommer kategorier!</div>
 <div id="productCanvas">Her kommer produktene!
     @foreach (var produkt in Model)

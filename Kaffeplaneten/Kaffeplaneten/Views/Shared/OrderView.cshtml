@@ -3,57 +3,56 @@
 @{
     ViewBag.Title = "orderView";
 }
-
-<div class="table">
-    <div class="row">
-        <div class="col-sm-4">
-            @if (Model.orderNr > 0)
+    <div class="table">
+        <div class="row">
+            <div class="col-sm-4">
+                @if (Model.orderNr > 0)
             {
-                <h3>
-                    Ordre nummer:
-                    @Model.orderNr
-                </h3>
-            }
-        </div>
-    </div>
-    @foreach (var o in Model.products)
-    {
-        <div class="row">
-            <div class="col-sm-4">
-                <h4>Vare:</h4>
+                    <h3>
+                        Ordre nummer:
+                        @Model.orderNr
+                    </h3>
+                }
             </div>
         </div>
+        @foreach (var o in Model.products)
+        {
+            <div class="row">
+                <div class="col-sm-4">
+                    <h4>Vare:</h4>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4">
+                    @Html.LabelFor(model => o.productName)
+                    @Html.DisplayFor(model => o.productName)
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4">
+                    @Html.LabelFor(model => o.description)
+                    @Html.DisplayFor(model => o.description)
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4">
+                    @Html.LabelFor(model => o.price)
+                    @Html.DisplayFor(model => o.price)
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4">
+                    @Html.Label("Antall: ")
+                    @Html.DisplayFor(model => o.quantity)
+                </div>
+            </div>
+            <br />
+        }
         <div class="row">
             <div class="col-sm-4">
-                @Html.LabelFor(model => o.productName)
-                @Html.DisplayFor(model => o.productName)
+                @Html.Label("Totalt: ")
+                @Model.total
             </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-4">
-                @Html.LabelFor(model => o.description)
-                @Html.DisplayFor(model => o.description)
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-4">
-                @Html.LabelFor(model => o.price)
-                @Html.DisplayFor(model => o.price)
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-4">
-                @Html.Label("Antall: ")
-                @Html.DisplayFor(model => o.quantity)
-            </div>
-        </div>
-        <br />
-    }
-    <div class="row">
-        <div class="col-sm-4">        
-            @Html.Label("Totalt: ")
-            @Model.total
-        </div>
 
+        </div>
     </div>
-</div>

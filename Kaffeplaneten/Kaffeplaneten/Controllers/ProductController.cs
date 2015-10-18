@@ -24,6 +24,7 @@ namespace Kaffeplaneten.Controllers
 
             return View();
         }
+      
 
         public ActionResult ProductCategories()
         {

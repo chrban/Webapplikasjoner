@@ -12,44 +12,32 @@
     @Html.ValidationSummary(true)
     @Html.Action("HeaderAndMenuBar", "Layout")
     <fieldset>
-        <legend>Innlogging:</legend>
+        <div id="Loginpage">
+            <h3>Innlogging:</h3>
 
-        <div id="innloggingsboks">
+                <div class="editor-label">
+                    @Html.LabelFor(userModel => userModel.username)
+                </div>
+                <div class="editor-field">
+                    @Html.EditorFor(userModel => userModel.username)
+                    @Html.ValidationMessageFor(userModel => userModel.username)
+                </div>
 
-            <div class="editor-label">
-                @Html.LabelFor(userModel => userModel.username)
-            </div>  
-            <div class="editor-field">
-                @Html.EditorFor(userModel => userModel.username)
-                @Html.ValidationMessageFor(userModel => userModel.username)
-            </div>
-
-            <div class="editor-label">
-                @Html.LabelFor(userModel => userModel.password)
-            </div>
-            <div class="editor-field">
-                @Html.EditorFor(userModel => userModel.password)
-                @Html.ValidationMessageFor(userModel => userModel.password)
-            </div>
-           <input type="submit" value="Logg inn"class = "btn btn-success" />
+                <div class="editor-label">
+                    @Html.LabelFor(userModel => userModel.password)
+                </div>
+                <div class="editor-field">
+                    @Html.PasswordFor(userModel => userModel.password)
+                    @Html.ValidationMessageFor(userModel => userModel.password)
+                </div>
+                <input type="submit" value="Logg inn" id="LogInButton" class="btn btn-success" />
+            
         </div>
 
     </fieldset>
 }
-                @if (ViewBag.LoggedOn != null && ViewBag.LoggedOn)
-                {
-                    <div id="showUser">
-                        <p style="color:blue">Pålogget</p>
-                        @Html.DisplayFor(userModel => userModel.username)
-                    </div>
+          
 
-                }
-                else
-                {
-                    <p style="color:red">Ikke logget inn</p>
-                    <div class="col-md-offset-2 col-md-10"> </div>
-
-                }
               
 
 

@@ -109,6 +109,7 @@
     <Content Include="Content\img\img4.jpg" />
     <Content Include="Content\img\img5.jpg" />
     <Content Include="Content\img\img6.jpg" />
+    <Content Include="Content\img\Logo.png" />
     <Content Include="Content\Site.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -144,7 +145,8 @@
     <Content Include="Views\Order\receiptView.cshtml" />
     <Content Include="Views\Shared\OrderView.cshtml" />
     <Content Include="Views\Shared\customerView.cshtml" />
-    <Content Include="Views\Order\confirmOrderView.cshtml" />
+    <Content Include="Views\Product\confirmOrderView.cshtml" />
+    <Content Include="Views\Order\recitView.cshtml" />
     <Content Include="Views\Security\LoggedIn.cshtml" />
     <Content Include="Views\Layout\HeaderAndMenuBar.cshtml" />
     <Content Include="Views\Product\ProductDetails.cshtml" />
