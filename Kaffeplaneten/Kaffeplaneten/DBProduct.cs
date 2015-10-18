@@ -36,7 +36,7 @@ namespace Kaffeplaneten
                     }
                     return ProductList;
                 }
-                catch (Exception e)
+                catch (Exception error)
                 {
                 }
                 return ProductList;

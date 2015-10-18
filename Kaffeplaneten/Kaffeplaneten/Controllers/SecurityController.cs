@@ -15,14 +15,14 @@ namespace Kaffeplaneten.Controllers
         
         public ActionResult Loginview()
         {
-            if (Session["LoggedIn"] == null)
+            if (Session[LOGGED_INN] == null)
             {
-                Session["LoggedIn"] = false;
+                Session[LOGGED_INN] = false;
                 ViewBag.LoggedOn = false;
             }
             else
             {
-                ViewBag.LoggedOn = (bool)Session["LoggedIn"];
+                ViewBag.LoggedOn = (bool)Session[LOGGED_INN];
             }
             return View();
         }
@@ -33,8 +33,8 @@ namespace Kaffeplaneten.Controllers
             user.passwordHash = base.getHash(user.password);
             if (DBUser.verifyUser(user))
             {
-                Session["LoggedIn"] = true;
-                Session["CustomerID"] = DBUser.get(user.username).customerID;
+                Session[LOGGED_INN] = true;
+                Session[CUSTOMER_ID] = DBUser.get(user.username).customerID;
                 ViewBag.LoggedOn = true;
                 //Session["User"] = user.username;
                 return View(user);
@@ -46,9 +46,9 @@ namespace Kaffeplaneten.Controllers
        
         public ActionResult LoggedIn()
         {
-            if (Session["LoggedIn"] != null)
+            if (Session[LOGGED_INN] != null)
             {
-                bool loggetInn = (bool)Session["LoggetInn"];
+                bool loggetInn = (bool)Session[LOGGED_INN];
                 if (loggetInn)
                 {
                     return View();
@@ -58,8 +58,8 @@ namespace Kaffeplaneten.Controllers
         }
         public ActionResult LoggedOut()
         {
-            Session["LoggedIn"] = null;
-            Session["CustomerID"] = -1;
+            Session[LOGGED_INN] = null;
+            Session[CUSTOMER_ID] = -1;
             return RedirectToAction("Loginview");
         }
     }

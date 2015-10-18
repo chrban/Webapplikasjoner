@@ -15,11 +15,14 @@ namespace Kaffeplaneten.Controllers
         {
             var orderModel = (OrderModel)Session[SHOPPING_CART];
             if (orderModel == null)
-                return View();
+            {
+                createCart();
+                return View(Session[SHOPPING_CART]);
+            }
             //return View(getShoppingCart());
             return View(orderModel);
         }
-        [HttpPost]
+        /*[HttpPost]
         public ActionResult ShoppingCartView(OrderModel orderModel)
         {
             if (orderModel == null)
@@ -27,81 +30,70 @@ namespace Kaffeplaneten.Controllers
             Session[SHOPPING_CART] = null;
             Session[CHECKOUT_ORDER] = orderModel;
             return RedirectToAction("confirmOrderView", "Order");
-        }
+        }*/
         [HttpPost]
         public void createCart()
         {
 
-            if (Session["ShoppingCart"] == null)                                    // Already created?
+            if (Session[SHOPPING_CART] == null)                                    // Already created?
             {
-                Session["ShoppingCart"] = new ShoppingCartModel();                          // This is the cart. It will be initialized by the createCart() method.
-                var cart = ((ShoppingCartModel)Session["ShoppingCart"]);
-                cart.ItemsInCart = new List<JsonResult>();
-                cart.Quantity = new List<int>();
+                Session[SHOPPING_CART] = new OrderModel();                          // This is the cart. It will be initialized by the createCart() method.
+                var cart = ((OrderModel)Session[SHOPPING_CART]);
+                //cart.products = new List<ProductModel>();//gjøres av konstruktør
                 Debug.WriteLine("KLARTE Å LAGE EN NY CART!");
-                //testProducts();
+                testProducts();                                         // ---- DENNE MÅ FJERNES FØR INNLEVERING. TESTEMETODE!
                 return;
             }
             Debug.WriteLine("FAILED TO MAKE NEW CART!");
         }
 
         [HttpGet]
-        public List<JsonResult> getShoppingCartItems()              // Gets the ShoppingCart object through the current Session. This object contains all the products.
+        public List<ProductModel> getShoppingCartItems()              // Gets the ShoppingCart object through the current Session. This object contains all the products.
         {
-            var cart = ((ShoppingCartModel)Session["ShoppingCart"]);
+            var cart = ((OrderModel)Session[SHOPPING_CART]);
             if (cart != null)
             {
-                return cart.ItemsInCart;
+                return cart.products;
             }
             return null;
         }
 
-        public JsonResult getItemAt(int spot)              // Gets the ShoppingCart object through the current Session. This object contains all the products.
+        public bool addToCart(ProductModel newProd, int quantity)
         {
-            var cart = ((ShoppingCartModel)Session["ShoppingCart"]);
-            if (cart != null)
-            {
-                return cart.ItemsInCart.ElementAt(spot);
-            }
-            return null;
-        }
-
-        public bool addToCart(JsonResult newProd, int quantity)
-        {
-            var cart = ((ShoppingCartModel)Session["ShoppingCart"]);
-            try
-            {
-                for(int i = 0; i < cart.ItemsInCart.Count; i++)
-                {                
-                    if (cart.ItemsInCart[i].Equals(newProd))
-                    {
-                        cart.Quantity[i] += quantity;
-                        return true;
-                    }
-                }
-                cart.ItemsInCart.Add(newProd);
-                cart.Quantity.Add(quantity);
-                Debug.WriteLine("Added" + quantity);
-                Debug.WriteLine("Amount:" + amountOfItems());
-                return true;
-            }
-            catch (Exception error)
-            {
-                Console.WriteLine("FAILED TO ADD ITEM TO CART!");
-            };
-            return false;
-        }
-
-        public bool removeFromCart(JsonResult productToBeRemoved, int quantity)
-        {
-            var cart = ((ShoppingCartModel)Session["ShoppingCart"]);
-            try
-            {
-                foreach (var item in cart.ItemsInCart)
+            var cart = ((OrderModel)Session[SHOPPING_CART]);
+            if (cart == null)
+                cart = new OrderModel();
+           
+            foreach(var productInList in cart.products)
+            {                
+                if (productInList.productID == newProd.productID)
                 {
-                    if (item.Equals(productToBeRemoved))
+                    productInList.quantity += quantity;
+                    calculateTotal();
+                    return true;
+                }
+            }
+            newProd.quantity = quantity;
+            cart.products.Add(newProd);
+            calculateTotal();
+            return true;
+        }
+
+        public bool removeFromCart(ProductModel productToBeRemoved, int quantity)
+        {
+            var cart = ((OrderModel)Session[SHOPPING_CART]);
+            try
+            {
+                foreach (var productInList in cart.products)
+                {
+                    if (productInList.productID == productToBeRemoved.productID)
                     {
-                        cart.ItemsInCart.Remove(item);
+                        if ((productInList.quantity - quantity) < 0)                    // Product needs to have one or more quantity to be relevant
+                            cart.products.Remove(productInList);                        // Otherwise remove entirely.
+                        else
+                            productInList.quantity -= quantity;                         // Only a certain amount has been removed, not the entire product.
+                        
+                        calculateTotal();
                         return true;
                     }
                 }
@@ -113,27 +105,54 @@ namespace Kaffeplaneten.Controllers
             return false;
         }
 
-        public int amountOfItems()
+        public void calculateTotal()
         {
-            return ((ShoppingCartModel)Session["ShoppingCart"]).ItemsInCart.Count;
+            double currentTotal = 0;
+            foreach(var item in ((OrderModel)Session[SHOPPING_CART]).products)
+        {
+                currentTotal += (item.price * item.quantity);
+            }
+            Debug.WriteLine("Nå er total: " + currentTotal);
+            ((OrderModel)Session[SHOPPING_CART]).total = currentTotal;
+        }
+        public bool addToCart(ProductModel productModel)
+        {
+            var cart = ((OrderModel)Session[SHOPPING_CART]);
+            if (cart == null)
+                cart = new OrderModel();
+
+            foreach (var productInList in cart.products)
+            {
+                if (productInList.productID == productModel.productID)
+                {
+                    productInList.quantity += productModel.quantity;
+                    calculateTotal();
+                    return true;
+                }
+            }
+            cart.products.Add(productModel);
+            calculateTotal();
+            return true;
         }
 
+
+        public void testProducts()
+            /* Oppgradert slik at den pruker faktiske produkter i databasen. 
+            Bruk TestClass til å generere produkter hvis det trengs -> Slå den på i Global.asax, kjør 3 ganger, slå den av igjen*/
         //Denne kan vel slettes?? (christer)
-       /* public void testProducts()
+        // Ja, det skal den etter at alt er confirmed working (Sondre)
         {
-            var productDB = new DBProduct();
+            var one = DBProduct.find(1);
 
-            JsonResult one = Json(productDB.getProductsByCategory("Test"), JsonRequestBehavior.AllowGet);
-            JsonResult two = Json(productDB.getProductsByCategory("Test2"), JsonRequestBehavior.AllowGet);
-            JsonResult three = Json(productDB.getProductsByCategory("Test3"), JsonRequestBehavior.AllowGet);
+            var two = DBProduct.find(2);
 
-            addToCart(one, 1);
-            Debug.WriteLine("1 ADDED!");
-            addToCart(two, 2);
-            Debug.WriteLine("2 ADDED!");
-            addToCart(three, 3);
-            Debug.WriteLine("3 ADDED!");
+            var three = DBProduct.find(3);
+            if(one != null)
+                addToCart(one, 1);
+            if(two != null)
+                addToCart(two, 2);
+            if(three != null)
+                addToCart(three, 3);
         }
-        */
     }
 }

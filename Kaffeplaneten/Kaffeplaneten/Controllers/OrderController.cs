@@ -11,13 +11,17 @@ namespace Kaffeplaneten.Controllers
         // GET: Order
         public ActionResult confirmOrderView()
         {
-            var orderModel = (OrderModel)Session[CHECKOUT_ORDER];
+            var orderModel = (OrderModel)Session[SHOPPING_CART];
             if (orderModel == null)
                 return RedirectToAction("AllProducts", "Product", new { area = "" });
-            var customerModel = DBCustomer.find(orderModel.customerID);
+            var customerModel = DBCustomer.find(getActiveUserID());
             if (customerModel == null)
-                return RedirectToAction("AllProducts", "Product", new { area = "" });
+            {
+                ModelState.AddModelError("", "Du må være logget inn for å fortsette");
+                return RedirectToAction("Loginview", "Security", new { area = "" });
+            }
             ViewBag.customerModel = customerModel;
+            orderModel.customerID = customerModel.customerID;
             return View(orderModel);
         }
 
@@ -74,7 +78,7 @@ namespace Kaffeplaneten.Controllers
         }
         public ActionResult receiptView()
         {
-            var orderModel = (OrderModel)Session[CHECKOUT_ORDER];
+            var orderModel = (OrderModel)Session[SHOPPING_CART];
             if (orderModel == null)
             {
                 ModelState.AddModelError("", "Orderen er allerede registrert");
@@ -91,7 +95,7 @@ namespace Kaffeplaneten.Controllers
         {
             if (orderModel == null)
                 return false;
-            Session[CHECKOUT_ORDER] = null;
+            Session[SHOPPING_CART] = null;
             return DBOrder.add(orderModel);
         }
     }

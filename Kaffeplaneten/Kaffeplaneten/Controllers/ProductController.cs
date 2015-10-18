@@ -30,7 +30,7 @@ namespace Kaffeplaneten.Controllers
         public ActionResult ProductCategories()
         {
             var uniqeCategories = new List<string>();
-            var ProductList = (List<ProductModel>)Session["ProductList"];
+            var ProductList = (List<ProductModel>)Session[PRODUCT_LIST];
             if (ProductList == null)
                     {
                         try
@@ -50,13 +50,13 @@ namespace Kaffeplaneten.Controllers
                         if (!uniqeCategories.Contains(c.category))
                             uniqeCategories.Add(c.category);
                     }
-            Session["UniqueCategories"] = uniqeCategories;
+            Session[UNIQUE_CATEGORIES] = uniqeCategories;
             return View(uniqeCategories);
         }
 
         public PartialViewResult ProductsInCategory(string category)
         {
-            var ProductList = (List<ProductModel>)Session["ProductList"];
+            var ProductList = (List<ProductModel>)Session[PRODUCT_LIST];
             var utListe = new List<ProductModel>();
 
             if (category == "ALL")//endre konst
@@ -80,12 +80,12 @@ namespace Kaffeplaneten.Controllers
             var ProductList = productDB.getAllProducts();
 
 
-            Session["ProductList"] = ProductList;
+            Session[PRODUCT_LIST] = ProductList;
             return View(ProductList);
         }
         public ActionResult ProductDetails(int id)
         {
-            var ProduktList = (List<ProductModel>)Session["ProductList"];
+            var ProduktList = (List<ProductModel>)Session[PRODUCT_LIST];
             foreach(var product in ProduktList)
             {
                 if (product.productID == id)
@@ -94,22 +94,6 @@ namespace Kaffeplaneten.Controllers
                 }
             }
             return View();
-        }
-
-
-        public void addToCart(ProductModel productModel)
-        {
-            var orderModel = (OrderModel)Session[SHOPPING_CART];
-            if (orderModel == null)
-                orderModel = new OrderModel();
-            foreach(var p in orderModel.products)
-                if(p.productID == productModel.productID)
-                {
-                    p.quantity += productModel.quantity;
-                    return;
-                }
-            orderModel.products.Add(productModel);
-            Session[SHOPPING_CART] = orderModel;
         }
     }
 }
