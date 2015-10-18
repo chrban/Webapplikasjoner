@@ -12,7 +12,7 @@
                 </div>
                 <p>@produkt.productID</p>
                 @Html.ActionLink("Info", "ProductDetails", "Product", new { id = produkt.productID }, null)
-                @Html.ActionLink("Legg i handlekurv", "addToCart", "Order", new { id = produkt  }, null)
+                <button type="button" id="@produkt.productID" class="btn btn-default" onclick="putInCart(@produkt.productID)">Legg i handlekurv</button>
 
             </div>
         </div>

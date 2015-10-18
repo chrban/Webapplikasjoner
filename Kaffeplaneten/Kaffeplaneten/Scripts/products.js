@@ -9,3 +9,17 @@
     });
 }
 
+
+
+function putInCart(id) {
+    $.ajax({
+        url: "/ShoppingCart/addToCart",
+        type: 'POST',
+        data: {newProd: id
+        }, success: function (retur) {
+            //window.alert(retur); display message
+            
+
+        }
+    });
+}

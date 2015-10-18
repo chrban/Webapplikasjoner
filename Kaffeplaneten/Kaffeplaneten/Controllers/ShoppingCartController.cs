@@ -41,7 +41,7 @@ namespace Kaffeplaneten.Controllers
                 var cart = ((OrderModel)Session[SHOPPING_CART]);
                 //cart.products = new List<ProductModel>();//gjøres av konstruktør
                 Debug.WriteLine("KLARTE Å LAGE EN NY CART!");
-                testProducts();                                         // ---- DENNE MÅ FJERNES FØR INNLEVERING. TESTEMETODE!
+                //testProducts();                                         // ---- DENNE MÅ FJERNES FØR INNLEVERING. TESTEMETODE!
                 return;
             }
             Debug.WriteLine("FAILED TO MAKE NEW CART!");
@@ -58,24 +58,40 @@ namespace Kaffeplaneten.Controllers
             return null;
         }
 
-        public bool addToCart(ProductModel newProd)
+        [HttpPost]
+        public bool addToCart(int newProd)
         {
+            Debug.WriteLine("ProduktID motatt: "+newProd );
+
+            var ProductList = (List<ProductModel>)Session[PRODUCT_LIST];
             var cart = ((OrderModel)Session[SHOPPING_CART]);
             if (cart == null)
                 cart = new OrderModel();
            
             foreach(var productInList in cart.products)
             {                
-                if (productInList.productID == newProd.productID)
+                if (productInList.productID == newProd)
                 {
                     calculateTotal();
                     return false;                                                       // Product already exists in cart.
                 }
             }
-            cart.products.Add(newProd);
-            calculateTotal();
-            return true;
+            foreach (var product in ProductList)
+            {
+                if (product.productID == newProd)
+                {
+                    cart.products.Add(product);
+                    Debug.WriteLine("Produkt lagt til: " + product.productName);
+                    calculateTotal();
+                    return true;
+                }
+
+            }
+
+            return false;    
         }
+
+            
 
         public bool removeFromCart(ProductModel productToBeRemoved)
         {
@@ -128,12 +144,12 @@ namespace Kaffeplaneten.Controllers
             ((OrderModel)Session[SHOPPING_CART]).total = currentTotal;
         }
 
-        public void testProducts()
+  /*      public void testProducts()
             /* Oppgradert slik at den pruker faktiske produkter i databasen. 
             Bruk TestClass til å generere produkter hvis det trengs -> Slå den på i Global.asax, kjør 3 ganger, slå den av igjen*/
         //Denne kan vel slettes?? (christer)
-        // Ja, det skal den etter at alt er confirmed working (Sondre)
-        {
+        // Ja, det skal den etter at alt er confirmed working (Sondre) */
+        /*{
             var one = DBProduct.find(1);
 
             var two = DBProduct.find(2);
@@ -146,5 +162,6 @@ namespace Kaffeplaneten.Controllers
             if(three != null)
             addToCart(three);
         }
+    */
     }
 }
