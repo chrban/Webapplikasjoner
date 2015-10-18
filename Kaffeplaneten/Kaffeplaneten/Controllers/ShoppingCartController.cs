@@ -117,14 +117,13 @@ namespace Kaffeplaneten.Controllers
         [HttpGet]
         public int updateQuantity(int productId, int quantity)
         {
-            Debug.WriteLine("UPDATING QUANTITY:....");
             foreach(var productInList in ((OrderModel)Session[SHOPPING_CART]).products)
             {
                 if(productInList.productID == productId)
                 {
                     if(quantity == 0)
                     {
-                        removeFromCart(productInList);
+                        removeFromCart(productInList.productID);
                         return 0;
                     }
                     productInList.quantity = quantity;
@@ -172,11 +171,11 @@ namespace Kaffeplaneten.Controllers
             var three = DBProduct.find(3);
 
             if(one != null)
-                addToCart(one);
+                addToCart(one.productID);
             if(two != null)
-                addToCart(two);
+                addToCart(two.productID);
             if(three != null)
-            addToCart(three);
+            addToCart(three.productID);
         }
     }
 }

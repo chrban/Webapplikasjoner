@@ -43,8 +43,8 @@
                                             url: "/ShoppingCart/updateQuantity",
                                             type: "GET",
                                             data: { productId: (@product.productID),
-                                                    quantity:   val
-                                                  }
+                                                quantity:   val
+                                            }
                                         })
                                         .done(function () {
                                             getSubTotal(@product.productID);
@@ -55,8 +55,7 @@
                         </td>
                         <td id = "Price_@product.productID" data-th="Pris" class="text-center">@(product.price * product.quantity)</td>
                         <td class="actions" data-th="">
-                            <button class="btn btn-info btn-sm"><i class="glyphicon-refresh"></i></button>
-                            <button class="btn btn-danger btn-sm"><i class="glyphicon-trash"></i></button>
+                            <button class="btn btn-danger btn-sm" onclick="removeItem(@product.productID)"><i class="glyphicon-trash"></i></button>
                         </td>
                     </tr>
                 }
@@ -103,9 +102,10 @@
         $.ajax({
             url: "/ShoppingCart/removeItem",
             type: "GET",
-            data: { prodId: data }
+            data: { productToBeRemoved: data }
         })
-        .done(function (result) {
+        .done(function () {
+            alert("FIXED");
             $("#entireProduct_" + data).remove();
         });
     };
