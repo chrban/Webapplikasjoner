@@ -43,4 +43,3 @@ function putInCart(id) {
     });
     $('#quantity').val(1);
 }
-
