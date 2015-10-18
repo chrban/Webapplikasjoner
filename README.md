@@ -1,68 +1,23 @@
-# Webapplikasjoner
+#Kaffeplaneten
 
-*Database:*
--	Brukerdatabase
--	Varedatabase
--	Database klasser
--	EF diagram
+##Prosjektstruktur:
+###Database:
+CustomerContext.cs innholder Code First filen til databasen. Filen ligger i Models mappen.
+Databasen heter DatabaseKaffeplaeneten.
+##Database lag:
+DBCustomer.cs, DBUser.cs, DBOrder.cs og DBProduct.cs tar seg av all aksess til databasen. 
+###MVC lag:
+###Model:
+Alle modelklasser ligger i Models mappen. Disse representerer de ulike databaseentitetene.
+###Controller:
+Alle kontrollerklassene ligger i Controllers mappen. Diss styrer dataflyten mellom databasen og viewene.
+###View
+De ulike viewene er organisert i undermapper i Views mappen. 
 
-*HTML:*
--	Web side, Design
--	CSS/Bootsrap
-
-Kode:
--	Innloggingsystem
--	Kode for behandling av brukerdata
--	Validering
-
-Struktur
--	Klassediagram
--	Sekvensdiagram
-
-
-Database
-=========
-_Generere databasen._ 
-
-### Controllers:
-
-* UserController -  lage nye brukere, endre brukere, slette brukere. 
-* LoginController - Innlogging. 
-* ProductController - kontroller for generering av produktlister. Hente ut produktdetaljer. 
-* SecurityController - validering, passordkryptering. 
-* OrderController - Handlevogn, registrering av ordre. 
-
-### Views:
-
-* HomeView/index
-* ProductDetailsView
-* LoginView
-* NewUserView
-* ShoppingCartView
-* OrderView(bekrefte pris, adresse og kortinformasjon)
-* ReceiptView
-* AccountView(navn, adresse, telefon
-* OrderHistoryView
-
-
-##### Knalstad:
--	UserController+LoginController:
--	LoginView
--	NewUserView
-
-##### Christer:
--	ProductController
--	HomeView/index
--	<Et view for hver kaffekategori>ikke nødvendig
--	ProductDetailsView
-
-##### Sondre:
--	OrderController
--	ShoppingCartView
--	OrderView(bekrefte pris, adresse og kortinformasjon)
--	ReceiptView
-
-##### Tønsager:
--	SecurityController
--	AccountView(navn, adresse, telefon)
--	OrderHistoryView
+##Beskrivelse av prosjektet:
+Prosjektet er en nettside med nettbutikk funksjonalitet. Nettsiden har funksjonalitet for brukerregistrering, innlogging,  oppdatering av brukerdata, visning og kjøp av produkter, og visning av tidligere kjøp. Prosjektet er laget med Visual Studio 2015 i MVC .NET.
+##Laget av:
+Magnus Johan Knalstad, s
+Christer Bang, s
+Sondre Husevold. s
+Magnus Tønsager, s19
