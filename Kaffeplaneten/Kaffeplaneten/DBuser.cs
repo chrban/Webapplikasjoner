@@ -11,7 +11,6 @@ namespace Kaffeplaneten
 {
     public class DBUser
     {
-
         public static bool add(UserModel userModel)//Legger en Users inn i databasen
         {
             using (var db = new CustomerContext())
@@ -112,7 +111,7 @@ namespace Kaffeplaneten
             }
         }
 
-        public static bool verifyUser(UserModel userModel)
+        public static bool verifyUser(UserModel userModel)//Bekrefter brukernavn og passord for user
         {
             using (var db = new CustomerContext())
             {

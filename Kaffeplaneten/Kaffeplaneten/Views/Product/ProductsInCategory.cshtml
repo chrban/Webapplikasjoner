@@ -3,8 +3,9 @@
 @foreach (var produkt in Model)
 {
     <div class="@Html.DisplayFor(model => produkt.category)">
-        <div id="template" class="col-sm-6 col-md-6">
-            <div class="thumbnail">
+        <div id="template" class="col-lg-5">
+            <div class="row">
+                <div class="col-lg-8 well well-sm">
                 <img img src="../../Content/img/@Html.DisplayFor(model => produkt.imageURL)" alt="ProductImage" data-toggle="modal" data-target="#myModal" style="width:150px;height:150px">
                 <div class="caption">
                     <h3 id="pName">@Html.DisplayFor(model => produkt.productName)</h3>

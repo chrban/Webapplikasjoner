@@ -39,9 +39,6 @@ namespace Kaffeplaneten.Models
         public string lastName { get; set; }
         public string email { get; set; }
         public string phone { get; set; }
-
-
-
     }
 
     public class Customers : Persons
@@ -81,7 +78,6 @@ namespace Kaffeplaneten.Models
         public string zipCode { get; set; }
         public string province { get; set; }
         public virtual List<Adresses> Adresses { get; set; }
-
     }
 
     public class Products
@@ -95,7 +91,6 @@ namespace Kaffeplaneten.Models
         public string category { get; set; }
         public string description { get; set; }
         public virtual List<ProductOrders> productOrders { get; set; }
-
     }
 
     public class Orders
@@ -105,7 +100,6 @@ namespace Kaffeplaneten.Models
         public int customerID { get; set; }
         public virtual Customers Customers { get; set; }
         public virtual List<ProductOrders> Products { get; set; }
-
     }
 
     public class ProductOrders
@@ -117,6 +111,5 @@ namespace Kaffeplaneten.Models
         public virtual Orders orders { get; set; }
         public virtual Products products { get; set; }
     }
-
 }
 

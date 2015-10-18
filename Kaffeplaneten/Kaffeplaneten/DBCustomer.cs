@@ -97,7 +97,7 @@ namespace Kaffeplaneten
             return true;
         }
 
-        public static string find(string email)
+        public static string find(string email)//Henter ut navn på bruker med brukernavn lik email
         {
             StringBuilder sb = new StringBuilder();
             using (var db = new CustomerContext())
@@ -268,7 +268,7 @@ namespace Kaffeplaneten
             {
                 try
                 {
-                    /*Kan fjernes hvis støtte for mer enn to adresser implementeres***********************/
+                    /*******************Kan fjernes hvis støtte for mer enn to adresser implementeres***********************/
                     //Fjerner betalingsadresse og/eller leveringsadresse fra databasen dersom ny adresse er av samme type
                     var adresses = (from a in db.Adresses
                                     where a.customerID == adressModel.customerID
@@ -278,7 +278,7 @@ namespace Kaffeplaneten
                         foreach (var am in adressesList)
                             if (a.deliveryAdress == am.deliveryAdress && a.payAdress == am.payAdress)
                                 db.Adresses.Remove(a);
-                    /*************************************************************************************/
+                    /*******************************************************************************************************/
                     foreach (var a in adressesList)//Legger adressene inn i databasen
                     {
                         addProvince(adressModel);
@@ -323,7 +323,6 @@ namespace Kaffeplaneten
                     //Environment.Exit(1);
                 }
             }
-
             return false;
         }
     }//end namespace
