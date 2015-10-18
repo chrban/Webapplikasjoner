@@ -127,8 +127,9 @@ namespace Kaffeplaneten
                     orderModel.total = 0;
                     foreach (var o in productOrders)//legger produktene til i order modellen
                     {
-                        for (int i = 0; i < o.quantity; i++)
-                            orderModel.products.Add(DBProduct.find(o.products.productID));
+                        var productModel = DBProduct.find(o.products.productID);
+                        productModel.quantity = o.quantity;
+                        orderModel.products.Add(productModel);
                         orderModel.total += o.price;
                     }
                     return orderModel;
@@ -151,7 +152,7 @@ namespace Kaffeplaneten
                 try
                 {
                     var orders = (from o in db.Orders
-                                 where o.orderNr == id
+                                 where o.customerID == id
                                  select o).ToList();
                     var orderModelList = new List<OrderModel>();
                     foreach (var o in orders)//legger order modellene inn i listen

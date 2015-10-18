@@ -7,15 +7,15 @@ using System.Web.Mvc;
 
 namespace Kaffeplaneten.Controllers
 {
-    public class LayoutController : Controller
+    public class LayoutController : SuperController
     {
 
 
        public ActionResult HeaderAndMenuBar()
        {
-             if(Session["LoggedIn"] != null)
+             if(Session[LOGGED_INN] != null)
              {
-                 if ((bool)Session["LoggedIn"])
+                 if ((bool)Session[LOGGED_INN])
                  {
                      ViewBag.Inlogged = true;
                  }

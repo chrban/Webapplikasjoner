@@ -29,7 +29,7 @@ namespace Kaffeplaneten.Controllers
         public ActionResult ProductCategories()
         {
             var uniqeCategories = new List<string>();
-            var ProductList = (List<ProductModel>)Session["ProductList"];
+            var ProductList = (List<ProductModel>)Session[PRODUCT_LIST];
             if (ProductList == null)
                     {
                         try
@@ -49,13 +49,13 @@ namespace Kaffeplaneten.Controllers
                         if (!uniqeCategories.Contains(c.category))
                             uniqeCategories.Add(c.category);
                     }
-            Session["UniqueCategories"] = uniqeCategories;
+            Session[UNIQUE_CATEGORIES] = uniqeCategories;
             return View(uniqeCategories);
         }
 
         public PartialViewResult ProductsInCategory(string category)
         {
-            var ProductList = (List<ProductModel>)Session["ProductList"];
+            var ProductList = (List<ProductModel>)Session[PRODUCT_LIST];
             var utListe = new List<ProductModel>();
             foreach(var product in ProductList)
             {
@@ -72,12 +72,12 @@ namespace Kaffeplaneten.Controllers
             var ProductList = productDB.getAllProducts();
 
 
-            Session["ProductList"] = ProductList;
+            Session[PRODUCT_LIST] = ProductList;
             return View(ProductList);
         }
         public ActionResult ProductDetails(int id)
         {
-            var ProduktList = (List<ProductModel>)Session["ProductList"];
+            var ProduktList = (List<ProductModel>)Session[PRODUCT_LIST];
             foreach(var product in ProduktList)
             {
                 if (product.productID == id)

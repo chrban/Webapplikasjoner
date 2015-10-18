@@ -3,9 +3,10 @@
 @{
     ViewBag.Title = "receiptView";
 }
+@Html.Action("HeaderAndMenuBar", "Layout")
 @Html.ValidationSummary(true)
 
 <h2>Kvittering</h2>
-@Html.Partial("OrderView");
+@Html.Partial("OrderView")
 
 @Html.ActionLink("Hjem", "AllProducts", "Product", new { area = "" }, new { @class = "btn btn-success" })

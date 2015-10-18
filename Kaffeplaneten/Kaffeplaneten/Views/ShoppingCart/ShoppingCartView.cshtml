@@ -3,8 +3,9 @@
 @{
     ViewBag.Title = "ShoppingCartView";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    var currentCart = ((OrderModel)Session["SHOPPING_CART"]);
+    var currentCart = ((OrderModel)Session[Kaffeplaneten.Controllers.SuperController.SHOPPING_CART]);
 }
+@Html.Action("HeaderAndMenuBar", "Layout")
 
 <fieldset>
     <div class="container">
@@ -48,10 +49,10 @@
                     <td class="text-center"><strong>Total 1.99</strong></td>
                 </tr>
                 <tr>
-                    <td><a href="#" class="btn btn-warning"><i class="fa fa-angle-left"></i> Continue Shopping</a></td>
+                    <td>@Html.ActionLink("Tilbake til butikk", "AllProducts", "Product", new { area = "" }, new { @class = "btn btn-warning" })<i class="fa fa-angle-right"></i></td>
                     <td colspan="2" class="hidden-xs"></td>
                     <td class="hidden-xs text-center"><strong>Total: @currentCart.total </strong></td>
-                    <td><a href="#" class="btn btn-success btn-block">Checkout <i class="fa fa-angle-right"></i></a></td>
+                    <td>@Html.ActionLink("Gå til kasse", "confirmOrderView", "Order", new { area = "" }, new { @class = "btn btn-success btn-block" })<i class="fa fa-angle-right"></i></td>
                 </tr>
             </tfoot>
         </table>

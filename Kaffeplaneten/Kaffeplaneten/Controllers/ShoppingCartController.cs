@@ -15,11 +15,14 @@ namespace Kaffeplaneten.Controllers
         {
             var orderModel = (OrderModel)Session[SHOPPING_CART];
             if (orderModel == null)
-                return View();
+            {
+                createCart();
+                return View(Session[SHOPPING_CART]);
+            }
             //return View(getShoppingCart());
             return View(orderModel);
         }
-        [HttpPost]
+        /*[HttpPost]
         public ActionResult ShoppingCartView(OrderModel orderModel)
         {
             if (orderModel == null)
@@ -27,16 +30,16 @@ namespace Kaffeplaneten.Controllers
             Session[SHOPPING_CART] = null;
             Session[CHECKOUT_ORDER] = orderModel;
             return RedirectToAction("confirmOrderView", "Order");
-        }
+        }*/
         [HttpPost]
         public void createCart()
         {
 
-            if (Session["SHOPPING_CART"] == null)                                    // Already created?
+            if (Session[SHOPPING_CART] == null)                                    // Already created?
             {
-                Session["SHOPPING_CART"] = new OrderModel();                          // This is the cart. It will be initialized by the createCart() method.
-                var cart = ((OrderModel)Session["SHOPPING_CART"]);
-                cart.products = new List<ProductModel>();
+                Session[SHOPPING_CART] = new OrderModel();                          // This is the cart. It will be initialized by the createCart() method.
+                var cart = ((OrderModel)Session[SHOPPING_CART]);
+                //cart.products = new List<ProductModel>();//gjøres av konstruktør
                 Debug.WriteLine("KLARTE Å LAGE EN NY CART!");
                 testProducts();                                         // ---- DENNE MÅ FJERNES FØR INNLEVERING. TESTEMETODE!
                 return;
@@ -47,7 +50,7 @@ namespace Kaffeplaneten.Controllers
         [HttpGet]
         public List<ProductModel> getShoppingCartItems()              // Gets the ShoppingCart object through the current Session. This object contains all the products.
         {
-            var cart = ((OrderModel)Session["SHOPPING_CART"]);
+            var cart = ((OrderModel)Session[SHOPPING_CART]);
             if (cart != null)
             {
                 return cart.products;
@@ -57,33 +60,28 @@ namespace Kaffeplaneten.Controllers
 
         public bool addToCart(ProductModel newProd, int quantity)
         {
-            var cart = ((OrderModel)Session["SHOPPING_CART"]);
-            try
-            {
-                foreach(var productInList in cart.products)
-                {                
-                    if (productInList.productID == newProd.productID)
-                    {
-                        productInList.quantity += quantity;
-                        calculateTotal();
-                        return true;
-                    }
+            var cart = ((OrderModel)Session[SHOPPING_CART]);
+            if (cart == null)
+                cart = new OrderModel();
+           
+            foreach(var productInList in cart.products)
+            {                
+                if (productInList.productID == newProd.productID)
+                {
+                    productInList.quantity += quantity;
+                    calculateTotal();
+                    return true;
                 }
-                cart.products.Add(newProd);
-                Debug.WriteLine("Added" + newProd.productName);
-                calculateTotal();
-                return true;
             }
-            catch (Exception error)
-            {
-                Console.WriteLine("FAILED TO ADD ITEM TO CART!");
-            };
-            return false;
+            newProd.quantity = quantity;
+            cart.products.Add(newProd);
+            calculateTotal();
+            return true;
         }
 
         public bool removeFromCart(ProductModel productToBeRemoved, int quantity)
         {
-            var cart = ((OrderModel)Session["SHOPPING_CART"]);
+            var cart = ((OrderModel)Session[SHOPPING_CART]);
             try
             {
                 foreach (var productInList in cart.products)
@@ -110,68 +108,51 @@ namespace Kaffeplaneten.Controllers
         public void calculateTotal()
         {
             double currentTotal = 0;
-            foreach(var item in ((OrderModel)Session["SHOPPING_CART"]).products)
+            foreach(var item in ((OrderModel)Session[SHOPPING_CART]).products)
         {
                 currentTotal += (item.price * item.quantity);
             }
             Debug.WriteLine("Nå er total: " + currentTotal);
-            ((OrderModel)Session["SHOPPING_CART"]).total = currentTotal;
+            ((OrderModel)Session[SHOPPING_CART]).total = currentTotal;
         }
-        public void addToCart(ProductModel productModel)
+        public bool addToCart(ProductModel productModel)
         {
-            var orderModel = (OrderModel)Session[SHOPPING_CART];
-            if (orderModel == null)
-                orderModel = new OrderModel();
-            foreach (var p in orderModel.products)
-                if (p.productID == productModel.productID)
+            var cart = ((OrderModel)Session[SHOPPING_CART]);
+            if (cart == null)
+                cart = new OrderModel();
+
+            foreach (var productInList in cart.products)
+            {
+                if (productInList.productID == productModel.productID)
                 {
-                    p.quantity += productModel.quantity;
-                    return;
+                    productInList.quantity += productModel.quantity;
+                    calculateTotal();
+                    return true;
                 }
-            orderModel.products.Add(productModel);
-            Session[SHOPPING_CART] = orderModel;
+            }
+            cart.products.Add(productModel);
+            calculateTotal();
+            return true;
         }
-        //Denne kan vel slettes?? (christer)
-        // Ja, det skal den etter at alt er confirmed working (Sondre)
+
 
         public void testProducts()
+            /* Oppgradert slik at den pruker faktiske produkter i databasen. 
+            Bruk TestClass til å generere produkter hvis det trengs -> Slå den på i Global.asax, kjør 3 ganger, slå den av igjen*/
+        //Denne kan vel slettes?? (christer)
+        // Ja, det skal den etter at alt er confirmed working (Sondre)
         {
-            var one = new ProductModel();
-            one.category = "Kaffe";
-            one.description = "God kaffe";
-            one.imageURL = "img1.jpg";
-            one.price = 10000;
-            one.productName = "KaffeKaffe";
-            one.stock = 1;
-            one.productID = 1;
-            one.quantity = 1;
+            var one = DBProduct.find(1);
 
-            var two = new ProductModel();
-            two.category = "Kaffe2";
-            two.description = "God kaffe2";
-            two.imageURL = "img2.jpg";
-            two.price = 30;
-            two.productName = "KaffeKaffe2";
-            two.stock = 3;
-            two.productID = 2;
-            two.quantity = 3;
+            var two = DBProduct.find(2);
 
-            var three = new ProductModel();
-            three.category = "Kaffe3";
-            three.description = "God kaffe3";
-            three.imageURL = "img3.jpg";
-            three.price = 40;
-            three.productName = "KaffeKaffe3";
-            three.stock = 6;
-            three.productID = 3;
-            three.quantity = 2;
-
-            addToCart(one, 1);
-            Debug.WriteLine("1 ADDED!");
-            addToCart(two, 2);
-            Debug.WriteLine("2 ADDED!");
-            addToCart(three, 3);
-            Debug.WriteLine("3 ADDED!");
+            var three = DBProduct.find(3);
+            if(one != null)
+                addToCart(one, 1);
+            if(two != null)
+                addToCart(two, 2);
+            if(three != null)
+                addToCart(three, 3);
         }
     }
 }
