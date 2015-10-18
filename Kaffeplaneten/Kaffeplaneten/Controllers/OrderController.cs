@@ -14,6 +14,11 @@ namespace Kaffeplaneten.Controllers
             var orderModel = (OrderModel)Session[SHOPPING_CART];
             if (orderModel == null)
                 return RedirectToAction("AllProducts", "Product", new { area = "" });
+            if (orderModel.products.Count == 0)
+            {
+                ModelState.AddModelError("", "Handlevognen er tom");
+                return RedirectToAction("ShoppingCartView", "ShoppingCart", new { area = "" });
+            }
             var customerModel = DBCustomer.find(getActiveUserID());
             if (customerModel == null)
             {
