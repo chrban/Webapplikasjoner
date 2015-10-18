@@ -12,6 +12,8 @@
                 </div>
                 <p>@produkt.productID</p>
                 @Html.ActionLink("Info", "ProductDetails", "Product", new { id = produkt.productID }, null)
+                @Html.ActionLink("Legg i handlekurv", "addToCart", "Order", new { id = produkt  }, null)
+
             </div>
         </div>
     </div>
