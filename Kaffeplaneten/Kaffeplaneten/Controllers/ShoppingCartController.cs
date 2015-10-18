@@ -72,7 +72,6 @@ namespace Kaffeplaneten.Controllers
                 {
                     product.quantity = inQuantity;
                     cart.products.Add(product);
-                    Debug.WriteLine("Produkt lagt til: " + product.productName);
             calculateTotal();
             return true;
         }
