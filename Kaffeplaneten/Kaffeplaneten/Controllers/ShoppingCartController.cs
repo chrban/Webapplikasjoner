@@ -70,7 +70,7 @@ namespace Kaffeplaneten.Controllers
             {                
                 if (productInList.productID == newProd)
                 {
-                    productInList.quantity++;
+                    productInList.quantity += inQuantity;
                     calculateTotal();
                     return true;                                                       // Product already exists in cart.
                 }
@@ -81,7 +81,6 @@ namespace Kaffeplaneten.Controllers
                 {
                     product.quantity = inQuantity;
                     cart.products.Add(product);
-                    Debug.WriteLine("Produkt lagt til: " + product.productName);
             calculateTotal();
             return true;
         }
