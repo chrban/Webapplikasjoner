@@ -6,8 +6,15 @@
 }
 @Html.Action("HeaderAndMenuBar", "Layout")
 
+<div class="jumbotron">
+    <div class="container">
+        <img class="img-responsive" src="../../Content/img/logo.png" />
+    </div>
+</div>
+
 <div id="categoryCanvas">@Html.Action("ProductCategories", "Product")</div>
 <div id="productCanvas">Ingen produkter å vise! Finnes det produkter i databasen??</div>
+
 
 
 <script type="text/javascript">

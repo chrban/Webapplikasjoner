@@ -11,30 +11,39 @@
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
     @Html.Action("HeaderAndMenuBar", "Layout")
-    <fieldset>
-        <div id="Loginpage">
-            <h3>Innlogging:</h3>
 
-                <div class="editor-label">
-                    @Html.LabelFor(userModel => userModel.username)
-                </div>
-                <div class="editor-field">
-                    @Html.EditorFor(userModel => userModel.username)
-                    @Html.ValidationMessageFor(userModel => userModel.username)
+    <div class="container-fluid">
+       
+                <div class="panel-default col-md-offset-3 col-md-6">
+                         <div class="panel-heading">
+                                <h3>Innlogging:</h3>
+                           </div>
+                        <div class="panel-body">
+                                <div class="col-md-offset-3 col-md-6">
+                                    <div class="input-group input-group-lg">
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-envelope"></span>
+                                    </span>
+                                    @Html.TextBoxFor(userModel => userModel.username, new { @class = "form-control", placeholder = (@Html.DisplayNameFor(userModel => userModel.username)) })
+                                    @Html.ValidationMessageFor(userModel => userModel.username)
+                                </div>
+
+                                <div class="input-group input-group-lg">
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-lock"></span>
+                                    </span>
+                                    @Html.PasswordFor(userModel => userModel.password, new { @class = "form-control", placeholder = (@Html.DisplayNameFor(userModel => userModel.password)) })
+                                    @Html.ValidationMessageFor(userModel => userModel.password)
+                                </div>
+                            </div>
+                        </div>
+                     <div class="panel-footer">
+                        <input type="submit" value="Logg inn" id="LogInButton" class="btn btn-success"/>
+                     </div>
                 </div>
 
-                <div class="editor-label">
-                    @Html.LabelFor(userModel => userModel.password)
-                </div>
-                <div class="editor-field">
-                    @Html.PasswordFor(userModel => userModel.password)
-                    @Html.ValidationMessageFor(userModel => userModel.password)
-                </div>
-                <input type="submit" value="Logg inn" id="LogInButton" class="btn btn-success" />
-            
+        
         </div>
-
-    </fieldset>
 }
           
 

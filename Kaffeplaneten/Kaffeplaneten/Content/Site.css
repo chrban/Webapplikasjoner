@@ -1,6 +1,7 @@
 ﻿body {
     padding-top: 50px;
     padding-bottom: 20px;
+    background-color: red;
 }
 
 /* Set padding to keep content from hitting the edges */
@@ -14,8 +15,5 @@ input,
 select,
 textarea {
     max-width: 280px;
-}
-.input-group-btn{
-float: left;
 }
 

@@ -12,11 +12,11 @@ namespace Kaffeplaneten.Models
 
         public byte[] passwordHash { get; set; }
 
-        [Display(Name = "Brukernavn(Epost):")]
+        [Display(Name = "Skriv inn brukernavn(Epost)")]
         [Required(ErrorMessage="Du må oppgi epostadresse")]
         public string username { get; set; }
 
-        [Display(Name = "Passord:")]
+        [Display(Name = "Skriv inn passord")]
         [Required(ErrorMessage = "Du må oppgi passord")]
         public string password { get; set; }
 

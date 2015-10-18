@@ -11,40 +11,40 @@
     <script src="~/Scripts/modernizr-2.6.2.js"></script>
 </head>
 <header>
-    <nav class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+        <nav class="navbar navbar-default">
+            <!--Page-Logo Kaffeplaneten-->
+            <img src="~/Content/img/Logo.png" class="img-responsive" />
+            <div class="container-fluid">
+            <div class="navbar-header" style="background-color: #5d3d1f">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar" style="background-color: #5d3d1f">
                     <span class="sr-only">Toggle navigation</span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
             </div>
-            <div id="navbar" class="collapse navbar-collapse">
+            <div id="navbar" class="collapse navbar-collapse" style="background-color: #5d3d1f">
                 <ul class="nav navbar-nav">
-        @if (ViewBag.Inlogged == true)
-        {
-            <li role="presentation" class="showAlways">@Html.ActionLink("Home", "AllProducts", "Product", new { area = "" }, new { @class = "navbar-brand" })</li>
-            <li role="presentation" class="showAlways"> @Html.ActionLink("Handlekurv", "ShoppingCartView", "ShoppingCart", new { area = "" }, new { @class = "navbar-brand" })</li>
-            <li role="presentation" id="showLoggedIn"> @Html.ActionLink("Kontoinstillinger", "accountView", "User", new { area = "" }, new { @class = "navbar-brand" })</li>
-            <li role="presentation" id="showLoggedIn">@Html.ActionLink("Logg Ut", "LoggedOut", "Security", new { area = "" }, new { @class = "navbar-brand" })</li>
-            <li role="presentation" id="showLoggedIn" class = "navbar-brand">Pålogget @Session[Kaffeplaneten.Controllers.SuperController.USER]</li>
+                        <li>@Html.ActionLink("Home", "AllProducts", "Product", new { area = "" }, new { @class = "navbar-brand" })</li>
+                                         <li> @Html.ActionLink("Handlekurv", "ShoppingCartView", "ShoppingCart", new { area = "" }, new { @class = "navbar-brand"})</li>
+                        @if (ViewBag.Inlogged == true)
+                        {
+                                            <li> @Html.ActionLink("Kontoinstillinger", "accountView", "User", new { area = "" }, new { @class = "navbar-brand"})</li>
+                                            <li>@Html.ActionLink("Logg Ut", "LoggedOut", "Security", new { area = "" }, new { @class = "navbar-brand"})</li>
+                                            <li class = "navbar-brand">Pålogget @Session["User"]</li>
 
-        }
-        else
-        {
-            <li role="presentation" class="showAlways">@Html.ActionLink("Home", "AllProducts", "Product", new { area = "" }, new { @class = "navbar-brand" })</li>
-            <li role="presentation" class="showLoggedOut"> @Html.ActionLink("Registrer", "createUser", "User", new { area = "" }, new { @class = "navbar-brand" })</li>
-            <li role="presentation" class="showAlways"> @Html.ActionLink("Handlekurv", "ShoppingCartView", "ShoppingCart", new { area = "" }, new { @class = "navbar-brand" })</li>
-            <li role="presentation" id="showLoggedIn">@Html.ActionLink("Logg inn", "Loginview", "Security", new { area = "" }, new { @class = "navbar-brand" })</li>
-            <li role="presentation" id="showLoggedOut" class="navbar-brand">Ikke Pålogget</li>
-        }
+                        }
+                        else
+                        {
+                                            <li> @Html.ActionLink("Registrer", "createUser", "User", new { area = "" }, new { @class = "navbar-brand"})</li>
+                                            <li>@Html.ActionLink("Logg inn", "Loginview", "Security", new { area = "" }, new { @class = "navbar-brand"})</li>
+                        }
                 </ul>
             </div>
+
         </div>
     </nav>
-    <img src="~/Content/img/Logo.png" class="img-thumbnail" />
+
 </header>
 
 
