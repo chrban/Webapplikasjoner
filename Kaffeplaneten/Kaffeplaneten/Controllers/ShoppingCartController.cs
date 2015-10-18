@@ -41,7 +41,7 @@ namespace Kaffeplaneten.Controllers
                 var cart = ((OrderModel)Session[SHOPPING_CART]);
                 //cart.products = new List<ProductModel>();//gjøres av konstruktør
                 Debug.WriteLine("KLARTE Å LAGE EN NY CART!");
-                testProducts();                                         // ---- DENNE MÅ FJERNES FØR INNLEVERING. TESTEMETODE!
+                //testProducts();                                         // ---- DENNE MÅ FJERNES FØR INNLEVERING. TESTEMETODE!
                 return;
             }
             Debug.WriteLine("FAILED TO MAKE NEW CART!");
@@ -58,34 +58,48 @@ namespace Kaffeplaneten.Controllers
             return null;
         }
 
-        public bool addToCart(ProductModel newProd)
+        [HttpPost]
+        public bool addToCart(int newProd)
         {
+            var ProductList = (List<ProductModel>)Session[PRODUCT_LIST];
             var cart = ((OrderModel)Session[SHOPPING_CART]);
             if (cart == null)
                 cart = new OrderModel();
            
             foreach(var productInList in cart.products)
             {                
-                if (productInList.productID == newProd.productID)
+                if (productInList.productID == newProd)
                 {
                     calculateTotal();
                     return false;                                                       // Product already exists in cart.
                 }
             }
-            cart.products.Add(newProd);
-            newProd.quantity = 2;
+            foreach (var product in ProductList)
+            {
+                if (product.productID == newProd)
+                {
+                    cart.products.Add(product);
+                    Debug.WriteLine("Produkt lagt til: " + product.productName);
             calculateTotal();
             return true;
         }
 
-        public bool removeFromCart(ProductModel productToBeRemoved)
+            }
+
+            return false;    
+        }
+
+            
+
+        public bool removeFromCart(int productToBeRemoved)
         {
+
             var cart = ((OrderModel)Session[SHOPPING_CART]);
             try
             {
                 foreach (var productInList in cart.products)
                 {
-                    if (productInList.productID == productToBeRemoved.productID)
+                    if (productInList.productID == productToBeRemoved)
                     {
                        cart.products.Remove(productInList);                        // Otherwise remove entirely.
                        calculateTotal();
@@ -137,7 +151,7 @@ namespace Kaffeplaneten.Controllers
         {
             double currentTotal = 0;
             foreach(var item in ((OrderModel)Session[SHOPPING_CART]).products)
-            {
+        {
                 currentTotal += (item.price * item.quantity);
             }
             Debug.WriteLine("Nå er total: " + currentTotal);
@@ -162,7 +176,7 @@ namespace Kaffeplaneten.Controllers
             if(two != null)
                 addToCart(two);
             if(three != null)
-                addToCart(three);
+            addToCart(three);
         }
     }
 }
