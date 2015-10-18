@@ -37,7 +37,7 @@ function putInCart(id) {
             newProd: id,
             inQuantity: antall
         }, success: function (retur) {
-            console.log('Product: ' + id + ' added to cart! ' + retur);
+            console.log('Product: '  +id+  ' added to cart! '  +retur);
 
         }
     });
@@ -45,5 +45,51 @@ function putInCart(id) {
 }
 
 $(document).ready(function(){
-    $('[data-toggle="popover"]').popover();
+    $('[datatoggle="popover"]').popover();
 });
+
+
+         
+        function sameAdress() {
+                if ($('#checkbox').is(":checked")) {
+                        $('#adress').html(function () {
+                                $('#payAdress').val($(this).val());
+                            });
+                        $('#adress').keyup(function () {
+                                $('#payAdress').val($(this).val());
+                            });
+                        $('#adress').change(function () {
+                                $('#payAdress').val($(this).val());
+                            });
+        
+                        $('#zipcode').html(function () {
+                                $('#payZipcode').val($(this).val());
+                            });
+                        $('#zipcode').keyup(function () {
+                                $('#payZipcode').val($(this).val());
+                            });
+                        $('#zipcode').change(function () {
+                                $('#payZipcode').val($(this).val());
+                            });
+        
+                        $('#province').html(function () {
+                                $('#payProvince').val($(this).val());
+                            });
+                        $('#province').keyup(function () {
+                                $('#payProvince').val($(this).val());
+                            });
+                        $('#province').change(function () {
+                                $('#payProvince').val($(this).val());
+                            });
+        
+                    }
+                else {
+                    $('#payAdress').attr("disabled", false);
+                    $('#payAdress').val("");
+                    $('#payProvince').attr("disabled", false);
+                    $('#payProvince').val("");
+                    $('#payZipcode').attr("disabled", false);
+                    $('#payZipcode').val("");
+                }
+
+        }
