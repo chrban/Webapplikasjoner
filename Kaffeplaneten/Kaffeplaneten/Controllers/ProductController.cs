@@ -25,8 +25,6 @@ namespace Kaffeplaneten.Controllers
             return View();
         }
 
-        //public void FilterFroducts(List<ProductModel> ProductList)
-
         public ActionResult ProductCategories()
         {
             var uniqeCategories = new List<string>();

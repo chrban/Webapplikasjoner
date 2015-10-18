@@ -21,7 +21,9 @@
                         <p id="pDes">@Html.DisplayFor(model => produkt.description)</p>
                     </div>
                     <p>@produkt.category</p>
-                    @Html.ActionLink("Info", "ProductDetails", "Product", new { id = produkt.productID }, null)
+                    @Html.ActionLink("Info", "ProductDetails", "Product",null, new { id = produkt.productID })
+                    <button type="button" id="@produkt.productID" class="btn btn-default" onclick="putInCart(@produkt.productID)">Legg i handlekurv</button>
+
                 </div>
             </div>
         </div>
