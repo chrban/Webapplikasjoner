@@ -14,8 +14,9 @@ Alle kontrollerklassene ligger i Controllers mappen. Diss styrer dataflyten mell
 ###View:
 De ulike viewene er organisert i undermapper i Views mappen. 
 ###Annet:
-DataCreator har metode for å generere data til databasen. Brukes til å fylle databasen med produkter og til testing. Vi valgte å ha en egen SuperController alle kontrollerene arver fra. 
-Dette gjør det mulig å ha felles metoder alle kontrollerene har tilgang til. 
+Dette gjør det mulig å ha felles metoder alle kontrollerene har tilgang til. Vi valgte også å opprette en const string for hver Session variabel vi bruker. 
+Dette sikrer mot skrivefeil i Session stringen. Disse ligger også i SuperController.cs.
+Vi har valgt å kun bruke engelsk i koden. Dette er god kodepraksis da man ikke skal behøve å være norsk for å forstå koden. Kommentarer er på norsk. 
 ##Beskrivelse av prosjektet:
 Prosjektet er en nettside med nettbutikk funksjonalitet. Nettsiden har funksjonalitet for brukerregistrering, innlogging,  oppdatering av brukerdata, visning og kjøp av produkter, og visning av tidligere kjøp. Prosjektet er laget med Visual Studio 2015 i MVC .NET.
 ##Laget av:
