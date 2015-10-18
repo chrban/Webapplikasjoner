@@ -61,7 +61,7 @@ namespace Kaffeplaneten.Controllers
             {                
                 if (productInList.productID == newProd)
                 {
-                    productInList.quantity++;
+                    productInList.quantity += inQuantity;
                     calculateTotal();
                     return true;                                                       // Product already exists in cart.
                 }

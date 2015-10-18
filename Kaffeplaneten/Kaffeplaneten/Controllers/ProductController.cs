@@ -55,8 +55,7 @@ namespace Kaffeplaneten.Controllers
 
         public PartialViewResult ProductsInCategory(string category)
         {
-            var productDB = new DBProduct();
-            var ProductList = productDB.getAllProducts();
+            var ProductList = DBProduct.getAllProducts();
 
 
 
