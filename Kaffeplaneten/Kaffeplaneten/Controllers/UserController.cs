@@ -12,7 +12,6 @@ namespace Kaffeplaneten.Controllers
 
     public class UserController : SuperController
     {
-        //GET : User
         public ActionResult createUser()
         {
             return View();
@@ -46,8 +45,8 @@ namespace Kaffeplaneten.Controllers
             if (!DBUser.add(userModel))//registrerer ny user
             {
                 ModelState.AddModelError("", "Feil ved registrering av bruker");
-                    return View(newCustomer);
-                }
+                return View(newCustomer);
+            }
             return RedirectToAction("Loginview", "Security", new { area = "" });
         }
 
@@ -79,13 +78,13 @@ namespace Kaffeplaneten.Controllers
             if (!(customerModel.password == null))//tester om passord skal endres
                 userModel.passwordHash = base.getHash(customerModel.password);
 
-            if(!DBUser.update(userModel))//registrerer endinger i user
+            if (!DBUser.update(userModel))//registrerer endinger i user
             {
                 ModelState.AddModelError("", "Epost finnes fra før");
                 return RedirectToAction("editAccountView");
-        }
+            }
             if (!DBCustomer.update(customerModel))//registrerer endring i customer
-        {
+            {
                 ModelState.AddModelError("", "Feil ved registrering av data");
                 return RedirectToAction("editAccountView");
             }
@@ -95,4 +94,5 @@ namespace Kaffeplaneten.Controllers
 
     }
 }
+
     

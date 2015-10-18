@@ -68,7 +68,7 @@ namespace Kaffeplaneten
             }
 
         }
-
+        /************************************************Lager de ulike produktene*********************************************************************************/
         public static ProductModel createBrazillianBlend()
         {
             var p = new ProductModel();
@@ -249,9 +249,7 @@ namespace Kaffeplaneten
             p.stock = 50;
             return p;
         }
-
-
-
+        /***********************************************************************************************************************/
         public static void addCustomer(CustomerModel customerModel)
         {
             var db = new CustomerContext();

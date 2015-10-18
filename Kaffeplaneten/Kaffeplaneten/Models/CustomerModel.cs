@@ -8,8 +8,6 @@ namespace Kaffeplaneten.Models
 {
     public class CustomerModel
     {
-
-
         [Display(Name = "Fornavn:")]
         [Required(ErrorMessage = "Fornavn må oppgis")]
         [RegularExpression(@"[A-ZÆØÅ][a-zæøå ,.'-]{2,50}", ErrorMessage = "Du må ha stor forbokstav og fornavnet må være lengre enn 3 bokstaver. Max-lengde er 50 ")]
@@ -73,7 +71,6 @@ namespace Kaffeplaneten.Models
         [Display(Name = "Bet. Poststed")]
         [Required(ErrorMessage = "Betalingspoststed må oppgis")]
         public string payProvince { get; set; }
-
     }
 }
     

@@ -11,7 +11,6 @@ namespace Kaffeplaneten.Controllers
 {
     public class ProductController : SuperController 
     {
-        // GET: Product
         public ActionResult Index()
         {
             RedirectToAction("AllProductsView");
@@ -47,8 +46,6 @@ namespace Kaffeplaneten.Controllers
             Session[UNIQUE_CATEGORIES] = uniqeCategories;
 
         }
-
-
         public PartialViewResult ProductsInCategory(string category)
         {
             var ProductList = DBProduct.getAllProducts();
@@ -62,17 +59,13 @@ namespace Kaffeplaneten.Controllers
             else
             {
                 foreach (var product in ProductList)
-            {
-                if (product.category == category)
-                    utListe.Add(product);
+                {
+                    if (product.category == category)
+                        utListe.Add(product);
+                }
+                return PartialView(utListe);
             }
-            return PartialView(utListe);
-         }
-
-
         }
-
-
         public ActionResult GetAllProducts()
         {
             var ProductList = DBProduct.getAllProducts();

@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Web;
-// Legge til feilhåndtering: Using, try catch osv
 namespace Kaffeplaneten
 {
     public class DBProduct
@@ -36,7 +35,7 @@ namespace Kaffeplaneten
                     }
                     return ProductList;
                 }
-                catch (Exception error)
+                catch (Exception)
                 {
                 }
                 return null;
