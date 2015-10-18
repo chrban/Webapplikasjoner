@@ -11,8 +11,15 @@
     </div>
 </div>
 
-<script src="~/Scripts/products.js"></script>
-<div id="categoryCanvas">Her kommer kategorier!</div>
+
+<div id="categoryBtns" class="btn-group" role="group" aria-label="Kategori">
+    <button type="button" id="Arabica" class="btn btn-default" onclick="getProductsInCat(this.id)">Arabica</button>
+    <button type="button" id="Robusta" class="btn btn-default" onclick="getProductsInCat(this.id)">Robusta</button>
+    <button type="button" id="Svensk" class="btn btn-default" onclick="getProductsInCat(this.id)">Svensk</button>
+    <button type="button" id="Deluxe" class="btn btn-default" onclick="getProductsInCat(this.id)">Deluxe</button>
+    <button type="button" id="Curry" class="btn btn-default" onclick="getProductsInCat(this.id)">Curry</button>
+</div>
+
 <div id="productCanvas">Ingen produkter å vise! Finnes det produkter i databasen??</div>
 
 
@@ -27,16 +34,6 @@
                 $("#productCanvas").html(retur);
             }
         });
-    });
-
-        
+    });        
 </script>
 
-    <script type="text/javascript">
-        $(window).load(function () {
-            $("#categoryCanvas").load("@Url.Content("/Product/ProductCategories")");
-            $("#categoryCanvas").show();
-
-        });
-
-    </script>
