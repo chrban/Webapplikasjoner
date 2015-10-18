@@ -108,14 +108,14 @@ namespace Kaffeplaneten
                                 where c.email == email
                                 select new { c.firstName, c.lastName }).SingleOrDefault();
                     if (temp == null) //I prinsippet ikke nødvendig da denne metoden blir trigget da en kunde eksisterer
-                        return null;
+                        return sb.ToString();
                     sb.Append(temp.firstName);
                     sb.Append(" ");
                     sb.Append(temp.lastName);
                 }
                 catch (Exception ex)
                 {
-                    return null;
+                    return sb.ToString();
                 }
                 return sb.ToString();
             }
@@ -132,7 +132,7 @@ namespace Kaffeplaneten
                                 select c).FirstOrDefault();
 
                     if (temp == null)//Tester om customeren finnes
-                        return null;
+                        return customerModel;
                     customerModel.customerID = temp.customerID;
                     customerModel.firstName = temp.firstName;
                     customerModel.lastName = temp.lastName;
@@ -168,7 +168,7 @@ namespace Kaffeplaneten
                     //Environment.Exit(1);
                 }
             }//end using
-            return null;
+            return customerModel;
         }
 
         public static bool update(CustomerModel customerModel)//Oppdaterer customeren som har customerID lik customerModel.customerID

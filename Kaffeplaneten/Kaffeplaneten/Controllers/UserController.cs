@@ -64,7 +64,7 @@ namespace Kaffeplaneten.Controllers
         {
             if (getActiveUserID() == -1)
                 return RedirectToAction("Loginview", "Security", new { area = "" });
-            var customerModel = DBCustomer.find((int)Session[CUSTOMER_ID]);
+            var customerModel = DBCustomer.find(getActiveUserID());
             return View(customerModel);
 
         }

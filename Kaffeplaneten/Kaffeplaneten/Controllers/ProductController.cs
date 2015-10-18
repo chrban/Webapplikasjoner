@@ -31,24 +31,12 @@ namespace Kaffeplaneten.Controllers
             var uniqeCategories = new List<string>();
             var ProductList = (List<ProductModel>)Session[PRODUCT_LIST];
             if (ProductList == null)
-                    {
-                        try
-                        {
-                            var productDB = new DBProduct();
-                            ProductList = productDB.getAllProducts();
-                            if (ProductList == null)
-                                throw new Exception();
-                        }
-                        catch(Exception NPF)
-                        {
-                            return PartialView("No products found.. " + NPF.Message); // riktig å gi denne til bruker?
-                        }
-                    }
-                    foreach (var c in ProductList)
-                    {
-                        if (!uniqeCategories.Contains(c.category))
-                            uniqeCategories.Add(c.category);
-                    }
+                ProductList = DBProduct.getAllProducts();
+            foreach (var c in ProductList)
+            {
+                if (!uniqeCategories.Contains(c.category))
+                    uniqeCategories.Add(c.category);
+            }
             Session[UNIQUE_CATEGORIES] = uniqeCategories;
             return View(uniqeCategories);
         }
@@ -75,8 +63,7 @@ namespace Kaffeplaneten.Controllers
 
         public ActionResult GetAllProducts()
         {
-            var productDB = new DBProduct();
-            var ProductList = productDB.getAllProducts();
+            var ProductList = DBProduct.getAllProducts();
 
 
             Session[PRODUCT_LIST] = ProductList;
@@ -85,6 +72,8 @@ namespace Kaffeplaneten.Controllers
         public ActionResult ProductDetails(int id)
         {
             var ProduktList = (List<ProductModel>)Session[PRODUCT_LIST];
+            if (ProduktList == null)
+                return View();
             foreach(var product in ProduktList)
             {
                 if (product.productID == id)
