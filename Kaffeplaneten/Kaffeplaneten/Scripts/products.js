@@ -21,9 +21,8 @@ function putInCart(id) {
         data: {
             newProd: id,
             inQuantity: antall
-            
         }, success: function (retur) {
-            window.alert(retur + "antalL:" + antall);
+            console.log('Product: '+id+' added to cart! '+retur);
             
         }
     });

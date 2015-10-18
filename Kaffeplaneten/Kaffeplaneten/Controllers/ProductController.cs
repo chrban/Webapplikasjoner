@@ -28,34 +28,42 @@ namespace Kaffeplaneten.Controllers
 
             return View();
         }
-      
 
+        //ProductCategories
         public ActionResult ProductCategories()
+        {
+
+
+            return PartialView("ProductCategories");
+        }
+
+        public void UniqueCategory()
         {
             var uniqeCategories = new List<string>();
             var ProductList = (List<ProductModel>)Session[PRODUCT_LIST];
             if (ProductList == null)
-                    {
-                        try
-                        {
-                            var productDB = new DBProduct();
-                            ProductList = productDB.getAllProducts();
-                            if (ProductList == null)
-                                throw new Exception();
-                        }
-                        catch(Exception NPF)
-                        {
-                            return PartialView("No products found.. " + NPF.Message); // riktig å gi denne til bruker?
-                        }
-                    }
-                    foreach (var c in ProductList)
-                    {
-                        if (!uniqeCategories.Contains(c.category))
-                            uniqeCategories.Add(c.category);
-                    }
+            {
+                Debug.WriteLine("Finnes ikke, må hentes");
+                try
+                {
+                    var productDB = new DBProduct();
+                    ProductList = productDB.getAllProducts();
+                    if (ProductList == null)
+                        throw new Exception();
+                }
+                catch (Exception NPF)
+                {
+                }
+            }
+            foreach (var c in ProductList)
+            {
+                if (!uniqeCategories.Contains(c.category))
+                    uniqeCategories.Add(c.category);
+            }
             Session[UNIQUE_CATEGORIES] = uniqeCategories;
-            return View(uniqeCategories);
+
         }
+
 
         public PartialViewResult ProductsInCategory(string category)
         {
