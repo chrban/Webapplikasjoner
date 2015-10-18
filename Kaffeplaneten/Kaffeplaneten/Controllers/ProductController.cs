@@ -25,11 +25,8 @@ namespace Kaffeplaneten.Controllers
             return View();
         }
       
-        //ProductCategories
         public ActionResult ProductCategories()
         {
-
-
             return PartialView("ProductCategories");
         }
 
