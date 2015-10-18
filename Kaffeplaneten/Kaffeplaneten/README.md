@@ -11,8 +11,9 @@ DBCustomer.cs, DBUser.cs, DBOrder.cs og DBProduct.cs tar seg av all aksess til d
 Alle modelklasser ligger i Models mappen. Disse representerer de ulike databaseentitetene.
 ###Controller:
 Alle kontrollerklassene ligger i Controllers mappen. Diss styrer dataflyten mellom databasen og viewene.
-###View
+###View:
 De ulike viewene er organisert i undermapper i Views mappen. 
+###Annet
 ##Beskrivelse av prosjektet:
 Prosjektet er en nettside med nettbutikk funksjonalitet. Nettsiden har funksjonalitet for brukerregistrering, innlogging,  oppdatering av brukerdata, visning og kjøp av produkter, og visning av tidligere kjøp. Prosjektet er laget med Visual Studio 2015 i MVC .NET.
 ##Laget av:
