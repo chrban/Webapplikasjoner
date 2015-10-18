@@ -41,7 +41,7 @@ namespace Kaffeplaneten.Controllers
                 var cart = ((OrderModel)Session[SHOPPING_CART]);
                 //cart.products = new List<ProductModel>();//gjøres av konstruktør
                 Debug.WriteLine("KLARTE Å LAGE EN NY CART!");
-                testProducts();                                         // ---- DENNE MÅ FJERNES FØR INNLEVERING. TESTEMETODE!
+                //testProducts();                                         // ---- DENNE MÅ FJERNES FØR INNLEVERING. TESTEMETODE!
                 return;
             }
             Debug.WriteLine("FAILED TO MAKE NEW CART!");
@@ -58,43 +58,53 @@ namespace Kaffeplaneten.Controllers
             return null;
         }
 
-        public bool addToCart(ProductModel newProd, int quantity)
+        [HttpPost]
+        public bool addToCart(int newProd)
         {
+            var ProductList = (List<ProductModel>)Session[PRODUCT_LIST];
             var cart = ((OrderModel)Session[SHOPPING_CART]);
             if (cart == null)
                 cart = new OrderModel();
            
             foreach(var productInList in cart.products)
             {                
-                if (productInList.productID == newProd.productID)
+                if (productInList.productID == newProd)
                 {
-                    productInList.quantity += quantity;
+                    productInList.quantity++;
                     calculateTotal();
-                    return true;
+                    return true;                                                       // Product already exists in cart.
                 }
             }
-            newProd.quantity = quantity;
-            cart.products.Add(newProd);
+            foreach (var product in ProductList)
+            {
+                if (product.productID == newProd)
+                {
+                    cart.products.Add(product);
+                    Debug.WriteLine("Produkt lagt til: " + product.productName);
             calculateTotal();
             return true;
         }
 
-        public bool removeFromCart(ProductModel productToBeRemoved, int quantity)
+            }
+
+            return false;    
+        }
+
+            
+
+        public bool removeFromCart(int productToBeRemoved)
         {
+
             var cart = ((OrderModel)Session[SHOPPING_CART]);
             try
             {
                 foreach (var productInList in cart.products)
                 {
-                    if (productInList.productID == productToBeRemoved.productID)
+                    if (productInList.productID == productToBeRemoved)
                     {
-                        if ((productInList.quantity - quantity) < 0)                    // Product needs to have one or more quantity to be relevant
-                            cart.products.Remove(productInList);                        // Otherwise remove entirely.
-                        else
-                            productInList.quantity -= quantity;                         // Only a certain amount has been removed, not the entire product.
-                        
-                        calculateTotal();
-                        return true;
+                       cart.products.Remove(productInList);                        // Otherwise remove entirely.
+                       calculateTotal();
+                       return true;
                     }
                 }
             }
@@ -105,7 +115,39 @@ namespace Kaffeplaneten.Controllers
             return false;
         }
 
-        public void calculateTotal()
+        [HttpGet]
+        public int updateQuantity(int productId, int quantity)
+        {
+            foreach(var productInList in ((OrderModel)Session[SHOPPING_CART]).products)
+            {
+                if(productInList.productID == productId)
+                {
+                    if(quantity < 0)
+                    {
+                        removeFromCart(productInList.productID);
+                        return 0;
+                    }
+                    productInList.quantity = quantity;
+                    return productInList.quantity;
+                }
+            }
+            return 0;
+        }
+
+        public double getSubTotal(int prodId)
+        {
+            foreach (var productInList in ((OrderModel)Session[SHOPPING_CART]).products)
+            {
+                if (productInList.productID == prodId)
+                {
+                    return (productInList.price * productInList.quantity);
+                }
+            }
+            return 0.00;
+        }
+
+        [HttpGet]
+        public double calculateTotal()
         {
             double currentTotal = 0;
             foreach(var item in ((OrderModel)Session[SHOPPING_CART]).products)
@@ -114,27 +156,8 @@ namespace Kaffeplaneten.Controllers
             }
             Debug.WriteLine("Nå er total: " + currentTotal);
             ((OrderModel)Session[SHOPPING_CART]).total = currentTotal;
+            return currentTotal;
         }
-        public bool addToCart(ProductModel productModel)
-        {
-            var cart = ((OrderModel)Session[SHOPPING_CART]);
-            if (cart == null)
-                cart = new OrderModel();
-
-            foreach (var productInList in cart.products)
-            {
-                if (productInList.productID == productModel.productID)
-                {
-                    productInList.quantity += productModel.quantity;
-                    calculateTotal();
-                    return true;
-                }
-            }
-            cart.products.Add(productModel);
-            calculateTotal();
-            return true;
-        }
-
 
         public void testProducts()
             /* Oppgradert slik at den pruker faktiske produkter i databasen. 
@@ -147,12 +170,13 @@ namespace Kaffeplaneten.Controllers
             var two = DBProduct.find(2);
 
             var three = DBProduct.find(3);
+
             if(one != null)
-                addToCart(one, 1);
+                addToCart(one.productID);
             if(two != null)
-                addToCart(two, 2);
+                addToCart(two.productID);
             if(three != null)
-                addToCart(three, 3);
+            addToCart(three.productID);
         }
     }
 }

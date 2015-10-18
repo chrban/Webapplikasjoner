@@ -22,7 +22,7 @@
             <tbody>
                 @foreach (var product in currentCart.products)
             {
-                    <tr>
+                    <tr id="entireProduct_@product.productID">
                         <td data-th="Produkt">
                             <div class="row">
                                 <div class="col-sm-2 hidden-xs"><img src="../../Content/img/@product.imageURL" alt="..." class="img-thumbnail" style="max-width:100px; max-height:100px;" /></div>
@@ -34,24 +34,40 @@
                         </td>
                         <td data-th="Pris pr. Enhet">@product.price</td>
                         <td data-th="Antall">
-                            <input type="number" class="form-control text-center" value="@product.quantity">
+                            <input id="@product.productID" type="number" class="form-control text-center" value="@product.quantity">
+                            <script type="text/javascript">
+                                $(document).ready(function () {
+                                    $("#@product.productID").on("change", function () {
+                                        var val = $('#@product.productID').val();
+                                        $.ajax({
+                                            url: "/ShoppingCart/updateQuantity",
+                                            type: "GET",
+                                            data: { productId: (@product.productID),
+                                                quantity:   val
+                                            }
+                                        })
+                                        .done(function () {
+                                            getSubTotal(@product.productID);
+                                        });
+                                    });
+                                });
+                            </script>
                         </td>
-                        <td data-th="Pris" class="text-center">@(product.price * product.quantity)</td>
+                        <td id = "Price_@product.productID" data-th="Pris" class="text-center">@(product.price * product.quantity)</td>
                         <td class="actions" data-th="">
-                            <button class="btn btn-info btn-sm"><i class="glyphicon-refresh"></i></button>
-                            <button class="btn btn-danger btn-sm"><i class="glyphicon-trash"></i></button>
+                            <button class="btn btn-danger btn-sm" onclick="removeItem(@product.productID)"><i class="glyphicon-trash"></i></button>
                         </td>
                     </tr>
                 }
             </tbody>
             <tfoot>
                 <tr class="visible-xs">
-                    <td class="text-center"><strong>Total 1.99</strong></td>
+                    <td id="whatTotal" class="text-center"><strong>Total: </strong></td>
                 </tr>
                 <tr>
                     <td>@Html.ActionLink("Tilbake til butikk", "AllProducts", "Product", new { area = "" }, new { @class = "btn btn-warning" })<i class="fa fa-angle-right"></i></td>
                     <td colspan="2" class="hidden-xs"></td>
-                    <td class="hidden-xs text-center"><strong>Total: @currentCart.total </strong></td>
+                    <td id="orderTotal" class="hidden-xs text-center"><strong>Total: @currentCart.total </strong></td>
                     <td>@Html.ActionLink("Gå til kasse", "confirmOrderView", "Order", new { area = "" }, new { @class = "btn btn-success btn-block" })<i class="fa fa-angle-right"></i></td>
                 </tr>
             </tfoot>
@@ -60,9 +76,38 @@
 </fieldset>
 
 <script type="text/javascript">
-         function calculateTotalCall {
-            $("#categoryCanvas").load("@Url.Content("/Product/ProductCategories")");
-            $("#categoryCanvas").show();
+    function getSubTotal(product) {
+        $.ajax({
+            url: "/ShoppingCart/getSubTotal",
+            type: "GET",
+            data: { prodId: product }
+        })
+        .done(function (result) {
+            $("#Price_" + product).html(result);
+            getTotal();
         });
+    };
 
+    function getTotal() {
+        $.ajax({
+            url: "/ShoppingCart/calculateTotal",
+            type: "GET"
+        })
+        .done(function (result) {
+            $("#orderTotal").html("Total: " + result);
+        });
+    };
+
+    function removeItem(data){
+        $.ajax({
+            url: "/ShoppingCart/removeFromCart",
+            type: "GET",
+            data: { productToBeRemoved: data }
+        })
+        .done(function () {
+            alert("FIXED");
+            $("#entireProduct_" + data).remove();
+            getTotal();
+        });
+    };
 </script>

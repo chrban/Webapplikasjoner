@@ -5,8 +5,13 @@
 
 }
 @Html.Action("HeaderAndMenuBar", "Layout")
-<script src="~/Scripts/products.js"></script>
+<div class="jumbotron">
+    <div class="container">
+        <img class="img-responsive" src="../../Content/img/logo.png" />
+    </div>
+</div>
 
+<script src="~/Scripts/products.js"></script>
 <div id="categoryCanvas">Her kommer kategorier!</div>
 <div id="productCanvas">Her kommer produktene!
     @foreach (var produkt in Model)
@@ -21,7 +26,9 @@
                         <p id="pDes">@Html.DisplayFor(model => produkt.description)</p>
                     </div>
                     <p>@produkt.category</p>
-                    @Html.ActionLink("Info", "ProductDetails", "Product", new { id = produkt.productID }, null)
+                    @Html.ActionLink("Info", "ProductDetails", "Product",null, new { id = produkt.productID })
+                    <button type="button" id="@produkt.productID" class="btn btn-default" onclick="putInCart(@produkt.productID)">Legg i handlekurv</button>
+
                 </div>
             </div>
         </div>
