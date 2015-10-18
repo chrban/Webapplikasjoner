@@ -9,26 +9,38 @@ namespace Kaffeplaneten
 {
     public class DBProduct
     {
-
+        //Henter alle produkter fra databasen og oppretter liste av modelobjekter 
         public List<ProductModel> getAllProducts()
         {
-            var db = new CustomerContext();
-            List<ProductModel> ProductList = new List<ProductModel>();
-
-            var produkter = (from p in db.Products select p).ToList();
-            foreach (var p in produkter)
+            using (var db = new CustomerContext())
             {
-                var newProductModel = new ProductModel();
-                newProductModel.productID = p.productID;
-                newProductModel.category = p.category;
-                newProductModel.productName = p.productName;
-                newProductModel.price = p.price;
-                newProductModel.imageURL = p.imageURL;
-                newProductModel.description = p.description;
-                newProductModel.stock = p.stock;
-                ProductList.Add(newProductModel);
+                List<ProductModel> ProductList = new List<ProductModel>();
+                try
+                {
+
+                    ProductList = new List<ProductModel>();
+
+                    var produkter = (from p in db.Products select p).ToList();
+                    if(produkter!=null)
+                    foreach (var p in produkter)
+                    {
+                        var newProductModel = new ProductModel();
+                        newProductModel.productID = p.productID;
+                        newProductModel.category = p.category;
+                        newProductModel.productName = p.productName;
+                        newProductModel.price = p.price;
+                        newProductModel.imageURL = p.imageURL;
+                        newProductModel.description = p.description;
+                        newProductModel.stock = p.stock;
+                        ProductList.Add(newProductModel);
+                    }
+                    return ProductList;
+                }
+                catch (Exception error)
+                {
+                }
+                return ProductList;
             }
-            return ProductList;
         }
 
 

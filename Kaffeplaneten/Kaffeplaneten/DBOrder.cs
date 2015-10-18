@@ -68,7 +68,7 @@ namespace Kaffeplaneten
                 return false;
             }
         }
-        public bool add(ShoppingCartModel cart, Customers customer, CustomerContext db)            // Adds a new order.
+        public bool add(OrderModel cart, Customers customer, CustomerContext db)            // Adds a new order.
         {
 
             try
