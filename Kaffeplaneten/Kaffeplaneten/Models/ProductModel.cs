@@ -17,7 +17,7 @@ namespace Kaffeplaneten.Models
         [Display(Name = "Varelager:")]
         public int stock { get; set; }
 
-        [Display(Name = "Pris:")]
+        [Display(Name = "Pris: ")]
         public double price { get; set; }
 
         [Display(Name = "Kategori")]

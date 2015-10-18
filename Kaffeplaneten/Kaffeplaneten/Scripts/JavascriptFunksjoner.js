@@ -80,7 +80,7 @@ $(document).ready(function(){
                             });
                         $('#province').change(function () {
                                 $('#payProvince').val($(this).val());
-                            });
+});
         
                     }
                 else {
