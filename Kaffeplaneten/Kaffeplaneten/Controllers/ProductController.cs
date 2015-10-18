@@ -20,10 +20,6 @@ namespace Kaffeplaneten.Controllers
 
         public ActionResult AllProducts()
         {
-
-
-
-            //GetAllProducts();
             ProductsInCategory(INITIAL_LOAD);
 
             return View();
@@ -56,33 +52,22 @@ namespace Kaffeplaneten.Controllers
         public PartialViewResult ProductsInCategory(string category)
         {
             var ProductList = DBProduct.getAllProducts();
-
-
-
+            var utListe = new List<ProductModel>();
             Session[PRODUCT_LIST] = ProductList;
 
-
-            //var ProductList = (List<ProductModel>)Session[PRODUCT_LIST];
-            var utListe = new List<ProductModel>();
-
-            Debug.WriteLine("Før if, categorystring er: " + category);
-
-            if (category == INITIAL_LOAD)//endre konst
+            if (category == INITIAL_LOAD)
             {
-                Debug.WriteLine("INNE ALLE IF-----");
                 return PartialView(ProductList);
             }
             else
             {
-                Debug.WriteLine("Inni else i category");
-
                 foreach (var product in ProductList)
             {
                 if (product.category == category)
                     utListe.Add(product);
             }
             return PartialView(utListe);
-        }
+         }
 
 
         }
