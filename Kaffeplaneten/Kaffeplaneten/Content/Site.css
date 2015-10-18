@@ -15,5 +15,7 @@ select,
 textarea {
     max-width: 280px;
 }
-
+.input-group-btn{
+float: left;
+}
 
