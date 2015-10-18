@@ -14,7 +14,7 @@ Alle kontrollerklassene ligger i Controllers mappen. Diss styrer dataflyten mell
 De ulike viewene er organisert i undermapper i Views mappen. 
 ###Annet
 ####DataCreator:
-DataCreator har metode for å generere data til databasen. Brukes til å fylle databasen med produkter. Classen har også metoder for å generere testdata.
+DataCreator har metode for å generere data til databasen. Brukes til å fylle databasen med produkter. Klassen har også metoder for å generere testdata.
 ####SuperController:
 Vi valgte å ha en egen SuperController alle kontrollerene arver fra. 
 Dette gjør det mulig å ha felles metoder alle kontrollerene har tilgang til. Vi valgte også å opprette en const string for hver Session variabel vi bruker. 
