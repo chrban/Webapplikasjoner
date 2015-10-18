@@ -42,7 +42,29 @@ namespace Kaffeplaneten
                 return null;
             }
         }
-
+        public static bool add(ProductModel productModel)
+        {
+            using (var db = new CustomerContext())
+            {
+                try
+                {
+                    var product = new Products();
+                    product.category = productModel.category;
+                    product.description = productModel.description;
+                    product.imageURL = productModel.imageURL;
+                    product.price = productModel.price;
+                    product.productName = productModel.productName;
+                    product.stock = productModel.stock;
+                    db.Products.Add(product);
+                    db.SaveChanges();
+                    return true;
+                }
+                catch(Exception)
+                {
+                    return false;
+                }
+            }
+        }
 
 
         //allt under denne linjen kan slettes for Christer sin del!! ______________________________________________________________________________________
