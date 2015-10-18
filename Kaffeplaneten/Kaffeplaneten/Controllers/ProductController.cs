@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 //TODO: Legge til feilhåndtering. Hvorfor fungerer ikke: using(var productBD = new DBProduct() ) ??
+//Sette const variabler til sessions
 namespace Kaffeplaneten.Controllers
 {
     public class ProductController : SuperController 
@@ -57,6 +58,13 @@ namespace Kaffeplaneten.Controllers
         {
             var ProductList = (List<ProductModel>)Session["ProductList"];
             var utListe = new List<ProductModel>();
+
+            if (category == "ALL")//endre konst
+            {
+                return PartialView(ProductList);
+            }
+
+
             foreach(var product in ProductList)
             {
                 if (product.category == category)

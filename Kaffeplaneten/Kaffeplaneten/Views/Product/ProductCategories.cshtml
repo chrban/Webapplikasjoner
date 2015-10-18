@@ -2,10 +2,11 @@
 @model List<String>
 
 <div id="categoryTemplate" onchange="getUniqeCategories()">
+    
     @foreach (var category in Model)
     {
         <div class="btn-group" role="group" aria-label="Kategori">
-            <button type="button" id="@category" class="btn btn-default" onclick="getProductsInCat(this.id)">@category</button>
+            <button type="button" id="@category" class="btn btn-default" onmouseover="getProductsInCat(this.id)" onclick="    getProductsInCat(this.id)">@category</button>
         </div>
     }
 </div>
