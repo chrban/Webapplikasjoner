@@ -10,115 +10,95 @@
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
     @Html.Action("HeaderAndMenuBar", "Layout")
-    <fieldset>
-        <legend>Brukerregistrering</legend>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.firstName)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.firstName)
-            @Html.ValidationMessageFor(model => model.firstName)
-        </div>
-        <div class="editor-label">
-            @Html.LabelFor(model => model.lastName)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.lastName)
-            @Html.ValidationMessageFor(model => model.lastName)
-        </div>
+    <div class="container-fluid">
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.email)
-        </div>
-        <div class="editor-field">  
-            @Html.EditorFor(model => model.email)
-            @Html.ValidationMessageFor(model => model.email)
-        </div>
-  
-        <div class="editor-label">
-            @Html.LabelFor(model => model.password)
-        </div>
-        <div class="editor-field">
-            @Html.PasswordFor(model => model.password)
-            @Html.ValidationMessageFor(model => model.password)
-        </div>
-        <div class="editor-label">
-            @Html.LabelFor(model => model.passwordVerifier)
-        </div>
-
-        <div class="editor-field">
-            @Html.PasswordFor(model => model.passwordVerifier)
-            @Html.ValidationMessageFor(model => model.passwordVerifier)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.phone)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.phone)
-            @Html.ValidationMessageFor(model => model.phone)
-        </div>
-
-        <div class="checkbox-label">
-            @Html.LabelFor(model => model.sameAdresses)
-        </div>
-        <div class="checkbox-inline">
-            @Html.CheckBoxFor(model => model.sameAdresses, new { id = "checkbox", onclick = "sameAdress(this)" })
-        </div>
-        <div class="editor-label">
-            @Html.LabelFor(model => model.adress)
-        </div>
-      
-        <div class="editor-field">
-            @Html.TextBoxFor(model => model.adress, new { id = "adress" })
-            @Html.ValidationMessageFor(model => model.adress)
-        </div>
-
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.zipCode)
-            @Html.LabelFor(model => model.province)
-        </div>
-
-
-
-        <div class="editor-field">
-            @Html.TextBoxFor(model => model.zipCode, new { id="zipcode"})
-            @Html.ValidationMessageFor(model => model.zipCode)
-            @Html.TextBoxFor(model => model.province, new { id = "province" })
-            @Html.ValidationMessageFor(model => model.province)
-        </div>
-        
-        <div class="editor-label">  
-            @Html.LabelFor(model => model.payAdress)
-        </div>
-        <div class="editor-field">
-            @Html.TextBoxFor(model => model.payAdress, new { id = "payAdress"})
-            @Html.ValidationMessageFor(model => model.payAdress)
-        </div>
-        <div class="editor-label">
-            @Html.LabelFor(model => model.payZipcode)
-            @Html.LabelFor(model => model.payProvince)
-        </div>
-        <div class="editor-field">
-            @Html.TextBoxFor(model => model.payZipcode, new { id = "payZipcode" })
-            @Html.ValidationMessageFor(model => model.payZipcode)
-            @Html.EditorFor(model => model.payProvince)
-            @Html.ValidationMessageFor(model => model.payProvince)
-        </div>
-  
-
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Opprett bruker" class="btn btn-success" />
+        <div class="panel-default col-md-offset-3 col-md-6">
+            <div class="panel-heading">
+                <h3>Brukerregistrering</h3>
             </div>
-        
-    </fieldset>
+                <div class="panel-body">
+                    <div class="col-md-offset-3 col-md-6">
+                        <table>
+                            <tr>
+                                <span class="glyphicon glyphicon-user"></span>
+                                @Html.TextBoxFor(model => model.firstName, new { @class = "form-control", placeholder = (@Html.DisplayNameFor(model => model.firstName)) })
+                                @Html.ValidationMessageFor(model => model.firstName)
+                            </tr>
+                            <tr>
+                                <span class="glyphicon glyphicon-user"></span>
+                                @Html.TextBoxFor(model => model.lastName, new { @class = "form-control", placeholder = (@Html.DisplayNameFor(model => model.lastName)) })
+                                @Html.ValidationMessageFor(model => model.lastName)
+                            </tr>
+                            <tr>
+                                <span class="glyphicon glyphicon-envelope"></span>
+                                @Html.TextBoxFor(model => model.email, new { @class = "form-control", placeholder = (@Html.DisplayNameFor(model => model.email)) })
+                                @Html.ValidationMessageFor(model => model.email)
+                            </tr>
+                            <tr>
+                                <span class="glyphicon glyphicon-lock"></span>
+                                @Html.PasswordFor(model => model.password, new { @class = "form-control", placeholder = (@Html.DisplayNameFor(model => model.password)) })
+                                @Html.ValidationMessageFor(model => model.password)
+                            </tr>
+                            <tr>
+                                <span class="glyphicon glyphicon-lock"></span>
+                                @Html.PasswordFor(model => model.passwordVerifier, new { @class = "form-control", placeholder = (@Html.DisplayNameFor(model => model.passwordVerifier)) })
+                                @Html.ValidationMessageFor(model => model.passwordVerifier)
+                            </tr>
+                            <tr>
+                                <span class="glyphicon glyphicon-earphone"></span>
+                                @Html.TextBoxFor(model => model.phone, new { @class = "form-control", placeholder = (@Html.DisplayNameFor(model => model.phone)) })
+                                @Html.ValidationMessageFor(model => model.phone)
+                            </tr>
+                            <tr>
+                                @Html.DisplayNameFor(model => model.sameAdresses)
+                                @Html.CheckBoxFor(model => model.sameAdresses, new { id = "checkbox", onclick = "sameAdress(this)" })
+                            </tr>
+                            <br/>
+                            <tr>
+                                
+                                    <span class="glyphicon glyphicon-home"></span>
+                                    @Html.TextBoxFor(model => model.adress, new { id = "adress", @class = "form-control", placeholder = (@Html.DisplayNameFor(model => model.adress)) })
+                                    @Html.ValidationMessageFor(model => model.adress)
+                                
+                            </tr>
+                            <tr>
+                                <span class="glyphicon glyphicon-tag"></span>
+                                @Html.TextBoxFor(model => model.zipCode, new { id = "zipcode", @class = "form-control", placeholder = (@Html.DisplayNameFor(model => model.zipCode)) })
+                                @Html.ValidationMessageFor(model => model.zipCode)
+                            </tr>
+                            <tr>
+                                <span class="glyphicon glyphicon-king"></span>
+                                @Html.TextBoxFor(model => model.province, new { id = "province", @class = "form-control", placeholder = (@Html.DisplayNameFor(model => model.province)) })
+                                @Html.ValidationMessageFor(model => model.province)
+                            </tr>
+                            <tr>
+                                <span class="glyphicon glyphicon-home"></span>
+                                @Html.TextBoxFor(model => model.payAdress, new { id = "payAdress", @class = "form-control", placeholder = (@Html.DisplayNameFor(model => model.payAdress)) })
+                                @Html.ValidationMessageFor(model => model.payAdress)
+                            </tr>
+                            <tr>
+                                <span class="glyphicon glyphicon-tag"></span>
+                                @Html.TextBoxFor(model => model.payZipcode, new { id = "payZipcode", @class = "form-control", placeholder = (@Html.DisplayNameFor(model => model.payZipcode)) })
+                                @Html.ValidationMessageFor(model => model.payZipcode)
+                            </tr>
+                            <tr>
+                                <span class="glyphicon glyphicon-king"></span>
+                                @Html.TextBoxFor(model => model.payProvince, new { id = "payProvince", @class = "form-control", placeholder = (@Html.DisplayNameFor(model => model.payProvince)) })
+                                @Html.ValidationMessageFor(model => model.payProvince)
+                            </tr>
+                            </table>
+                            <div class="panel-footer">
+                                <input type="submit" value="Opprett bruker" class="btn btn-success" />
+                            </div>
+</div>
+                    </div>
+                  </div>
 
-  
+                </div>
 
-}
+                }
 
 
-     
+
 
