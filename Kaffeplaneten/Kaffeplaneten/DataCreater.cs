@@ -234,9 +234,9 @@ namespace Kaffeplaneten
         {
             var p = new ProductModel(); p.imageURL = getRandomImage();
             p.productName = "Choco Vanilje";
-            p.description = "Aromafisert";
+            p.description = "Kaffe tilsatt sjokolade og vaniljesmak.";
             p.price = 69;
-            p.category = "";
+            p.category = "Aromafisert";
             p.stock = 50;
             p.imageURL =getRandomImage();
             return p;
