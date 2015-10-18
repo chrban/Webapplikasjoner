@@ -60,9 +60,19 @@
 </fieldset>
 
 <script type="text/javascript">
-         function calculateTotalCall {
-            $("#categoryCanvas").load("@Url.Content("/Product/ProductCategories")");
-            $("#categoryCanvas").show();
+    function updateQuantity()
+    {
+        $(onchange).ajax({
+            url:
+            "",
+            data:
+            {
+                sjanger:
+                $("#IdListe").val()
+            }, success:
+            function (retur) {
+                $("#BokerListe").html(retur);
+            }
         });
-
+    }
 </script>
