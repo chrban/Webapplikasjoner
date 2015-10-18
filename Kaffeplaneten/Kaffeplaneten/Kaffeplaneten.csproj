@@ -123,7 +123,6 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Content\Kaffe.md" />
-    <Content Include="README.md" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\JavascriptFunksjoner.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
