@@ -15,6 +15,7 @@ namespace Kaffeplaneten.Controllers
         public const string PRODUCT_LIST = "ProductList";
         public const string UNIQUE_CATEGORIES = "UniqueCategories";
         public const string INITIAL_LOAD = "INITIAL";
+        public const string USER = "User";
 
         // GET: Super
 

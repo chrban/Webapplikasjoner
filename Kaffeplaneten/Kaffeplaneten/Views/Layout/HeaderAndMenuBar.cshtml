@@ -29,7 +29,7 @@
             <li role="presentation" class="showAlways"> @Html.ActionLink("Handlekurv", "ShoppingCartView", "ShoppingCart", new { area = "" }, new { @class = "navbar-brand" })</li>
             <li role="presentation" id="showLoggedIn"> @Html.ActionLink("Kontoinstillinger", "accountView", "User", new { area = "" }, new { @class = "navbar-brand" })</li>
             <li role="presentation" id="showLoggedIn">@Html.ActionLink("Logg Ut", "LoggedOut", "Security", new { area = "" }, new { @class = "navbar-brand" })</li>
-            <li role="presentation" id="showLoggedIn" class = "navbar-brand">Pålogget @Session["User"]</li>
+            <li role="presentation" id="showLoggedIn" class = "navbar-brand">Pålogget @Session[Kaffeplaneten.Controllers.SuperController.USER]</li>
 
         }
         else

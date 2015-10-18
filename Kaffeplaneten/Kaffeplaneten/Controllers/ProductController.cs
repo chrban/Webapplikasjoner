@@ -28,7 +28,7 @@ namespace Kaffeplaneten.Controllers
 
             return View();
         }
-
+      
         //ProductCategories
         public ActionResult ProductCategories()
         {
@@ -42,24 +42,12 @@ namespace Kaffeplaneten.Controllers
             var uniqeCategories = new List<string>();
             var ProductList = (List<ProductModel>)Session[PRODUCT_LIST];
             if (ProductList == null)
-            {
-                Debug.WriteLine("Finnes ikke, må hentes");
-                try
-                {
-                    var productDB = new DBProduct();
-                    ProductList = productDB.getAllProducts();
-                    if (ProductList == null)
-                        throw new Exception();
-                }
-                catch (Exception NPF)
-                {
-                }
-            }
-            foreach (var c in ProductList)
-            {
-                if (!uniqeCategories.Contains(c.category))
-                    uniqeCategories.Add(c.category);
-            }
+                ProductList = DBProduct.getAllProducts();
+                    foreach (var c in ProductList)
+                    {
+                        if (!uniqeCategories.Contains(c.category))
+                            uniqeCategories.Add(c.category);
+                    }
             Session[UNIQUE_CATEGORIES] = uniqeCategories;
 
         }
@@ -67,8 +55,7 @@ namespace Kaffeplaneten.Controllers
 
         public PartialViewResult ProductsInCategory(string category)
         {
-            var productDB = new DBProduct();
-            var ProductList = productDB.getAllProducts();
+            var ProductList = DBProduct.getAllProducts();
 
 
 
@@ -90,21 +77,20 @@ namespace Kaffeplaneten.Controllers
                 Debug.WriteLine("Inni else i category");
 
                 foreach (var product in ProductList)
-                {
-                    if (product.category == category)
-                        utListe.Add(product);
-                }
-                return PartialView(utListe);
+            {
+                if (product.category == category)
+                    utListe.Add(product);
             }
+            return PartialView(utListe);
+        }
 
-            
+
         }
 
 
         public ActionResult GetAllProducts()
         {
-            var productDB = new DBProduct();
-            var ProductList = productDB.getAllProducts();
+            var ProductList = DBProduct.getAllProducts();
 
 
             Session[PRODUCT_LIST] = ProductList;
@@ -113,6 +99,8 @@ namespace Kaffeplaneten.Controllers
         public ActionResult ProductDetails(int id)
         {
             var ProduktList = (List<ProductModel>)Session[PRODUCT_LIST];
+            if (ProduktList == null)
+                return View();
             foreach(var product in ProduktList)
             {
                 if (product.productID == id)

@@ -107,6 +107,7 @@ namespace Kaffeplaneten
         }
         public static OrderModel find(int nr)//Henter ut en OrderModel fra en ordre med ordreNr lik nr
         {
+            var orderModel = new OrderModel();
             using (var db = new CustomerContext())
             {
                 try
@@ -115,9 +116,8 @@ namespace Kaffeplaneten
                                  where o.orderNr == nr
                                  select o).FirstOrDefault();
                     if (order == null)//tester om orderen finnes
-                        return null;
+                        return orderModel;
 
-                    var orderModel = new OrderModel();
                     orderModel.orderNr = order.orderNr;
                     orderModel.customerID = order.customerID;
 
@@ -141,12 +141,12 @@ namespace Kaffeplaneten
                     //Environment.Exit(1);
                 }
             }
-            return null;
+            return orderModel;
         }
 
         public static List<OrderModel> findOrders(int id)//Henter ut en liste med alle ordre for kunde med customerID lik id
         {
-
+            var orderModelList = new List<OrderModel>();
             using (var db = new CustomerContext())
             {
                 try
@@ -154,10 +154,8 @@ namespace Kaffeplaneten
                     var orders = (from o in db.Orders
                                  where o.customerID == id
                                  select o).ToList();
-                    var orderModelList = new List<OrderModel>();
                     foreach (var o in orders)//legger order modellene inn i listen
                         orderModelList.Add(find(o.orderNr));
-                    return orderModelList;
                 }
                 catch (Exception ex)
                 {
@@ -165,7 +163,7 @@ namespace Kaffeplaneten
                     Trace.TraceInformation("Property: {0} Error: {1}", ex.Source, ex.InnerException);
                 }
             }//end using
-            return null;
+            return orderModelList;
         }//end findOrders()
     } //end namespace
 }//end class
