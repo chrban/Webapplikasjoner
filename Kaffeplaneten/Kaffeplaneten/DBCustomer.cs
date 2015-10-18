@@ -132,7 +132,7 @@ namespace Kaffeplaneten
                                 select c).FirstOrDefault();
 
                     if (temp == null)//Tester om customeren finnes
-                        return customerModel;
+                        return null;
                     customerModel.customerID = temp.customerID;
                     customerModel.firstName = temp.firstName;
                     customerModel.lastName = temp.lastName;
@@ -168,7 +168,7 @@ namespace Kaffeplaneten
                     //Environment.Exit(1);
                 }
             }//end using
-            return customerModel;
+            return null;
         }
 
         public static bool update(CustomerModel customerModel)//Oppdaterer customeren som har customerID lik customerModel.customerID
@@ -231,7 +231,7 @@ namespace Kaffeplaneten
                 {
                     var province = db.Provinces.Find(zipCode);
                     if (province == null)
-                        return "";
+                        return null;
                     return province.province;
                 }
                 catch (Exception ex)

@@ -63,7 +63,7 @@ namespace Kaffeplaneten
                                 where u.email.Equals(email)
                                 select u).FirstOrDefault();
                     if (user == null)//tester om brukeren finnes
-                        return userModel;
+                        return null;
 
                     userModel.customerID = user.customerID;
                     userModel.passwordHash = user.password;
@@ -75,7 +75,7 @@ namespace Kaffeplaneten
                     Debug.WriteLine("\nERROR!\nMelding:\n" + ex.Message + "\nInner exception:" + ex.InnerException + "\nKastet fra\n" + ex.TargetSite + "\nTrace:\n" + ex.StackTrace);
                     Trace.TraceInformation("Property: {0} Error: {1}", ex.Source, ex.InnerException);
                 }
-                return userModel;
+                return null;
             }
         }
         public static bool update(UserModel userModel)//Oppdaterer Users data med dataen i userModel
@@ -142,7 +142,7 @@ namespace Kaffeplaneten
                 {
                     var user = db.Users.Find(id);
                     if (user == null)
-                        return userModel;
+                        return null;
                     userModel.customerID = id;
                     userModel.passwordHash = user.password;
                     userModel.username = user.email;
@@ -153,7 +153,7 @@ namespace Kaffeplaneten
                     Debug.WriteLine("\nERROR!\nMelding:\n" + ex.Message + "\nInner exception:" + ex.InnerException + "\nKastet fra\n" + ex.TargetSite + "\nTrace:\n" + ex.StackTrace);
                     Trace.TraceInformation("Property: {0} Error: {1}", ex.Source, ex.InnerException);
                 }
-                return userModel;
+                return null;
             }//end using
         }//end get()
     }//end namespace

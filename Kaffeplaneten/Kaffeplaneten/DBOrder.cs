@@ -116,7 +116,7 @@ namespace Kaffeplaneten
                                  where o.orderNr == nr
                                  select o).FirstOrDefault();
                     if (order == null)//tester om orderen finnes
-                        return orderModel;
+                        return null;
 
                     orderModel.orderNr = order.orderNr;
                     orderModel.customerID = order.customerID;
@@ -141,7 +141,7 @@ namespace Kaffeplaneten
                     //Environment.Exit(1);
                 }
             }
-            return orderModel;
+            return null;
         }
 
         public static List<OrderModel> findOrders(int id)//Henter ut en liste med alle ordre for kunde med customerID lik id
@@ -156,6 +156,7 @@ namespace Kaffeplaneten
                                  select o).ToList();
                     foreach (var o in orders)//legger order modellene inn i listen
                         orderModelList.Add(find(o.orderNr));
+                    return orderModelList;
                 }
                 catch (Exception ex)
                 {
@@ -163,7 +164,7 @@ namespace Kaffeplaneten
                     Trace.TraceInformation("Property: {0} Error: {1}", ex.Source, ex.InnerException);
                 }
             }//end using
-            return orderModelList;
+            return null;
         }//end findOrders()
     } //end namespace
 }//end class
