@@ -1,9 +1,24 @@
 ﻿@model Kaffeplaneten.Models.UserModel
 
-<div id="categoryBtns" class="btn-group" role="group" aria-label="Kategori">
-    <button type="button" id="Lettbrent" class="btn btn-default" onclick="getProductsInCat(this.id)">Lettbrent</button>
-    <button type="button" id="Mediumbrent" class="btn btn-default" onclick="getProductsInCat(this.id)">Mediumbrent</button>
-    <button type="button" id="Mørk" class="btn btn-default" onclick="getProductsInCat(this.id)">Mørk</button>
-    <button type="button" id="Koffeinfri" class="btn btn-default" onclick="getProductsInCat(this.id)">Koffeinfri</button>
-    <button type="button" id="Aromafisert" class="btn btn-default" onclick="getProductsInCat(this.id)">Aromafisert</button>
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="navbar-header" style="background-color: #5d3d1f">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar" style="background-color: #5d3d1f">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse" style="background-color: #5d3d1f">
+            <div id="categoryBtns" class="btn-group col-md-offset-3 col-md-6" role="group" aria-label="Kategori">
+                <ul class="nav navbar-nav">
+                    <li type="button" style="background-color: #5d3d1f"id="Lettbrent" class="btn btn-default" onclick="getProductsInCat(this.id)">Lettbrent</li>
+                    <li type="button" style="background-color: #5d3d1f"id="Mediumbrent" class="btn btn-default" onclick="getProductsInCat(this.id)">Mediumbrent</li>
+                    <li type="button" style="background-color: #5d3d1f" id="Mørk" class="btn btn-default" onclick="getProductsInCat(this.id)">Mørk</li>
+                    <li type="button" style="background-color: #5d3d1f"id="Koffeinfri" class="btn btn-default" onclick="getProductsInCat(this.id)">Koffeinfri</li>
+                    <li type="button" style="background-color: #5d3d1f"id="Aromafisert" class="btn btn-default" onclick="getProductsInCat(this.id)">Aromafisert</li>
+                </ul>
+            </div>
+        </div>
 </div>
