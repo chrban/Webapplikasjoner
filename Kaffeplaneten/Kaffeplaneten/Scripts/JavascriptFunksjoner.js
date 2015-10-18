@@ -43,3 +43,7 @@ function putInCart(id) {
     });
     $('#quantity').val(1);
 }
+
+$(document).ready(function(){
+    $('[data-toggle="popover"]').popover();
+});
