@@ -24,7 +24,7 @@ Vi har valgt å kun bruke engelsk i koden. Dette er god kodepraksis da man ikke 
 ##Beskrivelse av prosjektet:
 Prosjektet er en nettside med nettbutikk funksjonalitet. Nettsiden har funksjonalitet for brukerregistrering, innlogging,  oppdatering av brukerdata, visning og kjøp av produkter, og visning av tidligere kjøp. Prosjektet er laget med Visual Studio 2015 i MVC .NET.
 ##Laget av:
-Magnus Johan Knalstad, s198760
-Christer Bang, s198737
-Sondre Husevold. s198755
-Magnus Tønsager, s198761
++Magnus Johan Knalstad, s198760
++Christer Bang, s198737
++Sondre Husevold. s198755
++Magnus Tønsager, s198761
