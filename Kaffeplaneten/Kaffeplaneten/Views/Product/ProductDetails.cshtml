@@ -3,42 +3,44 @@
 @{
     ViewBag.Title = "ProductDetails";
 }
-
-<h2>ProductDetails</h2>
-<div class="cat-{{category}}">
-    <div id="template" class="col-sm-6 col-md-6">
-        <div class="thumbnail">
-            <img img src="../../Content/img/@Html.DisplayFor(Model => Model.imageURL)" alt="ProductImage" data-toggle="modal" data-target="#myModal" style="width:150px;height:150px">
-            <div class="caption">
-                <h3 id="pName">@Html.DisplayFor(Model => Model.productName)</h3>
-                <h2>@Html.DisplayFor(Model => Model.price)</h2>
-                <p id="pDes">@Html.DisplayFor(Model => Model.description)</p>
-            </div>
+<div class="container-fluid">
+ 
+        <div id="template" class="col-sm-6 col-md-6">
             <div class="thumbnail">
+                <img img src="../../Content/img/@Html.DisplayFor(Model => Model.imageURL)" alt="ProductImage" data-toggle="modal" data-target="#myModal" style="width:150px;height:150px">
+                <div class="caption">
+                    <h3 id="pName">@Html.DisplayFor(Model => Model.productName)</h3>
+                    <h2>@Html.DisplayFor(Model => Model.price)</h2>
+                    <p id="pDes">@Html.DisplayFor(Model => Model.description)</p>
+                </div>
+                <div class="thumbnail">
+                    <div class="input-group">
+                        <div class="input-group-btn">
+                            <button type="button" class="btn btn-default btn-number" disabled="disabled" data-type="minus" data-field="quant[1]">
+                                <div class="glyphicon glyphicon-minus"></div>
+                            </button>
+                        </div>
+                        <input id="quantity" type="text" name="quant[1]" class="form-control input-number" value="1" min="1" max="10">
+                        <div class="input-group-btn">
+                            <button type="button" class="btn btn-default btn-number" data-type="plus" data-field="quant[1]"><span class="glyphicon glyphicon-plus"></span></button>
+                        </div>
+                    </div>
+                    <button data-toggle="popover" data-trigger="focus" data-content="@Model.productName er lagt til i handlekurven." type="button" id="@Model.productID" class="btn btn-default" onclick="putInCart(@Model.productID )">Legg i handlekurv <span class="glyphicon glyphicon-shopping-cart"></span></button>
+                </div>
 
-            <div class="input-group">
-                <div class="input-group-btn">
-                    <button type="button" class="btn btn-default btn-number" disabled="disabled" data-type="minus" data-field="quant[1]">
-                        <div class="glyphicon glyphicon-minus"></div>
-                    </button>
-                </div>
-                <input id="quantity" type="text" name="quant[1]" class="form-control input-number" value="1" min="1" max="10">
-                <div class="input-group-btn">
-                    <button type="button" class="btn btn-default btn-number" data-type="plus" data-field="quant[1]"><span class="glyphicon glyphicon-plus"></span></button>
-                </div>
             </div>
-            <button data-toggle="popover" data-trigger="focus" data-content="@Model.productName er lagt til i handlekurven." type="button" id="@Model.productID" class="btn btn-default" onclick="putInCart(@Model.productID )">Legg i handlekurv</button>
-            </div>
-            
         </div>
     </div>
-</div>
 
 
 
 
 
-    
+<script>
+$(document).ready(function(){
+    $('[data-toggle="popover"]').popover();
+});
+</script>
 
 
 
