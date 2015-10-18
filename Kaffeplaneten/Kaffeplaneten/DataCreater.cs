@@ -66,7 +66,6 @@ namespace Kaffeplaneten
                 Debug.WriteLine("\nERROR!\nMelding:\n" + ex.Message + "\nInner exception:" + ex.InnerException + "\nKastet fra\n" + ex.TargetSite + "\nTrace:\n" + ex.StackTrace);
                 Trace.TraceInformation("Property: {0} Error: {1}", ex.Source, ex.InnerException);
             }
-
         }
 
         public static string getRandomImage()
@@ -74,7 +73,7 @@ namespace Kaffeplaneten
             string img = "img";
             string jpg = ".jpg";
             Random rnd = new Random();
-            return (img + rnd.Next(0, 5) + jpg);
+            return (img + rnd.Next(1, 6) + jpg);
         }
 
         public static ProductModel createBrazillianBlend()
@@ -85,6 +84,7 @@ namespace Kaffeplaneten
             p.price = 45;
             p.category = "Lettbrent";
             p.stock = 50;
+            p.imageURL =getRandomImage();
             return p;
         }
         public static ProductModel createEtiopiskMokka()
@@ -95,6 +95,7 @@ namespace Kaffeplaneten
             p.price = 52;
             p.category = "Lettbrent";
             p.stock = 50;
+            p.imageURL =getRandomImage();
             return p;
         }
         public static ProductModel createIndianMysore()
@@ -105,6 +106,7 @@ namespace Kaffeplaneten
             p.price = 59;
             p.category = "Lettbrent";
             p.stock = 50;
+            p.imageURL =getRandomImage();
             return p;
         }
         public static ProductModel createAstorLibano()
@@ -115,6 +117,7 @@ namespace Kaffeplaneten
             p.price = 55;
             p.category = "Mediumbrent";
             p.stock = 50;
+            p.imageURL =getRandomImage();
             return p;
         }
         public static ProductModel createMayfairBlend()
@@ -125,6 +128,7 @@ namespace Kaffeplaneten
             p.price = 49;
             p.category = "Mediumbrent";
             p.stock = 50;
+            p.imageURL =getRandomImage();
             return p;
         }
         public static ProductModel createMexicanCoffee()
@@ -135,6 +139,7 @@ namespace Kaffeplaneten
             p.price = 59;
             p.category = "Mediumbrent";
             p.stock = 50;
+            p.imageURL =getRandomImage();
             return p;
         }
         public static ProductModel createExecutiveBlend()
@@ -145,6 +150,7 @@ namespace Kaffeplaneten
             p.price = 49;
             p.category = "Mediumbrent";
             p.stock = 50;
+            p.imageURL =getRandomImage();
             return p;
         }
         public static ProductModel createAfterDinnerBlend()
@@ -155,6 +161,7 @@ namespace Kaffeplaneten
             p.price = 48;
             p.category = "Mørk";
             p.stock = 50;
+            p.imageURL =getRandomImage();
             return p;
         }
         public static ProductModel createCafedeParis()
@@ -165,6 +172,7 @@ namespace Kaffeplaneten
             p.price = 48;
             p.category = "Mørk";
             p.stock = 50;
+            p.imageURL =getRandomImage();
             return p;
         }
         public static ProductModel createCostaRicanTarrazu()
@@ -175,6 +183,7 @@ namespace Kaffeplaneten
             p.price = 59;
             p.category = "Mørk";
             p.stock = 50;
+            p.imageURL =getRandomImage();
             return p;
         }
         public static ProductModel createPrimeHonduras()
@@ -185,6 +194,7 @@ namespace Kaffeplaneten
             p.price = 52;
             p.category = "Mørk";
             p.stock = 50;
+            p.imageURL =getRandomImage();
             return p;
         }
         public static ProductModel createOldBrownJava()
@@ -195,6 +205,7 @@ namespace Kaffeplaneten
             p.price = 59;
             p.category = "Mørk";
             p.stock = 50;
+            p.imageURL =getRandomImage();
             return p;
         }
         public static ProductModel createKoffeinfriEspresso()
@@ -205,6 +216,7 @@ namespace Kaffeplaneten
             p.price = 59;
             p.category = "Koffeinfri";
             p.stock = 50;
+            p.imageURL =getRandomImage();
             return p;
         }
         public static ProductModel createKoffeinfriKaffe()
@@ -215,6 +227,7 @@ namespace Kaffeplaneten
             p.price = 59;
             p.category = "Koffeinfri";
             p.stock = 50;
+            p.imageURL =getRandomImage();
             return p;
         }
         public static ProductModel createChocoVanilje()
@@ -225,6 +238,7 @@ namespace Kaffeplaneten
             p.price = 69;
             p.category = "";
             p.stock = 50;
+            p.imageURL =getRandomImage();
             return p;
         }
         public static ProductModel VaniljeHasselnøtt()
@@ -235,6 +249,7 @@ namespace Kaffeplaneten
             p.price = 69;
             p.category = "Aromafisert";
             p.stock = 50;
+            p.imageURL =getRandomImage();
             return p;
         }
         public static ProductModel createNutCream()
@@ -245,6 +260,7 @@ namespace Kaffeplaneten
             p.price = 65;
             p.category = "Aromafisert";
             p.stock = 50;
+            p.imageURL =getRandomImage();
             return p;
         }
         public static ProductModel createIrishCream()
@@ -255,6 +271,7 @@ namespace Kaffeplaneten
             p.price = 69;
             p.category = "Aromafisert";
             p.stock = 50;
+            p.imageURL=getRandomImage();
             return p;
         }
         /***********************************************************************************************************************/
