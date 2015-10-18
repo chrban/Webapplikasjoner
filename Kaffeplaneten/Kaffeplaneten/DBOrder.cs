@@ -37,7 +37,6 @@ namespace Kaffeplaneten
                 return false;
             }
         }
-
         public static bool addProductOrders(OrderModel orderModel)/*Legger ProductOrders inn i databasen. OrderNr og pruductID-ene må være med i modellen*/
             {
             using (var db = new CustomerContext())
@@ -49,6 +48,8 @@ namespace Kaffeplaneten
                         return false;
                     foreach (var p in orderModel.products)//Opretter ProductOrders fra modellen
                     {
+                        p.stock -= p.quantity;
+                        DBProduct.updateQuantity(p);
                         var productOrder = new ProductOrders();
                         productOrder.orders = order;
                         productOrder.price = p.price;
@@ -68,43 +69,7 @@ namespace Kaffeplaneten
                 return false;
             }
         }
-        public bool add(OrderModel cart, Customers customer, CustomerContext db)            // Adds a new order.
-        {
 
-            try
-            {
-                var newOrders = new Orders();
-                newOrders.customerID = customer.customerID;                                          
-                newOrders.Customers = db.Customers.Find(customer.customerID);                        // Finds the actual customer object from the database.
-                List<ProductOrders> listOfProducts = new List<ProductOrders>();                      // Converts Shopping Cart into ProductOrders.
-                /*foreach (var cartItem in cart.ItemsInShoppingCart)              
-                {
-                    var newProductOrder = new ProductOrders();
-                    newProductOrder.price = cartItem.product.price;
-                    newProductOrder.productID = cartItem.product.productID;
-                    newProductOrder.products = cartItem.product;
-                    newProductOrder.quantity = cartItem.Quanitity;
-                    listOfProducts.Add(newProductOrder);
-                }*/
-                newOrders.Products = listOfProducts;                                                   // New order are assigned the list of products to be ordered.
-                db.Orders.Add(newOrders);                                                              // Allows it to get a OrderNr 
-                db.SaveChanges();
-                return true;                                                                           // Returns to OrderController to be saved.
-            }
-            catch (DbEntityValidationException dbEx)
-            {
-                foreach (var validationErrors in dbEx.EntityValidationErrors)
-                {
-                    foreach (var validationError in validationErrors.ValidationErrors)
-                    {
-                        Trace.TraceInformation("Property: {0} Error: {1}",
-                                                validationError.PropertyName,
-                                                validationError.ErrorMessage);
-                    }
-                }
-                return false;
-            }
-        }
         public static OrderModel find(int nr)//Henter ut en OrderModel fra en ordre med ordreNr lik nr
         {
             var orderModel = new OrderModel();

@@ -323,7 +323,6 @@ namespace Kaffeplaneten
                     //Environment.Exit(1);
                 }
             }
-
             return false;
         }
     }//end namespace

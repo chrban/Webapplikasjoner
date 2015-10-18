@@ -11,7 +11,6 @@ namespace Kaffeplaneten
 {
     public class DBUser
     {
-
         public static bool add(UserModel userModel)//Legger en Users inn i databasen
         {
             using (var db = new CustomerContext())

@@ -8,12 +8,17 @@ namespace Kaffeplaneten.Controllers
 {
     public class OrderController : SuperController
     {
-        // GET: Order
         public ActionResult confirmOrderView()
         {
             var orderModel = (OrderModel)Session[SHOPPING_CART];
             if (orderModel == null)
                 return RedirectToAction("AllProducts", "Product", new { area = "" });
+            foreach(var p in orderModel.products)
+                if(p.quantity>p.stock)
+                {
+                    ModelState.AddModelError("", "Ikke nok " + p.productName + " på lager. Antall på lager er " + p.stock+"." );
+                    return RedirectToAction("ShoppingCartView", "ShoppingCart", new { area = "" });
+                }
             if (orderModel.products.Count == 0)
             {
                 ModelState.AddModelError("", "Handlevognen er tom");
@@ -29,51 +34,6 @@ namespace Kaffeplaneten.Controllers
             orderModel.customerID = customerModel.customerID;
             return View(orderModel);
         }
-
-        /*public ActionResult createOrder()                                                       // Creates the order.
-        {
-            if (getShoppingCart().amountOfItems() > 0)                                           // ----- ALSO NEEDS TO CHECK FOR LOGGED IN SESSION!!! ----
-            {
-                Debug.WriteLine("Shopping Cart has items. Making Order...");
-                if (ModelState.IsValid)
-                {
-                    Debug.WriteLine("Order is valid.");
-                    List<ProductOrders> listOfProducts = new List<ProductOrders>();             // Converts Shopping Cart into ProductOrders. These are not complete
-                    foreach (var cartItem in getShoppingCart().ItemsInShoppingCart)              // But will be completed inside the DBOrder method for adding OrderNr and such.
-                    {
-                        for (int i = 0; i < cartItem.Quanitity; i++)
-                        {
-                            var newProduct = new ProductOrders();
-                            newProduct.price = cartItem.product.price;
-                            newProduct.productID = cartItem.product.productID;
-                            newProduct.products = cartItem.product;
-                            newProduct.quantity = cartItem.Quanitity;
-                            listOfProducts.Add(newProduct);
-                        }
-                    }
-
-                    // ----------- FJERN DETTE NÅR SESSION ER I BRUK -----------
-                    Customers customer = new Customers();
-                    customer.customerID = 125125;
-                    customer.firstName = "Ola";
-                    customer.lastName = "Nordmann";
-                    customer.email = "hei@hei.hei";
-                    customer.phone = "12345678";
-                    // ----------- --------------------------------- -----------
-
-                    var db = new CustomerContext();
-                    var orderDB = new DBOrder();
-                    var insertOK = orderDB.add(listOfProducts, customer, db);
-                    if (insertOK)
-                    {
-                        db.SaveChanges();
-                        return RedirectToAction("OrderView");       // ------- SKAL BLI RECEIPTVIEW NÅR DET ER LAGET! ------
-                    }
-                }
-             }
-            return View();
-        } */// END OF METHOD: CREATEORDER
-
         public ActionResult orderHistoryView()
         {
             var order = DBOrder.findOrders(getActiveUserID());

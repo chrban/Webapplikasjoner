@@ -9,9 +9,7 @@ namespace Kaffeplaneten.Models
     public class UserModel
     {
         public int customerID { get; set; }
-
         public byte[] passwordHash { get; set; }
-
         [Display(Name = "Skriv inn brukernavn(Epost)")]
         [Required(ErrorMessage="Du må oppgi epostadresse")]
         public string username { get; set; }
