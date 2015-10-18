@@ -61,8 +61,6 @@ namespace Kaffeplaneten.Controllers
         [HttpPost]
         public bool addToCart(int newProd)
         {
-            Debug.WriteLine("ProduktID motatt: "+newProd );
-
             var ProductList = (List<ProductModel>)Session[PRODUCT_LIST];
             var cart = ((OrderModel)Session[SHOPPING_CART]);
             if (cart == null)
@@ -93,14 +91,15 @@ namespace Kaffeplaneten.Controllers
 
             
 
-        public bool removeFromCart(ProductModel productToBeRemoved)
+        public bool removeFromCart(int productToBeRemoved)
         {
+
             var cart = ((OrderModel)Session[SHOPPING_CART]);
             try
             {
                 foreach (var productInList in cart.products)
                 {
-                    if (productInList.productID == productToBeRemoved.productID)
+                    if (productInList.productID == productToBeRemoved)
                     {
                        cart.products.Remove(productInList);                        // Otherwise remove entirely.
                        calculateTotal();
