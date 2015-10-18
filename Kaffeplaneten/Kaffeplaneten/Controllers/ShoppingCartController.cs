@@ -59,7 +59,7 @@ namespace Kaffeplaneten.Controllers
         }
 
         [HttpPost]
-        public bool addToCart(int newProd)
+        public bool addToCart(int newProd ,int inQuantity)
         {
             var ProductList = (List<ProductModel>)Session[PRODUCT_LIST];
             var cart = ((OrderModel)Session[SHOPPING_CART]);
@@ -78,6 +78,7 @@ namespace Kaffeplaneten.Controllers
             {
                 if (product.productID == newProd)
                 {
+                    product.quantity = inQuantity;
                     cart.products.Add(product);
                     Debug.WriteLine("Produkt lagt til: " + product.productName);
             calculateTotal();
@@ -171,11 +172,11 @@ namespace Kaffeplaneten.Controllers
             var three = DBProduct.find(3);
 
             if(one != null)
-                addToCart(one.productID);
+                addToCart(one.productID,1);
             if(two != null)
-                addToCart(two.productID);
+                addToCart(two.productID,1);
             if(three != null)
-            addToCart(three.productID);
+            addToCart(three.productID,1);
         }
     }
 }

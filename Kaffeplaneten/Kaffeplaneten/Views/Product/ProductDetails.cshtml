@@ -1,5 +1,5 @@
 ﻿@model Kaffeplaneten.Models.ProductModel
-
+@Html.Action("HeaderAndMenuBar", "Layout")
 @{
     ViewBag.Title = "ProductDetails";
 }
@@ -14,9 +14,18 @@
                 <h2>@Html.DisplayFor(Model => Model.price)</h2>
                 <p id="pDes">@Html.DisplayFor(Model => Model.description)</p>
             </div>
-            <p>@Model.productID</p>
+            <form>
 
+            </form>
+            <input id="foo" data-placeholder="placeholder" class="placeholder-active" />
+            <input id="quantity" type="number" data-placeholder="placeholder" class="placeholder-active" value="1"  />
+            <button type="button" id="@Model.productID" class="btn btn-default" onclick="putInCart(@Model.productID )">Legg i handlekurv</button>
+            
         </div>
     </div>
 </div>
+
+
+
+
 
