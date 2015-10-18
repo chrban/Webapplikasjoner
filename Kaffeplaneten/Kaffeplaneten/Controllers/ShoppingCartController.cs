@@ -73,6 +73,7 @@ namespace Kaffeplaneten.Controllers
                 }
             }
             cart.products.Add(newProd);
+            newProd.quantity = 2;
             calculateTotal();
             return true;
         }
@@ -99,8 +100,10 @@ namespace Kaffeplaneten.Controllers
             return false;
         }
 
+        [HttpGet]
         public int updateQuantity(int productId, int quantity)
         {
+            Debug.WriteLine("UPDATING QUANTITY:....");
             foreach(var productInList in ((OrderModel)Session[SHOPPING_CART]).products)
             {
                 if(productInList.productID == productId)
@@ -117,15 +120,29 @@ namespace Kaffeplaneten.Controllers
             return 0;
         }
 
-        public void calculateTotal()
+        public double getSubTotal(int prodId)
+        {
+            foreach (var productInList in ((OrderModel)Session[SHOPPING_CART]).products)
+            {
+                if (productInList.productID == prodId)
+                {
+                    return (productInList.price * productInList.quantity);
+                }
+            }
+            return 0.00;
+        }
+
+        [HttpGet]
+        public double calculateTotal()
         {
             double currentTotal = 0;
             foreach(var item in ((OrderModel)Session[SHOPPING_CART]).products)
-        {
+            {
                 currentTotal += (item.price * item.quantity);
             }
             Debug.WriteLine("Nå er total: " + currentTotal);
             ((OrderModel)Session[SHOPPING_CART]).total = currentTotal;
+            return currentTotal;
         }
 
         public void testProducts()
@@ -139,12 +156,13 @@ namespace Kaffeplaneten.Controllers
             var two = DBProduct.find(2);
 
             var three = DBProduct.find(3);
+
             if(one != null)
                 addToCart(one);
             if(two != null)
                 addToCart(two);
             if(three != null)
-            addToCart(three);
+                addToCart(three);
         }
     }
 }
