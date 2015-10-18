@@ -117,23 +117,36 @@ namespace Kaffeplaneten.Controllers
         {
             return ((ShoppingCartModel)Session["ShoppingCart"]).ItemsInCart.Count;
         }
-
-        //Denne kan vel slettes?? (christer)
-       /* public void testProducts()
+        public void addToCart(ProductModel productModel)
         {
-            var productDB = new DBProduct();
-
-            JsonResult one = Json(productDB.getProductsByCategory("Test"), JsonRequestBehavior.AllowGet);
-            JsonResult two = Json(productDB.getProductsByCategory("Test2"), JsonRequestBehavior.AllowGet);
-            JsonResult three = Json(productDB.getProductsByCategory("Test3"), JsonRequestBehavior.AllowGet);
-
-            addToCart(one, 1);
-            Debug.WriteLine("1 ADDED!");
-            addToCart(two, 2);
-            Debug.WriteLine("2 ADDED!");
-            addToCart(three, 3);
-            Debug.WriteLine("3 ADDED!");
+            var orderModel = (OrderModel)Session[SHOPPING_CART];
+            if (orderModel == null)
+                orderModel = new OrderModel();
+            foreach (var p in orderModel.products)
+                if (p.productID == productModel.productID)
+                {
+                    p.quantity += productModel.quantity;
+                    return;
+                }
+            orderModel.products.Add(productModel);
+            Session[SHOPPING_CART] = orderModel;
         }
-        */
+        //Denne kan vel slettes?? (christer)
+        /* public void testProducts()
+         {
+             var productDB = new DBProduct();
+
+             JsonResult one = Json(productDB.getProductsByCategory("Test"), JsonRequestBehavior.AllowGet);
+             JsonResult two = Json(productDB.getProductsByCategory("Test2"), JsonRequestBehavior.AllowGet);
+             JsonResult three = Json(productDB.getProductsByCategory("Test3"), JsonRequestBehavior.AllowGet);
+
+             addToCart(one, 1);
+             Debug.WriteLine("1 ADDED!");
+             addToCart(two, 2);
+             Debug.WriteLine("2 ADDED!");
+             addToCart(three, 3);
+             Debug.WriteLine("3 ADDED!");
+         }
+         */
     }
 }

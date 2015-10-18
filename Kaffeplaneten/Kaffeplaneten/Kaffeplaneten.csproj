@@ -145,7 +145,6 @@
     <Content Include="Views\Shared\OrderView.cshtml" />
     <Content Include="Views\Shared\customerView.cshtml" />
     <Content Include="Views\Order\confirmOrderView.cshtml" />
-    <Content Include="Views\Order\recitView.cshtml" />
     <Content Include="Views\Security\LoggedIn.cshtml" />
     <Content Include="Views\Layout\HeaderAndMenuBar.cshtml" />
     <Content Include="Views\Product\ProductDetails.cshtml" />

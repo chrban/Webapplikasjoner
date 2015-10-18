@@ -86,22 +86,6 @@ namespace Kaffeplaneten.Controllers
             }
             return View();
         }
-
-
-        public void addToCart(ProductModel productModel)
-        {
-            var orderModel = (OrderModel)Session[SHOPPING_CART];
-            if (orderModel == null)
-                orderModel = new OrderModel();
-            foreach(var p in orderModel.products)
-                if(p.productID == productModel.productID)
-                {
-                    p.quantity += productModel.quantity;
-                    return;
-                }
-            orderModel.products.Add(productModel);
-            Session[SHOPPING_CART] = orderModel;
-        }
     }
 }
 
