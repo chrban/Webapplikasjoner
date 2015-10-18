@@ -65,35 +65,29 @@ namespace Kaffeplaneten
                 }
             }
         }
-
-
-        //allt under denne linjen kan slettes for Christer sin del!! ______________________________________________________________________________________
-
-
-
-
-        //TODO - Christer: Skal endres (return hele ProductsDBlist)
-        public static List<Products> getProductsByCategory(string kategori)
+        public static bool updateQuantity(ProductModel productModel)
         {
-            var db = new CustomerContext();
-
-            var produkter = db.Products.Where(s => s.category == kategori).ToList();
-
-            Debug.WriteLine("LIST metode " + produkter);
-            return produkter;
+            using (var db = new CustomerContext())
+            {
+                try
+                {
+                    var product = (from p in db.Products
+                                   where p.productID == productModel.productID
+                                   select p).FirstOrDefault();
+                    if (product == null)
+                        return false;
+                    if (product.stock < productModel.stock)
+                        return false;
+                    product.stock = productModel.stock;
+                    db.SaveChanges();
+                    return true;
+                }
+                catch(Exception)
+                {
+                    return false;
+                }
+            }
         }
-
-        //Brukes ikke
-        public static List<Products> henteProdukter()
-        {
-            var db = new CustomerContext();
-
-            var produkter = db.Products.Where(s => s.productID == 1);
-
-
-            return produkter.ToList();
-        }
-
         public static ProductModel find(int id)
         {
             using (var db = new CustomerContext())
@@ -118,11 +112,6 @@ namespace Kaffeplaneten
                     return null;
                 }
             }
-
         }
     }
-
-
-
-
 }
