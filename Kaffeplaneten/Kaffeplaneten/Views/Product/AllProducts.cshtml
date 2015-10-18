@@ -1,60 +1,39 @@
 ﻿@model List<Kaffeplaneten.Models.ProductModel>
+
 @{
     ViewBag.Title = "Products";
 
 }
 @Html.Action("HeaderAndMenuBar", "Layout")
+<script src="~/Scripts/products.js"></script>
 
-    <div class="btn-group" role="group" aria-label="Kategori">
-            <button type="button" id="Arabica" class="btn btn-default" onclick="hideUnwanted(this.id)">Arabica</button>
-            <button type="button" id="Robusta" class="btn btn-default" onclick="hideUnwanted(this.id)">Robusta</button>
-            <button type="button" id="Bønner" class="btn btn-default" onclick="hideUnwanted(this.id)">Bønner</button>
-            <button type="button" id="Kaffe" class="btn btn-default" onclick="hideUnwanted(this.id)">Kaffe</button>
-            <button type="button" id="test" class="btn btn-default" onclick="hideUnwanted(this.id)">Hide</button>
-        </div>
-    <dv id="buttonCanvas">
-        knappeCanvas
-    </dv>
-
-    <div id="productCanvas">
-        Har du produkter i databasen?
-        Siden er loadet, men ingen produkter er hentet ut.
-    </div>
-
-    <div id="testCanvas">
-        TESTCANVAS
-    </div>
-
-    <script id="testTemplate" type="text/template">
-        <h2>Navn: {{productName}}</h2>
-    </script>
-
-        @foreach(var produkt in Model)  
-       {
-        <div class="cat-{{category}}">
+<div id="categoryCanvas">Her kommer kategorier!</div>
+<div id="productCanvas">Her kommer produktene!
+    @foreach (var produkt in Model)
+    {
+        <div class="@Html.DisplayFor(model => produkt.category)">
             <div id="template" class="col-sm-6 col-md-6">
                 <div class="thumbnail">
-                        <img img src="../../Content/img/@Html.DisplayFor(model => produkt.imageURL)" alt="ProductImage" data-toggle="modal" data-target="#myModal" style="width:150px;height:150px">
+                    <img img src="../../Content/img/@Html.DisplayFor(model => produkt.imageURL)" alt="ProductImage" data-toggle="modal" data-target="#myModal" style="width:150px;height:150px">
                     <div class="caption">
-                            <h3 id="pName">@Html.DisplayFor(model => produkt.productName)</h3>
-                            <h2>@Html.DisplayFor(model => produkt.price)</h2>
-                            <p id="pDes">@Html.DisplayFor(model => produkt.description)</p>
+                        <h3 id="pName">@Html.DisplayFor(model => produkt.productName)</h3>
+                        <h2>@Html.DisplayFor(model => produkt.price)</h2>
+                        <p id="pDes">@Html.DisplayFor(model => produkt.description)</p>
                     </div>
-                       <p>@produkt.productID</p>
-                        @Html.ActionLink("Info", "ProductDetails", "Product", new { id = produkt.productID },null)
+                    <p>@produkt.category</p>
+                    @Html.ActionLink("Info", "ProductDetails", "Product", new { id = produkt.productID }, null)
                 </div>
             </div>
         </div>
-       }
-
-
-
-<script id="categoryTemplate" type="text/template">
-        <button type="button" id="{{category}}" class="btn btn-default" onclick="hideUnwanted(this.id)">{{category}}</button>
-</script>
-
-<script type="text/javascript">
-    window.onload = function () {
-        createShoppingCart();
     }
-</script>
+    </div>
+
+
+    <script type="text/javascript">
+        $(window).load(function () {
+            $("#categoryCanvas").load("@Url.Content("/Product/ProductCategories")");
+            $("#categoryCanvas").show();
+
+        });
+
+    </script>

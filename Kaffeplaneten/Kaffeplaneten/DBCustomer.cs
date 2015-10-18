@@ -5,6 +5,7 @@ using System.Data.Entity;
 using System.Data.Entity.Validation;
 using System.Diagnostics;
 using System.Linq;
+using System.Text;
 using System.Web;
 
 namespace Kaffeplaneten
@@ -94,6 +95,30 @@ namespace Kaffeplaneten
                 addAdress(newAdress);
             }
             return true;
+        }
+
+        public static string find(string email)
+        {
+            StringBuilder sb = new StringBuilder();
+            using (var db = new CustomerContext())
+            {
+                try
+                {
+                    var temp = (from c in db.Customers
+                                where c.email == email
+                                select new { c.firstName, c.lastName }).SingleOrDefault();
+                    if (temp == null) //I prinsippet ikke nødvendig da denne metoden blir trigget da en kunde eksisterer
+                        return null;
+                    sb.Append(temp.firstName);
+                    sb.Append(" ");
+                    sb.Append(temp.lastName);
+                }
+                catch (Exception ex)
+                {
+                    return null;
+                }
+                return sb.ToString();
+            }
         }
         public static CustomerModel find(int id)//Henter ut en CustomerModel for customer med customerID lik id
         {

@@ -8,6 +8,9 @@
     <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <script src="~/Scripts/modernizr-2.6.2.js"></script>
+    <script type="text/javascript">
+        window.onload = createCart();
+    </script>
 </head>
 
 
@@ -19,16 +22,17 @@
         @RenderBody()
             
 
-        <footer>
-            <p>&copy; @DateTime.Now.Year - Kaffeplaneten</p>
-        </footer>
+
 
     <script src="~/Scripts/jquery-1.10.2.min.js"></script>
     <script src="~/Scripts/bootstrap.min.js"></script>
     <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
     <script src="~/Scripts/mustache.js"></script>
     <script src="~/Scripts/products.js"></script>
-        <script src="~/Scripts/JavascriptFunksjoner.js"></script>
+    <script src="~/Scripts/JavascriptFunksjoner.js"></script>
     
 </body>
 </html>
+<footer>
+    <p>&copy; @DateTime.Now.Year - Kaffeplaneten</p>
+</footer>

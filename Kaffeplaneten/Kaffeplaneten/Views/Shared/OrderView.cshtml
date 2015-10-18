@@ -41,11 +41,17 @@
                 @Html.DisplayFor(model => o.price)
             </div>
         </div>
+        <div class="row">
+            <div class="col-sm-4">
+                @Html.Label("Antall: ")
+                @Html.DisplayFor(model => o.quantity)
+            </div>
+        </div>
         <br />
     }
     <div class="row">
         <div class="col-sm-4">        
-            Totalt:
+            @Html.Label("Totalt: ")
             @Model.total
         </div>
 

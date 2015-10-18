@@ -9,9 +9,11 @@ namespace Kaffeplaneten.Controllers
 {
     public class SuperController : Controller
     {
-        public const string CHECKOUT_ORDER = "CheckoutOrder";
         public const string CUSTOMER_ID = "CustomerID";
-        public const string SHOPPING_CART = "ChoppingCart";
+        public const string SHOPPING_CART = "ShoppingCart";
+        public const string LOGGED_INN = "LoggedInn";
+        public const string PRODUCT_LIST = "ProductList";
+        public const string UNIQUE_CATEGORIES = "UniqueCategories";
 
         // GET: Super
 

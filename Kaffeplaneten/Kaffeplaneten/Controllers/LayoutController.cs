@@ -7,22 +7,22 @@ using System.Web.Mvc;
 
 namespace Kaffeplaneten.Controllers
 {
-    public class LayoutController : Controller
+    public class LayoutController : SuperController
     {
 
 
-       public ActionResult HeaderAndMenuBar()
-       {
-             if(Session["LoggedIn"] != null)
-             {
-                 if ((bool)Session["LoggedIn"])
-                 {
-                     ViewBag.Inlogged = true;
-                 }
+        public ActionResult HeaderAndMenuBar(UserModel user)
+        {
+            if (Session[LOGGED_INN] != null)
+            {
+                if ((bool)Session[LOGGED_INN])
+                {
+                    ViewBag.Inlogged = true;
+                }
             }
 
             ViewBag.notInlogged = false;
-            return PartialView();
-       }
+            return PartialView(user);
+        }
     }
 }

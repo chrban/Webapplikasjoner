@@ -3,6 +3,7 @@
     ViewBag.Title = "orderHistoryView";
 }
 
+@Html.Action("HeaderAndMenuBar", "Layout")
 
 
 <h2>Order History</h2>
@@ -10,7 +11,7 @@
 <div class="container">
     @foreach (var o in Model)
     {
-        Html.Partial("OrderView", o);
+        @Html.Partial("OrderView", o)
     }
 
 

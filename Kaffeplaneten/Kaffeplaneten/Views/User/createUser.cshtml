@@ -59,34 +59,42 @@
             @Html.EditorFor(model => model.phone)
             @Html.ValidationMessageFor(model => model.phone)
         </div>
+
+        <div class="checkbox-label">
+            @Html.LabelFor(model => model.sameAdresses)
+        </div>
+        <div class="checkbox-inline">
+            @Html.CheckBoxFor(model => model.sameAdresses, new { id = "checkbox", onclick = "sameAdress(this)" })
+        </div>
         <div class="editor-label">
             @Html.LabelFor(model => model.adress)
         </div>
+      
         <div class="editor-field">
-            @Html.EditorFor(model => model.adress)
+            @Html.TextBoxFor(model => model.adress, new { id = "adress" })
             @Html.ValidationMessageFor(model => model.adress)
         </div>
+
+
         <div class="editor-label">
             @Html.LabelFor(model => model.zipCode)
             @Html.LabelFor(model => model.province)
         </div>
+
+
+
         <div class="editor-field">
-            @Html.EditorFor(model => model.zipCode)
+            @Html.TextBoxFor(model => model.zipCode, new { id="zipcode"})
             @Html.ValidationMessageFor(model => model.zipCode)
-            @Html.EditorFor(model => model.province)
+            @Html.TextBoxFor(model => model.province, new { id = "province" })
             @Html.ValidationMessageFor(model => model.province)
         </div>
         
-        <div class="checkbox-label">
-            @Html.LabelFor(model => model.sameAdresses)
-            @Html.CheckBoxFor(model => model.sameAdresses)
-        </div>
-       
         <div class="editor-label">  
             @Html.LabelFor(model => model.payAdress)
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.payAdress)
+            @Html.TextBoxFor(model => model.payAdress, new { id = "payAdress"})
             @Html.ValidationMessageFor(model => model.payAdress)
         </div>
         <div class="editor-label">
@@ -94,7 +102,7 @@
             @Html.LabelFor(model => model.payProvince)
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.payZipcode)
+            @Html.TextBoxFor(model => model.payZipcode, new { id = "payZipcode" })
             @Html.ValidationMessageFor(model => model.payZipcode)
             @Html.EditorFor(model => model.payProvince)
             @Html.ValidationMessageFor(model => model.payProvince)
@@ -106,7 +114,63 @@
             </div>
         
     </fieldset>
-}   
+
+    <script type="text/javascript">
+         
+        function sameAdress() {
+            if ($('#checkbox').is(":checked")) {
+                $('#adress').html(function () {
+                    $('#payAdress').val($(this).val());
+                });
+                $('#adress').keyup(function () {
+                    $('#payAdress').val($(this).val());
+                });
+                $('#adress').change(function () {
+                    $('#payAdress').val($(this).val());
+                });
+
+                $('#zipcode').html(function () {
+                    $('#payZipcode').val($(this).val());
+                });
+                $('#zipcode').keyup(function () {
+                    $('#payZipcode').val($(this).val());
+                });
+                $('#zipcode').change(function () {
+                    $('#payZipcode').val($(this).val());
+                });
+
+                $('#province').html(function () {
+                    $('#payProvince').val($(this).val());
+                });
+                $('#province').keyup(function () {
+                    $('#payProvince').val($(this).val());
+                });
+                $('#province').change(function () {
+                    $('#payProvince').val($(this).val());
+                });
+
+            }
+            else {
+                $('#payAdress').attr("disabled", false);
+                $('#payAdress').val("");
+                $('#payProvince').attr("disabled", false);
+                $('#payProvince').val("");
+                $('#payZipcode').attr("disabled", false);
+                $('#payZipcode').val("");
+            }
+
+        }
+
+        
+        
+            
+                
+               
+            
+    </script>
+
+}
+
 
      
 

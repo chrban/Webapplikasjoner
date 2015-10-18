@@ -1,4 +1,4 @@
-﻿
+﻿@model Kaffeplaneten.Models.UserModel
 @{
     ViewBag.Title = "HeaderAndMenuBar";
 }
@@ -20,17 +20,19 @@
         {
 
             <li role="presentation" class="showAlways">@Html.ActionLink("Home", "AllProducts", "Product", new { area = "" }, new { @class = "navbar-brand" })</li>
-            <li role="presentation" class="showAlways"> @Html.ActionLink("Handlekurv", "ShoppingCartView", "Order", new { area = "" }, new { @class = "navbar-brand" })</li>
+            <li role="presentation" class="showAlways"> @Html.ActionLink("Handlekurv", "ShoppingCartView", "ShoppingCart", new { area = "" }, new { @class = "navbar-brand" })</li>
             <li role="presentation" id="showLoggedIn"> @Html.ActionLink("Kontoinstillinger", "accountView", "User", new { area = "" }, new { @class = "navbar-brand" })</li>
             <li role="presentation" id="showLoggedIn">@Html.ActionLink("Logg Ut", "LoggedOut", "Security", new { area = "" }, new { @class = "navbar-brand" })</li>
+            <li role="presentation" id="showLoggedIn" class = "navbar-brand">Pålogget @Session["User"]</li>
 
         }
         else
         {
             <li role="presentation" class="showAlways">@Html.ActionLink("Home", "AllProducts", "Product", new { area = "" }, new { @class = "navbar-brand" })</li>
             <li role="presentation" class="showLoggedOut"> @Html.ActionLink("Registrer", "createUser", "User", new { area = "" }, new { @class = "navbar-brand" })</li>
-            <li role="presentation" class="showAlways"> @Html.ActionLink("Handlekurv", "ShoppingCartView", "Order", new { area = "" }, new { @class = "navbar-brand" })</li>
+            <li role="presentation" class="showAlways"> @Html.ActionLink("Handlekurv", "ShoppingCartView", "ShoppingCart", new { area = "" }, new { @class = "navbar-brand" })</li>
             <li role="presentation" id="showLoggedIn">@Html.ActionLink("Logg inn", "Loginview", "Security", new { area = "" }, new { @class = "navbar-brand" })</li>
+            <li role="presentation" id="showLoggedOut" class="navbar-brand">Ikke Pålogget</li>
         }
 
     </ul>
