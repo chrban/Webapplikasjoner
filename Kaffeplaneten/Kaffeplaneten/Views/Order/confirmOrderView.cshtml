@@ -8,20 +8,21 @@
 <div class="container">
     <div class="panel-body">
         <div class="row">
-            <div class="col-lg-4 col-lg-offset-2 col-md-10 col-md-offset-1">
-                <h2>Bekreft Ordre</h2>
-
+            <div class="panel-primary">
+                <div class="panel-heading">
+                    Bekreft Ordre
+                </div>
                 @Html.Partial("OrderView", Model)
-                @Html.ActionLink("Avbryt", "AllProducts", "Product", new { area = "" }, new { @class = "btn btn-danger" })
-                @Html.ActionLink("Bekreft ordre", "receiptView", "Order", new { area = "" }, new { @class = "btn btn-success" })
             </div>
-            <div class="portfolio-item panel-body table-bordered">
-                <h3>
+            <div class="panel-primary">
+                <div class="panel-heading">
                     Kundeopplysninger
-                </h3>
+                </div>
                 @((Kaffeplaneten.Models.CustomerModel)ViewBag.customerModel).customer
                 @Html.Partial("customerView", (Kaffeplaneten.Models.CustomerModel)ViewBag.customerModel)
             </div>
+                @Html.ActionLink("Avbryt", "AllProducts", "Product", new { area = "" }, new { @class = "btn btn-danger" })
+                @Html.ActionLink("Bekreft ordre", "receiptView", "Order", new { area = "" }, new { @class = "btn btn-success" })
         </div>
     </div>
 </div>

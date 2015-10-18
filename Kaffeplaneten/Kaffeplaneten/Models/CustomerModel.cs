@@ -73,7 +73,6 @@ namespace Kaffeplaneten.Models
         [Display(Name = "Skriv Bet. Poststed")]
         [Required(ErrorMessage = "Betalingspoststed må oppgis")]
         public string payProvince { get; set; }
-
     }
 }
     

@@ -27,12 +27,14 @@
                     <button type="button" class="btn btn-default btn-number" data-type="plus" data-field="quant[1]"><span class="glyphicon glyphicon-plus"></span></button>
                 </div>
             </div>
-            <button type="button" id="@Model.productID" class="btn btn-default" onclick="putInCart(@Model.productID )">Legg i handlekurv</button>
+            <button data-toggle="popover" data-trigger="focus" data-content="@Model.productName er lagt til i handlekurven." type="button" id="@Model.productID" class="btn btn-default" onclick="putInCart(@Model.productID )">Legg i handlekurv</button>
             </div>
             
         </div>
     </div>
 </div>
+
+
 
 
 

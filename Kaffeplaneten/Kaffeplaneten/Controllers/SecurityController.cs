@@ -11,8 +11,6 @@ namespace Kaffeplaneten.Controllers
 {
     public class SecurityController : SuperController
     {
-        // GET: Security
-        
         public ActionResult Loginview()
         {
             if (Session[LOGGED_INN] == null)
@@ -43,8 +41,6 @@ namespace Kaffeplaneten.Controllers
             ModelState.AddModelError("", "Feil brukernavn eller passord");
             return View();
         }
-
-       
         public ActionResult LoggedIn()
         {
             if (Session[LOGGED_INN] != null)

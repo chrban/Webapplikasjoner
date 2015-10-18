@@ -10,7 +10,6 @@ namespace Kaffeplaneten.Controllers
 {
     public class ShoppingCartController : SuperController
     {
-
         public ActionResult ShoppingCartView()                  // Returns the Shopping Cart View. Shows all current products in the cart.
         {
             var orderModel = (OrderModel)Session[SHOPPING_CART];
@@ -19,18 +18,8 @@ namespace Kaffeplaneten.Controllers
                 createCart();
                 return View(Session[SHOPPING_CART]);
             }
-            //return View(getShoppingCart());
             return View(orderModel);
         }
-        /*[HttpPost]
-        public ActionResult ShoppingCartView(OrderModel orderModel)
-        {
-            if (orderModel == null)
-                return View();
-            Session[SHOPPING_CART] = null;
-            Session[CHECKOUT_ORDER] = orderModel;
-            return RedirectToAction("confirmOrderView", "Order");
-        }*/
         [HttpPost]
         public void createCart()
         {
@@ -48,7 +37,7 @@ namespace Kaffeplaneten.Controllers
         }
 
         [HttpPost]
-        public bool addToCart(int newProd ,int inQuantity)
+        public bool addToCart(int newProd, int inQuantity)
         {
             var ProductList = (List<ProductModel>)Session[PRODUCT_LIST];
             var cart = ((OrderModel)Session[SHOPPING_CART]);
@@ -56,9 +45,9 @@ namespace Kaffeplaneten.Controllers
                 cart = new OrderModel();
             if (ProductList == null)
                 ProductList = new List<ProductModel>();
-           
-            foreach(var productInList in cart.products)
-            {                
+
+            foreach (var productInList in cart.products)
+            {
                 if (productInList.productID == newProd)
                 {
                     productInList.quantity += inQuantity;
@@ -72,16 +61,17 @@ namespace Kaffeplaneten.Controllers
                 {
                     product.quantity = inQuantity;
                     cart.products.Add(product);
-            calculateTotal();
-            return true;
-        }
+                    calculateTotal();
+                    return true;
+                }
 
             }
 
-            return false;    
+            return false;
         }
 
-            
+
+
 
         public bool removeFromCart(int productToBeRemoved)
         {
@@ -95,13 +85,13 @@ namespace Kaffeplaneten.Controllers
                 {
                     if (productInList.productID == productToBeRemoved)
                     {
-                       cart.products.Remove(productInList);                        // Otherwise remove entirely.
-                       calculateTotal();
-                       return true;
+                        cart.products.Remove(productInList);                        // Otherwise remove entirely.
+                        calculateTotal();
+                        return true;
                     }
                 }
             }
-            catch (Exception error)
+            catch (Exception)
             {
                 Console.WriteLine("FAILED TO REMOVE ITEM TO CART!");
             };
@@ -115,9 +105,9 @@ namespace Kaffeplaneten.Controllers
                 return 0;
             foreach (var productInList in ((OrderModel)Session[SHOPPING_CART]).products)
             {
-                if(productInList.productID == productId)
+                if (productInList.productID == productId)
                 {
-                    if(quantity < 0)
+                    if (quantity < 0)
                     {
                         removeFromCart(productInList.productID);
                         return 0;
@@ -150,32 +140,12 @@ namespace Kaffeplaneten.Controllers
                 return 0;
             double currentTotal = 0;
 
-            foreach(var item in ((OrderModel)Session[SHOPPING_CART]).products)
+            foreach (var item in ((OrderModel)Session[SHOPPING_CART]).products)
                 currentTotal += (item.price * item.quantity);
 
             Debug.WriteLine("Nå er total: " + currentTotal);
             ((OrderModel)Session[SHOPPING_CART]).total = currentTotal;
             return currentTotal;
-        }
-
-        public void testProducts()
-            /* Oppgradert slik at den pruker faktiske produkter i databasen. 
-            Bruk TestClass til å generere produkter hvis det trengs -> Slå den på i Global.asax, kjør 3 ganger, slå den av igjen*/
-        //Denne kan vel slettes?? (christer)
-        // Ja, det skal den etter at alt er confirmed working (Sondre)
-        {
-            var one = DBProduct.find(1);
-
-            var two = DBProduct.find(2);
-
-            var three = DBProduct.find(3);
-
-            if(one != null)
-                addToCart(one.productID,1);
-            if(two != null)
-                addToCart(two.productID,1);
-            if(three != null)
-            addToCart(three.productID,1);
         }
     }
 }

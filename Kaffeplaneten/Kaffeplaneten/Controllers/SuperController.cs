@@ -9,6 +9,7 @@ namespace Kaffeplaneten.Controllers
 {
     public class SuperController : Controller
     {
+        //cont variabler for Session
         public const string CUSTOMER_ID = "CustomerID";
         public const string SHOPPING_CART = "ShoppingCart";
         public const string LOGGED_INN = "LoggedInn";
@@ -16,8 +17,6 @@ namespace Kaffeplaneten.Controllers
         public const string UNIQUE_CATEGORIES = "UniqueCategories";
         public const string INITIAL_LOAD = "INITIAL";
         public const string USER = "User";
-
-        // GET: Super
 
         //Controller som tar hånd om metoder som skal benyttes på tvers av controllerne
         public ActionResult Index()

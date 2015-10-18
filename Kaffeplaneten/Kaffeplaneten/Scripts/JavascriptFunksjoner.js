@@ -44,47 +44,6 @@ function putInCart(id) {
     $('#quantity').val(1);
 }
 
-function sameAdress() {
-    if ($('#checkbox').is(":checked")) {
-        $('#adress').html(function () {
-            $('#payAdress').val($(this).val());
-        });
-        $('#adress').keyup(function () {
-            $('#payAdress').val($(this).val());
-        });
-        $('#adress').change(function () {
-            $('#payAdress').val($(this).val());
-        });
-
-        $('#zipcode').html(function () {
-            $('#payZipcode').val($(this).val());
-        });
-        $('#zipcode').keyup(function () {
-            $('#payZipcode').val($(this).val());
-        });
-        $('#zipcode').change(function () {
-            $('#payZipcode').val($(this).val());
-        });
-
-        $('#province').html(function () {
-            $('#payProvince').val($(this).val());
-        });
-        $('#province').keyup(function () {
-            $('#payProvince').val($(this).val());
-        });
-        $('#province').change(function () {
-            $('#payProvince').val($(this).val());
-        });
-
-    }
-    else {
-        $('#payAdress').attr("disabled", false);
-        $('#payAdress').val("");
-        $('#payProvince').attr("disabled", false);
-        $('#payProvince').val("");
-        $('#payZipcode').attr("disabled", false);
-        $('#payZipcode').val("");
-    }
-
-}
-
+$(document).ready(function(){
+    $('[data-toggle="popover"]').popover();
+});
