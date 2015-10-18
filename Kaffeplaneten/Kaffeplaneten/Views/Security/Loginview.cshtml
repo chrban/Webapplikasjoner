@@ -28,7 +28,7 @@
                 @Html.LabelFor(userModel => userModel.password)
             </div>
             <div class="editor-field">
-                @Html.EditorFor(userModel => userModel.password)
+                @Html.PasswordFor(userModel => userModel.password)
                 @Html.ValidationMessageFor(userModel => userModel.password)
             </div>
            <input type="submit" value="Logg inn"class = "btn btn-success" />
