@@ -38,7 +38,7 @@ namespace Kaffeplaneten.Controllers
                 ViewBag.LoggedOn = true;
                 var DBCustomer = new DBCustomer();
                 Session[USER] = DBCustomer.find(user.username);
-                return RedirectToAction("HeaderAndMenuBar", "Layout", user.username);
+                return RedirectToAction("AllProducts", "Product", user.username);
             }
             ModelState.AddModelError("", "Feil brukernavn eller passord");
             return View();
