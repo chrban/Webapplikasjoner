@@ -4,10 +4,9 @@
         datatype: "text",
         type: "POST",
         success: function (data) {
-            alert("SHOPPING CART CREATED!");
         },
         error: function () {
-            alert("NOE SKJEDDE!");
+            alert("ERROR: Shopping Cart was not created...");
         }
     });
 }

@@ -38,7 +38,7 @@ namespace Kaffeplaneten.Controllers
                 var cart = ((OrderModel)Session["SHOPPING_CART"]);
                 cart.products = new List<ProductModel>();
                 Debug.WriteLine("KLARTE Å LAGE EN NY CART!");
-                testProducts();
+                testProducts();                                         // ---- DENNE MÅ FJERNES FØR INNLEVERING. TESTEMETODE!
                 return;
             }
             Debug.WriteLine("FAILED TO MAKE NEW CART!");
@@ -119,7 +119,7 @@ namespace Kaffeplaneten.Controllers
         }
 
         //Denne kan vel slettes?? (christer)
-        // Ja, det skal den etter at den er confirmed working (Sondre)
+        // Ja, det skal den etter at alt er confirmed working (Sondre)
 
         public void testProducts()
         {
