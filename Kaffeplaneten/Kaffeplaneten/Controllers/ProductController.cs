@@ -88,7 +88,7 @@ namespace Kaffeplaneten.Controllers
             return View();
         }
 
-
+        // Lik som den i Shopping Cart? Puttes i Supern'? (Sondre)
         public void addToCart(ProductModel productModel)
         {
             var orderModel = (OrderModel)Session[SHOPPING_CART];
