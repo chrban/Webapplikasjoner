@@ -5,19 +5,14 @@
 
 }
 @Html.Action("HeaderAndMenuBar", "Layout")
-<div class="jumbotron">
-    <div class="container">
-        <img class="img-responsive" src="../../Content/img/logo.png" />
-    </div>
-</div>
 
 <script src="~/Scripts/products.js"></script>
-<div id="categoryCanvas">Her kommer kategorier!</div>
-<div id="productCanvas">Her kommer produktene!
+<div id="categoryCanvas" class="navbar-static-top"></div>
+<div id="productCanvas" class="container">
     @foreach (var produkt in Model)
     {
         <div class="@Html.DisplayFor(model => produkt.category)">
-            <div id="template" class="col-sm-6 col-md-6">
+            <div id="template" class="col-md-4">
                 <div class="thumbnail">
                     <img img src="../../Content/img/@Html.DisplayFor(model => produkt.imageURL)" alt="ProductImage" data-toggle="modal" data-target="#myModal" style="width:150px;height:150px">
                     <div class="caption">
