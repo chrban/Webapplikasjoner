@@ -1,0 +1,37 @@
+Admin:
+
+Behandle ansatte
+-	Legge til nye ansatte
+-	Endre rettigheter
+-	Slette ansatte
+
+Behandle kunder
+-	Slette/blokkere kunder
+-	Oversikt over ordrehistorie
+-	Retur/refusjon 
+
+Behandle produkter
+-	Legge til produkter
+-	Endre produkter
+-	Slette produkter
+
+Annet:
+
+Nullstill passord
+
+Loggføring
+-	Logge alt alle administrator brukere gjør
+-	Loggføre alle feilmeldinger
+-	Funksjonalitet for å vise loggen
+
+Design
+-	Registrering av brukere
+-	Ramme rundt produkter
+-	Hull i forside
+
+Lagdeling
+-	Flytte DB klasser i egen pakke
+-	Legge til BLL lag, endre kontrollere til å bruke dette
+
+Testing
+-	Legge til tester.
