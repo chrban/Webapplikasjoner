@@ -27,7 +27,7 @@ function getProductsInCat(cat) {
 
 
 function putInCart(id) {
-    var antall = $('#quantity').val();
+    var antall = $('#quantity-'+id).val();
     if (antall == null)
         antall = 1;
     $.ajax({
