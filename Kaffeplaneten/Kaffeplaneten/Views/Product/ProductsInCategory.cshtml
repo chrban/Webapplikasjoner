@@ -1,28 +1,34 @@
 ﻿@model List<Kaffeplaneten.Models.ProductModel>
 
-@foreach (var produkt in Model)
-{
-    <div class="@Html.DisplayFor(model => produkt.category)">
-        <div id="template" class="col-sm-6 col-lg-6">
-            <div class="row">
-                <div class="col-lg-8 panel-primary">
-                    <div class="panel-heading">@Html.DisplayFor(model => produkt.productName)</div>
-                    <div class="panel-body">
-                    <img img src="../../Content/img/@Html.DisplayFor(model => produkt.imageURL)" alt="ProductImage" data-toggle="modal" data-target="#myModal" style="width:150px;height:150px">
-                    <div class="caption">
-                    <h3 id="pName">@Html.DisplayFor(model => produkt.productName)</h3>
-                    <h2>@Html.LabelFor(model => produkt.price) @Html.DisplayFor(model => produkt.price),-</h2>
-                        <p id="pDes">@Html.DisplayFor(model => produkt.description)</p>
-                    </div>
+
+
+<div class="container">
+    <div class="row">
+
+    @foreach (var produkt in Model)
+    {
+        <div class="col-sm-6 col-md-4">
+            <div class="thumbnail">
+                <h3>@Html.DisplayFor(model => produkt.productName)</h3>
+                <img src="../../Content/img/@Html.DisplayFor(model => produkt.imageURL)" alt="Sample Image" style="width:150px;height:150px">
+                <h2>@Html.DisplayFor(model => produkt.price),-</h2>
+                <div class="caption">
+                    <p>@Html.DisplayFor(model => produkt.description)</p>
+                </div>
+                <div class="tmb-btn">
                     @Html.ActionLink("Info", "ProductDetails", "Product", new { id = produkt.productID }, new { @class = "btn btn-default" })
-                <button  data-toggle="popover" data-trigger="focus" data-content="@produkt.productName er lagt til i handlekurven." type="button" id="@Html.DisplayFor(model => produkt.productID)" class="btn btn-default" onclick="putInCart(@Html.DisplayFor(model => produkt.productID),1)">Legg i handlekurv <span class="glyphicon glyphicon-shopping-cart"></span></button>
-                
+                    <button data-toggle="popover" data-trigger="focus" data-content="@produkt.productName er lagt til i handlekurven." type="button" id="@Html.DisplayFor(model => produkt.productID)" class="btn btn-default" onclick="putInCart(@Html.DisplayFor(model => produkt.productID),1)">Legg i handlekurv <span class="glyphicon glyphicon-shopping-cart"></span></button>
+                </div>
             </div>
         </div>
-    </div>
-    </div>
-    </div>
-}
+    }
+    </div> 
+</div>
+
+
+
+
+
 
 <script>
 $(document).ready(function(){
