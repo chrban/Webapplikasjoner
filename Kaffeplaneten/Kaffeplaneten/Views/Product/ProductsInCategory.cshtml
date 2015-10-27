@@ -28,12 +28,12 @@
                     <div class="modal-body">
                         <div class="thumbnail">
                             <img img src="../../Content/img/@produkt.imageURL" alt="ProductImage" style="width:150px;height:150px">
-                            <div class="caption">
-                                <h3 id="pName">- @produkt.category) -</h3>
+
+                                <h3 id="pName">-@produkt.category-</h3>
                                 <h2>@produkt.price,-</h2>
                                 <p id="pDes">@produkt.description</p>
                                 <p>@produkt.stock </p>
-                            </div>
+
                             <input id="quantity-@produkt.productID" class="qty-input form-group" placeholder="velg antall.." type="number" value="1" />
                             <button data-toggle="popover" data-trigger="focus" data-content="@produkt.productName er lagt til i handlekurven." type="button" id="@produkt.productID" class="btn btn-default" onclick="putInCart(@produkt.productID)">Legg i handlekurv <span class="glyphicon glyphicon-shopping-cart"></span></button>
                         </div>

@@ -30,3 +30,10 @@ textarea {
 .thumbnail h3{
 height: 6%;
 }
+
+.caption p {
+    white-space: nowrap;
+    width: 20em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
