@@ -45,4 +45,4 @@ namespace Kaffeplaneten.Controllers
            return createHash(incPassword);
         }
     }
-}
+}   
