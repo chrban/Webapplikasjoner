@@ -1,7 +1,5 @@
 ﻿body {
-    padding-top: 50px;
     padding-bottom: 20px;
-    background-color: red;
 }
 
 /* Set padding to keep content from hitting the edges */
@@ -32,9 +30,3 @@ textarea {
 .thumbnail h3{
 height: 6%;
 }
-
-.tmb-btn{
-
-  
-}
-

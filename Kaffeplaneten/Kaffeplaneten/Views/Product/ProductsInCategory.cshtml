@@ -1,31 +1,78 @@
 ﻿@model List<Kaffeplaneten.Models.ProductModel>
 
-
-
 <div class="container">
     <div class="row">
-
     @foreach (var produkt in Model)
     {
         <div class="col-sm-6 col-md-4">
             <div class="thumbnail">
                 <h3>@Html.DisplayFor(model => produkt.productName)</h3>
-                <img src="../../Content/img/@Html.DisplayFor(model => produkt.imageURL)" alt="Sample Image" style="width:150px;height:150px">
+                <img src="../../Content/img/@Html.DisplayFor(model => produkt.imageURL)" alt="Sample Image" data-toggle="modal" data-target="#modal-@produkt.productID" style="width:150px;height:150px">
                 <h2>@Html.DisplayFor(model => produkt.price),-</h2>
                 <div class="caption">
                     <p>@Html.DisplayFor(model => produkt.description)</p>
                 </div>
                 <div class="tmb-btn">
-                    @Html.ActionLink("Info", "ProductDetails", "Product", new { id = produkt.productID }, new { @class = "btn btn-default" })
+                    <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-@produkt.productID">Info</button>
                     <button data-toggle="popover" data-trigger="focus" data-content="@produkt.productName er lagt til i handlekurven." type="button" id="@Html.DisplayFor(model => produkt.productID)" class="btn btn-default" onclick="putInCart(@Html.DisplayFor(model => produkt.productID),1)">Legg i handlekurv <span class="glyphicon glyphicon-shopping-cart"></span></button>
                 </div>
             </div>
         </div>
+
+
+
+
+        <!-- Modal -->
+        <div id="modal-@produkt.productID" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">@Html.DisplayFor(model => produkt.productName)</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="thumbnail">
+                            <img img src="../../Content/img/@produkt.imageURL" alt="ProductImage" style="width:150px;height:150px">
+                            <div class="caption">
+                                <h3 id="pName">- @produkt.category) -</h3>
+                                <h2>@produkt.price)</h2>
+                                <p id="pDes">@produkt.description</p>
+                                <p>@produkt.stock </p>
+                            </div>
+                            <div class="input-group">
+                                <div class="input-group-btn">
+                                    <button type="button" class="btn btn-default btn-number" disabled="disabled" data-type="minus" data-field="quant[1]">
+                                        <div class="glyphicon glyphicon-minus"></div>
+                                    </button>
+                                </div>
+                                <input id="quantity" type="text" name="quant[1]" class="form-control input-number" value="1" min="1" max="10">
+                                <div class="input-group-btn">
+                                    <button type="button" class="btn btn-default btn-number" data-type="plus" data-field="quant[1]"><span class="glyphicon glyphicon-plus"></span></button>
+                                </div>
+                            </div>
+                            <button data-toggle="popover" data-trigger="focus" data-content="@produkt.productName er lagt til i handlekurven." type="button" id="@produkt.productID" class="btn btn-default" onclick="putInCart(@produkt.productID )">Legg i handlekurv <span class="glyphicon glyphicon-shopping-cart"></span></button>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        @Html.ActionLink("Info", "ProductDetails", "Product", new { id = produkt.productID }, new { @class = "btn btn-default" })
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Lukk</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+
+
     }
     </div> 
 </div>
-
-
 
 
 
