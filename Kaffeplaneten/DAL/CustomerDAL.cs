@@ -8,12 +8,12 @@ using System.Linq;
 using System.Text;
 using System.Web;
 
-namespace Kaffeplaneten
+namespace Kaffeplaneten.DAL
 {
 
-    public class DBCustomer
+    public class CustomerDAL
     {
-        public static bool add(CustomerModel IncCustomer)//Legger customer inn i datatbasen
+        public bool add(CustomerModel IncCustomer)//Legger customer inn i datatbasen
         {
             Debug.WriteLine("Test1");
             using (var db = new CustomerContext())
@@ -97,30 +97,28 @@ namespace Kaffeplaneten
             return true;
         }
 
-        public static string find(string email)//Henter ut navn på bruker med brukernavn lik email
+        public CustomerModel find(string email)//Henter ut navn på bruker med brukernavn lik email
         {
-            StringBuilder sb = new StringBuilder();
+            var customerModel = new CustomerModel();
             using (var db = new CustomerContext())
             {
                 try
                 {
                     var temp = (from c in db.Customers
                                 where c.email == email
-                                select new { c.firstName, c.lastName }).SingleOrDefault();
+                                select c).SingleOrDefault();
                     if (temp == null) //I prinsippet ikke nødvendig da denne metoden blir trigget da en kunde eksisterer
-                        return sb.ToString();
-                    sb.Append(temp.firstName);
-                    sb.Append(" ");
-                    sb.Append(temp.lastName);
+                        return null;
+                    return find(temp.customerID);
+
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
-                    return sb.ToString();
+                    return null;
                 }
-                return sb.ToString();
             }
         }
-        public static CustomerModel find(int id)//Henter ut en CustomerModel for customer med customerID lik id
+        public CustomerModel find(int id)//Henter ut en CustomerModel for customer med customerID lik id
         {
             var customerModel = new CustomerModel();
             using (var db = new CustomerContext())
@@ -171,7 +169,7 @@ namespace Kaffeplaneten
             return null;
         }
 
-        public static bool update(CustomerModel customerModel)//Oppdaterer customeren som har customerID lik customerModel.customerID
+        public bool update(CustomerModel customerModel)//Oppdaterer customeren som har customerID lik customerModel.customerID
         {
             using (var db = new CustomerContext())
             {
@@ -223,7 +221,7 @@ namespace Kaffeplaneten
             return false;
         }
 
-        public static string getProvince(string zipCode)//Henter ut navnet på poststedet med postkode lik zipCode
+        public string getProvince(string zipCode)//Henter ut navnet på poststedet med postkode lik zipCode
         {
             using (var db = new CustomerContext())
             {
@@ -243,7 +241,7 @@ namespace Kaffeplaneten
             return null;
         }
 
-        public static bool addAdress(AdressModel adressModel)//Legger til ny adresse for bruker med customerID==adressModel.customerID. Alle felter unntatt adressID må være fylt ut
+        public bool addAdress(AdressModel adressModel)//Legger til ny adresse for bruker med customerID==adressModel.customerID. Alle felter unntatt adressID må være fylt ut
         {
             var adressesList = new List<Adresses>();
             if (adressModel.payAdress)//Lager ny betalingsadresse
@@ -298,7 +296,7 @@ namespace Kaffeplaneten
             }
         }
 
-        public static bool addProvince(AdressModel adress)//Legger en province inn i databasen dersom den ikke finnes fra før
+        public bool addProvince(AdressModel adress)//Legger en province inn i databasen dersom den ikke finnes fra før
         {
             using (var db = new CustomerContext())
             {

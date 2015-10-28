@@ -6,11 +6,20 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Text;
+using Kaffeplaneten.BLL;
 
 namespace Kaffeplaneten.Controllers
 {
     public class SecurityController : SuperController
     {
+        private UserBLL _userBLL;
+        private CustomerBLL _customerBLL;
+
+        public SecurityController()
+        {
+            _userBLL = new UserBLL();
+            _customerBLL = new CustomerBLL();
+        }
         public ActionResult Loginview()
         {
             if (Session[LOGGED_INN] == null)
@@ -20,7 +29,7 @@ namespace Kaffeplaneten.Controllers
             }
             else
             {
-                ViewBag.LoggedOn = (bool)Session[LOGGED_INN];
+                ViewBag.LoggedOn = Session[LOGGED_INN];
             }
             return View();
         }
@@ -29,13 +38,11 @@ namespace Kaffeplaneten.Controllers
         public ActionResult Loginview(UserModel user)
         {
             user.passwordHash = base.getHash(user.password);
-            if (DBUser.verifyUser(user))
+            if (_userBLL.verifyUser(user))
             {
                 Session[LOGGED_INN] = true;
-                Session[CUSTOMER_ID] = DBUser.get(user.username).customerID;
                 ViewBag.LoggedOn = true;
-                var DBCustomer = new DBCustomer();
-                Session[USER] = DBCustomer.find(user.username);
+                Session[CUSTOMER] = _customerBLL.find(user.username);
                 return RedirectToAction("AllProducts", "Product", user.username);
             }
             ModelState.AddModelError("", "Feil brukernavn eller passord");
@@ -56,7 +63,7 @@ namespace Kaffeplaneten.Controllers
         public ActionResult LoggedOut()
         {
             Session[LOGGED_INN] = null;
-            Session[CUSTOMER_ID] = -1;
+            Session[CUSTOMER] = null;
             return RedirectToAction("Loginview");
         }
     }

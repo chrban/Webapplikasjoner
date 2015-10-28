@@ -1,5 +1,6 @@
 ﻿using Kaffeplaneten.Controllers;
 using Kaffeplaneten.Models;
+using Kaffeplaneten.BLL;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity.Validation;
@@ -21,13 +22,13 @@ namespace Kaffeplaneten
             {
                 var customer = createCustomer();
                 var order = createOrder();
-                addCustomer(customer);
-                addAdress(customer);
-                addUser(customer);
-                order.customerID = customer.customerID;
-                addProducts();
-                order.orderNr = addOrder(order);
-                addProductOrder(order);
+                //addCustomer(customer);
+                //addAdress(customer);
+                //addUser(customer);
+                //order.customerID = customer.customerID;
+                //addProducts();
+                //order.orderNr = addOrder(order);
+                //addProductOrder(order);
                 //editCustomer(customer);
                 return true;
             }
@@ -43,7 +44,7 @@ namespace Kaffeplaneten
         {
             try
             {
-                addProduct(createAfterDinnerBlend());
+                /*addProduct(createAfterDinnerBlend());
                 addProduct(createAstorLibano());
                 addProduct(createBrazillianBlend());
                 addProduct(createCafedeParis());
@@ -59,7 +60,7 @@ namespace Kaffeplaneten
                 addProduct(createMexicanCoffee());
                 addProduct(createNutCream());
                 addProduct(createOldBrownJava());
-                addProduct(createPrimeHonduras());
+                addProduct(createPrimeHonduras());*/
             }
             catch (Exception ex)
             {
@@ -275,7 +276,7 @@ namespace Kaffeplaneten
             return p;
         }
         /***********************************************************************************************************************/
-        public static void addCustomer(CustomerModel customerModel)
+       /*public static void addCustomer(CustomerModel customerModel)
         {
             var db = new CustomerContext();
             var customer = new Customers();
@@ -286,8 +287,8 @@ namespace Kaffeplaneten
             db.Customers.Add(customer);
             db.SaveChanges();
             customerModel.customerID = customer.customerID;
-        }
-        public static void addAdress(CustomerModel customerModel)
+        }*/
+        /*public static void addAdress(CustomerModel customerModel)
         {
             var adress = new AdressModel();
             adress.deliveryAdress = true;
@@ -298,8 +299,8 @@ namespace Kaffeplaneten
             adress.customerID = customerModel.customerID;
             DBCustomer.addAdress(adress);
 
-        }
-        public static void addUser(CustomerModel customerModel)
+        }*/
+       /*public static void addUser(CustomerModel customerModel)
         {
             var temp = new SuperController();
             var userModel = new UserModel();
@@ -307,17 +308,17 @@ namespace Kaffeplaneten
             userModel.passwordHash= temp.getHash(customerModel.password);
             userModel.username = customerModel.email;
             DBUser.add(userModel);
-        }
-        public static void addProduct(ProductModel productModel)
+        }*/
+        /*public static void addProduct(ProductModel productModel)
         {
             DBProduct.add(productModel);
-        }
-        public static int addOrder(OrderModel orderModel)
+        }*/
+        /*public static int addOrder(OrderModel orderModel)
         {
             DBOrder.add(orderModel);
             return orderModel.customerID;
-        }
-        public static void addProductOrder(OrderModel orderModel)
+        }*/
+        /*public static void addProductOrder(OrderModel orderModel)
         {
             var db = new CustomerContext();
             var a = new int[100];
@@ -339,7 +340,7 @@ namespace Kaffeplaneten
 
             }
             db.SaveChanges();
-        }
+        }*/
 
         public static CustomerModel createCustomer()
         {
@@ -371,10 +372,11 @@ namespace Kaffeplaneten
         }
         public static bool editCustomer(CustomerModel customerModel)
         {
+            var customerBLL = new CustomerBLL();
             customerModel.firstName="Trond";
             customerModel.email = "Trond@tronno.rønning";
             customerModel.adress = "Tronnoland";
-            return DBCustomer.update(customerModel);
+            return customerBLL.update(customerModel);
         }
 
     }
