@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CustomerBLL.cs" />
+    <Compile Include="LoggingBLL.cs" />
     <Compile Include="OrderBLL.cs" />
     <Compile Include="ProductBLL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
