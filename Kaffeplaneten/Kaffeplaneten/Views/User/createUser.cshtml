@@ -14,91 +14,196 @@
     <div class="container-fluid">
 
         <div class="panel-default col-md-offset-3 col-md-6">
-            <div class="panel-primary">
                 <div class="panel-heading">
                     <h3>Brukerregistrering</h3>
                 </div>
-
+            <div class="panel-primary">
                 <div class="panel-body">
                     <div class="col-md-offset-3 col-md-6">
-                        <table>
+                        <table class="table table-bordered">
                             <tr>
-                                <span class="glyphicon glyphicon-user"></span>
-                                @Html.TextBoxFor(model => model.firstName, new { @class = "form-control", placeholder = (@Html.DisplayNameFor(model => model.firstName)) })
-                                @Html.ValidationMessageFor(model => model.firstName)
+                                <td>
+                                    <div class="col-lg-12 input-group">
+                                            <div class="input-group input-group-lg">
+                                                <span class="input-group-addon">
+                                                    <span class="glyphicon glyphicon-user"></span>
+                                                </span>
+                                                @Html.TextBoxFor(model => model.firstName, new { @class = "form-control", placeholder = (@Html.DisplayNameFor(model => model.firstName)) })
+                                            </div>
+                                        </div>
+                                </td>
+                                <td>@Html.ValidationMessageFor(model => model.firstName)</td>
                             </tr>
                             <tr>
-                                <span class="glyphicon glyphicon-user"></span>
-                                @Html.TextBoxFor(model => model.lastName, new { @class = "form-control", placeholder = (@Html.DisplayNameFor(model => model.lastName)) })
-                                @Html.ValidationMessageFor(model => model.lastName)
+                                <td>
+                                    <div class="col-lg-12 input-group">
+                                        <div class="input-group input-group-lg">
+                                            <span class="input-group-addon">
+                                                <span class="glyphicon glyphicon-user"></span>
+                                            </span>
+                                            @Html.TextBoxFor(model => model.lastName, new { @class = "form-control", placeholder = (@Html.DisplayNameFor(model => model.lastName)) })
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>@Html.ValidationMessageFor(model => model.lastName)</td>
                             </tr>
                             <tr>
-                                <span class="glyphicon glyphicon-envelope"></span>
-                                @Html.TextBoxFor(model => model.email, new { @class = "form-control", placeholder = (@Html.DisplayNameFor(model => model.email)) })
-                                @Html.ValidationMessageFor(model => model.email)
+                                <td>
+                                    <div class="col-lg-12 input-group">
+                                        <div class="input-group input-group-lg">
+                                            <span class="input-group-addon">
+                                                <span class="glyphicon glyphicon-envelope"></span>
+                                            </span>
+                                            @Html.TextBoxFor(model => model.email, new { @class = "form-control", placeholder = (@Html.DisplayNameFor(model => model.email)) })
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>@Html.ValidationMessageFor(model => model.email)</td>
                             </tr>
                             <tr>
-                                <span class="glyphicon glyphicon-lock"></span>
-                                @Html.PasswordFor(model => model.password, new { @class = "form-control", placeholder = (@Html.DisplayNameFor(model => model.password)) })
-                                @Html.ValidationMessageFor(model => model.password)
+                                <td>
+                                    <div class="col-lg-12 input-group">
+                                        <div class="input-group input-group-lg">
+                                            <span class="input-group-addon">
+                                                <span class="glyphicon glyphicon-lock"></span>
+                                            </span>
+                                            @Html.PasswordFor(model => model.password, new { @class = "form-control", placeholder = (@Html.DisplayNameFor(model => model.password)) })
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>@Html.ValidationMessageFor(model => model.password)</td>
                             </tr>
                             <tr>
-                                <span class="glyphicon glyphicon-lock"></span>
-                                @Html.PasswordFor(model => model.passwordVerifier, new { @class = "form-control", placeholder = (@Html.DisplayNameFor(model => model.passwordVerifier)) })
-                                @Html.ValidationMessageFor(model => model.passwordVerifier)
+                                <td>
+                                    <div class="col-lg-12 input-group">
+                                        <div class="input-group input-group-lg">
+                                            <span class="input-group-addon">
+                                                <span class="glyphicon glyphicon-lock"></span>
+                                            </span>
+                                            @Html.PasswordFor(model => model.passwordVerifier, new { @class = "form-control", placeholder = (@Html.DisplayNameFor(model => model.passwordVerifier)) })
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>@Html.ValidationMessageFor(model => model.passwordVerifier)</td>
                             </tr>
                             <tr>
-                                <span class="glyphicon glyphicon-earphone"></span>
-                                @Html.TextBoxFor(model => model.phone, new { @class = "form-control", placeholder = (@Html.DisplayNameFor(model => model.phone)) })
-                                @Html.ValidationMessageFor(model => model.phone)
+                                <td>
+                                    <div class="col-lg-12 input-group">
+                                        <div class="input-group input-group-lg">
+                                            <span class="input-group-addon">
+                                                <span class="glyphicon glyphicon-earphone"></span>
+                                            </span>
+                                            @Html.TextBoxFor(model => model.phone, new { @class = "form-control", placeholder = (@Html.DisplayNameFor(model => model.phone)) })
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>@Html.ValidationMessageFor(model => model.phone)</td>
                             </tr>
                             <tr>
-                                @Html.DisplayNameFor(model => model.sameAdresses)
-                                @Html.CheckBoxFor(model => model.sameAdresses, new { id = "checkbox", onclick = "sameAdress(this)" })
+                                <td>
+                                    <div class="col-lg-12 input-group">
+                                        <div class="input-group input-group-lg">
+                                            <span class="input-group-addon">
+                                                <span class="glyphicon glyphicon-ok"></span>
+                                            </span>
+                                            <input type="text" class="form-control" style="font-size: 14px;" readonly="readonly" placeholder="Samme betaling og leveringsadresse?"/>
+                                            <span class="input-group-addon">
+                                                <input type="checkbox" onclick="sameAdress(this)" />
+                                            </span>
+                                        </div>
+                                    </div>
+                                </td>
                             </tr>
-                            <br />
                             <tr>
+                                <td>
+                                    <div class="col-lg-12 input-group">
+                                        <div class="input-group input-group-lg">
+                                            <span class="input-group-addon">
+                                                <span class="glyphicon glyphicon-home"></span>
+                                            </span>
+                                            @Html.TextBoxFor(model => model.adress, new { id = "adress", @class = "form-control", placeholder = (@Html.DisplayNameFor(model => model.adress)) })
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>@Html.ValidationMessageFor(model => model.adress)</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="col-lg-12 input-group">
+                                        <div class="input-group input-group-lg">
+                                            <span class="input-group-addon">
+                                                <span class="glyphicon glyphicon-tag"></span>
+                                            </span>
+                                            @Html.TextBoxFor(model => model.zipCode, new { id = "zipcode", @class = "form-control", placeholder = (@Html.DisplayNameFor(model => model.zipCode)) })
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>@Html.ValidationMessageFor(model => model.zipCode)</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="col-lg-12 input-group">
+                                        <div class="input-group input-group-lg">
+                                            <span class="input-group-addon">
+                                                <span class="glyphicon glyphicon-king"></span>
+                                            </span>
+                                            @Html.TextBoxFor(model => model.province, new { id = "province", @class = "form-control", placeholder = (@Html.DisplayNameFor(model => model.province)) })
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>@Html.ValidationMessageFor(model => model.province)</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="col-lg-12 input-group">
+                                        <div class="input-group input-group-lg">
+                                            <span class="input-group-addon">
+                                                <span class="glyphicon glyphicon-home"></span>
+                                            </span>
+                                            @Html.TextBoxFor(model => model.payAdress, new { id = "payAdress", @class = "form-control", placeholder = (@Html.DisplayNameFor(model => model.payAdress)) })
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>@Html.ValidationMessageFor(model => model.payAdress)</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="col-lg-12 input-group">
+                                        <div class="input-group input-group-lg">
+                                            <span class="input-group-addon">
+                                                <span class="glyphicon glyphicon-tag"></span>
+                                            </span>
+                                            @Html.TextBoxFor(model => model.payZipcode, new { id = "payZipcode", @class = "form-control", placeholder = (@Html.DisplayNameFor(model => model.payZipcode)) })
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>@Html.ValidationMessageFor(model => model.payZipcode)</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="col-lg-12 input-group">
+                                        <div class="input-group input-group-lg">
+                                            <span class="input-group-addon">
+                                                <span class="glyphicon glyphicon-king"></span>
+                                            </span>
+                                            @Html.TextBoxFor(model => model.payProvince, new { id = "payProvince", @class = "form-control", placeholder = (@Html.DisplayNameFor(model => model.payProvince)) })
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>@Html.ValidationMessageFor(model => model.payProvince)</td>
+                            </tr>
 
-                                <span class="glyphicon glyphicon-home"></span>
-                                @Html.TextBoxFor(model => model.adress, new { id = "adress", @class = "form-control", placeholder = (@Html.DisplayNameFor(model => model.adress)) })
-                                @Html.ValidationMessageFor(model => model.adress)
-
-                            </tr>
-                            <tr>
-                                <span class="glyphicon glyphicon-tag"></span>
-                                @Html.TextBoxFor(model => model.zipCode, new { id = "zipcode", @class = "form-control", placeholder = (@Html.DisplayNameFor(model => model.zipCode)) })
-                                @Html.ValidationMessageFor(model => model.zipCode)
-                            </tr>
-                            <tr>
-                                <span class="glyphicon glyphicon-king"></span>
-                                @Html.TextBoxFor(model => model.province, new { id = "province", @class = "form-control", placeholder = (@Html.DisplayNameFor(model => model.province)) })
-                                @Html.ValidationMessageFor(model => model.province)
-                            </tr>
-                            <tr>
-                                <span class="glyphicon glyphicon-home"></span>
-                                @Html.TextBoxFor(model => model.payAdress, new { id = "payAdress", @class = "form-control", placeholder = (@Html.DisplayNameFor(model => model.payAdress)) })
-                                @Html.ValidationMessageFor(model => model.payAdress)
-                            </tr>
-                            <tr>
-                                <span class="glyphicon glyphicon-tag"></span>
-                                @Html.TextBoxFor(model => model.payZipcode, new { id = "payZipcode", @class = "form-control", placeholder = (@Html.DisplayNameFor(model => model.payZipcode)) })
-                                @Html.ValidationMessageFor(model => model.payZipcode)
-                            </tr>
-                            <tr>
-                                <span class="glyphicon glyphicon-king"></span>
-                                @Html.TextBoxFor(model => model.payProvince, new { id = "payProvince", @class = "form-control", placeholder = (@Html.DisplayNameFor(model => model.payProvince)) })
-                                @Html.ValidationMessageFor(model => model.payProvince)
-                            </tr>
                         </table>
+
                         <div class="panel-footer">
                             <input type="submit" value="Opprett bruker" class="btn btn-success" />
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+          </div>
+      </div>
 
-                </div>
 
                 }
 

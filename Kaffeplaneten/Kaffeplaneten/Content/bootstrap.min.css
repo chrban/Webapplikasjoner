@@ -636,7 +636,7 @@ pre code{padding:0;font-size:inherit;color:inherit;white-space:pre-wrap;border-r
 }
 caption{padding-top:8px;padding-bottom:8px;color:#777}
 .table{width:100%;max-width:100%;margin-bottom:20px}
-.table>tbody>tr>td,.table>tbody>tr>th,.table>tfoot>tr>td,.table>tfoot>tr>th,.table>thead>tr>td,.table>thead>tr>th{padding:8px;line-height:1.42857143;vertical-align:top;border-top:1px solid #ddd}
+.table>tbody>tr>td,.table>tbody>tr>th,.table>tfoot>tr>td,.table>tfoot>tr>th,.table>thead>tr>td,.table>thead>tr>th{padding:0px;line-height:1.42857143;vertical-align:top;border-top:1px solid #ddd}
 .table>thead>tr>th{vertical-align:bottom;border-bottom:2px solid #ddd}
 .table>caption+thead>tr:first-child>td,.table>caption+thead>tr:first-child>th,.table>colgroup+thead>tr:first-child>td,.table>colgroup+thead>tr:first-child>th,.table>thead:first-child>tr:first-child>td,.table>thead:first-child>tr:first-child>th{border-top:0}
 .table>tbody+tbody{border-top:2px solid #ddd}
@@ -672,7 +672,7 @@ fieldset{margin:0;min-width:0}
 legend{display:block;width:100%;margin-bottom:20px;font-size:21px;line-height:inherit;color:#333;border-bottom:1px solid #e5e5e5}
 label{display:inline-block;max-width:100%;margin-bottom:5px}
 input[type=search]{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;-webkit-appearance:none}
-input[type=checkbox],input[type=radio]{margin:4px 0 0;margin-top:1px\9;line-height:normal}
+input[type=checkbox],input[type=radio]{margin:4px 0 0;margin-top:1px\9;line-height:normal; background-color: #5d3d1f}
 .form-control,output{display:block;font-size:14px;line-height:1.42857143;color:#555}
 input[type=file]{display:block}
 input[type=range]{display:block;width:100%}
@@ -899,7 +899,7 @@ select[multiple].input-group-sm>.form-control,select[multiple].input-group-sm>.i
 .input-group-addon.input-lg{padding:10px 16px;font-size:18px;border-radius:6px}
 .input-group-addon input[type=checkbox],.input-group-addon input[type=radio]{margin-top:0}
 .input-group .form-control:first-child,.input-group-addon:first-child,.input-group-btn:first-child>.btn,.input-group-btn:first-child>.btn-group>.btn,.input-group-btn:first-child>.dropdown-toggle,.input-group-btn:last-child>.btn-group:not(:last-child)>.btn,.input-group-btn:last-child>.btn:not(:last-child):not(.dropdown-toggle){border-bottom-right-radius:0;border-top-right-radius:0}
-.input-group-addon:first-child{border-right:0}
+.input-group-addon:first-child{border-right:0; background-color: #5d3d1f; color:#fff}
 .input-group .form-control:last-child,.input-group-addon:last-child,.input-group-btn:first-child>.btn-group:not(:first-child)>.btn,.input-group-btn:first-child>.btn:not(:first-child),.input-group-btn:last-child>.btn,.input-group-btn:last-child>.btn-group>.btn,.input-group-btn:last-child>.dropdown-toggle{border-bottom-left-radius:0;border-top-left-radius:0}
 .input-group-addon:last-child{border-left:0}
 .input-group-btn{position:relative;font-size:0;white-space:nowrap}
@@ -1007,7 +1007,15 @@ select[multiple].input-group-sm>.form-control,select[multiple].input-group-sm>.i
 .navbar-form .input-group>.form-control{width:100%}
 .navbar-form .checkbox,.navbar-form .radio{display:inline-block;margin-top:0;margin-bottom:0;vertical-align:middle}
 .navbar-form .checkbox label,.navbar-form .radio label{padding-left:0}
-.navbar-form .checkbox input[type=checkbox],.navbar-form .radio input[type=radio]{position:relative;margin-left:0}
+.navbar-form .checkbox input[type=checkbox],.navbar-form .radio input[type=radio]{
+    position:relative;
+    margin-left:0;
+    -ms-transform: scale(2); /* IE */
+  -moz-transform: scale(2); /* FF */
+  -webkit-transform: scale(2); /* Safari and Chrome */
+  -o-transform: scale(2); /* Opera */
+  padding: 10px;
+}
 .navbar-form .has-feedback .form-control-feedback{top:0}
 }
 .btn .badge,.btn .label{position:relative;top:-1px}
@@ -1256,7 +1264,9 @@ a.list-group-item-danger.active,a.list-group-item-danger.active:focus,a.list-gro
 .panel-group .panel-footer{border-top:0}
 .panel-group .panel-footer+.panel-collapse .panel-body{border-bottom:1px solid #ddd}
 .panel-default>.panel-heading+.panel-collapse>.panel-body{border-top-color:#ddd}
-.panel-default>.panel-heading .badge{color:#f5f5f5;background-color:#333}
+.panel-default>.panel-heading .badge{
+    color:#fff;background-color:#5d3d1f;border-color:#337ab7}
+}
 .panel-default>.panel-footer+.panel-collapse>.panel-body{border-bottom-color:#ddd}
 .panel-primary{border-color:#337ab7}
 .panel-primary>.panel-heading{color:#fff;background-color:#5d3d1f;border-color:#337ab7}
@@ -1493,7 +1503,7 @@ input,textarea{color:#555}
 .close:focus,.close:hover{opacity:1}
 .alert,.alert .alert-link,.alert a{color:#fff}
 .well{-webkit-box-shadow:none;box-shadow:none}
-.panel-default>.panel-heading{background-color:#f5f5f5;color:#333}
+.panel-default>.panel-heading{color:#fff;background-color:#5d3d1f;border-color:#337ab7}}
 .thumbnail{background-color:#f5f5f5}
 .modal{padding:0}
 .modal-footer,.modal-header{background-color:#f5f5f5;border:none;border-radius:0}
