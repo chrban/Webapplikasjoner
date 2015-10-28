@@ -1,4 +1,4 @@
-﻿using Kaffeplaneten.Model;
+﻿using Kaffeplaneten.Models;
 using Kaffeplaneten.DAL;
 using System;
 using System.Collections.Generic;
