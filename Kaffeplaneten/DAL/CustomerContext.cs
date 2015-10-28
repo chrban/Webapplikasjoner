@@ -7,7 +7,7 @@ using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Linq;
 
 
-namespace Kaffeplaneten.Models
+namespace Kaffeplaneten.DAL
 {
 
 

@@ -31,7 +31,10 @@
                         {
                                             <li><span class="navbaricons glyphicon glyphicon-cog"></span>@Html.ActionLink("Kontoinstillinger", "accountView", "User", new { area = "" }, new { @class = "navbar-brand" })</li>
                                             <li><span class="navbaricons glyphicon glyphicon-log-out"></span>@Html.ActionLink("Logg Ut", "LoggedOut", "Security", new { area = "" }, new { @class = "navbar-brand" })</li>
-                                            <li><span class="navbaricons glyphicon glyphicon-user"></span><a class="navbar-brand">@Session["User"]</a></li>
+                                            <li><span class="navbaricons glyphicon glyphicon-user"></span><a class="navbar-brand">
+                                                @(((Kaffeplaneten.Models.CustomerModel)Session[Kaffeplaneten.Controllers.SuperController.CUSTOMER]).firstName + " " +
+                                                ((Kaffeplaneten.Models.CustomerModel)Session[Kaffeplaneten.Controllers.SuperController.CUSTOMER]).lastName)
+                                            </a></li>
 
                         }
                         else

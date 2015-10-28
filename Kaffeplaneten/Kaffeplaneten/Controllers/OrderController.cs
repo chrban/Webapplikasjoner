@@ -3,11 +3,19 @@ using Kaffeplaneten;
 using Kaffeplaneten.Models;
 using System.Diagnostics;
 using System.Collections.Generic;
+using Kaffeplaneten.BLL;
 
 namespace Kaffeplaneten.Controllers
 {
     public class OrderController : SuperController
     {
+
+        private OrderBLL _orderBLL;
+
+        public OrderController()
+        {
+            _orderBLL = new OrderBLL();
+        }
         public ActionResult confirmOrderView()
         {
             var orderModel = (OrderModel)Session[SHOPPING_CART];
@@ -24,7 +32,7 @@ namespace Kaffeplaneten.Controllers
                 ModelState.AddModelError("", "Handlevognen er tom");
                 return RedirectToAction("ShoppingCartView", "ShoppingCart", new { area = "" });
             }
-            var customerModel = DBCustomer.find(getActiveUserID());
+            var customerModel = (CustomerModel)Session[CUSTOMER];
             if (customerModel == null)
             {
                 ModelState.AddModelError("", "Du må være logget inn for å fortsette");
@@ -36,7 +44,7 @@ namespace Kaffeplaneten.Controllers
         }
         public ActionResult orderHistoryView()
         {
-            var order = DBOrder.findOrders(getActiveUserID());
+            var order = _orderBLL.findOrders(getActiveUserID());
             if(order == null)
                 return RedirectToAction("Loginview", "Security", new { area = "" });
             return View(order);
@@ -61,7 +69,7 @@ namespace Kaffeplaneten.Controllers
             if (orderModel == null)
                 return false;
             Session[SHOPPING_CART] = null;
-            return DBOrder.add(orderModel);
+            return _orderBLL.add(orderModel);
         }
     }
 }

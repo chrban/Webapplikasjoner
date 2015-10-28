@@ -1,4 +1,5 @@
-﻿using Kaffeplaneten.Models;
+﻿using Kaffeplaneten.BLL;
+using Kaffeplaneten.Models;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -12,6 +13,14 @@ namespace Kaffeplaneten.Controllers
 
     public class UserController : SuperController
     {
+        private CustomerBLL _customerBLL;
+        private UserBLL _userBLL;
+
+        public UserController()
+        {
+            _customerBLL = new CustomerBLL();
+            _userBLL = new UserBLL();
+        }
         public ActionResult createUser()
         {
             return View();
@@ -20,29 +29,26 @@ namespace Kaffeplaneten.Controllers
         [HttpPost]
         public ActionResult createUser(CustomerModel newCustomer)
         {
-            Debug.WriteLine("Test0");
             if (!ModelState.IsValid)
                 return View();
-            Debug.WriteLine("Test1");
 
-            var userModel = DBUser.get(newCustomer.email);
-            if (userModel != null)//tester om en bruker med samme epost finnes fra før
+            var customerModel = _userBLL.get(newCustomer.email);
+            if (customerModel == null)//tester om en bruker med samme epost finnes fra før
             {
                 ModelState.AddModelError("", "Eposten du prøver å registrere finnes allerede. Vennligst benytt en annen adresse");
                 return View(newCustomer);
             }
-            if (!DBCustomer.add(newCustomer))//registrerer ny customer
+            if (!_customerBLL.add(newCustomer))//registrerer ny customer
             {
                 ModelState.AddModelError("", "Feil ved registrering av bruker");
                 return View(newCustomer);
             }
-            Debug.WriteLine("Test2");
-            userModel = new UserModel();
-            userModel.username = newCustomer.email;
-            userModel.passwordHash = base.getHash(newCustomer.password);
-            userModel.customerID = newCustomer.customerID;
+            customerModel = new UserModel();
+            customerModel.username = newCustomer.email;
+            customerModel.passwordHash = base.getHash(newCustomer.password);
+            customerModel.customerID = newCustomer.customerID;
 
-            if (!DBUser.add(userModel))//registrerer ny user
+            if (!_userBLL.add(customerModel))//registrerer ny user
             {
                 ModelState.AddModelError("", "Feil ved registrering av bruker");
                 return View(newCustomer);
@@ -55,7 +61,7 @@ namespace Kaffeplaneten.Controllers
         {
             if (getActiveUserID() == -1)
                 return RedirectToAction("Loginview", "Security", new { area = "" });
-            var customer = DBCustomer.find((int)Session[CUSTOMER_ID]);
+            var customer = _customerBLL.find(getActiveUserID());
             return View(customer);
         }
 
@@ -63,7 +69,7 @@ namespace Kaffeplaneten.Controllers
         {
             if (getActiveUserID() == -1)
                 return RedirectToAction("Loginview", "Security", new { area = "" });
-            var customerModel = DBCustomer.find(getActiveUserID());
+            var customerModel = _customerBLL.find(getActiveUserID());
             return View(customerModel);
 
         }
@@ -73,17 +79,17 @@ namespace Kaffeplaneten.Controllers
         {
             customerModel.customerID = getActiveUserID();
 
-            var userModel = DBUser.get(customerModel.customerID);//henter ut user modellen
+            var userModel = _userBLL.get(customerModel.customerID);//henter ut user modellen
             userModel.username = customerModel.email;
             if (!(customerModel.password == null))//tester om passord skal endres
                 userModel.passwordHash = base.getHash(customerModel.password);
 
-            if (!DBUser.update(userModel))//registrerer endinger i user
+            if (!_userBLL.update(userModel))//registrerer endinger i user
             {
                 ModelState.AddModelError("", "Epost finnes fra før");
                 return RedirectToAction("editAccountView");
             }
-            if (!DBCustomer.update(customerModel))//registrerer endring i customer
+            if (!_customerBLL.update(customerModel))//registrerer endring i customer
             {
                 ModelState.AddModelError("", "Feil ved registrering av data");
                 return RedirectToAction("editAccountView");
@@ -91,7 +97,6 @@ namespace Kaffeplaneten.Controllers
             return RedirectToAction("accountView");
 
         }
-
     }
 }
 

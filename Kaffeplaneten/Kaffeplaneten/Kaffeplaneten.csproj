@@ -167,19 +167,9 @@
     <Compile Include="Controllers\ShoppingCartController.cs" />
     <Compile Include="Controllers\SuperController.cs" />
     <Compile Include="Controllers\UserController.cs" />
-    <Compile Include="DBOrder.cs" />
-    <Compile Include="Models\AdressModel.cs" />
-    <Compile Include="Models\CustomerContext.cs" />
-    <Compile Include="DBProduct.cs" />
-    <Compile Include="DBUser.cs" />
-    <Compile Include="DBCustomer.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\CustomerModel.cs" />
-    <Compile Include="Models\OrderModel.cs" />
-    <Compile Include="Models\ProductModel.cs" />
-    <Compile Include="Models\UserModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="DataCreater.cs" />
   </ItemGroup>
@@ -195,6 +185,17 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Models\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BLL\BLL.csproj">
+      <Project>{b3a660dc-9406-4982-b83c-3edb0c773424}</Project>
+      <Name>BLL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Model\Models.csproj">
+      <Project>{36742b1e-cc85-48b6-aafc-a673d40ebe70}</Project>
+      <Name>Models</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -70,9 +70,6 @@ namespace Kaffeplaneten.Controllers
             return false;
         }
 
-
-
-
         public bool removeFromCart(int productToBeRemoved)
         {
 

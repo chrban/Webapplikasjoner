@@ -7,11 +7,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Kaffeplaneten
+namespace Kaffeplaneten.DAL
 {
-    public class DBUser
+    public class UserDAL
     {
-        public static bool add(UserModel userModel)//Legger en Users inn i databasen
+        public bool add(UserModel userModel)//Legger en Users inn i databasen
         {
             using (var db = new CustomerContext())
             {
@@ -51,7 +51,7 @@ namespace Kaffeplaneten
             }//end using
         }
 
-        public static UserModel get(string email)//henter ut en UserModel med Users.email lik email
+        public UserModel get(string email)//henter ut en UserModel med Users.email lik email
         {
             var userModel = new UserModel();
             using (var db = new CustomerContext())
@@ -77,7 +77,7 @@ namespace Kaffeplaneten
                 return null;
             }
         }
-        public static bool update(UserModel userModel)//Oppdaterer Users data med dataen i userModel
+        public bool update(UserModel userModel)//Oppdaterer Users data med dataen i userModel
         {
             using (var db = new CustomerContext())
             {
@@ -111,7 +111,7 @@ namespace Kaffeplaneten
             }
         }
 
-        public static bool verifyUser(UserModel userModel)//Bekrefter brukernavn og passord for user
+        public bool verifyUser(UserModel userModel)//Bekrefter brukernavn og passord for user
         {
             using (var db = new CustomerContext())
             {
@@ -132,7 +132,7 @@ namespace Kaffeplaneten
                 return false;
             }//end using
         }
-        public static UserModel get(int id)//henter ut en UserModel fra User med customerID lik id
+        public UserModel get(int id)//henter ut en UserModel fra User med customerID lik id
         {
             var userModel = new UserModel();
             using (var db = new CustomerContext())

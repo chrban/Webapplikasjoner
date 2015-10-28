@@ -18,7 +18,6 @@
                 <div class="panel-heading">
                     Kundeopplysninger
                 </div>
-                @((Kaffeplaneten.Models.CustomerModel)ViewBag.customerModel).customer
                 @Html.Partial("customerView", (Kaffeplaneten.Models.CustomerModel)ViewBag.customerModel)
             </div>
                 @Html.ActionLink("Avbryt", "AllProducts", "Product", new { area = "" }, new { @class = "btn btn-danger" })

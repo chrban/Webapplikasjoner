@@ -1,4 +1,5 @@
-﻿using Kaffeplaneten.Models;
+﻿using Kaffeplaneten.BLL;
+using Kaffeplaneten.Models;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -9,6 +10,12 @@ namespace Kaffeplaneten.Controllers
 {
     public class ProductController : SuperController 
     {
+        private ProductBLL _productBLL;
+
+        public ProductController()
+        {
+            _productBLL = new ProductBLL();
+        }
         public ActionResult AllProducts()
         {
             ProductsInCategory(INITIAL_LOAD);
@@ -26,7 +33,7 @@ namespace Kaffeplaneten.Controllers
             var uniqeCategories = new List<string>();
             var ProductList = (List<ProductModel>)Session[PRODUCT_LIST];
             if (ProductList == null)
-                ProductList = DBProduct.getAllProducts();
+                ProductList = _productBLL.getAllProducts();
                     foreach (var c in ProductList)
                     {
                         if (!uniqeCategories.Contains(c.category))
@@ -37,7 +44,7 @@ namespace Kaffeplaneten.Controllers
         }
         public PartialViewResult ProductsInCategory(string category)
         {
-            var ProductList = DBProduct.getAllProducts();
+            var ProductList = _productBLL.getAllProducts();
             var utListe = new List<ProductModel>();
             Session[PRODUCT_LIST] = ProductList;
 
@@ -57,7 +64,7 @@ namespace Kaffeplaneten.Controllers
         }
         public ActionResult GetAllProducts()
         {
-            var ProductList = DBProduct.getAllProducts();
+            var ProductList = _productBLL.getAllProducts();
 
 
             Session[PRODUCT_LIST] = ProductList;

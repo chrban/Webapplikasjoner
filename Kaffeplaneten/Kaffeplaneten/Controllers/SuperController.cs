@@ -12,13 +12,12 @@ namespace Kaffeplaneten.Controllers
     public class SuperController : Controller
     {
         //const variabler for Session
-        public const string CUSTOMER_ID = "CustomerID";
         public const string SHOPPING_CART = "ShoppingCart";
         public const string LOGGED_INN = "LoggedInn";
         public const string PRODUCT_LIST = "ProductList";
         public const string UNIQUE_CATEGORIES = "UniqueCategories";
         public const string INITIAL_LOAD = "INITIAL";
-        public const string USER = "User";
+        public const string CUSTOMER = "Customer";
 
         //Controller som tar hånd om metoder som skal benyttes på tvers av controllerne
         public ActionResult Index()
@@ -27,9 +26,9 @@ namespace Kaffeplaneten.Controllers
         }
         public int getActiveUserID()//Returnerer customerID til inlogget customer. -1 hvis inger er innlogget
         {
-            if (Session[CUSTOMER_ID] == null)
+            if (Session[CUSTOMER] == null)
                 return -1;
-            return (int)Session[CUSTOMER_ID];
+            return ((CustomerModel)Session[CUSTOMER]).customerID;
         }
         private static byte[] createHash(string incPassword)
         {

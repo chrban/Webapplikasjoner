@@ -1,5 +1,4 @@
-﻿using Kaffeplaneten.Controllers;
-using Kaffeplaneten.Models;
+﻿using Kaffeplaneten.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity.Validation;
@@ -7,12 +6,12 @@ using System.Diagnostics;
 using System.Linq;
 using System.Web;
 
-namespace Kaffeplaneten
+namespace Kaffeplaneten.DAL
 {
     
-    public class DBOrder
+    public class OrderDAL
     {
-        public static bool add(OrderModel orderModel)/*Legger Orders og ProductOrders inn i databasen. CustomerID og pruductID-ene må være med i modellen*/
+        public bool add(OrderModel orderModel)/*Legger Orders og ProductOrders inn i databasen. CustomerID og pruductID-ene må være med i modellen*/
         {
             using (var db = new CustomerContext())
             {
@@ -37,7 +36,7 @@ namespace Kaffeplaneten
                 return false;
             }
         }
-        public static bool addProductOrders(OrderModel orderModel)/*Legger ProductOrders inn i databasen. OrderNr og pruductID-ene må være med i modellen*/
+        public bool addProductOrders(OrderModel orderModel)/*Legger ProductOrders inn i databasen. OrderNr og pruductID-ene må være med i modellen*/
             {
             using (var db = new CustomerContext())
                 {
@@ -46,10 +45,11 @@ namespace Kaffeplaneten
                     var order = db.Orders.Find(orderModel.orderNr);
                     if (order == null)//tester om ordren eksisterer
                         return false;
+                    var productDAL = new ProductDAL();
                     foreach (var p in orderModel.products)//Opretter ProductOrders fra modellen
                     {
                         p.stock -= p.quantity;
-                        DBProduct.updateQuantity(p);
+                        productDAL.updateQuantity(p);
                         var productOrder = new ProductOrders();
                         productOrder.orders = order;
                         productOrder.price = p.price;
@@ -70,7 +70,7 @@ namespace Kaffeplaneten
             }
         }
 
-        public static OrderModel find(int nr)//Henter ut en OrderModel fra en ordre med ordreNr lik nr
+        public OrderModel find(int nr)//Henter ut en OrderModel fra en ordre med ordreNr lik nr
         {
             var orderModel = new OrderModel();
             using (var db = new CustomerContext())
@@ -90,9 +90,10 @@ namespace Kaffeplaneten
                                   where p.orderNr == nr
                                   select p).ToList();
                     orderModel.total = 0;
+                    var productDAL = new ProductDAL();
                     foreach (var o in productOrders)//legger produktene til i order modellen
                     {
-                        var productModel = DBProduct.find(o.products.productID);
+                        var productModel = productDAL.find(o.products.productID);
                         productModel.quantity = o.quantity;
                         orderModel.products.Add(productModel);
                         orderModel.total += o.price;
@@ -109,7 +110,7 @@ namespace Kaffeplaneten
             return null;
         }
 
-        public static List<OrderModel> findOrders(int id)//Henter ut en liste med alle ordre for kunde med customerID lik id
+        public List<OrderModel> findOrders(int id)//Henter ut en liste med alle ordre for kunde med customerID lik id
         {
             var orderModelList = new List<OrderModel>();
             using (var db = new CustomerContext())
