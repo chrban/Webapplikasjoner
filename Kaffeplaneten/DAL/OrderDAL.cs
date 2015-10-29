@@ -84,7 +84,7 @@ namespace Kaffeplaneten.DAL
                         return null;
 
                     orderModel.orderNr = order.orderNr;
-                    orderModel.customerID = order.customerID;
+                    orderModel.customerID = order.personID;
 
                     var productOrders = (from p in db.ProductOrders
                                   where p.orderNr == nr
@@ -118,7 +118,7 @@ namespace Kaffeplaneten.DAL
                 try
                 {
                     var orders = (from o in db.Orders
-                                 where o.customerID == id
+                                 where o.personID == id
                                  select o).ToList();
                     foreach (var o in orders)//legger order modellene inn i listen
                         orderModelList.Add(find(o.orderNr));

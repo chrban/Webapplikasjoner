@@ -19,6 +19,7 @@ namespace Kaffeplaneten.DAL
             Database.CreateIfNotExists();
         }
         public DbSet<Customers> Customers { get; set; }
+        public DbSet<Employee> Employees { get; set; }
         public DbSet<Provinces> Provinces { get; set; }
         public DbSet<Products> Products { get; set; }
         public DbSet<Orders> Orders { get; set; }
@@ -29,33 +30,41 @@ namespace Kaffeplaneten.DAL
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
          {
             modelBuilder.Entity<ProductOrders>().HasKey(p => new { p.orderNr, p.productID });
-            modelBuilder.Entity<Users>().HasKey(p => p.customerID);
+            modelBuilder.Entity<Users>().HasKey(p => p.personID);
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
         }
     }
     public abstract class Persons
     {
+        [Key]
+        public int personID { get; set; }
         public string firstName { get; set; }
         public string lastName { get; set; }
         public string email { get; set; }
         public string phone { get; set; }
-    }
-
-    public class Customers : Persons
-    {
-        [Key]
-        public int customerID { get; set; }
         public virtual Users users { get; set; }
         public virtual List<Adresses> adresses { get; set; }
     }
 
+    public class Customers : Persons
+    {
+    }
+
+    public class Employee : Persons
+    {
+        public bool employeeAdmin { get; set; }//Kan behandle ansatte og se admin loggen
+        public bool databaseAdmin { get; set; }//Kan se på databaseloggen
+        public bool productAdmin { get; set; }//Kan behandle produkter
+        public bool customerAdmin { get; set; }//Kan behandle kunder
+    }
+
     public class Users
     {
-        public int customerID { get; set; }
+        public int personID { get; set; }
         public string email { get; set; }
         public byte[] password { get; set; }
         [Required]
-        public virtual Customers customer { get; set; }
+        public virtual Persons person { get; set; }
     }
 
     public class Adresses
@@ -64,10 +73,10 @@ namespace Kaffeplaneten.DAL
         public int adressID { get; set; }
         public bool payAdress { get; set; }
         public bool deliveryAdress { get; set; }
-        public int customerID { get; set; }
+        public int personID { get; set; }
         public string zipCode { get; set; }
         public string streetName { get; set; }
-        public virtual Customers customers { get; set; }
+        public virtual Persons person { get; set; }
         public virtual Provinces province { get; set; }
     }       
 
@@ -97,7 +106,7 @@ namespace Kaffeplaneten.DAL
     {
         [Key]
         public int orderNr { get; set; }
-        public int customerID { get; set; }
+        public int personID { get; set; }
         public virtual Customers Customers { get; set; }
         public virtual List<ProductOrders> Products { get; set; }
     }

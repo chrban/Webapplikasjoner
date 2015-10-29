@@ -79,6 +79,7 @@
   <ItemGroup>
     <Compile Include="AdressModel.cs" />
     <Compile Include="CustomerModel.cs" />
+    <Compile Include="EmployeeModel.cs" />
     <Compile Include="OrderModel.cs" />
     <Compile Include="ProductModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

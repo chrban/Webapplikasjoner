@@ -16,20 +16,20 @@ namespace Kaffeplaneten
         {
             addProducts();
         }
-        public bool createTestDatabase()
+        /*public bool createTestDatabase()
         {
             try
             {
                 var customer = createCustomer();
                 var order = createOrder();
-                //addCustomer(customer);
-                //addAdress(customer);
-                //addUser(customer);
-                //order.customerID = customer.customerID;
-                //addProducts();
-                //order.orderNr = addOrder(order);
-                //addProductOrder(order);
-                //editCustomer(customer);
+                addCustomer(customer);
+                addAdress(customer);
+                addUser(customer);
+                order.customerID = customer.customerID;
+                addProducts();
+                order.orderNr = addOrder(order);
+                addProductOrder(order);
+                editCustomer(customer);
                 return true;
             }
             catch (Exception ex)
@@ -38,13 +38,13 @@ namespace Kaffeplaneten
                 Trace.TraceInformation("Property: {0} Error: {1}", ex.Source, ex.InnerException);
                 return false;
             }
-        }
+        }*/
 
         public static void addProducts()
         {
             try
             {
-                /*addProduct(createAfterDinnerBlend());
+                addProduct(createAfterDinnerBlend());
                 addProduct(createAstorLibano());
                 addProduct(createBrazillianBlend());
                 addProduct(createCafedeParis());
@@ -60,7 +60,7 @@ namespace Kaffeplaneten
                 addProduct(createMexicanCoffee());
                 addProduct(createNutCream());
                 addProduct(createOldBrownJava());
-                addProduct(createPrimeHonduras());*/
+                addProduct(createPrimeHonduras());
             }
             catch (Exception ex)
             {
@@ -309,10 +309,11 @@ namespace Kaffeplaneten
             userModel.username = customerModel.email;
             DBUser.add(userModel);
         }*/
-        /*public static void addProduct(ProductModel productModel)
+        public static void addProduct(ProductModel productModel)
         {
-            DBProduct.add(productModel);
-        }*/
+            var temp = new ProductBLL();
+            temp.add(productModel);
+        }
         /*public static int addOrder(OrderModel orderModel)
         {
             DBOrder.add(orderModel);

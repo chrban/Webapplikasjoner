@@ -8,7 +8,7 @@ namespace Kaffeplaneten.Models
 {
     public class AdressModel
     {
-        public int customerID { get; set; }
+        public int personID { get; set; }
         public int adressID { get; set; }
         public bool payAdress { get; set; }
         public bool deliveryAdress { get; set; }
