@@ -30,7 +30,7 @@ namespace Kaffeplaneten.DAL
                     return true;
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 System.Console.WriteLine("ERROR: COULD NOT LOG ACTION TO USER.");
                 return false;
@@ -52,7 +52,7 @@ namespace Kaffeplaneten.DAL
                     return true;
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 System.Console.WriteLine("ERROR: COULD NOT LOG DATABASE ACTION.");
                 return false;

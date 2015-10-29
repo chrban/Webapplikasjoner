@@ -27,8 +27,8 @@ namespace Kaffeplaneten.DAL
                         email = userModel.username,
                         password = userModel.passwordHash
                     };
-                    user.customer = db.Customers.Find(userModel.customerID);
-                    if (user.customer == null)//tester om Users sin customer finnes
+                    user.person = db.Customers.Find(userModel.customerID);
+                    if (user.person == null)//tester om Users sin customer finnes
                         return false;
                     db.Users.Add(user);
                     db.SaveChanges();
@@ -64,7 +64,7 @@ namespace Kaffeplaneten.DAL
                     if (user == null)//tester om brukeren finnes
                         return null;
 
-                    userModel.customerID = user.customerID;
+                    userModel.customerID = user.personID;
                     userModel.passwordHash = user.password;
                     userModel.username = user.email;
                     return userModel;

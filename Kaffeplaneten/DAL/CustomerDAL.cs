@@ -31,7 +31,7 @@ namespace Kaffeplaneten.DAL
                     };
                     newCustomer = db.Customers.Add(newCustomer);
                     db.SaveChanges();
-                    IncCustomer.customerID = newCustomer.customerID;//Lagrer customerID i modellen for senere bruk
+                    IncCustomer.customerID = newCustomer.personID;//Lagrer customerID i modellen for senere bruk
                 }
                 catch (DbEntityValidationException dbEx)
                 {
@@ -54,7 +54,7 @@ namespace Kaffeplaneten.DAL
             {
                 var adressModel = new AdressModel()
                 {
-                    customerID = IncCustomer.customerID,
+                    personID = IncCustomer.customerID,
                     payAdress = true,
                     deliveryAdress = true,
                     zipCode = IncCustomer.zipCode,
@@ -72,7 +72,7 @@ namespace Kaffeplaneten.DAL
             {
                 var newPaymentAdress = new AdressModel()
                 {
-                    customerID = IncCustomer.customerID,
+                    personID = IncCustomer.customerID,
                     payAdress = true,
                     deliveryAdress = false,
                     zipCode = IncCustomer.payZipcode,
@@ -84,7 +84,7 @@ namespace Kaffeplaneten.DAL
 
                 var newAdress = new AdressModel()
                 {
-                    customerID = IncCustomer.customerID,
+                    personID = IncCustomer.customerID,
                     payAdress = false,
                     deliveryAdress = true,
                     zipCode = IncCustomer.zipCode,
@@ -109,7 +109,7 @@ namespace Kaffeplaneten.DAL
                                 select c).SingleOrDefault();
                     if (temp == null) //I prinsippet ikke nødvendig da denne metoden blir trigget da en kunde eksisterer
                         return null;
-                    return find(temp.customerID);
+                    return find(temp.personID);
 
                 }
                 catch (Exception)
@@ -126,19 +126,19 @@ namespace Kaffeplaneten.DAL
                 try
                 {
                     var temp = (from c in db.Customers
-                                where c.customerID == id
+                                where c.personID == id
                                 select c).FirstOrDefault();
 
                     if (temp == null)//Tester om customeren finnes
                         return null;
-                    customerModel.customerID = temp.customerID;
+                    customerModel.customerID = temp.personID;
                     customerModel.firstName = temp.firstName;
                     customerModel.lastName = temp.lastName;
                     customerModel.email = temp.email;
                     customerModel.phone = temp.phone;
 
                     List<Adresses> adresses = (from a in db.Adresses
-                                               where a.customerID == customerModel.customerID
+                                               where a.personID == customerModel.customerID
                                                select a).ToList();
 
                     foreach (var a in adresses)//Legger adressene inn i CustomerModelen
@@ -176,7 +176,7 @@ namespace Kaffeplaneten.DAL
                 try
                 {
                     var customer = (from c in db.Customers
-                                    where c.customerID == customerModel.customerID
+                                    where c.personID == customerModel.customerID
                                     select c).FirstOrDefault();
                     if (customer == null)//tester om customeren finnes
                         return false;
@@ -192,7 +192,7 @@ namespace Kaffeplaneten.DAL
 
                     //Adresseendring:
                     var adressModel = new AdressModel();
-                    adressModel.customerID = customerModel.customerID;
+                    adressModel.personID = customerModel.customerID;
                     adressModel.deliveryAdress = true;
                     adressModel.payAdress = customerModel.sameAdresses;
                     adressModel.province = customerModel.province;
@@ -202,7 +202,7 @@ namespace Kaffeplaneten.DAL
                     if (!customerModel.sameAdresses)
                     {
                         adressModel = new AdressModel();
-                        adressModel.customerID = customerModel.customerID;
+                        adressModel.personID = customerModel.customerID;
                         adressModel.deliveryAdress = false;
                         adressModel.payAdress = true;
                         adressModel.province = customerModel.payProvince;
@@ -269,7 +269,7 @@ namespace Kaffeplaneten.DAL
                     /*******************Kan fjernes hvis støtte for mer enn to adresser implementeres***********************/
                     //Fjerner betalingsadresse og/eller leveringsadresse fra databasen dersom ny adresse er av samme type
                     var adresses = (from a in db.Adresses
-                                    where a.customerID == adressModel.customerID
+                                    where a.personID == adressModel.personID
                                     select a).ToList();
 
                     foreach (var a in adresses)
@@ -281,7 +281,7 @@ namespace Kaffeplaneten.DAL
                     {
                         addProvince(adressModel);
                         a.province = db.Provinces.Find(adressModel.zipCode);
-                        a.customers = db.Customers.Find(adressModel.customerID);
+                        a.person = db.Customers.Find(adressModel.personID);
                         db.Adresses.Add(a);
                     }
                     db.SaveChanges();

@@ -51,6 +51,7 @@
   <ItemGroup>
     <Compile Include="CustomerContext.cs" />
     <Compile Include="CustomerDAL.cs" />
+    <Compile Include="EmployeeDAL.cs" />
     <Compile Include="LoggingDAL.cs" />
     <Compile Include="OrderDAL.cs" />
     <Compile Include="ProductDAL.cs" />

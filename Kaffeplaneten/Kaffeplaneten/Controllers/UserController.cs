@@ -33,7 +33,7 @@ namespace Kaffeplaneten.Controllers
                 return View();
 
             var customerModel = _userBLL.get(newCustomer.email);
-            if (customerModel == null)//tester om en bruker med samme epost finnes fra før
+            if (customerModel != null)//tester om en bruker med samme epost finnes fra før
             {
                 ModelState.AddModelError("", "Eposten du prøver å registrere finnes allerede. Vennligst benytt en annen adresse");
                 return View(newCustomer);
