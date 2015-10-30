@@ -133,6 +133,16 @@
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BLL\BLL.csproj">
+      <Project>{b3a660dc-9406-4982-b83c-3edb0c773424}</Project>
+      <Name>BLL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Model\Models.csproj">
+      <Project>{36742b1e-cc85-48b6-aafc-a673d40ebe70}</Project>
+      <Name>Models</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

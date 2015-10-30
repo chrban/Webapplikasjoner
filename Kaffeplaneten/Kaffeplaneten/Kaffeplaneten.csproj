@@ -188,17 +188,9 @@
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Administrasjon\Administrasjon.csproj">
-      <Project>{c370b5e4-895c-4e29-9bf7-653b97fb8fab}</Project>
-      <Name>Administrasjon</Name>
-    </ProjectReference>
     <ProjectReference Include="..\BLL\BLL.csproj">
       <Project>{b3a660dc-9406-4982-b83c-3edb0c773424}</Project>
       <Name>BLL</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\DAL\DAL.csproj">
-      <Project>{67e79519-ba4e-462d-9aed-33451ea505a7}</Project>
-      <Name>DAL</Name>
     </ProjectReference>
     <ProjectReference Include="..\Model\Models.csproj">
       <Project>{36742b1e-cc85-48b6-aafc-a673d40ebe70}</Project>
