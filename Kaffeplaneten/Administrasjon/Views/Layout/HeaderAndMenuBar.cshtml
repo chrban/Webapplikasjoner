@@ -14,7 +14,7 @@
 <header>
     <nav class="navbar navbar-default">
         <!--Page-Logo Kaffeplaneten-->
-        <img src="~/Content/img/Logo.png" class="img-responsive" />
+        <img src="~/Content/img/Logo-Admin.png" class="img-responsive" />
         <div class="container-fluid">
             <div class="navbar-header" style="background-color: #5d3d1f; border-color: #337ab7;">
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar" style="background-color: #5d3d1f">
@@ -24,8 +24,16 @@
                     <span class="icon-bar"></span>
                 </button>
             </div>
+            <div id="navbar" class="collapse navbar-collapse" style="background-color: #5d3d1f">
+                <ul class="nav navbar-nav">
+                    <li><span class="navbaricons glyphicon glyphicon-home"></span>@Html.ActionLink("Kunderedigering", "index", "super", new { area = "" }, new { @class = "navbar-brand" })</li>
+                    <li><span class="navbaricons glyphicon glyphicon-shopping-cart"></span>@Html.ActionLink("Produktredigering", "index", "super", new { area = "" }, new { @class = "navbar-brand" })</li>
+                    <li><span class="navbaricons glyphicon glyphicon-shopping-cart"></span>@Html.ActionLink("Ordreredigering", "index", "super", new { area = "" }, new { @class = "navbar-brand" })</li>
+                    <li><span class="navbaricons glyphicon glyphicon-shopping-cart"></span>@Html.ActionLink("Ansattredigering", "index", "User", new { area = "" }, new { @class = "navbar-brand" })</li>
+                </ul>
+            </div>
         </div>
-   </nav>
+</nav>
 
 </header>
 

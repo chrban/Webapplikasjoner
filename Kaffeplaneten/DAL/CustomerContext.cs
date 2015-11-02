@@ -40,7 +40,7 @@ namespace Kaffeplaneten.DAL
         public int personID { get; set; }
         public string firstName { get; set; }
         public string lastName { get; set; }
-        public string email { get; set; }
+        public string email { get; set; }   
         public string phone { get; set; }
         public virtual Users users { get; set; }
         public virtual List<Adresses> adresses { get; set; }
