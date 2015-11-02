@@ -1,7 +1,9 @@
 ﻿using Kaffeplaneten.BLL;
+
 using Kaffeplaneten.Models;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -10,8 +12,6 @@ namespace Administrasjon.Controllers
 {
     public class AdminProductController : Controller
     {
-
-
 
         private ProductBLL _productBLL;
 
@@ -23,7 +23,6 @@ namespace Administrasjon.Controllers
         public ActionResult AllProducts()
         {
             var ProductList = _productBLL.getAllProducts();
-            //var utListe = new List<ProductModel>();
 
             if(ProductList!=null)
             {
@@ -35,10 +34,42 @@ namespace Administrasjon.Controllers
         }
 
 
+        public ActionResult Edit(int id)
+        {
+            var ProductList = _productBLL.getAllProducts();
+
+            return View(ProductList[id]);
+        }
+
+        [HttpPost]
+        public ActionResult Edit(ProductModel _productModel)
+        {
+            if(_productBLL.update(_productModel))
+            {
+                return RedirectToAction("AllProducts");
+
+            }
+            else
+            {
+                Debug.WriteLine("EDIT FEILER");
+                return View();
+            }
+        }
+
+        public ActionResult Delete(int id)
+        {
+            if (_productBLL.delete(id))
+            {
+                return RedirectToAction("AllProducts");
+            }
+            else
+            {
+                Debug.WriteLine("EDIT FEILER");
+                return View();
+            }
 
 
-
-
+        }
 
     }
 }

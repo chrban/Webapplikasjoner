@@ -127,6 +127,7 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="Views\Security\Loginview.cshtml" />
+    <Content Include="Views\AdminProduct\Edit.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
