@@ -13,6 +13,7 @@ namespace Kaffeplaneten.DAL
 
     public class CustomerDAL
     {
+
         public bool add(CustomerModel IncCustomer)//Legger customer inn i datatbasen
         {
             Debug.WriteLine("Test1");
