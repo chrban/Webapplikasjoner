@@ -42,6 +42,10 @@ namespace Kaffeplaneten.BLL
         {
             try
             {
+                var products = new ProductBLL();
+                var add = products.getAllProducts().Count > 0;
+                if (!add)
+                    return;
                 addProduct(createAfterDinnerBlend());
                 addProduct(createAstorLibano());
                 addProduct(createBrazillianBlend());
