@@ -31,15 +31,12 @@ namespace Kaffeplaneten.DAL
                     user.person = db.Employees.Find(userModel.ID);
                     if (user.person == null)//tester om Users sin customer/Admin finnes
                     {
-                        Debug.WriteLine("Test2");
                         user.person = db.Customers.Find(userModel.ID);
                         if (user.person == null)
                             return false;
                     }
-                    Debug.WriteLine("Test33!!");
                     db.Users.Add(user);
-                    Debug.WriteLine("Test4!!!");
-                    db.SaveChanges();
+                        db.SaveChanges();
                     Debug.WriteLine("Lagring fullført!");
                     return true;
                 }

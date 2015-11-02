@@ -16,14 +16,13 @@ namespace Kaffeplaneten.DAL
 
         public bool add(CustomerModel IncCustomer)//Legger customer inn i datatbasen
         {
-            Debug.WriteLine("Test1");
             using (var db = new CustomerContext())
             {
                 try
                 {
                     if (!(db.Customers.Find(IncCustomer.customerID) == null))//Hvis IncCustomer har customerID som finnes fra før
                         return false;
-                    if (find(IncCustomer.email) == null)
+                    if (find(IncCustomer.email) != null)
                         return false;
                     var newCustomer = new Customers()//Opretter ny customer
                     {

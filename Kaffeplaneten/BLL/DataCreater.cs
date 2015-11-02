@@ -43,10 +43,6 @@ namespace Kaffeplaneten.BLL
         {
             try
             {
-                var products = new ProductBLL();
-                var add = products.getAllProducts().Count > 0;
-                if (!add)
-                    return;
                 addProduct(createAfterDinnerBlend());
                 addProduct(createAstorLibano());
                 addProduct(createBrazillianBlend());
@@ -308,6 +304,7 @@ namespace Kaffeplaneten.BLL
             var tempEmpBLL = new EmployeeBLL();
             var tempUserBLL = new UserBLL();
             tempEmpBLL.add(employee);
+            Debug.WriteLine("Bruker er lagt til");
             tempUserBLL.add(user);
             
             
