@@ -1,14 +1,12 @@
-﻿using Kaffeplaneten.Controllers;
-using Kaffeplaneten.Models;
+﻿using Kaffeplaneten.Models;
 using Kaffeplaneten.BLL;
 using System;
 using System.Collections.Generic;
-using System.Data.Entity.Validation;
 using System.Diagnostics;
 using System.Linq;
 using System.Web;
 
-namespace Kaffeplaneten
+namespace Kaffeplaneten.BLL
 {
     public class DataCreater
     {
@@ -44,6 +42,10 @@ namespace Kaffeplaneten
         {
             try
             {
+                var products = new ProductBLL();
+                var add = products.getAllProducts().Count > 0;
+                if (!add)
+                    return;
                 addProduct(createAfterDinnerBlend());
                 addProduct(createAstorLibano());
                 addProduct(createBrazillianBlend());
@@ -274,6 +276,23 @@ namespace Kaffeplaneten
             p.stock = 50;
             p.imageURL=getRandomImage();
             return p;
+        }
+        public static EmployeeModel createSuperadmin()
+        {
+            var employee = new EmployeeModel();
+            employee.firstName = "Sjef";
+            employee.lastName = "Ledersen";
+            employee.username = "sjefledersen@kaffeplaneten.no";
+            employee.phone = "99887766";
+            employee.password = "Sjefesen123";
+            employee.passwordVerifier = "Sjefesen123";
+            employee.employeeAdmin = true;
+            employee.databaseAdmin = true;
+            employee.productAdmin = true;
+            employee.customerAdmin = true;
+
+            return employee;
+
         }
         /***********************************************************************************************************************/
        /*public static void addCustomer(CustomerModel customerModel)

@@ -18,13 +18,13 @@ namespace Kaffeplaneten.DAL
                 try
                 {
                     var user = (from u in db.Users
-                                where u.email.Equals(userModel.username)
+                                where u.username.Equals(userModel.username)
                                 select u).FirstOrDefault();
                     if (user != null)
                         return false;
                     user = new Users()
                     {
-                        email = userModel.username,
+                        username = userModel.username,
                         password = userModel.passwordHash
                     };
                     user.person = db.Customers.Find(userModel.customerID);
@@ -59,14 +59,14 @@ namespace Kaffeplaneten.DAL
                 try
                 {
                     var user = (from u in db.Users
-                                where u.email.Equals(email)
+                                where u.username.Equals(email)
                                 select u).FirstOrDefault();
                     if (user == null)//tester om brukeren finnes
                         return null;
 
                     userModel.customerID = user.personID;
                     userModel.passwordHash = user.password;
-                    userModel.username = user.email;
+                    userModel.username = user.username;
                     return userModel;
                 }
                 catch (Exception ex)
@@ -89,14 +89,14 @@ namespace Kaffeplaneten.DAL
                     var customer = db.Customers.Find(userModel.customerID);
                     if (customer == null)//tester om kunden finnes
                         return false;
-                    if(!userModel.username.Equals(user.email))
+                    if(!userModel.username.Equals(user.username))
                     {
                         var email = (from p in db.Users
-                                     where p.email.Equals(userModel.username)
+                                     where p.username.Equals(userModel.username)
                                      select p).FirstOrDefault();
                         if (email != null)//tester om epostadressen finnes fra før
                             return false;
-                        user.email = userModel.username;
+                        user.username = userModel.username;
                     }
                     user.password = userModel.passwordHash;
                     db.SaveChanges();
@@ -118,7 +118,7 @@ namespace Kaffeplaneten.DAL
                 try
                 {
                     var user = (from u in db.Users
-                                where u.password == userModel.passwordHash && u.email == userModel.username
+                                where u.password == userModel.passwordHash && u.username == userModel.username
                                 select u).SingleOrDefault();
                     if (user == null)
                         return false;
@@ -144,7 +144,7 @@ namespace Kaffeplaneten.DAL
                         return null;
                     userModel.customerID = id;
                     userModel.passwordHash = user.password;
-                    userModel.username = user.email;
+                    userModel.username = user.username;
                     return userModel;
                 }
                 catch (Exception ex)
