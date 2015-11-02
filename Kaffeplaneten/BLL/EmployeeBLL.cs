@@ -28,7 +28,6 @@ namespace BLL
         {
             return _employeeDAL.find(id);
         }
-
         public bool update(EmployeeModel employeeModel)//Oppdaterer employeen som har personID lik employeeModel.personID
         {
             return _employeeDAL.update(employeeModel);
