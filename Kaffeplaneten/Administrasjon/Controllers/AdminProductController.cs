@@ -10,9 +10,6 @@ namespace Administrasjon.Controllers
 {
     public class AdminProductController : Controller
     {
-
-
-
         private ProductBLL _productBLL;
 
         public AdminProductController()
@@ -33,12 +30,5 @@ namespace Administrasjon.Controllers
             
             return View();
         }
-
-
-
-
-
-
-
     }
 }
