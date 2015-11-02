@@ -22,15 +22,23 @@ namespace Kaffeplaneten.DAL
                                 select u).FirstOrDefault();
                     if (user != null)
                         return false;
+
                     user = new Users()
                     {
                         username = userModel.username,
                         password = userModel.passwordHash
                     };
-                    user.person = db.Customers.Find(userModel.customerID);
-                    if (user.person == null)//tester om Users sin customer finnes
-                        return false;
+                    user.person = db.Employees.Find(userModel.ID);
+                    if (user.person == null)//tester om Users sin customer/Admin finnes
+                    {
+                        Debug.WriteLine("Test2");
+                        user.person = db.Customers.Find(userModel.ID);
+                        if (user.person == null)
+                            return false;
+                    }
+                    Debug.WriteLine("Test33!!");
                     db.Users.Add(user);
+                    Debug.WriteLine("Test4!!!");
                     db.SaveChanges();
                     Debug.WriteLine("Lagring fullført!");
                     return true;
@@ -64,7 +72,7 @@ namespace Kaffeplaneten.DAL
                     if (user == null)//tester om brukeren finnes
                         return null;
 
-                    userModel.customerID = user.personID;
+                    userModel.ID = user.personID;
                     userModel.passwordHash = user.password;
                     userModel.username = user.username;
                     return userModel;
@@ -83,10 +91,10 @@ namespace Kaffeplaneten.DAL
             {
                 try
                 {
-                    var user = db.Users.Find(userModel.customerID);
+                    var user = db.Users.Find(userModel.ID);
                     if (user == null)//tester om brukeren finnes
                         return false;
-                    var customer = db.Customers.Find(userModel.customerID);
+                    var customer = db.Customers.Find(userModel.ID);
                     if (customer == null)//tester om kunden finnes
                         return false;
                     if(!userModel.username.Equals(user.username))
@@ -142,7 +150,7 @@ namespace Kaffeplaneten.DAL
                     var user = db.Users.Find(id);
                     if (user == null)
                         return null;
-                    userModel.customerID = id;
+                    userModel.ID = id;
                     userModel.passwordHash = user.password;
                     userModel.username = user.username;
                     return userModel;

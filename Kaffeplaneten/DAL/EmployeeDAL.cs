@@ -20,6 +20,8 @@ namespace Kaffeplaneten.DAL
                 {
                     if (!(db.Employees.Find(employeeModel.employeeID) == null))//Hvis employeeModel har personID som finnes fra før
                         return false;
+                    if (find(employeeModel.username) != null)
+                        return false;
                     var newEmployee = new Employee()//Opretter ny employee
                     {
                         email = employeeModel.username,

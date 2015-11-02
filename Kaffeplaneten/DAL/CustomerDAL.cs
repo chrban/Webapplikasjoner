@@ -23,6 +23,8 @@ namespace Kaffeplaneten.DAL
                 {
                     if (!(db.Customers.Find(IncCustomer.customerID) == null))//Hvis IncCustomer har customerID som finnes fra før
                         return false;
+                    if (find(IncCustomer.email) == null)
+                        return false;
                     var newCustomer = new Customers()//Opretter ny customer
                     {
                         email = IncCustomer.email,

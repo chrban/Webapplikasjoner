@@ -46,7 +46,7 @@ namespace Kaffeplaneten.Controllers
             customerModel = new UserModel();
             customerModel.username = newCustomer.email;
             customerModel.passwordHash = base.getHash(newCustomer.password);
-            customerModel.customerID = newCustomer.customerID;
+            customerModel.ID = newCustomer.customerID;
 
             if (!_userBLL.add(customerModel))//registrerer ny user
             {

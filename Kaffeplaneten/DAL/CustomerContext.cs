@@ -47,7 +47,7 @@ namespace Kaffeplaneten.DAL
     }
 
     public class Customers : Persons
-    {
+    { 
     }
 
     public class Employee : Persons

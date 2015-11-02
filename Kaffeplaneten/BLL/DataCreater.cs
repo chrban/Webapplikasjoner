@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Web;
+using BLL;
 
 namespace Kaffeplaneten.BLL
 {
@@ -273,15 +274,21 @@ namespace Kaffeplaneten.BLL
             p.imageURL=getRandomImage();
             return p;
         }
-        public static EmployeeModel createSuperadmin()
+        public static UserModel createSuperUser()
+        {
+            var user = new UserModel();
+            user.username = "sjefledersen@kaffeplaneten.no";
+            user.passwordHash = createHash("Sjefesen123");
+            return user;
+
+        }
+        public static EmployeeModel createSuperEmployee()
         {
             var employee = new EmployeeModel();
             employee.firstName = "Sjef";
             employee.lastName = "Ledersen";
             employee.username = "sjefledersen@kaffeplaneten.no";
             employee.phone = "99887766";
-            employee.password = "Sjefesen123";
-            employee.passwordVerifier = "Sjefesen123";
             employee.employeeAdmin = true;
             employee.databaseAdmin = true;
             employee.productAdmin = true;
@@ -290,19 +297,40 @@ namespace Kaffeplaneten.BLL
             return employee;
 
         }
-        /***********************************************************************************************************************/
-       /*public static void addCustomer(CustomerModel customerModel)
+        public static void addSuperadmin()
         {
-            var db = new CustomerContext();
-            var customer = new Customers();
-            customer.email = customerModel.email;
-            customer.firstName = customerModel.firstName;
-            customer.lastName = customerModel.lastName;
-            customer.phone = customerModel.phone;
-            db.Customers.Add(customer);
-            db.SaveChanges();
-            customerModel.customerID = customer.customerID;
-        }*/
+            var employee = createSuperEmployee();
+            var user = createSuperUser();
+            var tempEmpBLL = new EmployeeBLL();
+            var tempUserBLL = new UserBLL();
+            tempEmpBLL.add(employee);
+            tempUserBLL.add(user);
+            
+            
+        }
+
+        private static byte[] createHash(string incPassword)
+        {
+            var algorithm = System.Security.Cryptography.SHA512.Create();
+            byte[] incData, outData;
+            incData = System.Text.Encoding.ASCII.GetBytes(incPassword);
+            outData = algorithm.ComputeHash(incData);
+            return outData;
+        }
+
+        /***********************************************************************************************************************/
+        /*public static void addCustomer(CustomerModel customerModel)
+         {
+             var db = new CustomerContext();
+             var customer = new Customers();
+             customer.email = customerModel.email;
+             customer.firstName = customerModel.firstName;
+             customer.lastName = customerModel.lastName;
+             customer.phone = customerModel.phone;
+             db.Customers.Add(customer);
+             db.SaveChanges();
+             customerModel.customerID = customer.customerID;
+         }*/
         /*public static void addAdress(CustomerModel customerModel)
         {
             var adress = new AdressModel();
@@ -315,15 +343,15 @@ namespace Kaffeplaneten.BLL
             DBCustomer.addAdress(adress);
 
         }*/
-       /*public static void addUser(CustomerModel customerModel)
-        {
-            var temp = new SuperController();
-            var userModel = new UserModel();
-            userModel.customerID = customerModel.customerID;
-            userModel.passwordHash= temp.getHash(customerModel.password);
-            userModel.username = customerModel.email;
-            DBUser.add(userModel);
-        }*/
+        /*public static void addUser(CustomerModel customerModel)
+         {
+             var temp = new SuperController();
+             var userModel = new UserModel();
+             userModel.customerID = customerModel.customerID;
+             userModel.passwordHash= temp.getHash(customerModel.password);
+             userModel.username = customerModel.email;
+             DBUser.add(userModel);
+         }*/
         public static void addProduct(ProductModel productModel)
         {
             var temp = new ProductBLL();
