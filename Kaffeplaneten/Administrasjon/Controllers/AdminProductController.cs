@@ -22,10 +22,17 @@ namespace Administrasjon.Controllers
 
         public ActionResult AllProducts()
         {
-            var ProductList = _productBLL.getAllProducts();
-            var utListe = new List<ProductModel>();
+            //var ProductList = _productBLL.getAllProducts();
+            //var utListe = new List<ProductModel>();
 
-            return View(utListe);
+           /* if(utListe!=null)
+            {
+                return View(utListe);
+
+            }
+            */
+            
+            return View();
         }
 
 
