@@ -33,20 +33,5 @@ namespace BLL
         {
             return _employeeDAL.update(employeeModel);
         }
-
-        public string getProvince(string zipCode)//Henter ut navnet på poststedet med postkode lik zipCode
-        {
-            return _employeeDAL.getProvince(zipCode);
-        }
-
-        public bool addAdress(AdressModel adressModel)//Legger til ny adresse for bruker med personID==adressModel.peronID. Alle felter unntatt adressID må være fylt ut
-        {
-            return _employeeDAL.addAdress(adressModel);            
-        }
-
-        public bool addProvince(AdressModel adress)//Legger en province inn i databasen dersom den ikke finnes fra før
-        {
-            return _employeeDAL.addProvince(adress);
-        }
     }//end namespace
 }//end class

@@ -28,6 +28,7 @@ namespace Kaffeplaneten.Models
         [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$")]
         [Display(Name = "Passord:")]
         public string password { get; set; }
+
         public bool passwordStrength { get; set; }
 
         [Display(Name = "Gjenta valgt passord")]
@@ -43,20 +44,8 @@ namespace Kaffeplaneten.Models
 
         public int employeeID { get; set; }
 
-        [Display(Name = "Postnummer: ")]
-        [Required(ErrorMessage = "Postnummer må oppgis")]
-        [RegularExpression(@"[0-9]{4}", ErrorMessage = "Postnummeret må være 4 siffer langt")]
-        public string zipCode { get; set; }
-
-        [Display(Name = "Poststed:")]
-        [Required(ErrorMessage = "Poststed må oppgis")]
-        public string province { get; set; }
-
-        [Display(Name = "Adresse:")]
-        [Required(ErrorMessage = "Adresse må oppgis")]
-        public string adress { get; set; }
-
         public bool employeeAdmin { get; set; }
+
         public bool databaseAdmin { get; set; }
         public bool productAdmin { get; set; }
         public bool customerAdmin { get; set; }
