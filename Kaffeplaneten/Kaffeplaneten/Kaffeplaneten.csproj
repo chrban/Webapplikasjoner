@@ -109,6 +109,7 @@
     <Content Include="Content\img\img4.jpg" />
     <Content Include="Content\img\img5.jpg" />
     <Content Include="Content\img\img6.jpg" />
+    <Content Include="Content\img\Logo-Admin.png" />
     <Content Include="Content\img\Logo.png" />
     <Content Include="Content\Site.css" />
     <Content Include="Content\theme.css" />
