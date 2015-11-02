@@ -22,7 +22,7 @@ namespace Kaffeplaneten.DAL
                         return false;
                     var newEmployee = new Employee()//Opretter ny employee
                     {
-                        email = employeeModel.email,
+                        email = employeeModel.username,
                         firstName = employeeModel.firstName,
                         lastName = employeeModel.lastName,
                         phone = employeeModel.phone,
@@ -89,7 +89,7 @@ namespace Kaffeplaneten.DAL
                     employeeModel.employeeID = temp.personID;
                     employeeModel.firstName = temp.firstName;
                     employeeModel.lastName = temp.lastName;
-                    employeeModel.email = temp.email;
+                    employeeModel.username = temp.email;
                     employeeModel.phone = temp.phone;
                     employeeModel.customerAdmin = temp.customerAdmin;
                     employeeModel.databaseAdmin = temp.databaseAdmin;
@@ -122,7 +122,7 @@ namespace Kaffeplaneten.DAL
                         return false;
 
                     //Persondataendring:
-                    employee.email = employeeModel.email;
+                    employee.email = employeeModel.username;
                     employee.firstName = employeeModel.firstName;
                     employee.lastName = employeeModel.lastName;
                     employee.phone = employeeModel.phone;
@@ -131,7 +131,7 @@ namespace Kaffeplaneten.DAL
                     employee.employeeAdmin = employeeModel.employeeAdmin;
                     employee.productAdmin = employeeModel.productAdmin;
 
-                    employee.users.email = employeeModel.email;
+                    employee.users.username = employeeModel.username;
                     db.SaveChanges();
 
                     return true;

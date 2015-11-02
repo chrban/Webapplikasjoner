@@ -11,7 +11,7 @@ namespace Administrasjon
     {
         protected void Application_Start()
         {
-            
+            //Kaffeplaneten.BLL.DataCreater.addProducts();//Slå på denne for å legge produkter inn i databasen. Husk å slå av igjen!
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
         }

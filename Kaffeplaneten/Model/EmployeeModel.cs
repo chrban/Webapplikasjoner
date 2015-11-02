@@ -21,7 +21,7 @@ namespace Kaffeplaneten.Models
         [Display(Name = "Brukernavn(Epost): ")]
         [Required(ErrorMessage = "Epost må oppgis")]
         [RegularExpression(@"[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}", ErrorMessage = "Feil ved opprettelse av epost. Eksempel på struktur: 'Ola@nordmann.no'")]
-        public string email { get; set; }
+        public string username { get; set; }
 
         [Required(ErrorMessage = "Passord må oppgis")]
         [StringLength(50, MinimumLength = 8, ErrorMessage = "Passordet må inneholde minimum 8 tegn")]
