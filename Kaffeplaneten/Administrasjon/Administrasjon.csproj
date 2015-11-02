@@ -104,9 +104,6 @@
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
-    <Content Include="Views\web.config">
-      <SubType>Designer</SubType>
-    </Content>
     <None Include="Web.Debug.config" />
     <None Include="Web.Release.config" />
   </ItemGroup>
