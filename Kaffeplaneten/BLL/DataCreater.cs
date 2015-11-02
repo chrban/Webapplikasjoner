@@ -273,6 +273,23 @@ namespace Kaffeplaneten.BLL
             p.imageURL=getRandomImage();
             return p;
         }
+        public static EmployeeModel createSuperadmin()
+        {
+            var employee = new EmployeeModel();
+            employee.firstName = "Sjef";
+            employee.lastName = "Ledersen";
+            employee.username = "sjefledersen@kaffeplaneten.no";
+            employee.phone = "99887766";
+            employee.password = "Sjefesen123";
+            employee.passwordVerifier = "Sjefesen123";
+            employee.employeeAdmin = true;
+            employee.databaseAdmin = true;
+            employee.productAdmin = true;
+            employee.customerAdmin = true;
+
+            return employee;
+
+        }
         /***********************************************************************************************************************/
        /*public static void addCustomer(CustomerModel customerModel)
         {
