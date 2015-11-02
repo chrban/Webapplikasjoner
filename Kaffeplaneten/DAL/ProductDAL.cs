@@ -113,5 +113,59 @@ namespace Kaffeplaneten.DAL
                 }
             }
         }
+
+
+        public bool update(ProductModel _productModel)
+        {
+            Debug.WriteLine("i DAl : " + _productModel.productID);
+            using (var db = new CustomerContext())
+            {
+                try
+                {
+                    var product = db.Products.Find(_productModel.productID);
+                    product.productName = _productModel.productName;
+                    product.price = _productModel.price;
+                    product.imageURL = _productModel.imageURL;
+                    product.stock = _productModel.stock;
+                    product.category = _productModel.category;
+                    product.description = _productModel.description;
+                    db.SaveChanges();
+                    return true;
+
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine("\nERROR!\nMelding:\n" + ex.Message + "\nInner exception:" + ex.InnerException + "\nKastet fra\n" + ex.TargetSite + "\nTrace:\n" + ex.StackTrace);
+                    Trace.TraceInformation("Property: {0} Error: {1}", ex.Source, ex.InnerException);
+                }
+            }
+            return false;
+        }
+
+        public bool Delete(int id)
+        {
+            using (var db = new CustomerContext())
+            {
+                try
+                {
+                    Products slett = (from p in db.Products where p.productID == id select p).Single();
+                    db.Products.Remove(slett);
+                    db.SaveChanges();
+                    return true;
+
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine("\nERROR!\nMelding:\n" + ex.Message + "\nInner exception:" + ex.InnerException + "\nKastet fra\n" + ex.TargetSite + "\nTrace:\n" + ex.StackTrace);
+                    Trace.TraceInformation("Property: {0} Error: {1}", ex.Source, ex.InnerException);
+                }
+            }
+            return false;
+        }
+
+
+       
+
+
     }
 }

@@ -9,7 +9,7 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-<table class="table">
+<table class="table-responsive">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.productID)
@@ -47,7 +47,7 @@
             @Html.DisplayFor(modelItem => item.quantity)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.imageURL)
+            <img src="../../Content/img/@Html.DisplayFor(modelItem => item.imageURL)" alt="Sample Image"  style="width:50px;height:50px">
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.productName)
@@ -62,12 +62,12 @@
             @Html.DisplayFor(modelItem => item.category)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.description)
+            Description..
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Edit", "Edit", "AdminProduct", new {  id=item.productID }, null) |
             @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            @Html.ActionLink("Delete", "Delete", "AdminProduct", new {  id=item.productID })
         </td>
     </tr>
 }
