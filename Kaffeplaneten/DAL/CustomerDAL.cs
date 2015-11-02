@@ -188,7 +188,7 @@ namespace Kaffeplaneten.DAL
                     customer.lastName = customerModel.lastName;
                     customer.phone = customerModel.phone;
 
-                    customer.users.email = customerModel.email;
+                    customer.users.username = customerModel.email;
                     db.SaveChanges();
 
                     //Adresseendring:

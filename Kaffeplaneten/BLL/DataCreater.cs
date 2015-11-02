@@ -1,14 +1,12 @@
-﻿using Kaffeplaneten.Controllers;
-using Kaffeplaneten.Models;
+﻿using Kaffeplaneten.Models;
 using Kaffeplaneten.BLL;
 using System;
 using System.Collections.Generic;
-using System.Data.Entity.Validation;
 using System.Diagnostics;
 using System.Linq;
 using System.Web;
 
-namespace Kaffeplaneten
+namespace Kaffeplaneten.BLL
 {
     public class DataCreater
     {

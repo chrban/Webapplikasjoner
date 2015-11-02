@@ -61,7 +61,7 @@ namespace Kaffeplaneten.DAL
     public class Users
     {
         public int personID { get; set; }
-        public string email { get; set; }
+        public string username { get; set; }
         public byte[] password { get; set; }
         [Required]
         public virtual Persons person { get; set; }
