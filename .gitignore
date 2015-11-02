@@ -10,7 +10,7 @@
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
 
-Web.config
+#Web.config
 
 # Build results
 [Dd]ebug/
