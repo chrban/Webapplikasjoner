@@ -6,13 +6,12 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - Kaffeplaneten</title>
+    <title>@ViewBag.Title - Administrasjon kaffeplaneten</title>
     <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <script src="~/Scripts/modernizr-2.6.2.js"></script>
 </head>
 <header>
-    <h2>HeaderAndMenuBar</h2>
     <nav class="navbar navbar-default">
         <!--Page-Logo Kaffeplaneten-->
         <img src="~/Content/img/Logo.png" class="img-responsive" />
@@ -25,31 +24,8 @@
                     <span class="icon-bar"></span>
                 </button>
             </div>
-            <div id="navbar" class="collapse navbar-collapse" style="background-color: #5d3d1f">
-                <ul class="nav navbar-nav">
-                    <li><span class="navbaricons glyphicon glyphicon-home"></span>@Html.ActionLink("Home", "AllProducts", "Product", new { area = "" }, new { @class = "navbar-brand" })</li>
-                    <li><span class="navbaricons glyphicon glyphicon-shopping-cart"></span>@Html.ActionLink("Handlekurv", "ShoppingCartView", "ShoppingCart", new { area = "" }, new { @class = "navbar-brand" })</li>
-                    @if (ViewBag.Inlogged == true)
-                    {
-                        <li><span class="navbaricons glyphicon glyphicon-cog"></span>@Html.ActionLink("Kontoinstillinger", "accountView", "User", new { area = "" }, new { @class = "navbar-brand" })</li>
-                                            <li><span class="navbaricons glyphicon glyphicon-log-out"></span>@Html.ActionLink("Logg Ut", "LoggedOut", "Security", new { area = "" }, new { @class = "navbar-brand" })</li>
-                                            <li>
-                                                <span class="navbaricons glyphicon glyphicon-user"></span><a class="navbar-brand">
-                                                    @(((Kaffeplaneten.Models.CustomerModel)Session[Kaffeplaneten.Controllers.SuperController.CUSTOMER]).firstName + " " +
-                                                ((Kaffeplaneten.Models.CustomerModel)Session[Kaffeplaneten.Controllers.SuperController.CUSTOMER]).lastName)
-                                                </a>
-                                            </li>
-
-                    }
-                    else
-                    {
-                        <li><span class="navbaricons glyphicon glyphicon-plus"></span>@Html.ActionLink("Registrer", "createUser", "User", new { area = "" }, new { @class = "navbar-brand" })</li>
-                                            <li><span class="navbaricons glyphicon glyphicon-log-in"></span>@Html.ActionLink("Logg inn", "Loginview", "Security", new { area = "" }, new { @class = "navbar-brand" })</li>
-                    }
-                </ul>
-            </div>
         </div>
-    </nav>
+   </nav>
 
 </header>
 
