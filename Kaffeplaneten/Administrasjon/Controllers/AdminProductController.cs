@@ -28,7 +28,6 @@ namespace Administrasjon.Controllers
                 return View(ProductList);
 
             }
-            
             return View();
         }
 
@@ -36,8 +35,13 @@ namespace Administrasjon.Controllers
         public ActionResult Edit(int id)
         {
             var ProductList = _productBLL.getAllProducts();
+            foreach(var i in ProductList)
+            {
+                if(i.productID==id)
+                    return View(i);
+            }
 
-            return View(ProductList[id]);
+            return View();
         }
 
         [HttpPost]
@@ -46,6 +50,7 @@ namespace Administrasjon.Controllers
             Debug.WriteLine("Selve objektet: "+ _productModel);
             Debug.WriteLine("objektet navn: " + _productModel.productName);
             Debug.WriteLine("Inni edit i controller: " + _productModel.productID);
+
             if(_productBLL.update(_productModel))
             {
                 Debug.WriteLine("INNI edit i iffen ");
@@ -70,7 +75,6 @@ namespace Administrasjon.Controllers
                  return View();
              }
         }
-
 
 
         public ActionResult Add()

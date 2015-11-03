@@ -140,10 +140,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Content\Controllers\AdminProductController.cs" />
-    <Compile Include="Content\Controllers\LayoutController.cs" />
-    <Compile Include="Content\Controllers\SecurityController.cs" />
-    <Compile Include="Content\Controllers\SuperController.cs" />
+    <Compile Include="Controllers\AdminProductController.cs" />
+    <Compile Include="Controllers\LayoutController.cs" />
+    <Compile Include="Controllers\SecurityController.cs" />
+    <Compile Include="Controllers\SuperController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
