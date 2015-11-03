@@ -21,21 +21,7 @@ namespace Kaffeplaneten.BLL
         }
 
         public bool logToUser(string action) {
-            CustomerModel user;
-            if (HttpContext.Current.Session["LoggedInn"] == null || (bool)HttpContext.Current.Session["LoggedInn"] == false)
-            {
-                user = new CustomerModel()
-                {
-                    customerID = 0,
-                    firstName = "Anonymous",
-                    lastName = "",
-                    email = "Anonymous"
-                };
-            }
-            else{
-                user = (CustomerModel)HttpContext.Current.Session["Customer"];
-            }     
-            return _loggingDAL.logToUser(user, action);
+            return _loggingDAL.logToUser(action);
         }
         public bool logToDatabase(string action)
         {
