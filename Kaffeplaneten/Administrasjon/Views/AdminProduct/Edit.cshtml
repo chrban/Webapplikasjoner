@@ -35,7 +35,7 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.category, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.EditorFor(model => model.category, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.DropDownListFor(model => model.category, new SelectList(ViewBag.uniqeCategories))
                     @Html.ValidationMessageFor(model => model.category, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -64,7 +64,7 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.description, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.TextAreaFor(model => model.description, new { htmlAttributes = new { @class = "form-control" })
+                    @Html.EditorFor(model => model.description, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.description, "", new { @class = "text-danger" })
                 </div>
             </div>

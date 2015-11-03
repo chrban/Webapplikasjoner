@@ -39,7 +39,9 @@ namespace Administrasjon.Controllers
             {
                 if(i.productID==id)
                 {
+                    UniqueCategory();
                     Session["tempPID"] = id;
+                    
                     return View(i);
                 }
             }
@@ -78,6 +80,7 @@ namespace Administrasjon.Controllers
 
         public ActionResult Add()
         {
+            UniqueCategory();
             return View("Add");
         }
 
@@ -99,5 +102,19 @@ namespace Administrasjon.Controllers
 
         }
 
+        public void UniqueCategory()
+        {
+            var uniqeCategories = new List<String>();
+            var ProductList = _productBLL.getAllProducts();
+
+            foreach (var c in ProductList)
+            {
+                if (!uniqeCategories.Contains(c.category))
+                {
+                    uniqeCategories.Add(c.category);
+                }
+            }
+            ViewBag.uniqeCategories = uniqeCategories;
+        }
     }
 }
