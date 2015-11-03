@@ -4,72 +4,135 @@
     ViewBag.Title = "AllProducts";
 }
 
-<h2>AllProducts</h2>
+<div class="container">
+    <h2>Produkter i databasen</h2>
+    <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
+    <p>
+        @Html.ActionLink("Nytt produkt", "Add", null, new { @class = "btn btn-success " })
+    </p>
+    <table class="table table-hover">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.productID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.quantity)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.imageURL)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.productName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.stock)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.category)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.description)
+            </th>
+            <th></th>
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.productID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.quantity)
+                </td>
+                <td>
+                    <img src="~/Content/img/Logo-Admin.png" alt="@Html.DisplayFor(modelItem => item.imageURL) FIKSE BILDER GLOBALT" style="width:50px;height:50px">
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.productName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.stock)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.price)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.category)
+                </td>
+                <td>
+                    Description..
+                </td>
+                <td>
+                    @Html.ActionLink("Rediger", "Edit", "AdminProduct", new { id = item.productID },  new { @class = "btn btn-default btn-xs" } )
+                    <button type="button" class="btn btn-default btn-xs" data-toggle="modal" data-target="#modalDetails-@Html.DisplayFor(modelItem => item.productID)">Detaljer</button>
+                    <button class="btn btn-danger btn-xs" data-toggle="modal" data-target="#modalDelete-@Html.DisplayFor(modelItem => item.productID)">Slett</button>
+                </td>
+            </tr>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table-responsive">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.productID)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.quantity)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.imageURL)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.productName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.stock)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.price)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.category)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.description)
-        </th>
-        <th></th>
-    </tr>
+            <!--DeleteModal-->
+            <div class="modal fade" id="modalDelete-@Html.DisplayFor(modelItem => item.productID)" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="myModalLabel">Bekreft sletting!</h4>
+                        </div>
+                        <div class="modal-body">
+                            <p>Er du sikker på at du vil slette @Html.DisplayFor(modelItem => item.productName) ?</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-info" data-dismiss="modal">Avbryt</button>
+                            @Html.ActionLink("Slett", "Delete", "AdminProduct", new { id = item.productID }, null)
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--DetailsModal-->
+            <div class="modal fade" id="modalDetails-@Html.DisplayFor(modelItem => item.productID)" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="myModalLabel">@Html.DisplayFor(modelItem => item.productName)</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="thumbnail">
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.productID)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.quantity)
-        </td>
-        <td>
-            <img src="../../Content/img/@Html.DisplayFor(modelItem => item.imageURL)" alt="Sample Image"  style="width:50px;height:50px">
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.productName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.stock)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.price)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.category)
-        </td>
-        <td>
-            Description..
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", "AdminProduct", new {  id=item.productID }, null) |
-            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Delete", "Delete", "AdminProduct", new {  id=item.productID })
-        </td>
-    </tr>
-}
+                                <dl>
+                                    <dt>@Html.DisplayNameFor(model => model.productName)</dt>
+                                    <dd>@Html.DisplayFor(modelItem => item.productName)</dd>
 
-</table>
+                                    <dt>@Html.DisplayNameFor(model => model.category)</dt>
+                                    <dd>@Html.DisplayFor(modelItem => item.category)</dd>
+
+                                    <dt>@Html.DisplayNameFor(model => model.price)</dt>
+                                    <dd>@Html.DisplayFor(modelItem => item.price)</dd>
+
+                                    <dt>@Html.DisplayNameFor(model => model.description)</dt>
+                                    <dd>@Html.DisplayFor(modelItem => item.description)</dd>
+
+                                    <dt>@Html.DisplayNameFor(model => model.stock)</dt>
+                                    <dd>@Html.DisplayFor(modelItem => item.stock)</dd>
+                                </dl>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-info" data-dismiss="modal">Lukk</button>
+                            <button class="btn btn-danger" data-dismiss="modal" data-toggle="modal" data-target="#modalDelete-@Html.DisplayFor(modelItem => item.productID)">Slett</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+
+
+        }
+    </table>
+</div>

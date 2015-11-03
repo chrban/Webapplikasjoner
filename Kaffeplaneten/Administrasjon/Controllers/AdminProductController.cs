@@ -1,5 +1,4 @@
 ﻿using Kaffeplaneten.BLL;
-
 using Kaffeplaneten.Models;
 using System;
 using System.Collections.Generic;
@@ -29,7 +28,6 @@ namespace Administrasjon.Controllers
                 return View(ProductList);
 
             }
-            
             return View();
         }
 
@@ -37,15 +35,25 @@ namespace Administrasjon.Controllers
         public ActionResult Edit(int id)
         {
             var ProductList = _productBLL.getAllProducts();
+            foreach(var i in ProductList)
+            {
+                if(i.productID==id)
+                    return View(i);
+            }
 
-            return View(ProductList[id]);
+            return View();
         }
 
         [HttpPost]
         public ActionResult Edit(ProductModel _productModel)
         {
+            Debug.WriteLine("Selve objektet: "+ _productModel);
+            Debug.WriteLine("objektet navn: " + _productModel.productName);
+            Debug.WriteLine("Inni edit i controller: " + _productModel.productID);
+
             if(_productBLL.update(_productModel))
             {
+                Debug.WriteLine("INNI edit i iffen ");
                 return RedirectToAction("AllProducts");
 
             }
@@ -58,16 +66,37 @@ namespace Administrasjon.Controllers
 
         public ActionResult Delete(int id)
         {
-            if (_productBLL.delete(id))
+             if (_productBLL.delete(id))
+             {
+                 return RedirectToAction("AllProducts");
+             }
+             else
+             {
+                 return View();
+             }
+        }
+
+
+        public ActionResult Add()
+        {
+            return View("Add");
+        }
+
+        [HttpPost]
+        public ActionResult Add(ProductModel newProduct)
+        {
+
+            if (_productBLL.add(newProduct))
             {
                 return RedirectToAction("AllProducts");
+
             }
             else
             {
-                Debug.WriteLine("EDIT FEILER");
                 return View();
-            }
 
+            }
+            
 
         }
 
