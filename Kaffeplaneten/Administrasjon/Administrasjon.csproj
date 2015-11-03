@@ -130,7 +130,9 @@
     </Content>
     <Content Include="Views\Security\Loginview.cshtml" />
     <Content Include="Views\AdminProduct\Edit.cshtml" />
+    <Content Include="Views\AdminEmployee\EmployeeEditorView.cshtml" />
     <Content Include="Views\AdminProduct\Add.cshtml" />
+    <Content Include="Views\Security\LoggedIn.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -140,6 +142,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AdminEmployeeController.cs" />
     <Compile Include="Controllers\AdminProductController.cs" />
     <Compile Include="Controllers\LayoutController.cs" />
     <Compile Include="Controllers\SecurityController.cs" />

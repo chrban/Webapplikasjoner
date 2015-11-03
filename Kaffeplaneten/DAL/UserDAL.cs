@@ -36,13 +36,13 @@ namespace Kaffeplaneten.DAL
                                        where e.email.Equals(userModel.username)
                                        select e).SingleOrDefault();
                     if (user.person == null)//tester om Users sin customer finnes
-                        return false;
+                            return false;
                     db.Users.Add(user);
-                    db.SaveChanges();
+                        db.SaveChanges();
                     return true;
                 }
                 catch (Exception ex)
-                {
+                        {
                     Debug.WriteLine("\nERROR!\nMelding:\n" + ex.Message + "\nInner exception:" + ex.InnerException + "\nKastet fra\n" + ex.TargetSite + "\nTrace:\n" + ex.StackTrace);
                     Trace.TraceInformation("Property: {0} Error: {1}", ex.Source, ex.InnerException);
                 }
