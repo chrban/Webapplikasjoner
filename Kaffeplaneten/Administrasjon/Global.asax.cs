@@ -11,6 +11,7 @@ namespace Administrasjon
     {
         protected void Application_Start()
         {
+            Kaffeplaneten.BLL.DataCreater.addSuperadmin();
             Kaffeplaneten.BLL.DataCreater.addProducts();
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);

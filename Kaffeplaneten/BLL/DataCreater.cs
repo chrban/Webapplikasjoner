@@ -15,30 +15,6 @@ namespace Kaffeplaneten.BLL
         {
             addProducts();
         }
-        /*public bool createTestDatabase()
-        {
-            try
-            {
-                var customer = createCustomer();
-                var order = createOrder();
-                addCustomer(customer);
-                addAdress(customer);
-                addUser(customer);
-                order.customerID = customer.customerID;
-                addProducts();
-                order.orderNr = addOrder(order);
-                addProductOrder(order);
-                editCustomer(customer);
-                return true;
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine("\nERROR!\nMelding:\n" + ex.Message + "\nInner exception:" + ex.InnerException + "\nKastet fra\n" + ex.TargetSite + "\nTrace:\n" + ex.StackTrace);
-                Trace.TraceInformation("Property: {0} Error: {1}", ex.Source, ex.InnerException);
-                return false;
-            }
-        }*/
-
         public static void addProducts()
         {
             try
@@ -301,10 +277,13 @@ namespace Kaffeplaneten.BLL
         {
             var employee = createSuperEmployee();
             var user = createSuperUser();
+            var temp = new EmployeeBLL();
+            if (temp.find(employee.username) != null)
+                return;
             var tempEmpBLL = new EmployeeBLL();
             var tempUserBLL = new UserBLL();
             tempEmpBLL.add(employee);
-            Debug.WriteLine("Bruker er lagt til");
+            user.ID = employee.employeeID;
             tempUserBLL.add(user);
             
             
@@ -319,74 +298,11 @@ namespace Kaffeplaneten.BLL
             return outData;
         }
 
-        /***********************************************************************************************************************/
-        /*public static void addCustomer(CustomerModel customerModel)
-         {
-             var db = new CustomerContext();
-             var customer = new Customers();
-             customer.email = customerModel.email;
-             customer.firstName = customerModel.firstName;
-             customer.lastName = customerModel.lastName;
-             customer.phone = customerModel.phone;
-             db.Customers.Add(customer);
-             db.SaveChanges();
-             customerModel.customerID = customer.customerID;
-         }*/
-        /*public static void addAdress(CustomerModel customerModel)
-        {
-            var adress = new AdressModel();
-            adress.deliveryAdress = true;
-            adress.payAdress = true;
-            adress.province = customerModel.province;
-            adress.zipCode = customerModel.zipCode;
-            adress.streetName = customerModel.adress;
-            adress.customerID = customerModel.customerID;
-            DBCustomer.addAdress(adress);
-
-        }*/
-        /*public static void addUser(CustomerModel customerModel)
-         {
-             var temp = new SuperController();
-             var userModel = new UserModel();
-             userModel.customerID = customerModel.customerID;
-             userModel.passwordHash= temp.getHash(customerModel.password);
-             userModel.username = customerModel.email;
-             DBUser.add(userModel);
-         }*/
         public static void addProduct(ProductModel productModel)
         {
             var temp = new ProductBLL();
             temp.add(productModel);
         }
-        /*public static int addOrder(OrderModel orderModel)
-        {
-            DBOrder.add(orderModel);
-            return orderModel.customerID;
-        }*/
-        /*public static void addProductOrder(OrderModel orderModel)
-        {
-            var db = new CustomerContext();
-            var a = new int[100];
-            foreach(var p in orderModel.products)
-                a[p.productID]++;
-            for(int i=0;i<a.Length;i++)
-                if(a[i]>0)
-                {
-                    var productOrder = new ProductOrders();
-                    productOrder.orders = db.Orders.Find(orderModel.orderNr);
-                    productOrder.quantity = a[i];
-
-                    productOrder.products = db.Products.Find(1);
-                    productOrder.price = db.Products.Find(1).price * a[i];
-                    db.ProductOrders.Add(productOrder);
-                }
-            foreach (var p in orderModel.products)
-            {
-
-            }
-            db.SaveChanges();
-        }*/
-
         public static CustomerModel createCustomer()
         {
             var customer = new CustomerModel();
