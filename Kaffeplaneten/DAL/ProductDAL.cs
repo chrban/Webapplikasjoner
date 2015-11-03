@@ -144,6 +144,7 @@ namespace Kaffeplaneten.DAL
 
         public bool Delete(int id)
         {
+            
             using (var db = new CustomerContext())
             {
                 try
@@ -151,6 +152,7 @@ namespace Kaffeplaneten.DAL
                     Products slett = (from p in db.Products where p.productID == id select p).Single();
                     db.Products.Remove(slett);
                     db.SaveChanges();
+                    Debug.WriteLine(slett.productName + "Er slettet");
                     return true;
 
                 }
@@ -162,6 +164,7 @@ namespace Kaffeplaneten.DAL
             }
             return false;
         }
+
 
 
        

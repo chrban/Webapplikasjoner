@@ -34,13 +34,15 @@ namespace Kaffeplaneten.BLL
             return _productDAL.find(id);
         }
 
-        public bool update(ProductModel _productModel)
+        public bool update(ProductModel productModel)
         {
-            return _productDAL.update(_productModel);
+            return _productDAL.update(productModel);
         }
         public bool delete(int id)
         {
             return _productDAL.Delete(id);
         }
+
+
     }
 }

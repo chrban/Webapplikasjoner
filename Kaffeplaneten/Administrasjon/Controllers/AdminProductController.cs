@@ -61,16 +61,38 @@ namespace Administrasjon.Controllers
 
         public ActionResult Delete(int id)
         {
-            if (_productBLL.delete(id))
+             if (_productBLL.delete(id))
+             {
+                 return RedirectToAction("AllProducts");
+             }
+             else
+             {
+                 return View();
+             }
+        }
+
+
+
+        public ActionResult Add()
+        {
+            return View("Add");
+        }
+
+        [HttpPost]
+        public ActionResult Add(ProductModel newProduct)
+        {
+
+            if (_productBLL.add(newProduct))
             {
                 return RedirectToAction("AllProducts");
+
             }
             else
             {
-                Debug.WriteLine("EDIT FEILER");
                 return View();
-            }
 
+            }
+            
 
         }
 

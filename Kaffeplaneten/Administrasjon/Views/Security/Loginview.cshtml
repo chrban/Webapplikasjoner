@@ -5,10 +5,12 @@
 @{
     ViewBag.Title = "Loginview";
 }
+@Html.Action("HeaderAndMenuBar", "Layout")
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
+
 
     <div class="container-fluid">
 
@@ -40,8 +42,8 @@
             </div>
         </div>
 
-
     </div>
+   
 }
 
 

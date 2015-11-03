@@ -30,17 +30,6 @@
 
     </nav>
 </header>
-@if (ViewBag.Inlogged == true)
-{
-   @Html.Action("AdministratorBar", "Layout");
-}
-else
-{
-    @Html.Action("Loginview", "Security")
-}
-    
-
-
 
 
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>

@@ -4,10 +4,10 @@
     ViewBag.Title = "AllProducts";
 }
 
-<h2>AllProducts</h2>
+<h2>Produkter i databasen</h2>
 <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Nytt produkt", "Add" ,null, new { @class="btn btn-success " })
 </p>
 <table class="table table-hover">
     <tr>
@@ -67,8 +67,26 @@
             <td>
                 @Html.ActionLink("Edit", "Edit", "AdminProduct", new { id = item.productID }, null) |
                 @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", "AdminProduct", new { id = item.productID })
+                <button class="btn btn-danger btn-xs" data-toggle="modal" data-target="#modal-@Html.DisplayFor(modelItem => item.productID)">Slett</button>
             </td>
         </tr>
+        <div class="modal fade" id="modal-@Html.DisplayFor(modelItem => item.productID)" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">Bekreft sletting!</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>Er du sikker på at du vil slette @Html.DisplayFor(modelItem => item.productName) ?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-info" data-dismiss="modal">Avbryt</button>
+                        @Html.ActionLink("Slett", "Delete", "AdminProduct", new { id = item.productID }, null)
+                    </div>
+                </div>
+            </div>
+        </div>
     }
 </table>
+

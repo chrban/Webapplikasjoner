@@ -9,15 +9,15 @@ using Kaffeplaneten.Models;
 namespace Administrasjon.Controllers
 {
 
-    public class AdminEmployeeControllerr : Controller
+    public class AdminEmployeeController : SuperController
     {
         private EmployeeBLL _employeeBLL;
 
-        public AdminEmployeeControllerr()
+        public AdminEmployeeController()
         {
             _employeeBLL = new EmployeeBLL();
         }
-
+            
 
         public ActionResult EmployeeEditorView()
         {

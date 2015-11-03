@@ -38,13 +38,14 @@ namespace Kaffeplaneten.Controllers
         [HttpPost]
         public ActionResult Loginview(UserModel user)
         {
+
             user.passwordHash = base.getHash(user.password);
             if (_userBLL.verifyUser(user))
             {
                 Session[LOGGED_INN] = true;
                 ViewBag.LoggedOn = true;
-                Session[Admin] = _EmployeeBLL.find(user.username);
-                return RedirectToAction("AllProducts", "Product", user.username);
+                Session[Employee] = _EmployeeBLL.find(user.username);
+                return RedirectToAction("LoggedIn", user);
             }
             ModelState.AddModelError("", "Feil brukernavn eller passord");
             return View();
@@ -59,7 +60,7 @@ namespace Kaffeplaneten.Controllers
                     return View();
                 }
             }
-            return RedirectToAction("Index");
+            return RedirectToAction("");
         }
         public ActionResult LoggedOut()
         {
