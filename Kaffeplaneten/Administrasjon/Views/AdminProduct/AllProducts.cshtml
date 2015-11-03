@@ -4,6 +4,7 @@
     ViewBag.Title = "AllProducts";
 }
 
+
 <div class="container">
     <h2>Produkter i databasen</h2>
     <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
@@ -14,12 +15,6 @@
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.productID)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.quantity)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.imageURL)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.productName)
@@ -36,6 +31,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.description)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.imageURL)
+            </th>
             <th></th>
         </tr>
         @foreach (var item in Model)
@@ -43,12 +41,6 @@
             <tr>
                 <td>
                     @Html.DisplayFor(modelItem => item.productID)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.quantity)
-                </td>
-                <td>
-                    <img src="~/Content/img/Logo-Admin.png" alt="@Html.DisplayFor(modelItem => item.imageURL) FIKSE BILDER GLOBALT" style="width:50px;height:50px">
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.productName)
@@ -64,6 +56,9 @@
                 </td>
                 <td>
                     Description..
+                </td>
+                <td>
+                    <img src="~/Content/img/Logo-Admin.png" alt="@Html.DisplayFor(modelItem => item.imageURL) FIKSE BILDER GLOBALT" style="width:50px;height:50px">
                 </td>
                 <td>
                     @Html.ActionLink("Rediger", "Edit", "AdminProduct", new { id = item.productID },  new { @class = "btn btn-default btn-xs" } )
@@ -102,6 +97,9 @@
                             <div class="thumbnail">
 
                                 <dl>
+                                    <dt>Image</dt>
+                                    <dd><img src="~/" alt="@Html.DisplayFor(modelItem => item.imageURL) FIKSE BILDER GLOBALT" style="width:50px;height:50px"></dd>
+
                                     <dt>@Html.DisplayNameFor(model => model.productName)</dt>
                                     <dd>@Html.DisplayFor(modelItem => item.productName)</dd>
 
@@ -126,13 +124,6 @@
                     </div>
                 </div>
             </div>
-
-
-
-
-
-
-
         }
     </table>
 </div>

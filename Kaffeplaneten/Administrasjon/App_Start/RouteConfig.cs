@@ -16,8 +16,7 @@ namespace Administrasjon
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-               // defaults: new { controller = "Layout", action = "HeaderAndMenuBar", id = UrlParameter.Optional }
-                defaults: new { controller = "AdminProduct", action = "AllProducts", id = UrlParameter.Optional }
+                defaults: new { controller = "Security", action = "LoginView", id = UrlParameter.Optional }
             );
         }
     }
