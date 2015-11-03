@@ -31,7 +31,8 @@ namespace Kaffeplaneten.DAL
                         employeeAdmin = employeeModel.employeeAdmin,
                         customerAdmin = employeeModel.customerAdmin,
                         productAdmin = employeeModel.productAdmin,
-                        databaseAdmin=employeeModel.databaseAdmin
+                        orderAdmin   = employeeModel.orderAdmin,
+                        databaseAdmin = employeeModel.databaseAdmin
                     };
                     newEmployee = db.Employees.Add(newEmployee);
                     db.SaveChanges();
@@ -94,7 +95,7 @@ namespace Kaffeplaneten.DAL
                     employeeModel.username = temp.email;
                     employeeModel.phone = temp.phone;
                     employeeModel.customerAdmin = temp.customerAdmin;
-                    employeeModel.databaseAdmin = temp.databaseAdmin;
+                    employeeModel.orderAdmin = temp.databaseAdmin;
                     employeeModel.employeeAdmin = temp.employeeAdmin;
                     employeeModel.productAdmin = temp.productAdmin;
          
@@ -129,7 +130,7 @@ namespace Kaffeplaneten.DAL
                     employee.lastName = employeeModel.lastName;
                     employee.phone = employeeModel.phone;
                     employee.customerAdmin = employeeModel.customerAdmin;
-                    employee.databaseAdmin = employeeModel.databaseAdmin;
+                    employee.databaseAdmin = employeeModel.orderAdmin;
                     employee.employeeAdmin = employeeModel.employeeAdmin;
                     employee.productAdmin = employeeModel.productAdmin;
 

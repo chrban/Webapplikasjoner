@@ -13,5 +13,8 @@ namespace Administrasjon.Controllers
         {
             return View();
         }
+
+       
     }
+
 }

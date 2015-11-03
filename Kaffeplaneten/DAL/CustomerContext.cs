@@ -43,11 +43,11 @@ namespace Kaffeplaneten.DAL
         public string email { get; set; }   
         public string phone { get; set; }
         public virtual Users users { get; set; }
-        public virtual List<Adresses> adresses { get; set; }
     }
 
     public class Customers : Persons
-    { 
+    {
+        public virtual List<Adresses> adresses { get; set; }
     }
 
     public class Employee : Persons
@@ -55,6 +55,7 @@ namespace Kaffeplaneten.DAL
         public bool employeeAdmin { get; set; }//Kan behandle ansatte og se admin loggen
         public bool databaseAdmin { get; set; }//Kan se på databaseloggen
         public bool productAdmin { get; set; }//Kan behandle produkter
+        public bool orderAdmin { get; set; }//Kan behandle produkter
         public bool customerAdmin { get; set; }//Kan behandle kunder
     }
 

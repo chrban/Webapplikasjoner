@@ -50,7 +50,6 @@ $(document).ready(function(){
 
 
     function sameAdress() {
-        alert("TEST!!");
         if ($('#checkbox').is(":checked")) {
             $('#adress').html(function () {
                 $('#payAdress').val($(this).val());

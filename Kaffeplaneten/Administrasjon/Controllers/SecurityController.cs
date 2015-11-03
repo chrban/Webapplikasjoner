@@ -9,17 +9,17 @@ using System.Text;
 using Kaffeplaneten.BLL;
 using Administrasjon.Controllers;
 
-namespace Kaffeplaneten.Controllers
+namespace Administrasjon.Controllers
 {
     public class SecurityController : SuperController
     {
         private UserBLL _userBLL;
-        private CustomerBLL _customerBLL;
+        private EmployeeBLL _EmployeeBLL;
 
         public SecurityController()
         {
             _userBLL = new UserBLL();
-            _customerBLL = new CustomerBLL();
+            _EmployeeBLL = new EmployeeBLL();
         }
         public ActionResult Loginview()
         {
@@ -38,33 +38,35 @@ namespace Kaffeplaneten.Controllers
         [HttpPost]
         public ActionResult Loginview(UserModel user)
         {
+
             user.passwordHash = base.getHash(user.password);
             if (_userBLL.verifyUser(user))
             {
                 Session[LOGGED_INN] = true;
                 ViewBag.LoggedOn = true;
-                Session[CUSTOMER] = _customerBLL.find(user.username);
-                return RedirectToAction("AllProducts", "Product", user.username);
+                Session[Employee] = _EmployeeBLL.find(user.username);
+                EmployeeModel Emp = _EmployeeBLL.find(user.username);
+                LoggedIn(Emp);
             }
             ModelState.AddModelError("", "Feil brukernavn eller passord");
             return View();
         }
-        public ActionResult LoggedIn()
+        public ActionResult LoggedIn(EmployeeModel employee)
         {
             if (Session[LOGGED_INN] != null)
             {
                 bool loggetInn = (bool)Session[LOGGED_INN];
                 if (loggetInn)
                 {
-                    return View();
+                    return View(Employee);
                 }
             }
-            return RedirectToAction("Index");
+            return RedirectToAction("");
         }
         public ActionResult LoggedOut()
         {
             Session[LOGGED_INN] = null;
-            Session[CUSTOMER] = null;
+            Session[Employee] = null;
             return RedirectToAction("Loginview");
         }
     }

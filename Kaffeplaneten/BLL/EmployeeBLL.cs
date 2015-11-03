@@ -6,9 +6,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BLL
+namespace Kaffeplaneten.BLL
 {
-    class EmployeeBLL
+    public class EmployeeBLL
     {
         private IEmployeeDAL _employeeDAL;
         public EmployeeBLL(IEmployeeDAL iEmployeeDAL)

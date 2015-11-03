@@ -14,11 +14,13 @@ namespace Kaffeplaneten.Controllers
     {
         private UserBLL _userBLL;
         private CustomerBLL _customerBLL;
+        private LoggingBLL _LoggingBLL;
 
         public SecurityController()
         {
             _userBLL = new UserBLL();
             _customerBLL = new CustomerBLL();
+            _LoggingBLL = new LoggingBLL();
         }
         public ActionResult Loginview()
         {
@@ -43,6 +45,7 @@ namespace Kaffeplaneten.Controllers
                 Session[LOGGED_INN] = true;
                 ViewBag.LoggedOn = true;
                 Session[CUSTOMER] = _customerBLL.find(user.username);
+                _LoggingBLL.logToUser("Logged into system.");
                 return RedirectToAction("AllProducts", "Product", user.username);
             }
             ModelState.AddModelError("", "Feil brukernavn eller passord");

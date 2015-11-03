@@ -16,7 +16,7 @@ namespace Administrasjon
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Security", action = "LoginView", id = UrlParameter.Optional }
+                defaults: new { controller = "Security", action = "Loginview", id = UrlParameter.Optional }
             );
         }
     }

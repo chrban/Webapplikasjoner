@@ -15,7 +15,7 @@ namespace Administrasjon.Controllers
         public const string UNIQUE_CATEGORIES = "UniqueCategories";
         public const string INITIAL_LOAD = "INITIAL";
         public const string CUSTOMER = "Customer";
-        public const string Admin = "Admin";
+        public const string Employee = "Employee";
         public ActionResult Index()
         {
             return View();
@@ -23,9 +23,9 @@ namespace Administrasjon.Controllers
 
         public int getActiveUserID()//Returnerer customerID til inlogget customer. -1 hvis inger er innlogget
         {
-            if (Session[Admin] == null)
+            if (Session[Employee] == null)
                 return -1;
-            return ((EmployeeModel)Session[Admin]).employeeID;
+            return ((EmployeeModel)Session[Employee]).employeeID;
         }
         private static byte[] createHash(string incPassword)
         {
