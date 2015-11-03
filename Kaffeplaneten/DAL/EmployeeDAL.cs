@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Kaffeplaneten.DAL
 {
-    public class EmployeeDAL
+    public class EmployeeDAL : IEmployeeDAL
     {
         public bool add(EmployeeModel employeeModel)//Legger employee inn i datatbasen
         {

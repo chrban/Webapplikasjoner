@@ -12,8 +12,11 @@ namespace Kaffeplaneten.BLL
     public class UserBLL
     {
 
-        private UserDAL _userDAL;
-
+        private IUserDAL _userDAL;
+        public UserBLL(IUserDAL iUserDAL)
+        {
+            _userDAL = iUserDAL;
+        }
         public UserBLL()
         {
             _userDAL = new UserDAL();

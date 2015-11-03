@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Kaffeplaneten.DAL
 {
-    public class UserDAL
+    public class UserDAL : IUserDAL
     {
         public bool add(UserModel userModel)//Legger en Users inn i databasen
         {

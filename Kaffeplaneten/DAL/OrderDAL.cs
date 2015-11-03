@@ -9,7 +9,7 @@ using System.Web;
 namespace Kaffeplaneten.DAL
 {
     
-    public class OrderDAL
+    public class OrderDAL : IOrderDAL
     {
         public bool add(OrderModel orderModel)/*Legger Orders og ProductOrders inn i databasen. CustomerID og pruductID-ene må være med i modellen*/
         {
