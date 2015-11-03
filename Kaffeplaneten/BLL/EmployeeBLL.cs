@@ -10,7 +10,11 @@ namespace Kaffeplaneten.BLL
 {
     public class EmployeeBLL
     {
-        private EmployeeDAL _employeeDAL;
+        private IEmployeeDAL _employeeDAL;
+        public EmployeeBLL(IEmployeeDAL iEmployeeDAL)
+        {
+            _employeeDAL = iEmployeeDAL;
+        }
         public EmployeeBLL()
         {
             _employeeDAL = new EmployeeDAL();

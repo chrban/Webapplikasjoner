@@ -11,8 +11,11 @@ namespace Kaffeplaneten.BLL
     
     public class OrderBLL
     {
-        private OrderDAL _orderDAL;
-
+        private IOrderDAL _orderDAL;
+        public OrderBLL(IOrderDAL iOrderDAL)
+        {
+            _orderDAL = iOrderDAL;
+        }
         public OrderBLL()
         {
             _orderDAL = new OrderDAL();

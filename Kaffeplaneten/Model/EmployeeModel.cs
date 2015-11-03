@@ -45,9 +45,9 @@ namespace Kaffeplaneten.Models
         public int employeeID { get; set; }
 
         public bool employeeAdmin { get; set; }
-
-        public bool databaseAdmin { get; set; }
+        public bool orderAdmin { get; set; }
         public bool productAdmin { get; set; }
         public bool customerAdmin { get; set; }
+        public bool databaseAdmin { get; set; }
     }
 }

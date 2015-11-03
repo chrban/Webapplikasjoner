@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Kaffeplaneten.DAL
 {
-    public class UserDAL
+    public class UserDAL : IUserDAL
     {
         public bool add(UserModel userModel)//Legger en Users inn i databasen
         {
@@ -28,30 +28,24 @@ namespace Kaffeplaneten.DAL
                         username = userModel.username,
                         password = userModel.passwordHash
                     };
-                    user.person = db.Employees.Find(userModel.ID);
-                    if (user.person == null)//tester om Users sin customer/Admin finnes
-                    {
-                        user.person = db.Customers.Find(userModel.ID);
-                        if (user.person == null)
+                    user.person = (from c in db.Customers
+                                   where c.email.Equals(userModel.username)
+                                   select c).SingleOrDefault();
+                    if (user.person == null)//tester om Users sin admin finnes
+                        user.person = (from e in db.Employees
+                                       where e.email.Equals(userModel.username)
+                                       select e).SingleOrDefault();
+                    if (user.person == null)//tester om Users sin customer finnes
                             return false;
-                    }
                     db.Users.Add(user);
-                    db.SaveChanges();
-                    Debug.WriteLine("Lagring fullført!");
+                        db.SaveChanges();
                     return true;
                 }
-                catch (DbEntityValidationException dbEx)
-                {
-                    foreach (var validationErrors in dbEx.EntityValidationErrors)   
-                    {
-                        foreach (var validationError in validationErrors.ValidationErrors)
+                catch (Exception ex)
                         {
-                            Trace.TraceInformation("Property: {0} Error: {1}",
-                                                    validationError.PropertyName,
-                                                    validationError.ErrorMessage);
-                        }//end foreach
-                    }//end foreach
-                }//end catch
+                    Debug.WriteLine("\nERROR!\nMelding:\n" + ex.Message + "\nInner exception:" + ex.InnerException + "\nKastet fra\n" + ex.TargetSite + "\nTrace:\n" + ex.StackTrace);
+                    Trace.TraceInformation("Property: {0} Error: {1}", ex.Source, ex.InnerException);
+                }
                 return false;
             }//end using
         }

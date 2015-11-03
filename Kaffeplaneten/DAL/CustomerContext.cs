@@ -55,6 +55,7 @@ namespace Kaffeplaneten.DAL
         public bool employeeAdmin { get; set; }//Kan behandle ansatte og se admin loggen
         public bool databaseAdmin { get; set; }//Kan se på databaseloggen
         public bool productAdmin { get; set; }//Kan behandle produkter
+        public bool orderAdmin { get; set; }//Kan behandle produkter
         public bool customerAdmin { get; set; }//Kan behandle kunder
     }
 

@@ -11,7 +11,11 @@ namespace Kaffeplaneten.BLL
 {
     public class CustomerBLL
     {
-        private CustomerDAL _customerDAL;
+        private ICustomerDAL _customerDAL;
+        public CustomerBLL(ICustomerDAL iCustomerDAL)
+        {
+            _customerDAL = iCustomerDAL;
+        }
         public CustomerBLL()
         {
             _customerDAL = new CustomerDAL();

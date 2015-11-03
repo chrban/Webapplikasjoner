@@ -9,7 +9,7 @@ using System.Text;
 using Kaffeplaneten.BLL;
 using Administrasjon.Controllers;
 
-namespace Kaffeplaneten.Controllers
+namespace Administrasjon.Controllers
 {
     public class SecurityController : SuperController
     {
@@ -45,19 +45,20 @@ namespace Kaffeplaneten.Controllers
                 Session[LOGGED_INN] = true;
                 ViewBag.LoggedOn = true;
                 Session[Employee] = _EmployeeBLL.find(user.username);
-                return RedirectToAction("LoggedIn", user);
+                EmployeeModel Emp = _EmployeeBLL.find(user.username);
+                LoggedIn(Emp);
             }
             ModelState.AddModelError("", "Feil brukernavn eller passord");
             return View();
         }
-        public ActionResult LoggedIn()
+        public ActionResult LoggedIn(EmployeeModel employee)
         {
             if (Session[LOGGED_INN] != null)
             {
                 bool loggetInn = (bool)Session[LOGGED_INN];
                 if (loggetInn)
                 {
-                    return View();
+                    return View(Employee);
                 }
             }
             return RedirectToAction("");

@@ -265,7 +265,7 @@ namespace Kaffeplaneten.BLL
             employee.username = "sjefledersen@kaffeplaneten.no";
             employee.phone = "99887766";
             employee.employeeAdmin = true;
-            employee.databaseAdmin = true;
+            employee.orderAdmin = true;
             employee.productAdmin = true;
             employee.customerAdmin = true;
 

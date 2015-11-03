@@ -7,7 +7,7 @@ using System.Web;
 
 namespace Kaffeplaneten.DAL
 {
-    public class ProductDAL
+    public class ProductDAL : IProductDAL
     {
         //Henter alle produkter fra databasen og oppretter liste av modelobjekter 
         public List<ProductModel> getAllProducts()

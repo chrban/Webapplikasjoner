@@ -10,8 +10,11 @@ namespace Kaffeplaneten.BLL
     public class ProductBLL
     {
 
-        private ProductDAL _productDAL;
-
+        private IProductDAL _productDAL;
+        public ProductBLL(IProductDAL iProductDAL)
+        {
+            _productDAL = iProductDAL;
+        }
         public ProductBLL()
         {
             _productDAL = new ProductDAL();
