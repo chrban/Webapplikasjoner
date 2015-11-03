@@ -14,12 +14,12 @@ namespace Kaffeplaneten.Controllers
     public class SecurityController : SuperController
     {
         private UserBLL _userBLL;
-        private CustomerBLL _customerBLL;
+        private EmployeeBLL _EmployeeBLL;
 
         public SecurityController()
         {
             _userBLL = new UserBLL();
-            _customerBLL = new CustomerBLL();
+            _EmployeeBLL = new EmployeeBLL();
         }
         public ActionResult Loginview()
         {
@@ -43,7 +43,7 @@ namespace Kaffeplaneten.Controllers
             {
                 Session[LOGGED_INN] = true;
                 ViewBag.LoggedOn = true;
-                Session[CUSTOMER] = _customerBLL.find(user.username);
+                Session[Admin] = _EmployeeBLL.find(user.username);
                 return RedirectToAction("AllProducts", "Product", user.username);
             }
             ModelState.AddModelError("", "Feil brukernavn eller passord");
@@ -64,7 +64,7 @@ namespace Kaffeplaneten.Controllers
         public ActionResult LoggedOut()
         {
             Session[LOGGED_INN] = null;
-            Session[CUSTOMER] = null;
+            Session[Employee] = null;
             return RedirectToAction("Loginview");
         }
     }

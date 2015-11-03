@@ -13,5 +13,11 @@ namespace Administrasjon.Controllers
         {
             return View();
         }
+
+        public ActionResult AdministratorBar()
+        {
+            return View();
+        }
     }
+
 }

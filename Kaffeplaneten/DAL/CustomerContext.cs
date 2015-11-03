@@ -43,11 +43,11 @@ namespace Kaffeplaneten.DAL
         public string email { get; set; }   
         public string phone { get; set; }
         public virtual Users users { get; set; }
-        public virtual List<Adresses> adresses { get; set; }
     }
 
     public class Customers : Persons
-    { 
+    {
+        public virtual List<Adresses> adresses { get; set; }
     }
 
     public class Employee : Persons

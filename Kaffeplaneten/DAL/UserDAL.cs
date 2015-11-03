@@ -36,7 +36,7 @@ namespace Kaffeplaneten.DAL
                             return false;
                     }
                     db.Users.Add(user);
-                        db.SaveChanges();
+                    db.SaveChanges();
                     Debug.WriteLine("Lagring fullført!");
                     return true;
                 }

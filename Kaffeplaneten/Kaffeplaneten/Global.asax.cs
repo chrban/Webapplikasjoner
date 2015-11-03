@@ -15,6 +15,7 @@ namespace Kaffeplaneten
         {
             //Code that runs on application startup
             //BLL.DataCreater.addProducts();
+            BLL.DataCreater.addSuperadmin();
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
         }

@@ -1,0 +1,15 @@
+﻿
+@{
+    ViewBag.Title = "AdministratorBar";
+}
+
+<h2>AdministratorBar</h2>
+<div id="navbar" class="collapse navbar-collapse" style="background-color: #5d3d1f">
+    <ul class="nav navbar-nav">
+        <li><span class="navbaricons glyphicon glyphicon-home"></span>@Html.ActionLink("Kunderedigering", "index", "super", new { area = "" }, new { @class = "navbar-brand" })</li>
+        <li><span class="navbaricons glyphicon glyphicon-shopping-cart"></span>@Html.ActionLink("Produktredigering", "AllProducts", "AdminProduct", new { area = "" }, new { @class = "navbar-brand" })</li>
+        <li><span class="navbaricons glyphicon glyphicon-shopping-cart"></span>@Html.ActionLink("Ordreredigering", "index", "super", new { area = "" }, new { @class = "navbar-brand" })</li>
+        <li><span class="navbaricons glyphicon glyphicon-shopping-cart"></span>@Html.ActionLink("Ansattredigering", "index", "User", new { area = "" }, new { @class = "navbar-brand" })</li>
+    </ul>
+</div>
+
