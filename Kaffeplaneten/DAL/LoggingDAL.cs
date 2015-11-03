@@ -5,25 +5,28 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System.Diagnostics;
 
 namespace Kaffeplaneten.DAL
 {
     public class LoggingDAL
     {
-        public const string LOG_DATABASE = "../../Content/log_database.txt";
-        public const string LOG_INTERACTION = "../../Content/log_interaction.txt";
+        public const string LOG_DATABASE = "C:\\Users\\VM\\Source\\Repos\\NewRepo\\Kaffeplaneten\\Kaffeplaneten\\log_database.txt";
+        public const string LOG_INTERACTION = "C:\\Users\\VM\\Source\\Repos\\NewRepo\\Kaffeplaneten\\Kaffeplaneten\\log_interaction.txt";
 
-        public bool logToUser(Persons user, string message)
+        public bool logToUser(CustomerModel user, string message)
         {
             createLog(LOG_INTERACTION);
-            string logLine = "{ " +
-                              "'User': '" + user.firstName + " " + user.lastName + "'," +
-                              "'Date': '" + DateTime.Now.ToString("h:mm:ss tt") + "'," +
-                              "'Action': '" + message + "'," +
-                          " }";
+            string logLine = ",{ " +
+                              "\"Date\": \"" + DateTime.Now.ToString("h:mm:ss tt") + "\"," +
+                              "\"UserID\": \"" + user.customerID + "\"," +
+                              "\"User\": \"" + user.firstName + " " + user.lastName + "\"," +
+                              "\"Action\": \"" + message + "\" }";
             try
             {
-                using (TextWriter logWriter = new StreamWriter(LOG_INTERACTION))
+                using (StreamWriter logWriter = File.AppendText(LOG_INTERACTION))
                 {
                     logWriter.WriteLine(logLine);
                     logWriter.Close();
@@ -39,15 +42,15 @@ namespace Kaffeplaneten.DAL
         public bool logToDatabase(string message)
         {
             createLog(LOG_DATABASE);                            // Checks for log existence.
-            string logLine = "{ " +
-                              "'Date': '" + DateTime.Now.ToString("h:mm:ss tt") + "'," +
-                              "'Action': '" + message + "'," +
-                          " }";
+            string logLine = ",{ " +
+                                  "\"Date\": \"" + DateTime.Now.ToString("h:mm:ss tt") + "\"," +
+                                  "\"Action\": \"" + message + "\" }";
             try
             {
-                using (TextWriter logWriter = new StreamWriter(LOG_DATABASE))
+                using (StreamWriter logWriter = File.AppendText(LOG_DATABASE))
                 {
                     logWriter.WriteLine(logLine);
+                    Debug.WriteLine("TESTED: " + message);
                     logWriter.Close();
                     return true;
                 }
@@ -61,25 +64,63 @@ namespace Kaffeplaneten.DAL
 
         // Find messages with certain criteria.
         // Needs to be done.
-        public bool findInDatabaseLog(string criteria)
+        public JObject findInDatabaseLog(string criteria)
         {
-            return false;
+            List<JObject> log = parseLogFile(LOG_DATABASE);
+            foreach(JObject message in log)
+            {
+                foreach (JProperty p in message.Properties())
+                {
+                    if (p.Value.Equals(criteria))
+                    {
+                        return message;
+                    }
+                }
+            }
+            return null;
         }
-        public bool findInInteractionLog(string criteria)
+        public JObject findInInteractionLog(string criteria)
         {
-            return false;
+            List<JObject> log = parseLogFile(LOG_INTERACTION);
+            foreach (JObject message in log)
+            {
+                foreach (JProperty p in message.Properties())
+                {
+                    if (p.Value.Equals(criteria))
+                    {
+                        return message;
+                    }
+                }
+            }
+            return null;
+        }
+
+        public List<JObject> parseLogFile(string log)
+        {
+            string entireLog = File.ReadAllText(log) + "]";
+            JArray a = JArray.Parse(entireLog);
+            List<JObject> allMessages = new List<JObject>();
+            foreach (JObject o in a.Children<JObject>())
+            {
+                allMessages.Add(o);
+            }
+
+            return allMessages;
         }
 
         public bool createLog(string type)
         {
             if (type.Equals(LOG_DATABASE))
             {
-                if (!System.IO.File.Exists(LOG_DATABASE))
+                if (!File.Exists(LOG_DATABASE))
                 {
-                    System.IO.File.Create(LOG_DATABASE).Dispose();
+                    File.Create(LOG_DATABASE).Dispose();
                     using (TextWriter logWriter = new StreamWriter(LOG_DATABASE))
                     {
-                        logWriter.WriteLine("Log file created: " + DateTime.Now.ToString("h:mm:ss tt"));
+                        logWriter.WriteLine("[ { " +
+                                            "\"Date\": \"" + DateTime.Now.ToString("h:mm:ss tt") + "\"," +
+                                            "\"Action\": \"" + "Logging has begun " + "\"" +
+                                            " }");
                         logWriter.Close();
                         return true;
                     }
@@ -87,12 +128,17 @@ namespace Kaffeplaneten.DAL
             }
             else if (type.Equals(LOG_INTERACTION))
             {
-                if (!System.IO.File.Exists(LOG_INTERACTION))
+                if (!File.Exists(LOG_INTERACTION))
                 {
-                    System.IO.File.Create(LOG_INTERACTION).Dispose();
+                    File.Create(LOG_INTERACTION).Dispose();
                     using (TextWriter logWriter = new StreamWriter(LOG_INTERACTION))
                     {
-                        logWriter.WriteLine("Log file created: " + DateTime.Now.ToString("h:mm:ss tt"));
+                        logWriter.WriteLine("[ { " +
+                                  "\"Date\": \"" + DateTime.Now.ToString("h:mm:ss tt") + "\"," +
+                                  "\"UserID\": \"" + "System" + "\"," +
+                                  "\"User\": \"" + "System" + "\"," +
+                                  "\"Action\": \"" + "Logging has begun " + "\"" +
+                                    " }");
                         logWriter.Close();
                         return true;
                     }
@@ -101,5 +147,22 @@ namespace Kaffeplaneten.DAL
             return false;
         }
 
+        public void outputLogToConsole()
+        {
+            List<JObject> log = parseLogFile(LOG_INTERACTION);
+            foreach (JObject message in log)
+            {
+                Debug.WriteLine("");
+                Debug.WriteLine("==============");
+                Debug.WriteLine("");
+                foreach (JProperty p in message.Properties())
+                {
+                    Debug.WriteLine("Log: " + p.Name + ": " + p.Value);
+                }
+                Debug.WriteLine("");
+                Debug.WriteLine("==============");
+                Debug.WriteLine("");
+            }
+        }
     }
 }
