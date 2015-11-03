@@ -9,9 +9,10 @@ namespace Kaffeplaneten.Models
     public class ProductModel
     {
 
-        [Display(Name = "#")]
+        [Display(Name = "#ID")]
         public int productID { get; set; }
         public int quantity { get; set; }
+        [Display(Name = "Bildefil:")]
         public string imageURL { get; set; }
 
         [Display(Name = "Produktnavn:")]

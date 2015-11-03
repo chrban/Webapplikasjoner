@@ -71,5 +71,30 @@ namespace Administrasjon.Controllers
              }
         }
 
+
+
+        public ActionResult Add()
+        {
+            return View("Add");
+        }
+
+        [HttpPost]
+        public ActionResult Add(ProductModel newProduct)
+        {
+
+            if (_productBLL.add(newProduct))
+            {
+                return RedirectToAction("AllProducts");
+
+            }
+            else
+            {
+                return View();
+
+            }
+            
+
+        }
+
     }
 }
