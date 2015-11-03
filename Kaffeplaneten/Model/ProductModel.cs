@@ -8,6 +8,8 @@ namespace Kaffeplaneten.Models
 {
     public class ProductModel
     {
+
+        [Display(Name = "#")]
         public int productID { get; set; }
         public int quantity { get; set; }
         public string imageURL { get; set; }
