@@ -1,0 +1,64 @@
+﻿@model IEnumerable<Kaffeplaneten.Models.CustomerModel>
+@{
+    ViewBag.Title = "AllCustomers";
+}
+@Html.Action("HeaderAndMenuBar", "Layout")
+<div class="container">
+    <h2>Kunder i databasen</h2>
+    <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
+
+    <table class="table table-hover">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.customerID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.firstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.lastName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.adress)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.province)
+            </th>
+            <th>
+                 Buttons
+            </th>
+            <th></th>
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.customerID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.firstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.lastName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.adress)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.province)
+                </td>
+                <td>
+                    @Html.ActionLink("Rediger", "Edit", "AdminCustomer", new { id = 2}, new { @class = "btn btn-default btn-xs" })
+                </td>
+
+            </tr>
+
+        }
+    </table>
+</div>

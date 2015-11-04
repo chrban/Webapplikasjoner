@@ -325,5 +325,34 @@ namespace Kaffeplaneten.DAL
             }
             return false;
         }
+
+
+        public List<CustomerModel> allCustomers()
+        {
+            using (var db = new CustomerContext())
+            {
+                List<CustomerModel> customerList = new List<CustomerModel>();
+                try
+                {
+                    foreach(var c in db.Customers)
+                    {
+
+                        customerList.Add(find(c.personID));
+                    }
+
+                    return customerList;
+
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine("\nERROR!\nMelding:\n" + ex.Message + "\nInner exception:" + ex.InnerException + "\nKastet fra\n" + ex.TargetSite + "\nTrace:\n" + ex.StackTrace);
+                    Trace.TraceInformation("Property: {0} Error: {1}", ex.Source, ex.InnerException);
+                }
+                return null;
+            }
+
+        }
+
+
     }//end namespace
 }//end class

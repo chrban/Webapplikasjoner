@@ -33,6 +33,8 @@ namespace Kaffeplaneten.DAL
             modelBuilder.Entity<Users>().HasKey(p => p.personID);
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
         }
+
+        public System.Data.Entity.DbSet<Kaffeplaneten.Models.UserModel> UserModels { get; set; }
     }
     public abstract class Persons
     {

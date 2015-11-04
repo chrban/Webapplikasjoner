@@ -53,5 +53,13 @@ namespace Kaffeplaneten.BLL
         {
             return _customerDAL.addProvince(adress);
         }
+
+        public List<CustomerModel> allCustomers()
+        {
+           return  _customerDAL.allCustomers();
+        }
+
+
+
     }//end namespace
 }//end class
