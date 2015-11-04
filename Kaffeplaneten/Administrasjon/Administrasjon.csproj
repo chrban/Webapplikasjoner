@@ -136,6 +136,8 @@
     <Content Include="Views\AdminCustomer\List.cshtml" />
     <Content Include="Views\AdminCustomer\AllCustomers.cshtml" />
     <Content Include="Views\AdminCustomer\Edit.cshtml" />
+    <Content Include="Views\AdminOrder\AllOrders.cshtml" />
+    <Content Include="Views\AdminOrder\OrderView.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -147,6 +149,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AdminCustomerController.cs" />
     <Compile Include="Controllers\AdminEmployeeController.cs" />
+    <Compile Include="Controllers\AdminOrderController.cs" />
     <Compile Include="Controllers\AdminProductController.cs" />
     <Compile Include="Controllers\LayoutController.cs" />
     <Compile Include="Controllers\SecurityController.cs" />
