@@ -63,6 +63,10 @@ namespace Kaffeplaneten.BLL
         {
            return  _customerDAL.allCustomers();
         }
+        public bool delete(int id)
+        {
+            return _customerDAL.delete(id);
+        }
 
 
 

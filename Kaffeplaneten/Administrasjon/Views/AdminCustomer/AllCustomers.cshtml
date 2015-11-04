@@ -54,10 +54,32 @@
                     @Html.DisplayFor(modelItem => item.province)
                 </td>
                 <td>
-                    @Html.ActionLink("Rediger", "Edit", "AdminCustomer", new { id = 2}, new { @class = "btn btn-default btn-xs" })
+                    @Html.ActionLink("Rediger", "Edit", "AdminCustomer", new { id = item.customerID}, new { @class = "btn btn-default btn-xs" })
+
+                    <button class="btn btn-danger btn-xs" data-toggle="modal" data-target="#modalDelete-@Html.DisplayFor(modelItem => item.customerID)">Slett</button>
                 </td>
 
             </tr>
+
+
+                        <!--DeleteModal-->
+            <div class="modal fade" id="modalDelete-@Html.DisplayFor(modelItem => item.customerID)" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="myModalLabel">Bekreft sletting!</h4>
+                        </div>
+                        <div class="modal-body">
+                            <p>Er du sikker på at du vil slette @Html.DisplayFor(modelItem => item.firstName) ?</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-info" data-dismiss="modal">Avbryt</button>
+                            @Html.ActionLink("Slett", "Delete", "AdminCustomer", new { id = item.customerID }, null)
+                        </div>
+                    </div>
+                </div>
+            </div>
 
         }
     </table>

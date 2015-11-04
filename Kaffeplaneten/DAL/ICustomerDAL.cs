@@ -13,5 +13,6 @@ namespace Kaffeplaneten.DAL
         string getProvince(string zipCode);
         bool update(CustomerModel customerModel);
         List<CustomerModel> allCustomers();
+        bool delete(int id);
     }
 }

@@ -30,15 +30,12 @@ namespace Administrasjon.Controllers
         public ActionResult AllCustomers()
         {
             var ut = _customerBLL.allCustomers();
-            Debug.WriteLine("i controller");
 
             if(ut != null)
             {
-                Debug.WriteLine("i RIKTIG if controller");
                 return View(ut);
 
             }
-            Debug.WriteLine("Feiler i IF i controller");
             return View();
         }
 
@@ -68,9 +65,22 @@ namespace Administrasjon.Controllers
             }
             else
             {
-                Debug.WriteLine("KUNDEEDIT FEILER");
                 return View();
             }
+        }
+
+        public ActionResult Delete(int id)
+        {
+
+            if (_customerBLL.delete(id))
+            {
+                return RedirectToAction("AllCustomers");
+            }
+            else
+            {
+                return View();
+            }
+
         }
 
       
