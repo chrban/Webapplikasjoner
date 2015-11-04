@@ -140,7 +140,6 @@ namespace Kaffeplaneten.Controllers
             foreach (var item in ((OrderModel)Session[SHOPPING_CART]).products)
                 currentTotal += (item.price * item.quantity);
 
-            Debug.WriteLine("Nå er total: " + currentTotal);
             ((OrderModel)Session[SHOPPING_CART]).total = currentTotal;
             return currentTotal;
         }
