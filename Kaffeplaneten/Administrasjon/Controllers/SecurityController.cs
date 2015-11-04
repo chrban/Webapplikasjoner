@@ -44,29 +44,39 @@ namespace Administrasjon.Controllers
             {
                 Session[LOGGED_INN] = true;
                 ViewBag.LoggedOn = true;
-                Session[Employee] = _EmployeeBLL.find(user.username);
                 EmployeeModel Emp = _EmployeeBLL.find(user.username);
-                LoggedIn(Emp);
+                Session["employeeAdmin"] = Emp.employeeAdmin;
+                Session["customerAdmin"] = Emp.customerAdmin;
+                Session["orderAdmin"] = Emp.orderAdmin;
+                Session["productAdmin"] = Emp.productAdmin;
+                Session["databaseAdmin"] = Emp.databaseAdmin;
+                return RedirectToAction("Home", "Layout");
             }
             ModelState.AddModelError("", "Feil brukernavn eller passord");
             return View();
+       
         }
-        public ActionResult LoggedIn(EmployeeModel employee)
+        public ActionResult LoggedIn()
         {
             if (Session[LOGGED_INN] != null)
             {
+                Debug.WriteLine("Test1");
                 bool loggetInn = (bool)Session[LOGGED_INN];
                 if (loggetInn)
                 {
-                    return View(Employee);
+                    return View();
                 }
             }
-            return RedirectToAction("");
+            return RedirectToAction("index");
         }
         public ActionResult LoggedOut()
         {
             Session[LOGGED_INN] = null;
-            Session[Employee] = null;
+            Session["employeeAdmin"] = null;
+            Session["customerAdmin"] = null;
+            Session["orderAdmin"] = null;
+            Session["productAdmin"] = null;
+            Session["databaseAdmin"] = null;
             return RedirectToAction("Loginview");
         }
     }

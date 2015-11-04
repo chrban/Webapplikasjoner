@@ -1,0 +1,40 @@
+﻿
+@{
+    ViewBag.Title = "Home";
+}
+@Html.Action("HeaderAndMenuBar", "Layout")
+<h2>Velkommen til administreringen av Kaffeplaneten</h2>
+<p>Ut ifra dine rettigheter som ansatt, får du vist det du har behov for.</p>
+<p>Skulle du mangle rettigheter, ta kontakt med administrasjonen.</p>
+<p>Dine rettigheter er: </p>
+
+@{
+    bool employeeAdmin = (bool)Session["employeeAdmin"];
+    bool customerAdmin = (bool)Session["customerAdmin"];
+    bool orderAdmin = (bool)Session["orderAdmin"];
+    bool productAdmin = (bool)Session["productAdmin"];
+    //bool DatabaseADmin = (bool)Session["databaseAdmin"];
+
+    if (employeeAdmin)
+    {
+        <h3>Rettighet til å endre ansattoplysninger</h3>
+    }
+    if (customerAdmin)
+    {
+        <h3>Rettighet til å endre kundeoplysninger</h3>
+    }
+    if (productAdmin)
+    {
+        <h3>Rettighet til å endre ordreoplysninger</h3>
+    }
+    if (orderAdmin)
+    {
+        <h3>Rettighet til å endre opplysninger</h3>
+    }
+   
+   /* if (databaseAdmin)
+    {
+        <h3>Rettighet til å endre ansattoplysninger</h3>
+    }*/
+}
+

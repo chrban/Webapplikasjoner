@@ -17,6 +17,11 @@ namespace Administrasjon.Controllers
         {
             _employeeBLL = new EmployeeBLL();
         }
+        public ActionResult AllEmployees()
+        {
+
+            return View();
+        }
             
 
         public ActionResult EmployeeEditorView()

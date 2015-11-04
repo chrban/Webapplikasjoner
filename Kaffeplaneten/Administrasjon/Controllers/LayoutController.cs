@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Kaffeplaneten.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -6,10 +7,23 @@ using System.Web.Mvc;
 
 namespace Administrasjon.Controllers
 {
-    public class LayoutController : Controller
+    public class LayoutController : SuperController
     {
-        // GET: Layout
-        public ActionResult HeaderAndMenuBar()
+        public ActionResult HeaderAndMenuBar(UserModel user)
+        {
+            if (Session[LOGGED_INN] != null)
+            {
+                if ((bool)Session[LOGGED_INN])
+                {
+                    ViewBag.Inlogged = true;
+                }
+            }
+
+            ViewBag.notInlogged = false;
+            return PartialView(user);
+        }
+
+        public ActionResult Home()
         {
             return View();
         }

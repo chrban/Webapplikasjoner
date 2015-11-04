@@ -3,6 +3,7 @@
     ViewBag.Title = "HeaderAndMenuBar";
 }
 
+
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,8 +16,8 @@
 
 <header>
     <!--Page-Logo Kaffeplaneten-->
-    <img src="~/Content/img/Logo-Admin.png" class="img-responsive" />
     <nav class="navbar navbar-default">
+        <img src="~/Content/img/Logo-Admin.png" class="img-responsive" />
         <div class="container-fluid">
             <div class="navbar-header" style="background-color: #5d3d1f; border-color: #337ab7;">
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar" style="background-color: #5d3d1f">
@@ -26,8 +27,50 @@
                     <span class="icon-bar"></span>
                 </button>
             </div>
-        </div>
+                <div id="navbar" class="collapse navbar-collapse navbar-default" style="background-color: #5d3d1f">
+                    <ul class="nav navbar-nav">
+                        @if (ViewBag.Inlogged == true)
+                        {
 
+
+                            if (Session["employeeAdmin"] != null && Session["customerAdmin"] != null && Session["orderAdmin"] != null
+                                && Session["productAdmin"] != null && Session["databaseAdmin"] != null)
+                            {
+                                bool employeeAdmin = (bool)Session["employeeAdmin"];
+                                bool customerAdmin = (bool)Session["customerAdmin"];
+                                bool orderAdmin = (bool)Session["orderAdmin"];
+                                bool productAdmin = (bool)Session["productAdmin"];
+                                bool databaseAdmin = (bool)Session["databaseAdmin"];
+
+                                <li role="presentation"><span class="navbaricons glyphicon glyphicon-home"></span>@Html.ActionLink("Home", "Home", "LayoutController", new { area = "" }, new { @class = "navbar-brand" })</li>
+                                if (employeeAdmin)
+                                {
+                                    <li role="presentation"><span class="navbaricons glyphicon glyphicon-user"></span>@Html.ActionLink("Ansattredigering", "AllEmloyees", "AdminEmployeeController", new { area = "" }, new { @class = "navbar-brand" })</li>
+                                }
+                                if (customerAdmin)
+                                {
+                                    <li role="presentation"><span class="navbaricons glyphicon glyphicon-user"></span>@Html.ActionLink("Kunderedigering", "AllCustomers", "AdminCustomerController", new { area = "" }, new { @class = "navbar-brand" })</li>
+                                }
+                                if (orderAdmin)
+                                {
+                                    <li role="presentation"><span class="navbaricons glyphicon glyphicon-gift"></span>@Html.ActionLink("Ordreredigering", "AllOrders", "AdminOrderController", new { area = "" }, new { @class = "navbar-brand" })</li>
+                                }
+                                if (productAdmin)
+                                {
+                                    <li role="presentation"><span class="navbaricons glyphicon glyphicon-folder-close"></span>@Html.ActionLink("Produktredigering", "AllProducts", "AdminProductController", new { area = "" }, new { @class = "navbar-brand" })</li>
+                                }
+                                if (databaseAdmin)
+                                {
+                                    <li role="presentation"><span class="navbaricons glyphicon glyphicon-list-alt"></span>@Html.ActionLink("Database", "", "", new { @class = "navbar-brand" })</li>
+                                }
+                                <li><span class="navbaricons glyphicon glyphicon-log-out"></span>@Html.ActionLink("Logg Ut", "LoggedOut", "Security", new { area = "" }, new { @class = "navbar-brand" })</li>
+                            }
+
+                        }
+
+                    </ul>
+                </div>
+            </div>
     </nav>
 </header>
 

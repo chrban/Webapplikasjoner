@@ -268,6 +268,7 @@ namespace Kaffeplaneten.BLL
             employee.orderAdmin = true;
             employee.productAdmin = true;
             employee.customerAdmin = true;
+            employee.databaseAdmin = true;
 
             return employee;
 

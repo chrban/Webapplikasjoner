@@ -1,15 +1,1 @@
-﻿@{
-    ViewBag.Title = "LoggedIn";
-}
-
-<h2>LoggedIn</h2>
-
-@if (Model.ShowGlobalMenu)
-{
-    <ul class="nav nav-tabs">
-        <li role="presentation" class="showAlways">@Html.ActionLink("Kaffeplaneten", "AllProducts", "Product", new { area = "" }, new { @class = "navbar-brand" })</li>
-        <li role="presentation" class="showLoggedOut"> @Html.ActionLink("Registrer", "createUser", "User", new { area = "" }, new { @class = "navbar-brand" })</li>
-        <li role="presentation" class="showAlways"> @Html.ActionLink("Handlekurv", "ShoppingCartView", "Order", new { area = "" }, new { @class = "navbar-brand" })</li>
-        <li role="presentation" id="showLoggedIn">@Html.ActionLink("Kontoinstillinger", "accountView", "User", new { area = "" }, new { @class = "navbar-brand" })</li>
-    </ul>
-}
+﻿

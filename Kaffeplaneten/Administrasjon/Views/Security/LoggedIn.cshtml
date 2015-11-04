@@ -1,27 +1,9 @@
-﻿@model Kaffeplaneten.Models.EmployeeModel
+﻿
 @{
     ViewBag.Title = "LoggedIn";
 }
- <ul class="nav nav-tabs">
-
-        @{
-
-            if (Model.employeeAdmin)
-                <li role="presentation">@Html.ActionLink("Ansattredigering", "AllEmloyees", "AdminEmployeeController", new { area = "" }, new { @class = "navbar-brand" })</li>
-            if (Model.customerAdmin)
-                <li role="presentation"> @Html.ActionLink("Kunderedigering", "AllCustomers", "AdminCustomerController", new { area = "" }, new { @class = "navbar-brand" })</li>
-            if (Model.orderAdmin)
-                <li role="presentation">@Html.ActionLink("Ordreredigering", "AllOrders", "AdminOrderController", new { area = "" }, new { @class = "navbar-brand" })</li>
-            if (Model.productAdmin)
-                <li role="presentation"> @Html.ActionLink("Produktredigering", "AllProducts", "AdminProductController", new { area = "" }, new { @class = "navbar-brand" })</li>
-            if (Model.databaseAdmin)
-                <li role="presentation"> @Html.ActionLink("Database", "", "", new { area = "" }, new { @class = "navbar-brand" })</li>
-
-        }
-
- </ul>
+  
+<h2>Dette er en test</h2>
 
 
-
-<h2>Innlogget som administrator</h2>
 

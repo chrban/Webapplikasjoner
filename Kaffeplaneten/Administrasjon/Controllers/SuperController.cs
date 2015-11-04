@@ -30,9 +30,12 @@ namespace Administrasjon.Controllers
         private static byte[] createHash(string incPassword)
         {
             var algorithm = System.Security.Cryptography.SHA512.Create();
-            byte[] incData, outData;
-            incData = System.Text.Encoding.ASCII.GetBytes(incPassword);
-            outData = algorithm.ComputeHash(incData);
+            byte[] incData, outData = null;
+            if (incPassword != null)
+            {
+                incData = System.Text.Encoding.ASCII.GetBytes(incPassword);
+                outData = algorithm.ComputeHash(incData);
+            }
             return outData;
         }
 
