@@ -23,9 +23,9 @@ namespace Administrasjon.Controllers
             return PartialView(user);
         }
 
-        public ActionResult Home()
+        public ActionResult Home(EmployeeModel emp)
         {
-            return View();
+            return View(emp);
         }
 
        

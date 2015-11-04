@@ -13,16 +13,21 @@ namespace Kaffeplaneten.BLL
     {
 
         private IUserDAL _userDAL;
+        private LoggingBLL _loggingBLL;
         public UserBLL(IUserDAL iUserDAL)
         {
             _userDAL = iUserDAL;
+            _loggingBLL = new LoggingBLL();
         }
         public UserBLL()
         {
             _userDAL = new UserDAL();
+            _loggingBLL = new LoggingBLL();
         }
         public bool add(UserModel userModel)//Legger en Users inn i databasen
         {
+            _loggingBLL.logToUser("La til en ny bruker: " + userModel.username + " (" + userModel.ID + ")");
+            _loggingBLL.logToDatabase("Ny bruker ble lagt til: " + userModel.username + " (" + userModel.ID + ")");
             return _userDAL.add(userModel);
         }
 
@@ -32,6 +37,8 @@ namespace Kaffeplaneten.BLL
         }
         public bool update(UserModel userModel)//Oppdaterer Users data med dataen i userModel
         {
+            _loggingBLL.logToUser("Oppdaterte bruker: " + userModel.username + " (" + userModel.ID + ")");
+            _loggingBLL.logToDatabase("Bruker: " + userModel.username + " (" + userModel.ID + ") ble oppdatert.");
             return _userDAL.update(userModel);
         }
 

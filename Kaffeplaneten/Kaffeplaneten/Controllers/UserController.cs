@@ -15,11 +15,13 @@ namespace Kaffeplaneten.Controllers
     {
         private CustomerBLL _customerBLL;
         private UserBLL _userBLL;
+        private LoggingBLL _loggingBLL;
 
         public UserController()
         {
             _customerBLL = new CustomerBLL();
             _userBLL = new UserBLL();
+            _loggingBLL = new LoggingBLL();
         }
         public ActionResult createUser()
         {
@@ -36,11 +38,13 @@ namespace Kaffeplaneten.Controllers
             if (customerModel != null)//tester om en bruker med samme epost finnes fra før
             {
                 ModelState.AddModelError("", "Eposten du prøver å registrere finnes allerede. Vennligst benytt en annen adresse");
+                _loggingBLL.logToUser("Prøvde å registrere seg med eksisterende brukernavn: " + customerModel.username);
                 return View(newCustomer);
             }
             if (!_customerBLL.add(newCustomer))//registrerer ny customer
             {
                 ModelState.AddModelError("", "Feil ved registrering av bruker");
+                _loggingBLL.logToUser("Fikk en feil ved registrering av brukernavn: " + customerModel.username);
                 return View(newCustomer);
             }
             customerModel = new UserModel();
@@ -51,6 +55,7 @@ namespace Kaffeplaneten.Controllers
             if (!_userBLL.add(customerModel))//registrerer ny user
             {
                 ModelState.AddModelError("", "Feil ved registrering av bruker");
+                _loggingBLL.logToUser("Fikk en feil ved registrering av brukernavn: " + customerModel.username);
                 return View(newCustomer);
             }
             return RedirectToAction("Loginview", "Security", new { area = "" });
@@ -87,11 +92,13 @@ namespace Kaffeplaneten.Controllers
             if (!_userBLL.update(userModel))//registrerer endinger i user
             {
                 ModelState.AddModelError("", "Epost finnes fra før");
+                _loggingBLL.logToUser("Fikk en feil ved endring av epost: " + customerModel.email);
                 return RedirectToAction("editAccountView");
             }
             if (!_customerBLL.update(customerModel))//registrerer endring i customer
             {
                 ModelState.AddModelError("", "Feil ved registrering av data");
+                _loggingBLL.logToUser("Fikk en feil ved endring av data på bruker.");
                 return RedirectToAction("editAccountView");
             }
             return RedirectToAction("accountView");

@@ -12,20 +12,27 @@ namespace Kaffeplaneten.BLL
     public class OrderBLL
     {
         private IOrderDAL _orderDAL;
+        private LoggingBLL _loggingBLL;
         public OrderBLL(IOrderDAL iOrderDAL)
         {
             _orderDAL = iOrderDAL;
+            _loggingBLL = new LoggingBLL();
         }
         public OrderBLL()
         {
             _orderDAL = new OrderDAL();
+            _loggingBLL = new LoggingBLL();
         }
         public bool add(OrderModel orderModel)/*Legger Orders og ProductOrders inn i databasen. CustomerID og pruductID-ene må være med i modellen*/
         {
+            _loggingBLL.logToDatabase(orderModel.orderNr + " ble lagt til i databasen.");
+            _loggingBLL.logToUser("Bestilte ordre: " + orderModel.orderNr);
             return _orderDAL.add(orderModel);
         }
         public bool addProductOrders(OrderModel orderModel)/*Legger ProductOrders inn i databasen. OrderNr og pruductID-ene må være med i modellen*/
         {
+            _loggingBLL.logToDatabase(orderModel.orderNr + " ble lagt til i databasen.");
+            _loggingBLL.logToUser("La til produkt ordre: " + orderModel.orderNr);
             return _orderDAL.addProductOrders(orderModel);            
         }
 

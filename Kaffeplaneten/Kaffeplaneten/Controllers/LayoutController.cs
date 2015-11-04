@@ -9,8 +9,6 @@ namespace Kaffeplaneten.Controllers
 {
     public class LayoutController : SuperController
     {
-
-
         public ActionResult HeaderAndMenuBar(UserModel user)
         {
             if (Session[LOGGED_INN] != null)
