@@ -33,8 +33,8 @@ namespace Administrasjon.Controllers
             byte[] incData, outData = null;
             if (incPassword != null)
             {
-                incData = System.Text.Encoding.ASCII.GetBytes(incPassword);
-                outData = algorithm.ComputeHash(incData);
+            incData = System.Text.Encoding.ASCII.GetBytes(incPassword);
+            outData = algorithm.ComputeHash(incData);
             }
             return outData;
         }

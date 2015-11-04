@@ -38,7 +38,12 @@ namespace Administrasjon.Controllers
             foreach(var i in ProductList)
             {
                 if(i.productID==id)
+                {
+                    UniqueCategory();
+                    Session["tempPID"] = id;
+                    
                     return View(i);
+                }
             }
 
             return View();
@@ -47,15 +52,11 @@ namespace Administrasjon.Controllers
         [HttpPost]
         public ActionResult Edit(ProductModel _productModel)
         {
-            Debug.WriteLine("Selve objektet: "+ _productModel);
-            Debug.WriteLine("objektet navn: " + _productModel.productName);
-            Debug.WriteLine("Inni edit i controller: " + _productModel.productID);
+            _productModel.productID = (Int32)Session["tempPID"];
 
-            if(_productBLL.update(_productModel))
+            if (_productBLL.update(_productModel))
             {
-                Debug.WriteLine("INNI edit i iffen ");
                 return RedirectToAction("AllProducts");
-
             }
             else
             {
@@ -79,6 +80,7 @@ namespace Administrasjon.Controllers
 
         public ActionResult Add()
         {
+            UniqueCategory();
             return View("Add");
         }
 
@@ -100,5 +102,19 @@ namespace Administrasjon.Controllers
 
         }
 
+        public void UniqueCategory()
+        {
+            var uniqeCategories = new List<String>();
+            var ProductList = _productBLL.getAllProducts();
+
+            foreach (var c in ProductList)
+            {
+                if (!uniqeCategories.Contains(c.category))
+                {
+                    uniqeCategories.Add(c.category);
+                }
+            }
+            ViewBag.uniqeCategories = uniqeCategories;
+        }
     }
 }

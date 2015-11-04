@@ -5,10 +5,13 @@ using System.Text;
 using System.Threading.Tasks;
 using Kaffeplaneten.DAL;
 using Kaffeplaneten.Models;
+using System.Diagnostics;
+using Newtonsoft.Json.Linq;
+using System.Web;
 
 namespace Kaffeplaneten.BLL
 {
-    class LoggingBLL
+    public class LoggingBLL
     {
         private LoggingDAL _loggingDAL;
 
@@ -17,8 +20,8 @@ namespace Kaffeplaneten.BLL
             _loggingDAL = new LoggingDAL();
         }
 
-        public bool logToUser(Persons user, string action) {
-            return _loggingDAL.logToUser(user, action);
+        public bool logToUser(string action) {
+            return _loggingDAL.logToUser(action);
         }
         public bool logToDatabase(string action)
         {
@@ -27,11 +30,11 @@ namespace Kaffeplaneten.BLL
 
         // Find messages with certain criteria.
         // Needs to be done.
-        public bool findInDatabaseLog(string criteria)
+        public JObject findInDatabaseLog(string criteria)
         {
             return _loggingDAL.findInDatabaseLog(criteria);
         }
-        public bool findInInteractionLog(string criteria)
+        public JObject findInInteractionLog(string criteria)
         {
             return _loggingDAL.findInInteractionLog(criteria);
         }
@@ -41,6 +44,9 @@ namespace Kaffeplaneten.BLL
             return _loggingDAL.createLog(type);
         }
 
-
+        public void outputLog()
+        {
+            _loggingDAL.outputLogToConsole();
+        }
     }
 }
