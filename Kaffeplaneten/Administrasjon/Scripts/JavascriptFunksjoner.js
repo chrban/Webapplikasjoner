@@ -51,7 +51,7 @@ $(document).ready(function(){
 
     function sameAdress() {
         if ($('#checkbox').is(":checked")) {
-            $('#adress').text(function () {
+            $('#adress').html(function () {
                 $('#payAdress').val($(this).val());
             });
             $('#adress').keyup(function () {
@@ -61,7 +61,7 @@ $(document).ready(function(){
                 $('#payAdress').val($(this).val());
             });
 
-            $('#zipcode').text(function () {
+            $('#zipcode').html(function () {
                 $('#payZipcode').val($(this).val());
             });
             $('#zipcode').keyup(function () {
@@ -71,7 +71,7 @@ $(document).ready(function(){
                 $('#payZipcode').val($(this).val());
             });
 
-            $('#province').text(function () {
+            $('#province').html(function () {
                 $('#payProvince').val($(this).val());
             });
             $('#province').keyup(function () {

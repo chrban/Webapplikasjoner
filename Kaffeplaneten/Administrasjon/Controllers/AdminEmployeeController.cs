@@ -22,7 +22,6 @@ namespace Administrasjon.Controllers
 
             return View();
         }
-            
 
         public ActionResult EmployeeEditorView()
         {

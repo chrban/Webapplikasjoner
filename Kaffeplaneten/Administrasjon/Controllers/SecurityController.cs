@@ -38,7 +38,7 @@ namespace Administrasjon.Controllers
         [HttpPost]
         public ActionResult Loginview(UserModel user)
         {
-
+            Session["Feilmelding"] = "";
             user.passwordHash = base.getHash(user.password);
             if (_userBLL.verifyUser(user))
             {
@@ -50,9 +50,11 @@ namespace Administrasjon.Controllers
                 Session["orderAdmin"] = Emp.orderAdmin;
                 Session["productAdmin"] = Emp.productAdmin;
                 Session["databaseAdmin"] = Emp.databaseAdmin;
+                Session["firstname"] = Emp.firstName;
+                Session["lastname"] = Emp.lastName;
                 return RedirectToAction("Home", "Layout");
             }
-            ModelState.AddModelError("", "Feil brukernavn eller passord");
+            Session["Feilmelding"] = "Feil i brukernavn eller passord";
             return View();
        
         }
@@ -77,6 +79,8 @@ namespace Administrasjon.Controllers
             Session["orderAdmin"] = null;
             Session["productAdmin"] = null;
             Session["databaseAdmin"] = null;
+            Session["firstname"] = null;
+            Session["lastname"] = null;
             return RedirectToAction("Loginview");
         }
     }
