@@ -95,10 +95,11 @@ namespace Kaffeplaneten.DAL
                     employeeModel.username = temp.email;
                     employeeModel.phone = temp.phone;
                     employeeModel.customerAdmin = temp.customerAdmin;
-                    employeeModel.orderAdmin = temp.databaseAdmin;
+                    employeeModel.orderAdmin = temp.orderAdmin;
                     employeeModel.employeeAdmin = temp.employeeAdmin;
                     employeeModel.productAdmin = temp.productAdmin;
-         
+                    employeeModel.databaseAdmin = temp.databaseAdmin;
+
                     return employeeModel;
                 }//end try
                 catch (Exception ex)

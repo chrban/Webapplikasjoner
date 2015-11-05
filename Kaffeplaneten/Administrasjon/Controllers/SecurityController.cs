@@ -47,26 +47,16 @@ namespace Administrasjon.Controllers
                 if(Emp != null)
                 {
 
-                    //if(Session["employeeAdmin"] == null)
-                    Debug.WriteLine("employeeAdmin fra Emp:" + Emp.employeeAdmin);
+                    if(Session["employeeAdmin"] == null)
                         Session["employeeAdmin"] = Emp.employeeAdmin;
-                    Debug.WriteLine("AnsattR: " + Session["employeeAdmin"]);
-                    //if(Session["customerAdmin"]== null)
-                    Debug.WriteLine("customerAdmin fra Emp:" + Emp.customerAdmin);
-                    Session["customerAdmin"] = Emp.customerAdmin;
-                    Debug.WriteLine("KundeR: " + Session["customerAdmin"]);
-                    //if (Session["orderAdmin"] == null)
-                    Debug.WriteLine("OrderAdmin fra Emp:" + Emp.orderAdmin);
-                    Session["orderAdmin"] = Emp.orderAdmin;
-                    Debug.WriteLine("ordreR: " + Session["orderAdmin"]);
-                    //if (Session["productAdmin"] == null)
-                    Debug.WriteLine("Productadmin fra Emp:" + Emp.productAdmin);
-                    Session["productAdmin"] = Emp.productAdmin;
-                    Debug.WriteLine("productR: " + Session["productAdmin"]);
-                    //if (Session["databaseAdmin"] == null)
-                    Debug.WriteLine("databaseAdmin fra Emp:" + Emp.databaseAdmin);
-                    Session["databaseAdmin"] = Emp.databaseAdmin;
-                    Debug.WriteLine("databaseR: " + Session["databaseAdmin"]);
+                    if(Session["customerAdmin"]== null)
+                        Session["customerAdmin"] = Emp.customerAdmin;
+                    if (Session["orderAdmin"] == null)
+                        Session["orderAdmin"] = Emp.orderAdmin;
+                    if (Session["productAdmin"] == null)
+                        Session["productAdmin"] = Emp.productAdmin;
+                    if (Session["databaseAdmin"] == null)
+                        Session["databaseAdmin"] = Emp.databaseAdmin;
 
                     Session["firstname"] = Emp.firstName;
                     Session["lastname"] = Emp.lastName;
