@@ -36,5 +36,9 @@ namespace Kaffeplaneten.BLL
         {
             return _employeeDAL.update(employeeModel);
         }
+        public List<EmployeeModel> getAllEmployees()
+        {
+            return _employeeDAL.getAllEmployees();
+        }
     }//end namespace
 }//end class

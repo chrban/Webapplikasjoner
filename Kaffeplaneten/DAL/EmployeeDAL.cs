@@ -24,7 +24,7 @@ namespace Kaffeplaneten.DAL
                         return false;
                     var newEmployee = new Employee()//Opretter ny employee
                     {
-                        email = employeeModel.username,
+                        email = employeeModel.username + "@kaffeplaneten.no",
                         firstName = employeeModel.firstName,
                         lastName = employeeModel.lastName,
                         phone = employeeModel.phone,
@@ -111,7 +111,33 @@ namespace Kaffeplaneten.DAL
             }//end using
             return null;
         }
+        public List<EmployeeModel> getAllEmployees()
+        {
+            using (var db = new CustomerContext())
+            {
+                var EmployeeList = new List<EmployeeModel>();
+                try
+                {
 
+                    var employees = (from e in db.Employees select e).ToList();
+                    if (employees != null)
+                        foreach (var e in employees)
+                        {
+                            var empModel = new EmployeeModel();
+                            empModel.employeeID = e.personID;
+                            empModel.firstName = e.firstName;
+                            empModel.lastName = e.lastName;
+                            empModel.phone = e.phone;
+                            EmployeeList.Add(empModel);
+                        }
+                    return EmployeeList;
+                }
+                catch (Exception)
+                {
+                }
+                return null;
+            }
+        }
         public bool update(EmployeeModel employeeModel)//Oppdaterer employeen som har personID lik employeeModel.personID
         {
             using (var db = new CustomerContext())

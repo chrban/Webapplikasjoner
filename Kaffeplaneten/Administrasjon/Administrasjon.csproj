@@ -128,11 +128,12 @@
     </Content>
     <Content Include="Views\Security\Loginview.cshtml" />
     <Content Include="Views\AdminProduct\Edit.cshtml" />
-    <Content Include="Views\AdminEmployee\EmployeeEditorView.cshtml" />
     <Content Include="Views\AdminProduct\Add.cshtml" />
     <Content Include="Views\Security\LoggedIn.cshtml" />
     <Content Include="Web.config" />
     <Content Include="Views\Layout\Home.cshtml" />
+    <Content Include="Views\AdminEmployee\createEmployee.cshtml" />
+    <Content Include="Views\AdminEmployee\AllEmployees.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

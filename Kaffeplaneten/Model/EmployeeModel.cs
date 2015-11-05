@@ -19,8 +19,9 @@ namespace Kaffeplaneten.Models
         public string lastName { get; set; }
 
         [Display(Name = "Brukernavn(Epost): ")]
+        [StringLength(50, MinimumLength = 2, ErrorMessage = "Brukernavnet må innholde minst 2 bokstaver. Max-lengde er 50")]
         [Required(ErrorMessage = "Epost må oppgis")]
-        [RegularExpression(@"[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}", ErrorMessage = "Feil ved opprettelse av epost. Eksempel på struktur: 'Ola@nordmann.no'")]
+        [RegularExpression(@"^[a-z,.'-]+$", ErrorMessage = "Feil ved opprettelse av epost. kun små bokstaver og , . ' - er tillat")]
         public string username { get; set; }
 
         [Required(ErrorMessage = "Passord må oppgis")]
@@ -43,11 +44,15 @@ namespace Kaffeplaneten.Models
         public string phone { get; set; }
 
         public int employeeID { get; set; }
-
+        [Display(Name = "Ansattredigigering")]
         public bool employeeAdmin { get; set; }
+        [Display(Name = "Ordreredigigering")]
         public bool orderAdmin { get; set; }
+        [Display(Name = "Produktredigigering")]
         public bool productAdmin { get; set; }
+        [Display(Name = "Kunderedigigering")]
         public bool customerAdmin { get; set; }
+        [Display(Name = "Database-loggtilgang")]
         public bool databaseAdmin { get; set; }
     }
 }

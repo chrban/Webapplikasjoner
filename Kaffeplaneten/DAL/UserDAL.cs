@@ -17,26 +17,31 @@ namespace Kaffeplaneten.DAL
             {
                 try
                 {
+                    Debug.WriteLine("Test1");
                     var user = (from u in db.Users
                                 where u.username.Equals(userModel.username)
                                 select u).FirstOrDefault();
                     if (user != null)
                         return false;
-
+                    Debug.WriteLine("Test2");
                     user = new Users()
                     {
                         username = userModel.username,
                         password = userModel.passwordHash
                     };
+                    Debug.WriteLine("Test3");
                     user.person = (from c in db.Customers
                                    where c.email.Equals(userModel.username)
                                    select c).SingleOrDefault();
                     if (user.person == null)//tester om Users sin admin finnes
+                    {
                         user.person = (from e in db.Employees
                                        where e.email.Equals(userModel.username)
                                        select e).SingleOrDefault();
+                    }
                     if (user.person == null)//tester om Users sin customer finnes
                             return false;
+                    Debug.WriteLine("Test4");
                     db.Users.Add(user);
                         db.SaveChanges();
                     return true;

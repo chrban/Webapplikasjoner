@@ -1,0 +1,43 @@
+﻿@model IEnumerable<Kaffeplaneten.Models.EmployeeModel>
+@{
+    ViewBag.Title = "AllEmployees";
+}
+@Html.AntiForgeryToken()
+@Html.ValidationSummary(true)
+@Html.Action("HeaderAndMenuBar", "Layout")
+<h2>Liste over alle ansatte: </h2>
+<div class="container">
+    <table class="table table-hover">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.employeeID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.firstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.lastName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.phone)
+            </th>
+        </tr>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.employeeID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.firstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.lastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.phone)
+            </td>
+         </tr>   
+         }
+        </table>
+    </div>
