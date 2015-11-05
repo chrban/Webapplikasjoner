@@ -80,7 +80,8 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-info" data-dismiss="modal">Avbryt</button>
-                            @Html.ActionLink("Slett", "Delete", "AdminProduct", new { id = item.productID }, null)
+                            @Html.ActionLink("Slett", "Delete", "AdminProduct", new { id = item.productID }, new { @class = "btn btn-danger " })
+                            
                         </div>
                     </div>
                 </div>

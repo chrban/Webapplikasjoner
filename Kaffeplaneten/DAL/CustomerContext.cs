@@ -34,6 +34,7 @@ namespace Kaffeplaneten.DAL
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
         }
 
+        public System.Data.Entity.DbSet<Kaffeplaneten.DAL.Persons> Persons { get; set; }
     }
     public abstract class Persons
     {

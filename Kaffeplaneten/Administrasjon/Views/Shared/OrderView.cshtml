@@ -1,5 +1,6 @@
 ﻿@model Kaffeplaneten.Models.OrderModel
 
+
 @{
     ViewBag.Title = "orderView";
 }
@@ -76,7 +77,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-info" data-dismiss="modal">Avbryt</button>
-                @Html.ActionLink("Slett", "cancelOrder", "AdminOrder", new { nr = Model.orderNr }, null)
+                @Html.ActionLink("Slett", "cancelOrder", "AdminOrder", new { nr = Model.orderNr }, new { @class = "btn btn-danger " })
             </div>
         </div>
     </div>
