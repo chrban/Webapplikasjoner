@@ -22,7 +22,7 @@
                 bool customerAdmin = (bool)Session["customerAdmin"];
                 bool orderAdmin = (bool)Session["orderAdmin"];
                 bool productAdmin = (bool)Session["productAdmin"];
-                //bool DatabaseADmin = (bool)Session["databaseAdmin"];
+                bool DatabaseAdmin = (bool)Session["databaseAdmin"];
 
                 if (employeeAdmin)
                 {
@@ -32,14 +32,19 @@
                 {
                     <h3>Rettighet til å endre kundeoplysninger</h3>
                 }
-                if (productAdmin)
+                if (orderAdmin)
                 {
                     <h3>Rettighet til å endre ordreoplysninger</h3>
                 }
-                if (orderAdmin)
+                if (productAdmin)
                 {
-                    <h3>Rettighet til å endre opplysninger</h3>
+                    <h3>Rettighet til å endre produkter, slette, oppdatere og legge til nye</h3>
                 }
+                if (DatabaseAdmin)
+                {
+                    <h3>Rettighet til å lese databaselogg og se over alle endringer som har skjedd av de ulike brukerne</h3>
+                }
+
             }
 
         </div>

@@ -19,7 +19,7 @@ namespace Kaffeplaneten.DAL
             Database.CreateIfNotExists();
         }
         public DbSet<Customers> Customers { get; set; }
-        public DbSet<Employee> Employees { get; set; }
+        public DbSet<Employees> Employees { get; set; }
         public DbSet<Provinces> Provinces { get; set; }
         public DbSet<Products> Products { get; set; }
         public DbSet<Orders> Orders { get; set; }
@@ -52,12 +52,12 @@ namespace Kaffeplaneten.DAL
         public virtual List<Adresses> adresses { get; set; }
     }
 
-    public class Employee : Persons
+    public class Employees : Persons
     {
         public bool employeeAdmin { get; set; }//Kan behandle ansatte og se admin loggen
         public bool databaseAdmin { get; set; }//Kan se på databaseloggen
         public bool productAdmin { get; set; }//Kan behandle produkter
-        public bool orderAdmin { get; set; }//Kan behandle produkter
+        public bool orderAdmin { get; set; }//Kan behandle ordre
         public bool customerAdmin { get; set; }//Kan behandle kunder
     }
 

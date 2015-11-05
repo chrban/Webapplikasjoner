@@ -38,21 +38,42 @@ namespace Administrasjon.Controllers
         [HttpPost]
         public ActionResult Loginview(UserModel user)
         {
-            Session["Feilmelding"] = "";
             user.passwordHash = base.getHash(user.password);
             if (_userBLL.verifyUser(user))
             {
                 Session[LOGGED_INN] = true;
                 ViewBag.LoggedOn = true;
                 EmployeeModel Emp = _EmployeeBLL.find(user.username);
-                Session["employeeAdmin"] = Emp.employeeAdmin;
-                Session["customerAdmin"] = Emp.customerAdmin;
-                Session["orderAdmin"] = Emp.orderAdmin;
-                Session["productAdmin"] = Emp.productAdmin;
-                Session["databaseAdmin"] = Emp.databaseAdmin;
-                Session["firstname"] = Emp.firstName;
-                Session["lastname"] = Emp.lastName;
-                return RedirectToAction("Home", "Layout");
+                if(Emp != null)
+                {
+
+                    //if(Session["employeeAdmin"] == null)
+                    Debug.WriteLine("employeeAdmin fra Emp:" + Emp.employeeAdmin);
+                        Session["employeeAdmin"] = Emp.employeeAdmin;
+                    Debug.WriteLine("AnsattR: " + Session["employeeAdmin"]);
+                    //if(Session["customerAdmin"]== null)
+                    Debug.WriteLine("customerAdmin fra Emp:" + Emp.customerAdmin);
+                    Session["customerAdmin"] = Emp.customerAdmin;
+                    Debug.WriteLine("KundeR: " + Session["customerAdmin"]);
+                    //if (Session["orderAdmin"] == null)
+                    Debug.WriteLine("OrderAdmin fra Emp:" + Emp.orderAdmin);
+                    Session["orderAdmin"] = Emp.orderAdmin;
+                    Debug.WriteLine("ordreR: " + Session["orderAdmin"]);
+                    //if (Session["productAdmin"] == null)
+                    Debug.WriteLine("Productadmin fra Emp:" + Emp.productAdmin);
+                    Session["productAdmin"] = Emp.productAdmin;
+                    Debug.WriteLine("productR: " + Session["productAdmin"]);
+                    //if (Session["databaseAdmin"] == null)
+                    Debug.WriteLine("databaseAdmin fra Emp:" + Emp.databaseAdmin);
+                    Session["databaseAdmin"] = Emp.databaseAdmin;
+                    Debug.WriteLine("databaseR: " + Session["databaseAdmin"]);
+
+                    Session["firstname"] = Emp.firstName;
+                    Session["lastname"] = Emp.lastName;
+                    return RedirectToAction("Home", "Layout");
+                }
+                Session["Feilmelding"] = "Finner ikke brukerepost";
+                return View();
             }
             Session["Feilmelding"] = "Feil i brukernavn eller passord";
             return View();
@@ -62,7 +83,6 @@ namespace Administrasjon.Controllers
         {
             if (Session[LOGGED_INN] != null)
             {
-                Debug.WriteLine("Test1");
                 bool loggetInn = (bool)Session[LOGGED_INN];
                 if (loggetInn)
                 {
