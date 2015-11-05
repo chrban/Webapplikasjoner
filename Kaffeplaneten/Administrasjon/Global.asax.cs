@@ -12,7 +12,7 @@ namespace Administrasjon
         protected void Application_Start()
         {
             Kaffeplaneten.BLL.DataCreater.addSuperadmin();
-            Kaffeplaneten.BLL.DataCreater.addProducts();
+            //Kaffeplaneten.BLL.DataCreater.addProducts();
             Kaffeplaneten.BLL.DataCreater.createCustomer();
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);

@@ -138,14 +138,15 @@
     <Content Include="Views\Security\LoggedIn.cshtml" />
     <Content Include="Web.config" />
     <Content Include="Views\Layout\Home.cshtml" />
-    <Content Include="Views\AdminCustomer\List.cshtml" />
     <Content Include="Views\AdminCustomer\AllCustomers.cshtml" />
     <Content Include="Views\AdminCustomer\Edit.cshtml" />
     <Content Include="Views\AdminOrder\AllOrders.cshtml" />
-    <Content Include="Views\AdminOrder\OrderView.cshtml" />
+    <Content Include="Views\Shared\OrderView.cshtml" />
     <Content Include="Views\AdminLogging\LoggingView.cshtml" />
     <Content Include="Views\AdminEmployee\createEmployee.cshtml" />
     <Content Include="Views\AdminEmployee\AllEmployees.cshtml" />
+    <Content Include="Views\Shared\HelpView.cshtml" />
+    <Content Include="Views\AdminCustomer\Details.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

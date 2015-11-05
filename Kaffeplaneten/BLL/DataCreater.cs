@@ -341,5 +341,11 @@ namespace Kaffeplaneten.BLL
             return customerBLL.update(customerModel);
         }
 
+        public static bool deleteCustomerTest(int id)
+        {
+            var customerBLL = new CustomerBLL();
+            return customerBLL.delete(id);
+        }
+
     }
 }
