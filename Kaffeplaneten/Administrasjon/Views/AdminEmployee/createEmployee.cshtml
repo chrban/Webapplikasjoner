@@ -1,0 +1,326 @@
+﻿@model Kaffeplaneten.Models.EmployeeModel
+@{
+    ViewBag.Title = "createEmployee";
+}
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    @Html.Action("HeaderAndMenuBar", "Layout")
+
+    <div class="container container-fluid col-md-offset-2 col-md-6">
+        <div class="panel-default col-md-offset6 col-md-12">
+            <div class="panel-heading" style="text-align: center;">
+                <h3>Ny ansatt:</h3>
+            </div>
+        </div>
+        <div class="panel-primary">
+            <div class="panel-body">
+                <table class="table table-bordered">
+                    <tr>
+                        <td class="col-md-offset4 col-md-6">
+                            <div class="col-lg-12 input-group">
+                                <div class="input-group input-group-lg">
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-user"></span>
+                                    </span>
+                                    @Html.TextBoxFor(model => model.firstName, new { @class = "form-control", id="firstname", onchange = "validate_firstname()", placeholder = (@Html.DisplayNameFor(model => model.firstName)) })
+                                    <div style="display:none" id="checkFirstname">
+                                        <span class="input-group-addon">
+                                            <span style="color:chartreuse" class="glyphicon glyphicon-ok"></span>
+                                        </span>
+                                    </div>
+                                    <div style="color: red"><div id="valFirstname" style="display:none;"><h4>Du må ha stor forbokstav og fornavnet må være lengre enn 3 bokstaver. Max-lengde er 50</h4></div><h4>@Html.ValidationMessageFor(model => model.firstName)</h4></div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-offset4 col-md-6">
+                            <div class="col-lg-12 input-group">
+                                <div class="input-group input-group-lg">
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-user"></span>
+                                    </span>
+                                    @Html.TextBoxFor(model => model.lastName, new { @class = "form-control", id = "lastname", onchange = "validate_lastname()", placeholder = (@Html.DisplayNameFor(model => model.lastName)) })<div style="color: red"></div>
+                                    <div style="display:none" id="checkLastname">
+                                        <span class="input-group-addon">
+                                            <span style="color:chartreuse" class="glyphicon glyphicon-ok"></span>
+                                        </span>
+                                    </div>
+                                    <div style="color: red"><div id="valLastname" style="display:none;"><h4>Du må ha stor forbokstav og fornavnet må være lengre enn 3 bokstaver. Max-lengde er 50</h4></div><h4>@Html.ValidationMessageFor(model => model.lastName)</h4></div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-offset4 col-md-6">
+                            <div class="col-lg-12 input-group">
+                                <div class="input-group input-group-lg">
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-envelope"></span>
+                                    </span>
+                                    @Html.TextBoxFor(model => model.username, new { @class = "form-control", id = "username", onchange = "validate_username()", placeholder = (@Html.DisplayNameFor(model => model.username)) }) <h4>@@Kaffeplaneten.no</h4> <div style="color: red"></div>
+                                    <div style="display:none" id="checkusername">
+                                        <span class="input-group-addon">
+                                            <span style="color:chartreuse" class="glyphicon glyphicon-ok"></span>
+                                        </span>
+                                    </div>
+                                    <div style="color: red"><div id="valusername" style="display:none;"><h4>Kun små bokstaver og ", - . ' av tegn lovlig"</h4></div><h4>@Html.ValidationMessageFor(model => model.username)</h4></div>
+
+                                </div>  
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-offset4 col-md-6">
+                            <div class="col-lg-12 input-group">
+                                <div class="input-group input-group-lg">
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-lock"></span>
+                                    </span>
+                                    @Html.PasswordFor(model => model.password, new { @class = "form-control", id = "password", onchange = "validate_password()", placeholder = (@Html.DisplayNameFor(model => model.password)) })<div style="color: red"></div>
+                                    <div style="display:none" id="checkpassword">
+                                        <span class="input-group-addon">
+                                            <span style="color:chartreuse" class="glyphicon glyphicon-ok"></span>
+                                        </span>
+                                    </div>
+                                    <div style="color: red"><div id="valpassword" style="display:none;"><h4>Du må ha stor forbokstav og fornavnet må være lengre enn 3 bokstaver. Max-lengde er 50</h4></div><h4>@Html.ValidationMessageFor(model => model.password)</h4></div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-offset4 col-md-6">
+                            <div class="col-lg-12 input-group">
+                                <div class="input-group input-group-lg">
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-lock"></span>
+                                    </span>
+                                    @Html.PasswordFor(model => model.passwordVerifier, new { @class = "form-control", id = "passwordverifier", onchange = "validate_passwordVerifier()", placeholder = (@Html.DisplayNameFor(model => model.passwordVerifier)) })<div style="color: red"></div>
+                                    <div style="display:none" id="checkpasswordverifier">
+                                        <span class="input-group-addon">
+                                            <span style="color:chartreuse" class="glyphicon glyphicon-ok"></span>
+                                        </span>
+                                    </div>
+                                    <div style="color: red"><div id="valpasswordverifier" style="display:none;"><h4>Du må ha stor forbokstav og fornavnet må være lengre enn 3 bokstaver. Max-lengde er 50</h4></div><h4>@Html.ValidationMessageFor(model => model.passwordVerifier)</h4></div>
+
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-offset4 col-md-6">
+                            <div class="col-lg-12 input-group">
+                                <div class="input-group input-group-lg">
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-earphone"></span>
+                                    </span>
+                                    @Html.TextBoxFor(model => model.phone, new { @class = "form-control", id = "phone", onchange = "validate_phone()", placeholder = (@Html.DisplayNameFor(model => model.phone)) })<div style="color: red"></div>
+                                    <div style="display:none" id="checkphone">
+                                        <span class="input-group-addon">
+                                            <span style="color:chartreuse" class="glyphicon glyphicon-ok"></span>
+                                        </span>
+                                    </div>
+                                    <div style="color: red"><div id="valphone" style="display:none;"><h4>Telefonnummeret må være 8 siffer langt</h4></div><h4>@Html.ValidationMessageFor(model => model.phone)</h4></div>
+
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-offset1 col-md-12">
+                            <div class="col-lg-12 input-group">
+                                <div class="input-group input-group-lg">
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-ok-circle"></span>
+                                    </span>
+                                    <input type="text" class="form-control" readonly="readonly" value="Ansattrettigheter"/>@Html.CheckBoxFor(model => model.employeeAdmin, new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-offset1 col-md-12">
+                            <div class="col-lg-12 input-group">
+                                <div class="input-group input-group-lg">
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-ok-circle"></span>
+                                    </span>
+                                    <input type="text" class="form-control" readonly="readonly" value="Kunderettigheter" />@Html.CheckBoxFor(model => model.customerAdmin, new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-offset1 col-md-12">
+                            <div class="col-lg-12 input-group">
+                                <div class="input-group input-group-lg">
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-ok-circle"></span>
+                                    </span>
+                                    <input type="text" class="form-control" readonly="readonly" value="Ordrerettigheter" />@Html.CheckBoxFor(model => model.orderAdmin, new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-offset1 col-md-12">
+                            <div class="col-lg-12 input-group">
+                                <div class="input-group input-group-lg">
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-ok-circle"></span>
+                                    </span>
+                                    <input type="text" class="form-control" readonly="readonly" value="Produktrettigheter" />@Html.CheckBoxFor(model => model.productAdmin, new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-offset1 col-md-12">
+                            <div class="col-lg-12 input-group">
+                                <div class="input-group input-group-lg">
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-ok-circle"></span>
+                                    </span>
+                                    <input type="text" class="form-control" readonly="readonly" value="Databaserettigheter" />@Html.CheckBoxFor(model => model.databaseAdmin, new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+                <div style="color: red"><h3>@Session["userExists"]</h3></div>
+                <div style="color: red"><h3>@Session["employeeError"]</h3></div>
+                <div style="color: red"><h3>@Session["userError"]</h3></div>
+                <div style="color: red"><h3>@Session["employeeExists"]</h3></div>
+                <div class="panel-footer panel-default col-md-offset6 col-md-12">
+                    <input type="submit" value="Opprett bruker" onclick="hideJavacriptValidations()"class="btn btn-success" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+            }
+<script type="text/javascript">
+    
+    function validate_firstname()
+    {
+        regEx = /[A-ZÆØÅ][a-zæøå ,.'-]{2,50}/;
+        OK = regEx.test($("#firstname").val())
+        if(!OK)
+        {
+            document.getElementById("firstname").style.borderColor = "red";
+            document.getElementById("firstname").style.borderWidth = "3px";
+            $("#valFirstname").show();
+            $("#checkFirstname").hide();
+        }
+        else
+        {
+            $("#valFirstname").hide();
+            $("#checkFirstname").show();
+            document.getElementById("firstname").style.borderColor = "chartreuse";
+            document.getElementById("firstname").style.borderWidth = "3px";
+        }
+    }
+    function validate_lastname() {
+        regEx = /[A-ZÆØÅ][a-zæøå ,.'-]{2,50}/;
+        OK = regEx.test($("#lastname").val())
+        if (!OK) {
+            document.getElementById("lastname").style.borderColor = "red";
+            document.getElementById("lastname").style.borderWidth = "3px";
+            $("#valLastname").show();
+            $("#checkLastname").hide();
+        }
+        else {
+            document.getElementById("lastname").style.borderColor = "chartreuse";
+            document.getElementById("lastname").style.borderWidth = "3px";
+            $("#valLastname").hide();
+            $("#checkLastname").show();
+        }
+    }
+    function validate_username() {
+        regEx = /^[a-z,.'-]+$/;
+        OK = regEx.test($("#username").val())
+        if (!OK) {
+
+            $("#valusername").show();
+            $("#checkusername").hide();
+            document.getElementById("username").style.borderColor = "red";
+            document.getElementById("username").style.borderWidth = "3px";
+        }
+        else {
+            document.getElementById("username").style.borderColor = "chartreuse";
+            document.getElementById("username").style.borderWidth = "3px";
+            $("#valusername").hide();
+            $("#checkusername").show();
+        }
+    }
+
+    function validate_phone() {
+        regEx = /^[0-9]{8}$/;
+        OK = regEx.test($("#phone").val())
+        if (!OK) {
+            $("#valphone").show();
+            $("#checkphone").hide();
+            document.getElementById("phone").style.borderColor = "red";
+            document.getElementById("phone").style.borderWidth = "3px";
+        }
+        else {
+            document.getElementById("phone").style.borderColor = "chartreuse";
+            document.getElementById("phone").style.borderWidth = "3px";
+            $("#valphone").hide();
+            $("#checkphone").show();
+        }
+    }
+    function validate_password() {
+        regEx = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
+        OK = regEx.test($("#password").val())
+        if (!OK) {
+            $("#valpassword").show();
+            $("#checkpassword").hide();
+            document.getElementById("password").style.borderColor = "red";
+            document.getElementById("password").style.borderWidth = "3px";
+        }
+        else {
+            document.getElementById("password").style.borderColor = "chartreuse";
+            document.getElementById("password").style.borderWidth = "3px";
+            $("#valpassword").hide();
+            $("#checkpassword").show();
+        }
+    }
+    function validate_passwordVerifier() {
+        if (!($("#password").val() == $("#passwordverifier").val())) {
+            $("#valpasswordverifier").show();
+            $("#checkpasswordverifier").hide();
+            document.getElementById("passwordverifier").style.borderColor = "red";
+            document.getElementById("passwordverifier").style.borderWidth = "3px";
+        }
+        else {
+            document.getElementById("passwordverifier").style.borderColor = "chartreuse";
+            document.getElementById("passwordverifier").style.borderWidth = "3px";
+            $("#valpasswordverifier").hide();
+            $("#checkpasswordverifier").show();
+        }
+    }
+
+    function hideJavacriptValidations() {
+        $("#valFirstname").hide();
+        $("#checkFirstname").hide();
+
+        $("#valLastname").hide();
+        $("#checkLastname").hide();
+
+        $("#valusername").hide();
+        $("#checkusername").hide();
+
+        $("#valphone").hide();
+        $("#checkphone").hide();
+
+        $("#valpassword").hide();
+        $("#checkpassword").hide();
+
+        $("#valpasswordverifier").hide();
+        $("#checkpasswordverifier").hide();
+    }
+
+</script>
