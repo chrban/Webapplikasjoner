@@ -52,7 +52,6 @@ namespace Administrasjon.Controllers
             if(personExist != null)
             {
                 Session["employeeExists"] = "Ansattbrukeren eksisterer allerede!";
-                Debug.WriteLine("Test at den returnerer viewet");
                 return View(employee);
             }
             if(!_employeeBLL.add(employee))

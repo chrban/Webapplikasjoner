@@ -18,7 +18,7 @@ namespace Kaffeplaneten.DAL
             {
                 try
                 {
-                    if (find(employeeModel.username) == null)//Hvis employeeModel har epostbruker som finnes fra før
+                    if (!(db.Employees.Find(employeeModel.employeeID) == null))//Hvis employeeModel har personID som finnes fra før
                         return false;
                     if (find(employeeModel.username) != null)
                         return false;
