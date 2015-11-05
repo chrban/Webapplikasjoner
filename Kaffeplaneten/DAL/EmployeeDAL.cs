@@ -22,7 +22,7 @@ namespace Kaffeplaneten.DAL
                         return false;
                     if (find(employeeModel.username) != null)
                         return false;
-                    var newEmployee = new Employee()//Opretter ny employee
+                    var newEmployee = new Employees()//Opretter ny employee
                     {
                         email = employeeModel.username + "@kaffeplaneten.no",
                         firstName = employeeModel.firstName,
