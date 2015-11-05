@@ -27,5 +27,14 @@ namespace Administrasjon.Controllers
 
             return View();
         }
+        public ActionResult cancelOrder(int nr)
+        {
+
+            if (_orderBLL.cancelOrder(nr))
+            {
+                return RedirectToAction("AllOrders");
+            }
+            return RedirectToAction("AllOrders");
+        }
     }
 }

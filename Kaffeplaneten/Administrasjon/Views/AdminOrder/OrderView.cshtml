@@ -53,13 +53,34 @@
                 <div class="panel-footer">
 
 
-                    <p>@Html.Label("TOTAL: "): @Model.total,-</p>
+                    <p>@Html.Label("TOTAL: "): @Model.total, -</p>
+
+
+                    <button class="btn btn-danger btn-xs" data-toggle="modal" data-target="#modalDelete-@Model.orderNr">Slett ordre</button>
+
                 </div>
 
             </div>
 
 
-
+<!--DeleteModal-->
+<div class="modal fade" id="modalDelete-@Model.orderNr" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Bekreft sletting!</h4>
+            </div>
+            <div class="modal-body">
+                <p>Er du sikker på at du vil slette ordre @Model.orderNr?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-info" data-dismiss="modal">Avbryt</button>
+                @Html.ActionLink("Slett", "cancelOrder", "AdminOrder", new { nr = Model.orderNr }, null)
+            </div>
+        </div>
+    </div>
+</div>
 
 
 
