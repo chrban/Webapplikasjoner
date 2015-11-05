@@ -263,7 +263,7 @@ namespace Kaffeplaneten.BLL
             var employee = new EmployeeModel();
             employee.firstName = "Sjef";
             employee.lastName = "Ledersen";
-            employee.username = "sjefledersen@kaffeplaneten.no";
+            employee.username = "sjefledersen";
             employee.phone = "99887766";
             employee.employeeAdmin = true;
             employee.orderAdmin = true;

@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using Kaffeplaneten.BLL;
 using Kaffeplaneten.Models;
+using System.Diagnostics;
 
 namespace Administrasjon.Controllers
 {
@@ -50,7 +51,8 @@ namespace Administrasjon.Controllers
             var personExist = _employeeBLL.find(username);
             if(personExist != null)
             {
-                Session["employeeExists"] = "Ansatt du prøver å registere finnes allerede!";
+                Session["employeeExists"] = "Ansattbrukeren eksisterer allerede!";
+                Debug.WriteLine("Test at den returnerer viewet");
                 return View(employee);
             }
             if(!_employeeBLL.add(employee))

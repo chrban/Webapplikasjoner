@@ -17,37 +17,37 @@ namespace Kaffeplaneten.DAL
             {
                 try
                 {
-                    Debug.WriteLine("Test1");
                     var user = (from u in db.Users
                                 where u.username.Equals(userModel.username)
                                 select u).FirstOrDefault();
                     if (user != null)
                         return false;
-                    Debug.WriteLine("Test2");
                     user = new Users()
                     {
                         username = userModel.username,
                         password = userModel.passwordHash
                     };
-                    Debug.WriteLine("Test3");
                     user.person = (from c in db.Customers
                                    where c.email.Equals(userModel.username)
                                    select c).SingleOrDefault();
-                    if (user.person == null)//tester om Users sin admin finnes
+                    if (user.person == null)//tester om Users sin customer finnes
                     {
                         user.person = (from e in db.Employees
                                        where e.email.Equals(userModel.username)
                                        select e).SingleOrDefault();
-                    }
-                    if (user.person == null)//tester om Users sin customer finnes
+                        if (user.person == null)//tester om Users sin admin finnes
+                        {
                             return false;
-                    Debug.WriteLine("Test4");
+                        }
+                    }
+                    
+                   
                     db.Users.Add(user);
                         db.SaveChanges();
                     return true;
                 }
                 catch (Exception ex)
-                        {
+                {
                     Debug.WriteLine("\nERROR!\nMelding:\n" + ex.Message + "\nInner exception:" + ex.InnerException + "\nKastet fra\n" + ex.TargetSite + "\nTrace:\n" + ex.StackTrace);
                     Trace.TraceInformation("Property: {0} Error: {1}", ex.Source, ex.InnerException);
                 }
