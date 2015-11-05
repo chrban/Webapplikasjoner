@@ -26,7 +26,7 @@ namespace Kaffeplaneten.Models
 
         [Required(ErrorMessage = "Passord må oppgis")]
         [StringLength(50, MinimumLength = 8, ErrorMessage = "Passordet må inneholde minimum 8 tegn")]
-        [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$")]
+        [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$", ErrorMessage = "Passordet må innholde min en stor bokstav, små bokstaver og tall") ]
         [Display(Name = "Passord:")]
         public string password { get; set; }
 

@@ -43,6 +43,7 @@ namespace Kaffeplaneten.Models
         [RegularExpression(@"[0-9]{8}", ErrorMessage = "Telefonnummeret må være 8 siffer langt")]
         public string phone { get; set; }
 
+        [Display(Name = "KundeID: ")]
         public int customerID { get; set; }
 
         [Display(Name = "Postnummer: ")]

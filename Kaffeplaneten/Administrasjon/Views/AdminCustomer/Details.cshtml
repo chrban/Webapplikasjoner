@@ -1,0 +1,52 @@
+﻿@model Kaffeplaneten.Models.CustomerModel
+
+@{
+    ViewBag.Title = "Details";
+}
+@Html.Action("HeaderAndMenuBar", "Layout")
+    <div class="container">
+    <h2>Kundeinformasjon</h2>
+
+    <div>
+        <h4>Persons</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.firstName)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.firstName)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.lastName)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.lastName)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.email)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.email)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.phone)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.phone)
+            </dd>
+
+        </dl>
+    </div>
+    <p>
+        @Html.ActionLink("Rediger", "Edit", "AdminCustomer", new { id = Model.customerID }, new { @class = "btn btn-default btn-xs" })
+        @Html.ActionLink("Kundebestillinger", "findOrders", "AdminOrder", new { id = Model.customerID}, new { @class = "btn btn-default btn-xs" })
+    </p>
+</div>

@@ -20,7 +20,7 @@ namespace Administrasjon.Controllers
         // GET: AdminLogging
         public ActionResult Index()
         {
-            return View();
+            return View("LoggingView");
         }
 
         [HttpGet]
