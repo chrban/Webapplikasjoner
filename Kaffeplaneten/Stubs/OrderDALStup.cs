@@ -16,10 +16,19 @@ namespace Stubs
                 return true;
             return false;
         }
-
-        public bool addProductOrders(OrderModel orderModel)
+        public List<OrderModel> allOrders()
         {
-            if (orderModel.customerID > 0)
+            var orders = new List<OrderModel>();
+            orders.Add(find(1));
+            orders.Add(find(1));
+            orders.Add(find(1));
+            orders.Add(find(1));
+            return orders;
+        }
+
+        public bool cancelOrder(int id)
+        {
+            if (id > 0)
                 return true;
             return false;
         }
@@ -34,6 +43,15 @@ namespace Stubs
         }
 
         public List<OrderModel> findOrders(int id)
+        {
+            var list = new List<OrderModel>();
+            list.Add(find(1));
+            list.Add(find(1));
+            list.Add(find(1));
+            list.Add(find(1));
+            return list;
+        }
+        public List<OrderModel> findOrders(CustomerModel customerModel)
         {
             var list = new List<OrderModel>();
             list.Add(find(1));

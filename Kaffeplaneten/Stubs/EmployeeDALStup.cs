@@ -48,6 +48,16 @@ namespace Stubs
             return employeeModel;
         }
 
+        public List<EmployeeModel> getAllEmployees()
+        {
+            var employees = new List<EmployeeModel>();
+            employees.Add(find(1));
+            employees.Add(find(1));
+            employees.Add(find(1));
+            employees.Add(find(1));
+            return employees;
+        }
+
         public string getProvince(string zipCode)
         {
             return "Oslo";
