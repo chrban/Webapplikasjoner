@@ -1,4 +1,5 @@
 ﻿using Kaffeplaneten.Models;
+using System.Collections.Generic;
 
 namespace Kaffeplaneten.DAL
 {
@@ -8,5 +9,6 @@ namespace Kaffeplaneten.DAL
         EmployeeModel find(string email);
         EmployeeModel find(int id);
         bool update(EmployeeModel employeeModel);
+        List<EmployeeModel> getAllEmployees();
     }
 }

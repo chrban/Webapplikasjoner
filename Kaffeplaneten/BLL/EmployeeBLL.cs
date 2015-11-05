@@ -41,5 +41,9 @@ namespace Kaffeplaneten.BLL
             _loggingBLL.logToUser("Oppdaterte ansatt: " + employeeModel.username + " (" + employeeModel.employeeID + ")");
             return _employeeDAL.update(employeeModel);
         }
+        public List<EmployeeModel> getAllEmployees()
+        {
+            return _employeeDAL.getAllEmployees();
+        }
     }//end namespace
 }//end class
