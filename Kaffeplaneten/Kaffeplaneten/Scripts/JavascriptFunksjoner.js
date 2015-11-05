@@ -80,7 +80,7 @@ $(document).ready(function(){
             $('#province').change(function () {
                 $('#payProvince').val($(this).val());
             });
-
+            
         }
         else {
             $('#payAdress').attr("disabled", false);
@@ -93,3 +93,5 @@ $(document).ready(function(){
 
     }
 
+
+    
