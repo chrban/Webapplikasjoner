@@ -325,5 +325,58 @@ namespace Kaffeplaneten.DAL
             }
             return false;
         }
+
+
+        public List<CustomerModel> allCustomers()
+        {
+            using (var db = new CustomerContext())
+            {
+                List<CustomerModel> customerList = new List<CustomerModel>();
+                try
+                {
+                    foreach(var c in db.Customers)
+                    {
+
+                        customerList.Add(find(c.personID));
+                    }
+
+                    return customerList;
+
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine("\nERROR!\nMelding:\n" + ex.Message + "\nInner exception:" + ex.InnerException + "\nKastet fra\n" + ex.TargetSite + "\nTrace:\n" + ex.StackTrace);
+                    Trace.TraceInformation("Property: {0} Error: {1}", ex.Source, ex.InnerException);
+                }
+                return null;
+            }
+
+        }
+
+        public bool delete(int id )
+        {
+            using (var db = new CustomerContext())
+            {
+                try
+                {
+                    Users delUser = (from u in db.Users where u.personID == id select u).Single();
+                    Customers delCustomer = (from c in db.Customers where c.personID == id select c).Single();
+                    db.Users.Remove(delUser);
+                    db.Customers.Remove(delCustomer);
+                    //Adress, Orders og ProductOrder slettes automatisk
+                    db.SaveChanges();
+                    Debug.WriteLine(delCustomer.firstName + "Er slettet");
+                    return true;
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine("\nERROR!\nMelding:\n" + ex.Message + "\nInner exception:" + ex.InnerException + "\nKastet fra\n" + ex.TargetSite + "\nTrace:\n" + ex.StackTrace);
+                    Trace.TraceInformation("Property: {0} Error: {1}", ex.Source, ex.InnerException);
+                }
+            }
+            return false;
+        }
+
+
     }//end namespace
 }//end class

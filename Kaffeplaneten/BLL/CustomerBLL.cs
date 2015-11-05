@@ -12,16 +12,20 @@ namespace Kaffeplaneten.BLL
     public class CustomerBLL
     {
         private ICustomerDAL _customerDAL;
+        private LoggingBLL _loggingBLL;
         public CustomerBLL(ICustomerDAL iCustomerDAL)
         {
             _customerDAL = iCustomerDAL;
+            _loggingBLL = new LoggingBLL();
         }
         public CustomerBLL()
         {
             _customerDAL = new CustomerDAL();
+            _loggingBLL = new LoggingBLL();
         }
         public bool add(CustomerModel IncCustomer)//Legger customer inn i datatbasen
         {
+            _loggingBLL.logToUser("La til bruker: " + IncCustomer.email + " (" + IncCustomer.customerID + ")");
             return _customerDAL.add(IncCustomer);
         }
 
@@ -36,6 +40,7 @@ namespace Kaffeplaneten.BLL
 
         public bool update(CustomerModel customerModel)//Oppdaterer customeren som har customerID lik customerModel.customerID
         {
+            _loggingBLL.logToUser("Oppdaterte bruker: " + customerModel.email + " (" + customerModel.customerID + ")");
             return _customerDAL.update(customerModel);
         }
 
@@ -53,5 +58,17 @@ namespace Kaffeplaneten.BLL
         {
             return _customerDAL.addProvince(adress);
         }
+
+        public List<CustomerModel> allCustomers()
+        {
+           return  _customerDAL.allCustomers();
+        }
+        public bool delete(int id)
+        {
+            return _customerDAL.delete(id);
+        }
+
+
+
     }//end namespace
 }//end class

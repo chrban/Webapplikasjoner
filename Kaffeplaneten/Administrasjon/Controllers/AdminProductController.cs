@@ -50,15 +50,15 @@ namespace Administrasjon.Controllers
         }
 
         [HttpPost]
-        public ActionResult Edit(ProductModel _productModel)
+        public ActionResult Edit(ProductModel productModel)
         {
-            _productModel.productID = (Int32)Session["tempPID"];
+            productModel.productID = (Int32)Session["tempPID"];
 
-            if (_productBLL.update(_productModel))
+            if (_productBLL.update(productModel))
             {
                 return RedirectToAction("AllProducts");
             }
-            else
+            else 
             {
                 Debug.WriteLine("EDIT FEILER");
                 return View();

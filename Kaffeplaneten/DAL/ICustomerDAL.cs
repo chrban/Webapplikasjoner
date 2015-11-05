@@ -1,4 +1,5 @@
 ﻿using Kaffeplaneten.Models;
+using System.Collections.Generic;
 
 namespace Kaffeplaneten.DAL
 {
@@ -11,5 +12,7 @@ namespace Kaffeplaneten.DAL
         CustomerModel find(int id);
         string getProvince(string zipCode);
         bool update(CustomerModel customerModel);
+        List<CustomerModel> allCustomers();
+        bool delete(int id);
     }
 }

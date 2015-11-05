@@ -16,6 +16,7 @@ namespace Kaffeplaneten.BLL
         }
         public static void addProducts()
         {
+            var _logging = new LoggingBLL().logToDatabase("Startet datacreator.");
             try
             {
                 addProduct(createAfterDinnerBlend());

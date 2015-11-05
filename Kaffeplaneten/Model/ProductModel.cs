@@ -28,7 +28,6 @@ namespace Kaffeplaneten.Models
 
         [Required]
         [Display(Name = "Pris: ")]
-        [DataType(DataType.Currency)]
         public double price { get; set; }
 
         [Required]

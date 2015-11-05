@@ -11,10 +11,12 @@ namespace Kaffeplaneten.Controllers
     {
 
         private OrderBLL _orderBLL;
+        private LoggingBLL _loggingBLL;
 
         public OrderController()
         {
             _orderBLL = new OrderBLL();
+            _loggingBLL = new LoggingBLL();
         }
         public ActionResult confirmOrderView()
         {
@@ -55,11 +57,13 @@ namespace Kaffeplaneten.Controllers
             if (orderModel == null)
             {
                 ModelState.AddModelError("", "Orderen er allerede registrert");
+                _loggingBLL.logToUser("Prøvde å legge til ny ordre som allerede var registrert.");
                 return View(new OrderModel());
             }
             if(!saveOrder(orderModel))
             {
                 ModelState.AddModelError("", "Feil ved registrering av data");
+                _loggingBLL.logToDatabase("Det var en feil ved registrerting av data fra en ordre: " + orderModel.orderNr);
                 return View(new OrderModel());
             }
             return View(orderModel);

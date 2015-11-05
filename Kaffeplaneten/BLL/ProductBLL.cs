@@ -11,13 +11,16 @@ namespace Kaffeplaneten.BLL
     {
 
         private IProductDAL _productDAL;
+        private LoggingBLL _loggingBLL;
         public ProductBLL(IProductDAL iProductDAL)
         {
             _productDAL = iProductDAL;
+            _loggingBLL = new LoggingBLL();
         }
         public ProductBLL()
         {
             _productDAL = new ProductDAL();
+            _loggingBLL = new LoggingBLL();
         }
         
         public  List<ProductModel> getAllProducts()//Henter alle produkter fra databasen og oppretter liste av modelobjekter 
@@ -26,10 +29,14 @@ namespace Kaffeplaneten.BLL
         }
         public bool add(ProductModel productModel)//Legger et produkt inn i databasen
         {
+            _loggingBLL.logToUser("La til produkt " + productModel.productName + " (" + productModel.productID + ") " + "i databasen.");
+            _loggingBLL.logToDatabase("Produkt " +  " (" + productModel.productID + ") " + " ble lagt til i databasen.");
             return _productDAL.add(productModel);
         }
         public bool updateQuantity(ProductModel productModel)//Oppdaterer lagerstatur på produkt. Bruker productModel.stock som ny verdi
         {
+            _loggingBLL.logToUser("Oppdaterte lagerstatus på " + productModel.productName + " (" + productModel.productID + ")");
+            _loggingBLL.logToDatabase("Produkt " + " (" + productModel.productID + ") " + " fikk lagerstatus oppdatert.");
             return _productDAL.updateQuantity(productModel);
         }
         public ProductModel find(int id)//Henter ut produkt med id lik id
@@ -39,10 +46,14 @@ namespace Kaffeplaneten.BLL
 
         public bool update(ProductModel productModel)
         {
+            _loggingBLL.logToUser("Oppdaterte produkt: " + productModel.productName + " (" + productModel.productID + ")");
+            _loggingBLL.logToDatabase("Produkt " + " (" + productModel.productID + ") " + " ble oppdatert.");
             return _productDAL.update(productModel);
         }
         public bool delete(int id)
         {
+            _loggingBLL.logToUser("Slettet produkt med ProduktID: " + id);
+            _loggingBLL.logToDatabase("Produkt " + id + " ble slettet fra databasen.");
             return _productDAL.Delete(id);
         }
 

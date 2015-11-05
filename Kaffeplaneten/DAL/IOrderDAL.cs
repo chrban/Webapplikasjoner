@@ -9,5 +9,6 @@ namespace Kaffeplaneten.DAL
         bool addProductOrders(OrderModel orderModel);
         OrderModel find(int nr);
         List<OrderModel> findOrders(int id);
+        List<OrderModel> allOrders();
     }
 }

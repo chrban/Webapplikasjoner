@@ -132,5 +132,34 @@ namespace Kaffeplaneten.DAL
             }//end using
             return null;
         }//end findOrders()
+
+        public List<OrderModel> allOrders()
+        {
+            var orderList = new List<OrderModel>();
+            using (var db = new CustomerContext())
+            {
+                try
+                {
+                    var orders = (from o in db.Orders select o).ToList();
+
+                    foreach ( var o in orders)
+                    {
+                        orderList.Add(find(o.orderNr));
+                    }
+                    return orderList;
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine("\nERROR!\nMelding:\n" + ex.Message + "\nInner exception:" + ex.InnerException + "\nKastet fra\n" + ex.TargetSite + "\nTrace:\n" + ex.StackTrace);
+                    Trace.TraceInformation("Property: {0} Error: {1}", ex.Source, ex.InnerException);
+                }
+            }
+            return null;
+        }
+
+
+
+
+
     } //end namespace
 }//end class

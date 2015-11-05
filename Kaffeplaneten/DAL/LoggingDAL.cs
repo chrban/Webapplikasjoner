@@ -23,7 +23,7 @@ namespace Kaffeplaneten.DAL
             CustomerModel user;
             EmployeeModel employee;
             string logLine = "";
-
+            /*
             if (HttpContext.Current.Session["LoggedInn"] == null || (bool)HttpContext.Current.Session["LoggedInn"] == false)
             {
                 user = new CustomerModel()
@@ -56,7 +56,7 @@ namespace Kaffeplaneten.DAL
                          "\"UserID\": \"" + employee.employeeID + "\"," +
                          "\"User\": \"" + employee.firstName + " " + employee.lastName + "\"," +
                          "\"Action\": \"" + message + "\" }";
-            }
+            }*/
 
             try
             {

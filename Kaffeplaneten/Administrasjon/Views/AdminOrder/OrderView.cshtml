@@ -1,0 +1,66 @@
+﻿@model Kaffeplaneten.Models.OrderModel
+
+@{
+    ViewBag.Title = "orderView";
+}
+            <div class="panel panel-default">
+                <div class="panel-heading">@Html.Label("Ordrenummer: #")@Model.orderNr - @Html.Label("Bestillt av kunde: #") @Model.customerID </div>
+                <table class="table table-hover">
+                    <tr>
+                        <th>
+                           @Html.Label("Produktavn: ")
+                        </th>
+                        <th>
+                            @Html.Label("Kategori: ")
+                        </th>
+                        <th>
+                            @Html.Label("Pris: ")
+                            
+                        </th>
+                        <th>
+                            @Html.Label("Antall: ")
+                        </th>
+                        <th>
+                            @Html.Label("Produkt Id: ")
+                        </th>
+
+                    </tr>
+                @foreach (var o in Model.products)
+                {
+                    <tr>
+                        <th>
+                             @Html.DisplayFor(model => o.productName)
+
+                        </th>
+                        <th>
+                            @Html.DisplayFor(model => o.category)
+                        </th>
+                        <th>
+                             @Html.DisplayFor(model => o.price)
+                        </th>
+                        <th>
+                            @Html.DisplayFor(model => o.quantity)
+                        </th>
+                        <th>
+                            @Html.DisplayFor(model => o.productID)
+                           
+                        </th>
+                    </tr>
+
+                }
+                    </table>
+
+                <div class="panel-footer">
+
+
+                    <p>@Html.Label("TOTAL: "): @Model.total,-</p>
+                </div>
+
+            </div>
+
+
+
+
+
+
+

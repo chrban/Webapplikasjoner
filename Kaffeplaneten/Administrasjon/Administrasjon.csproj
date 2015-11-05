@@ -132,6 +132,11 @@
     <Content Include="Views\Security\LoggedIn.cshtml" />
     <Content Include="Web.config" />
     <Content Include="Views\Layout\Home.cshtml" />
+    <Content Include="Views\AdminCustomer\List.cshtml" />
+    <Content Include="Views\AdminCustomer\AllCustomers.cshtml" />
+    <Content Include="Views\AdminCustomer\Edit.cshtml" />
+    <Content Include="Views\AdminOrder\AllOrders.cshtml" />
+    <Content Include="Views\AdminOrder\OrderView.cshtml" />
     <Content Include="Views\AdminEmployee\createEmployee.cshtml" />
     <Content Include="Views\AdminEmployee\AllEmployees.cshtml" />
     <None Include="Web.Debug.config">
@@ -143,7 +148,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AdminCustomerController.cs" />
     <Compile Include="Controllers\AdminEmployeeController.cs" />
+    <Compile Include="Controllers\AdminOrderController.cs" />
     <Compile Include="Controllers\AdminProductController.cs" />
     <Compile Include="Controllers\LayoutController.cs" />
     <Compile Include="Controllers\SecurityController.cs" />
