@@ -80,15 +80,33 @@ namespace Kaffeplaneten.DAL
                     var order = (from o in db.Orders
                                  where o.orderNr == nr
                                  select o).FirstOrDefault();
-                    if (order == null)//tester om orderen finnes
-                        return null;
+                    return createOrderModel(order);
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine("\nERROR!\nMelding:\n" + ex.Message + "\nInner exception:" + ex.InnerException + "\nKastet fra\n" + ex.TargetSite + "\nSource:\n" + ex.Source);
+                    Trace.TraceInformation("Property: {0} Error: {1}", ex.Source, ex.InnerException);
+                    //Environment.Exit(1);
+                }
+            }
+            return null;
+        }
 
+        private OrderModel createOrderModel(Orders order)
+        {
+            var orderModel = new OrderModel();
+            using (var db = new CustomerContext())
+            {
+                if (order == null)//tester om orderen finnes
+                    return null;
+                try
+                {
                     orderModel.orderNr = order.orderNr;
                     orderModel.customerID = order.personID;
 
                     var productOrders = (from p in db.ProductOrders
-                                  where p.orderNr == nr
-                                  select p).ToList();
+                                         where p.orderNr == order.orderNr
+                                         select p).ToList();
                     orderModel.total = 0;
                     var productDAL = new ProductDAL();
                     foreach (var o in productOrders)//legger produktene til i order modellen
@@ -104,7 +122,6 @@ namespace Kaffeplaneten.DAL
                 {
                     Debug.WriteLine("\nERROR!\nMelding:\n" + ex.Message + "\nInner exception:" + ex.InnerException + "\nKastet fra\n" + ex.TargetSite + "\nSource:\n" + ex.Source);
                     Trace.TraceInformation("Property: {0} Error: {1}", ex.Source, ex.InnerException);
-                    //Environment.Exit(1);
                 }
             }
             return null;
@@ -132,6 +149,31 @@ namespace Kaffeplaneten.DAL
             }//end using
             return null;
         }//end findOrders()
+
+        public List<OrderModel> findOrders(CustomerModel customerModel)
+        {
+            var orderModelList = new List<OrderModel>();
+            using(var db = new CustomerContext())
+            {
+                try
+                {
+                    var orders = (from o in db.Orders
+                                  where o.personID == customerModel.customerID ||
+                                  o.Customers.email.Equals(customerModel.email) ||
+                                  o.Customers.phone.Equals(customerModel.phone)
+                                  select o).ToList();
+                    foreach (var o in orders)
+                        orderModelList.Add(createOrderModel(o));
+                    return orderModelList;
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine("\nERROR!\nMelding:\n" + ex.Message + "\nInner exception:" + ex.InnerException + "\nKastet fra\n" + ex.TargetSite + "\nTrace:\n" + ex.StackTrace);
+                    Trace.TraceInformation("Property: {0} Error: {1}", ex.Source, ex.InnerException);
+                }
+                return null;
+            }
+        }
 
         public List<OrderModel> allOrders()
         {

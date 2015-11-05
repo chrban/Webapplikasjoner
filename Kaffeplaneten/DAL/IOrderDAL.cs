@@ -8,6 +8,7 @@ namespace Kaffeplaneten.DAL
         bool add(OrderModel orderModel);
         OrderModel find(int nr);
         List<OrderModel> findOrders(int id);
+        List<OrderModel> findOrders(CustomerModel customerModel);
         List<OrderModel> allOrders();
         bool cancelOrder(int nr);
     }

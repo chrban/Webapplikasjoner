@@ -51,5 +51,14 @@ namespace Stubs
             list.Add(find(1));
             return list;
         }
+        public List<OrderModel> findOrders(CustomerModel customerModel)
+        {
+            var list = new List<OrderModel>();
+            list.Add(find(1));
+            list.Add(find(1));
+            list.Add(find(1));
+            list.Add(find(1));
+            return list;
+        }
     }
 }

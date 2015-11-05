@@ -39,6 +39,11 @@ namespace Kaffeplaneten.BLL
             return _orderDAL.findOrders(id);
         }//end findOrders()
 
+        public List<OrderModel> findOrders(CustomerModel customerModel)
+        {
+            return _orderDAL.findOrders(customerModel);
+        }
+
         public List<OrderModel> allOrders()
         {
             return _orderDAL.allOrders();
