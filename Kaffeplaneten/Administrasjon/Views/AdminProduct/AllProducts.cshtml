@@ -11,7 +11,7 @@
     <p>
         @Html.ActionLink("Nytt produkt", "Add", null, new { @class = "btn btn-success " })
     </p>
-    <table class="table table-hover">
+    <table class="table table-hover table-striped">
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.productID)
@@ -38,7 +38,8 @@
         </tr>
         @foreach (var item in Model)
         {
-            <tr>
+            <tr  data-toggle="modal" data-target="#modalDetails-@Html.DisplayFor(modelItem => item.productID)">
+
                 <td>
                     @Html.DisplayFor(modelItem => item.productID)
                 </td>
