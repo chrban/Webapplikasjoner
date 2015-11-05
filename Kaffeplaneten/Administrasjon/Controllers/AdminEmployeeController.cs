@@ -50,7 +50,7 @@ namespace Administrasjon.Controllers
             var personExist = _employeeBLL.find(username);
             if(personExist != null)
             {
-                Session["employeeExists"] = "Ansatte du prøver å registere finnes allerede!";
+                Session["employeeExists"] = "Ansatt du prøver å registere finnes allerede!";
                 return View(employee);
             }
             if(!_employeeBLL.add(employee))
