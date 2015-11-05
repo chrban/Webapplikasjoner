@@ -31,6 +31,23 @@ namespace Stubs
             return false;
         }
 
+        public List<CustomerModel> allCustomers()
+        {
+            var customers = new List<CustomerModel>();
+            customers.Add(find(1));
+            customers.Add(find(1));
+            customers.Add(find(1));
+            customers.Add(find(1));
+            return customers;
+        }
+
+        public bool delete(int id)
+        {
+            if (id > 0)
+                return true;
+            return false;
+        }
+
         public CustomerModel find(int id)
         {
             var customerModel = new CustomerModel();

@@ -36,7 +36,7 @@ namespace Kaffeplaneten.DAL
                 return false;
             }
         }
-        public bool addProductOrders(OrderModel orderModel)/*Legger ProductOrders inn i databasen. OrderNr og pruductID-ene må være med i modellen*/
+        private bool addProductOrders(OrderModel orderModel)/*Legger ProductOrders inn i databasen. OrderNr og pruductID-ene må være med i modellen*/
             {
             using (var db = new CustomerContext())
                 {
@@ -157,7 +157,35 @@ namespace Kaffeplaneten.DAL
             return null;
         }
 
-
+        public bool cancelOrder(int nr)
+        {
+            using (var db = new CustomerContext())
+            {
+                try
+                {
+                    var order = db.Orders.Find(nr);
+                    if (order == null)
+                        return false;
+                    var productOrders = (from p in db.ProductOrders
+                                         where p.orderNr == nr
+                                         select p).ToList();
+                    foreach(var po in productOrders)
+                    {
+                        db.Products.Find(po.productID).stock += po.quantity;
+                        db.ProductOrders.Remove(po);
+                    }
+                    db.Orders.Remove(order);
+                    db.SaveChanges();
+                    return true;
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine("\nERROR!\nMelding:\n" + ex.Message + "\nInner exception:" + ex.InnerException + "\nKastet fra\n" + ex.TargetSite + "\nTrace:\n" + ex.StackTrace);
+                    Trace.TraceInformation("Property: {0} Error: {1}", ex.Source, ex.InnerException);
+                }
+                return false;
+            }
+        }
 
 
 
