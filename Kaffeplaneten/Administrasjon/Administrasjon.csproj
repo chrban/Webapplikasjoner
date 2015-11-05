@@ -118,6 +118,12 @@
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.bootgrid.css" />
+    <Content Include="Scripts\jquery.bootgrid.fa.js" />
+    <Content Include="Scripts\jquery.bootgrid.fa.min.js" />
+    <Content Include="Scripts\jquery.bootgrid.js" />
+    <Content Include="Scripts\jquery.bootgrid.min.css" />
+    <Content Include="Scripts\jquery.bootgrid.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
@@ -138,6 +144,7 @@
     <Content Include="Views\AdminCustomer\Edit.cshtml" />
     <Content Include="Views\AdminOrder\AllOrders.cshtml" />
     <Content Include="Views\AdminOrder\OrderView.cshtml" />
+    <Content Include="Views\AdminLogging\LoggingView.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -149,6 +156,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AdminCustomerController.cs" />
     <Compile Include="Controllers\AdminEmployeeController.cs" />
+    <Compile Include="Controllers\AdminLoggingController.cs" />
     <Compile Include="Controllers\AdminOrderController.cs" />
     <Compile Include="Controllers\AdminProductController.cs" />
     <Compile Include="Controllers\LayoutController.cs" />
