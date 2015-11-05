@@ -39,6 +39,16 @@ namespace Kaffeplaneten.BLL
             return _loggingDAL.findInInteractionLog(criteria);
         }
 
+        public List<JObject> getInteractionMessages()
+        {
+            return _loggingDAL.parseLogFile(_loggingDAL.LOG_INTERACTION);
+        }
+
+        public List<JObject> getDatabaseMessages()
+        {
+            return _loggingDAL.parseLogFile(_loggingDAL.LOG_DATABASE);
+        }
+
         public bool createLog(string type)
         {
             return _loggingDAL.createLog(type);
