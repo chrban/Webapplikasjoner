@@ -5,7 +5,9 @@
     ViewBag.Title = "orderView";
 }
             <div class="panel panel-default">
-                <div class="panel-heading">@Html.Label("Ordrenummer: #")@Model.orderNr - @Html.Label("Bestillt av kunde: #") @Model.customerID </div>
+                <div class="panel-heading">@Html.Label("Ordrenummer: #")@Model.orderNr - @Html.Label("Bestillt av kunde: # ") @Model.customerID
+                    @Html.ActionLink("Se kundedetaljer", "Details", "AdminCustomer", new { id = @Model.customerID }, new { @class = "btn btn-default" })
+                 </div>
                 <table class="table table-hover table-striped">
                     <tr>
                         <th>
