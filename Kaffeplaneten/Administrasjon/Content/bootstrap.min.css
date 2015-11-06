@@ -910,7 +910,7 @@ select[multiple].input-group-sm>.form-control,select[multiple].input-group-sm>.i
 .input-group-btn:last-child>.btn,.input-group-btn:last-child>.btn-group{z-index:2;margin-left:-1px}
 .nav{margin-bottom:0;padding-left:0;list-style:none}
 .nav>li>a{padding:5px 5px}
-.nav>li>a:focus,.nav>li>a:hover{text-decoration:none;background-color:#eee}
+.nav>li>a:focus,.nav>li>a:hover{text-decoration:none;background-color:#eee; color:#5d3d1f;}
 .nav>li.disabled>a:focus,.nav>li.disabled>a:hover{color:#777;text-decoration:none;background-color:transparent;cursor:not-allowed}
 .nav .open>a,.nav .open>a:focus,.nav .open>a:hover{background-color:#eee}
 .nav .nav-divider{height:1px;margin:9px 0;overflow:hidden;background-color:#e5e5e5}
@@ -986,7 +986,7 @@ select[multiple].input-group-sm>.form-control,select[multiple].input-group-sm>.i
 .navbar-toggle .icon-bar{display:block;width:22px;height:2px;border-radius:1px}
 .navbar-toggle .icon-bar+.icon-bar{margin-top:4px}
 .navbar-nav{margin:7.5px -15px}
-.navbar-nav>li>a{padding-top:10px;padding-bottom:10px;line-height:20px}
+.navbar-nav>li>a{padding-top:10px;padding-bottom:10px;line-height:20px; color: #eee}
 @media (max-width:767px){.navbar-nav .open .dropdown-menu{position:static;float:none;width:auto;margin-top:0;background-color:transparent;border:0;box-shadow:none}
 .navbar-nav .open .dropdown-menu .dropdown-header,.navbar-nav .open .dropdown-menu>li>a{padding:5px 15px 5px 25px}
 .navbar-nav .open .dropdown-menu>li>a{line-height:20px}
