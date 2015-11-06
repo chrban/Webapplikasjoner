@@ -38,7 +38,8 @@
         </tr>
         @foreach (var item in Model)
         {
-            <tr  data-toggle="modal" data-target="#modalDetails-@Html.DisplayFor(modelItem => item.productID)">
+            <tr>
+                <div data-toggle="modal" data-target="#modalDetails-@Html.DisplayFor(modelItem => item.productID)">
 
                 <td>
                     @Html.DisplayFor(modelItem => item.productID)
@@ -61,6 +62,7 @@
                 <td>
                     <img src="~/Content/img/Logo-Admin.png" alt="@Html.DisplayFor(modelItem => item.imageURL) FIKSE BILDER GLOBALT" style="width:50px;height:50px">
                 </td>
+                </div>
                 <td>
                     @Html.ActionLink("Rediger", "Edit", "AdminProduct", new { id = item.productID },  new { @class = "btn btn-default btn-xs" } )
                     <button type="button" class="btn btn-default btn-xs" data-toggle="modal" data-target="#modalDetails-@Html.DisplayFor(modelItem => item.productID)">Detaljer</button>

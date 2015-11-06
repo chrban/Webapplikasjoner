@@ -34,7 +34,8 @@
         </tr>
         @foreach (var item in Model)
         {
-            <tr onclick="location.href='@Url.Action("Details", "AdminCustomer", new { id = item.customerID })'">
+            <tr >
+                <div onclick="location.href='@Url.Action("Details", "AdminCustomer", new { id = item.customerID })'">
                 <td>
                     @Html.DisplayFor(modelItem => item.customerID)
                 </td>
@@ -53,6 +54,7 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.province)
                 </td>
+                </div>
                 <td>
                     @Html.ActionLink("Rediger", "Edit", "AdminCustomer", new { id = item.customerID }, new { @class = "btn btn-default btn-xs" })
                     @Html.ActionLink("Detaljer", "Details", "AdminCustomer", new { id = item.customerID }, new { @class = "btn btn-default btn-xs" })
