@@ -71,7 +71,7 @@ namespace Stubs
         }
         public bool delete(int id)
         {
-
+            return true;
         }
     }
 }

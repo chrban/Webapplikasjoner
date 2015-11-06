@@ -38,23 +38,23 @@ namespace Administrasjon.Controllers
         }
         [HttpPost]
         public ActionResult createEmployee(EmployeeModel employee)
-        {   
-            if(!ModelState.IsValid)
+        {
+            if (!ModelState.IsValid)
                 return View();
             string username = employee.username + "@kaffeplaneten.no";
             var employeeModel = _userBLL.get(username);
-            if(employeeModel != null)
+            if (employeeModel != null)
             {
                 Session["userExists"] = "Brukernavn(Epost) du prøver å registere finnes allerede!";
                 return View(employee);
             }
             var personExist = _employeeBLL.find(username);
-            if(personExist != null)
+            if (personExist != null)
             {
                 Session["employeeExists"] = "Ansattbrukeren eksisterer allerede!";
                 return View(employee);
             }
-            if(!_employeeBLL.add(employee))
+            if (!_employeeBLL.add(employee))
             {
                 Session["employeeError"] = "Feil ved registrering av ansatt";
                 return View(employee);
@@ -64,7 +64,7 @@ namespace Administrasjon.Controllers
             employeeModel.passwordHash = base.getHash(employee.password);
             employeeModel.ID = employee.employeeID;
 
-            if(!_userBLL.add(employeeModel)) //registrerer ny bruker
+            if (!_userBLL.add(employeeModel)) //registrerer ny bruker
             {
                 Session["userError"] = "Feil ved registrering av bruker";
                 return View(employee);
@@ -82,7 +82,7 @@ namespace Administrasjon.Controllers
             if (!ModelState.IsValid)
                 return View();
             var user = _userBLL.get(username);
-            if(user == null)
+            if (user == null)
             {
                 Session["noUser"] = "Brukereposten eksisterer ikke!";
                 return View(username);
@@ -91,9 +91,10 @@ namespace Administrasjon.Controllers
             if (deleted)
             {
                 Session["isDeleted"] = user.username + " er fjernet som ansatt!";
-                return View(); 
+                return View();
             }
             Session["cantDelete"] = "Kunne ikke slette brukeren!";
             return View();
+        }
     }
 }
