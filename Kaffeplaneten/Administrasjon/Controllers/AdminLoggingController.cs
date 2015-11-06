@@ -21,7 +21,7 @@ namespace Administrasjon.Controllers
         // GET: AdminLogging
         public ActionResult Logging()
         {
-            return View("LoggingView");
+            return View("Logging");
         }
 
         [HttpPost]
