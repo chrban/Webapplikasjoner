@@ -71,5 +71,29 @@ namespace Administrasjon.Controllers
             }
             return RedirectToAction("AllEmployees", "AdminEmployee");
         }
+        public ActionResult deleteEmployee()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult deleteEmployee(string username)
+        {
+            if (!ModelState.IsValid)
+                return View();
+            var user = _userBLL.get(username);
+            if(user == null)
+            {
+                Session["noUser"] = "Brukereposten eksisterer ikke!";
+                return View(username);
+            }
+            bool deleted = _employeeBLL.delete(user.ID);
+            if (deleted)
+            {
+                Session["isDeleted"] = user.username + " er fjernet som ansatt!";
+                return View(); 
+            }
+            Session["cantDelete"] = "Kunne ikke slette brukeren!";
+            return View();
     }
 }

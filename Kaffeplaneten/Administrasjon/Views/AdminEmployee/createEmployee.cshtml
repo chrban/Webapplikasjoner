@@ -7,18 +7,10 @@
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
     @Html.Action("HeaderAndMenuBar", "Layout")
-
-    <div class="container container-fluid col-md-offset-2 col-md-6">
+    <div class="container container-fluid col-md-offset-3 col-md-6">
         <div class="panel-default col-md-offset6 col-md-12">
             <div id="navbar" class="collapse navbar-collapse" style="background-color: #5d3d1f">
-                <div class="btn-group col-md-offset-1 col-md-12" role="group" >
-                    <ul class="nav navbar-nav">
-                        <li style=" background-color: #5d3d1f; font-size: 20px;">@Html.ActionLink("Opprett ny ansatt", "createEmployee", "AdminEmployee", new { area = "" }, new { @class = "navbar-brand" })</li>
-                        <li style="background-color: #5d3d1f">@Html.ActionLink("Fjern ansatt", "deleteEmployee", "AdminEmployee", new { area = "" }, new { @class = "navbar-brand" })</li>
-                        <li style="background-color: #5d3d1f">@Html.ActionLink("Vis alle ansatte", "AllEmployees", "AdminEmployee", new { area = "" }, new { @class = "navbar-brand" })</li>
-                    </ul>
-
-                </div>
+                 @Html.Action("EmployeeAdminBar", "Layout")
                 <div class="panel-heading" style="text-align: center;">
                     <h2 style="color: #eee;">Ny ansatt:</h2>
                 </div>
@@ -28,7 +20,7 @@
                 <table class="table table-bordered">
                     <tr>
                         <td class="col-md-offset4 col-md-6">
-                            <div class="col-lg-12 input-group">
+                            <div class="col-md-12 col-md-offset-3 input-group">
                                 <div class="input-group input-group-lg">
                                     <span class="input-group-addon">
                                         <span class="glyphicon glyphicon-user"></span>
@@ -46,7 +38,7 @@
                     </tr>
                     <tr>
                         <td class="col-md-offset4 col-md-6">
-                            <div class="col-lg-12 input-group">
+                            <div class="col-md-12 col-md-offset-3 input-group">
                                 <div class="input-group input-group-lg">
                                     <span class="input-group-addon">
                                         <span class="glyphicon glyphicon-user"></span>
@@ -64,7 +56,7 @@
                     </tr>
                     <tr>
                         <td class="col-md-offset4 col-md-6">
-                            <div class="col-lg-12 input-group">
+                            <div class="col-md-12 col-md-offset-3 input-group">
                                 <div class="input-group input-group-lg">
                                     <span class="input-group-addon">
                                         <span class="glyphicon glyphicon-envelope"></span>
@@ -83,7 +75,7 @@
                     </tr>
                     <tr>
                         <td class="col-md-offset4 col-md-6">
-                            <div class="col-lg-12 input-group">
+                            <div class="col-md-12 col-md-offset-3 input-group">
                                 <div class="input-group input-group-lg">
                                     <span class="input-group-addon">
                                         <span class="glyphicon glyphicon-lock"></span>
@@ -101,7 +93,7 @@
                     </tr>
                     <tr>
                         <td class="col-md-offset4 col-md-6">
-                            <div class="col-lg-12 input-group">
+                            <div class="col-md-12 col-md-offset-3 input-group">
                                 <div class="input-group input-group-lg">
                                     <span class="input-group-addon">
                                         <span class="glyphicon glyphicon-lock"></span>
@@ -120,7 +112,7 @@
                     </tr>
                     <tr>
                         <td class="col-md-offset4 col-md-6">
-                            <div class="col-lg-12 input-group">
+                            <div class="col-md-12 col-md-offset-3 input-group">
                                 <div class="input-group input-group-lg">
                                     <span class="input-group-addon">
                                         <span class="glyphicon glyphicon-earphone"></span>
@@ -139,7 +131,7 @@
                     </tr>
                     <tr>
                         <td class="col-md-offset1 col-md-12">
-                            <div class="col-lg-12 input-group">
+                            <div class="col-md-12 col-md-offset-3 input-group">
                                 <div class="input-group input-group-lg">
                                     <span class="input-group-addon">
                                         <span class="glyphicon glyphicon-ok-circle"></span>
@@ -151,7 +143,7 @@
                     </tr>
                     <tr>
                         <td class="col-md-offset1 col-md-12">
-                            <div class="col-lg-12 input-group">
+                            <div class="col-md-12 col-md-offset-3 input-group">
                                 <div class="input-group input-group-lg">
                                     <span class="input-group-addon">
                                         <span class="glyphicon glyphicon-ok-circle"></span>
@@ -163,7 +155,7 @@
                     </tr>
                     <tr>
                         <td class="col-md-offset1 col-md-12">
-                            <div class="col-lg-12 input-group">
+                            <div class="col-md-12 col-md-offset-3 input-group">
                                 <div class="input-group input-group-lg">
                                     <span class="input-group-addon">
                                         <span class="glyphicon glyphicon-ok-circle"></span>
@@ -175,7 +167,7 @@
                     </tr>
                     <tr>
                         <td class="col-md-offset1 col-md-12">
-                            <div class="col-lg-12 input-group">
+                            <div class="col-md-12 col-md-offset-3 input-group">
                                 <div class="input-group input-group-lg">
                                     <span class="input-group-addon">
                                         <span class="glyphicon glyphicon-ok-circle"></span>
@@ -187,7 +179,7 @@
                     </tr>
                     <tr>
                         <td class="col-md-offset1 col-md-12">
-                            <div class="col-lg-12 input-group">
+                            <div class="col-md-12 col-md-offset-3 input-group">
                                 <div class="input-group input-group-lg">
                                     <span class="input-group-addon">
                                         <span class="glyphicon glyphicon-ok-circle"></span>

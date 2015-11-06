@@ -8,7 +8,7 @@ using Kaffeplaneten.Models;
 
 namespace Stubs
 {
-    class OrderDALStup : IOrderDAL
+    class OrderDALStub : IOrderDAL
     {
         public bool add(OrderModel orderModel)
         {

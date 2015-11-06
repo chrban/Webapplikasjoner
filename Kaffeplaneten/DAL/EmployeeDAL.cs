@@ -174,5 +174,29 @@ namespace Kaffeplaneten.DAL
             }//end using
             return false;
         }
+
+        public bool delete(int id)
+        {
+            using (var db = new CustomerContext())
+            {
+                try
+                {
+                    Users delUser = (from u in db.Users where u.personID == id select u).Single();
+                    Employees delEmployee= (from e in db.Employees where e.personID == id select e).Single();
+                    db.Users.Remove(delUser);
+                    db.Employees.Remove(delEmployee);
+                    //Adress, Orders og ProductOrder slettes automatisk
+                    db.SaveChanges();
+                    Debug.WriteLine(delEmployee.firstName + "Er slettet");
+                    return true;
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine("\nERROR!\nMelding:\n" + ex.Message + "\nInner exception:" + ex.InnerException + "\nKastet fra\n" + ex.TargetSite + "\nTrace:\n" + ex.StackTrace);
+                    Trace.TraceInformation("Property: {0} Error: {1}", ex.Source, ex.InnerException);
+                }
+            }
+            return false;
+        }
     }//end namespace
 }//end class

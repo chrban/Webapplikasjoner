@@ -8,7 +8,7 @@ using Kaffeplaneten.Models;
 
 namespace Stubs
 {
-    class EmployeeDALStup : IEmployeeDAL
+    class EmployeeDALStub : IEmployeeDAL
     {
         public bool add(EmployeeModel employeeModel)
         {
@@ -68,6 +68,10 @@ namespace Stubs
             if (employeeModel.firstName != "")
                 return true;
             return false;
+        }
+        public bool delete(int id)
+        {
+
         }
     }
 }
