@@ -23,9 +23,7 @@ namespace Kaffeplaneten.DAL
             CustomerModel user;
             EmployeeModel employee;
             string logLine = "";
-            if(HttpContext.Current.Session != null)
-            {
-                if (HttpContext.Current.Session["LoggedInn"] == null || (bool)HttpContext.Current.Session["LoggedInn"] == false)
+                if (HttpContext.Current.Session == null || HttpContext.Current.Session["LoggedInn"] == null || (bool)HttpContext.Current.Session["LoggedInn"] == false)
                 {
                     user = new CustomerModel()
                     {
@@ -49,19 +47,16 @@ namespace Kaffeplaneten.DAL
                                  "\"User\": \"" + user.firstName + " " + user.lastName + "\"," +
                                  "\"Action\": \"" + message + "\" }";
                 }
-                else if ((bool)HttpContext.Current.Session["LoggedInn"] == true && HttpContext.Current.Session["Employee"] != null)
+                else if ((bool)HttpContext.Current.Session["LoggedInn"] == true && HttpContext.Current.Session["Customer"] == null)
                 {
-                    employee = (EmployeeModel)HttpContext.Current.Session["Employee"];
                     logLine = ",{ " +
                              "\"Date\": \"" + DateTime.Now.ToString("h:mm:ss tt") + "\"," +
-                             "\"UserID\": \"" + employee.employeeID + "\"," +
-                             "\"User\": \"" + employee.firstName + " " + employee.lastName + "\"," +
+                             "\"UserID\": \"" + (string)HttpContext.Current.Session["username"] + "\"," +
+                             "\"User\": \"" + (string)HttpContext.Current.Session["firstname"] + " " + (string)HttpContext.Current.Session["lastname"] + "\"," +
                              "\"Action\": \"" + message + "\" }";
                 }
-            }
             else
             {
-                return false;
             }
         
 

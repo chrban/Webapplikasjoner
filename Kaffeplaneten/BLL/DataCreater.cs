@@ -12,13 +12,15 @@ namespace Kaffeplaneten.BLL
     {
         public static void main(String[] args)
         {
-            addProducts();
         }
         public static void addProducts()
         {
             var _logging = new LoggingBLL().logToDatabase("Startet datacreator.");
             try
             {
+                var products = new ProductBLL();
+                if (products.getAllProducts().Count != 0)
+                    return;
                 addProduct(createAfterDinnerBlend());
                 addProduct(createAstorLibano());
                 addProduct(createBrazillianBlend());
