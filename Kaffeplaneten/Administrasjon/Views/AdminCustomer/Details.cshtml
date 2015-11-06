@@ -8,7 +8,7 @@
     <h2>Kundeinformasjon</h2>
 
     <div>
-        <h4>Persons</h4>
+        <h4>For kunde med @Html.LabelFor(model => model.customerID) @Html.DisplayNameFor(model => model.customerID)</h4>
         <hr />
         <dl class="dl-horizontal">
             <dt>
@@ -43,10 +43,72 @@
                 @Html.DisplayFor(model => model.phone)
             </dd>
 
+            <dt>
+                @Html.DisplayNameFor(model => model.adress)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.adress)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.zipCode)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.zipCode)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.province)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.province)
+            </dd>
+
+
+
+            <dt>
+                @Html.DisplayNameFor(model => model.payAdress)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.payAdress)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.payZipcode)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.payZipcode)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.payProvince)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.payProvince)
+            </dd>
+
+
         </dl>
     </div>
     <p>
-        @Html.ActionLink("Rediger", "Edit", "AdminCustomer", new { id = Model.customerID }, new { @class = "btn btn-default btn-xs" })
-        @Html.ActionLink("Kundebestillinger", "findOrders", "AdminOrder", new { id = Model.customerID}, new { @class = "btn btn-default btn-xs" })
+        @Html.ActionLink("Kundebestillinger", "findOrders", "AdminOrder", new { id = Model.customerID}, new { @class = "btn btn-default" })
+        @Html.ActionLink("Rediger kunde", "Edit", "AdminCustomer", new { id = Model.customerID }, new { @class = "btn btn-default" })
+        <button class="btn btn-danger" data-toggle="modal" data-target="#modalDelete-@Html.DisplayFor(modelItem => Model.customerID)">Slett kunde</button>
     </p>
+</div>
+
+             <!--DeleteModal-->
+<div class="modal fade" id="modalDelete-@Html.DisplayFor(modelItem => Model.customerID)" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Bekreft sletting!</h4>
+            </div>
+            <div class="modal-body">
+                <p>Er du sikker på at du vil slette @Html.DisplayFor(modelItem => Model.firstName) ?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-info" data-dismiss="modal">Avbryt</button>
+                @Html.ActionLink("Slett", "Delete", "AdminCustomer", new { id = Model.customerID }, new { @class = "btn btn-danger " })
+            </div>
+        </div>
+    </div>
 </div>
