@@ -1,0 +1,93 @@
+﻿@model Kaffeplaneten.Models.ProductModel
+@Html.Action("HeaderAndMenuBar", "Layout")
+@{
+    ViewBag.Title = "Produktdetaljer";
+}
+
+<div class="container">
+
+
+    <h2>Produktdetaljer</h2>
+
+    <div>
+        <h4>For produkt @Html.DisplayNameFor(model => model.productID) @Html.DisplayFor(model => model.productID)</h4>
+        <hr />
+        <dl class="dl-horizontal">
+
+            <dt>
+                @Html.DisplayNameFor(model => model.productName)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.productName)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.stock)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.stock)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.price)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.price)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.imageURL)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.imageURL)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.category)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.category)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.description)
+            </dt>
+
+            <dd>
+                
+                @Html.EditorFor(model => model.description, new { htmlAttributes = new { @class = "form-control" ,disabled="disabled"} })
+            </dd>
+
+        </dl>
+    </div>
+    <hr />
+    <p>
+        @Html.ActionLink("Tilbake til liste", "AllProducts", "AdminProduct",  new { @class = "btn btn-default" }) 
+        @Html.ActionLink("Rediger", "Edit", "AdminProduct", new { id = Model.productID }, new { @class = "btn btn-default" }) 
+        <button class="btn btn-danger" data-toggle="modal" data-target="#modalDelete-@Html.DisplayFor(modelItem => Model.productID)">Slett</button>
+    </p>
+</div>
+
+            <!--DeleteModal-->
+<div class="modal fade" id="modalDelete-@Html.DisplayFor(modelItem => Model.productID)" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Bekreft sletting!</h4>
+            </div>
+            <div class="modal-body">
+                <p>Er du sikker på at du vil slette @Html.DisplayFor(modelItem => Model.productName) ?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-info" data-dismiss="modal">Avbryt</button>
+                @Html.ActionLink("Slett", "Delete", "AdminProduct", new { id = Model.productID }, new { @class = "btn btn-danger " })
+
+            </div>
+        </div>
+    </div>
+</div>
