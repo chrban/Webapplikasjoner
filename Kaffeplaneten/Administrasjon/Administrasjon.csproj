@@ -164,6 +164,7 @@
     <Content Include="Views\AdminLogging\Logging.cshtml" />
     <Content Include="Views\Layout\EmployeeAdminBar.cshtml" />
     <Content Include="Views\AdminEmployee\deleteEmployee.cshtml" />
+    <Content Include="Views\AdminProduct\Details.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

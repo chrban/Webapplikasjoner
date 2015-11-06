@@ -40,30 +40,32 @@
         {
             
             <tr>
-                <td data-toggle="modal" data-target="#modalDetails-@Html.DisplayFor(modelItem => item.productID)">
+                <td onclick="location.href='@Url.Action("Details", "AdminProduct", new { id = item.productID })'">
                     @Html.DisplayFor(modelItem => item.productID)
                 </td>
-                <td data-toggle="modal" data-target="#modalDetails-@Html.DisplayFor(modelItem => item.productID)">
+                <td onclick="location.href='@Url.Action("Details", "AdminProduct", new { id = item.productID })'">
                     @Html.DisplayFor(modelItem => item.productName)
                 </td>
-                <td data-toggle="modal" data-target="#modalDetails-@Html.DisplayFor(modelItem => item.productID)">
+                <td onclick="location.href='@Url.Action("Details", "AdminProduct", new { id = item.productID })'">
                     @Html.DisplayFor(modelItem => item.stock)
                 </td>
-                <td data-toggle="modal" data-target="#modalDetails-@Html.DisplayFor(modelItem => item.productID)">
+                <td onclick="location.href='@Url.Action("Details", "AdminProduct", new { id = item.productID })'">
                     @Html.DisplayFor(modelItem => item.price)
                 </td>
-                <td data-toggle="modal" data-target="#modalDetails-@Html.DisplayFor(modelItem => item.productID)">
+                <td onclick="location.href='@Url.Action("Details", "AdminProduct", new { id = item.productID })'">
                     @Html.DisplayFor(modelItem => item.category)
                 </td>
-                <td data-toggle="modal" data-target="#modalDetails-@Html.DisplayFor(modelItem => item.productID)">
+                <td onclick="location.href='@Url.Action("Details", "AdminProduct", new { id = item.productID })'">
                     Description..
                 </td>
-                <td data-toggle="modal" data-target="#modalDetails-@Html.DisplayFor(modelItem => item.productID)">
+                <td onclick="location.href='@Url.Action("Details", "AdminProduct", new { id = item.productID })'">
                     <img src="~/Content/img/Logo-Admin.png" alt="@Html.DisplayFor(modelItem => item.imageURL) FIKSE BILDER GLOBALT" style="width:50px;height:50px">
                 </td>
                 <td>
-                    @Html.ActionLink("Rediger", "Edit", "AdminProduct", new { id = item.productID },  new { @class = "btn btn-default btn-xs" } )
-                    <button type="button" class="btn btn-default btn-xs" data-toggle="modal" data-target="#modalDetails-@Html.DisplayFor(modelItem => item.productID)">Detaljer</button>
+                    @Html.ActionLink("Rediger", "Edit", "AdminProduct", new { id = item.productID },  new { @class = "btn btn-default btn-xs" })
+                    @Html.ActionLink("Detaljer", "Details", "AdminProduct", new { id = item.productID }, new { @class = "btn btn-default btn-xs" })
+                    <span  data-toggle="tooltip" data-placement="top" title="Vis hvordan produktet vil se ut i nettbutikken">
+                    <button type="button" class="btn btn-default btn-xs"  data-toggle="modal" data-target="#modalPreview-@Html.DisplayFor(modelItem => item.productID)">Preview</button></span>
                     <button class="btn btn-danger btn-xs" data-toggle="modal" data-target="#modalDelete-@Html.DisplayFor(modelItem => item.productID)">Slett</button>
                 </td>
             </tr>
@@ -87,45 +89,43 @@
                     </div>
                 </div>
             </div>
-            <!--DetailsModal-->
-            <div class="modal fade" id="modalDetails-@Html.DisplayFor(modelItem => item.productID)" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                <div class="modal-dialog" role="document">
+
+
+
+
+        <!--Modal - ProductDetailsInfo-->
+            <div id="modalPreview-@Html.DisplayFor(modelItem => item.productID)" class="modal fade" role="dialog">
+                <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                            <h4 class="modal-title" id="myModalLabel">@Html.DisplayFor(modelItem => item.productName)</h4>
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h1>Utseende i nettbutikk:<br /></h1>
+                            <h1 class="modal-title">@Html.DisplayFor(model => item.productName)</h1>
                         </div>
                         <div class="modal-body">
                             <div class="thumbnail">
+                                <img img src="../../Content/img/@item.imageURL" alt="ProductImage" style="width:150px;height:150px">
 
-                                <dl>
-                                    <dt>Image</dt>
-                                    <dd><img src="~/" alt="@Html.DisplayFor(modelItem => item.imageURL) FIKSE BILDER GLOBALT" style="width:50px;height:50px"></dd>
+                                <h3 id="pName">-@item.category-</h3>
+                                <h2>@item.price,-</h2>
+                                <p id="pDes">@item.description</p>
+                                <p>@Html.LabelFor(model => item.stock) @item.stock </p>
 
-                                    <dt>@Html.DisplayNameFor(model => model.productName)</dt>
-                                    <dd>@Html.DisplayFor(modelItem => item.productName)</dd>
-
-                                    <dt>@Html.DisplayNameFor(model => model.category)</dt>
-                                    <dd>@Html.DisplayFor(modelItem => item.category)</dd>
-
-                                    <dt>@Html.DisplayNameFor(model => model.price)</dt>
-                                    <dd>@Html.DisplayFor(modelItem => item.price)</dd>
-
-                                    <dt>@Html.DisplayNameFor(model => model.description)</dt>
-                                    <dd>@Html.DisplayFor(modelItem => item.description)</dd>
-
-                                    <dt>@Html.DisplayNameFor(model => model.stock)</dt>
-                                    <dd>@Html.DisplayFor(modelItem => item.stock)</dd>
-                                </dl>
+                                <input id="quantity-@item.productID" class="qty-input form-group" placeholder="velg antall.." type="number" value="1" />
+                                <button data-toggle="popover" data-trigger="focus" data-content="@item.productName er lagt til i handlekurven." type="button" id="@item.productID" class="btn btn-default">Legg i handlekurv <span class="glyphicon glyphicon-shopping-cart"></span></button>
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-info" data-dismiss="modal">Lukk</button>
-                            <button class="btn btn-danger" data-dismiss="modal" data-toggle="modal" data-target="#modalDelete-@Html.DisplayFor(modelItem => item.productID)">Slett</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Lukk</button>
                         </div>
                     </div>
                 </div>
             </div>
+
+
+
+
+
         }
     </table>
 </div>

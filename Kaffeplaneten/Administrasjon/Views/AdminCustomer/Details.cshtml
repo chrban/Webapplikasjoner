@@ -87,8 +87,9 @@
 
         </dl>
     </div>
+        <hr />
     <p>
-        @Html.ActionLink("Kundebestillinger", "findOrders", "AdminOrder", new { id = Model.customerID}, new { @class = "btn btn-default" })
+        @Html.ActionLink("Kundebestillinger", "findOrders", "AdminOrder", new { id = Model.customerID}, new { @class = "btn btn-info" })
         @Html.ActionLink("Rediger kunde", "Edit", "AdminCustomer", new { id = Model.customerID }, new { @class = "btn btn-default" })
         <button class="btn btn-danger" data-toggle="modal" data-target="#modalDelete-@Html.DisplayFor(modelItem => Model.customerID)">Slett kunde</button>
     </p>

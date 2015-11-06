@@ -102,6 +102,23 @@ namespace Administrasjon.Controllers
 
         }
 
+        public ActionResult Details(int id)
+        {
+            var ProductList = _productBLL.getAllProducts();
+            foreach (var i in ProductList)
+            {
+                if (i.productID == id)
+                {
+                    return View(i);
+                }
+            }
+
+            return RedirectToAction("AllProducts");
+
+
+        }
+
+
         public void UniqueCategory()
         {
             var uniqeCategories = new List<String>();
