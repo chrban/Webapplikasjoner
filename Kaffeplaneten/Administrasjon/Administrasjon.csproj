@@ -150,6 +150,8 @@
     <Content Include="Views\Shared\HelpView.cshtml" />
     <Content Include="Views\AdminCustomer\Details.cshtml" />
     <Content Include="Views\AdminLogging\Logging.cshtml" />
+    <Content Include="Views\Layout\EmployeeAdminBar.cshtml" />
+    <Content Include="Views\AdminEmployee\deleteEmployee.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

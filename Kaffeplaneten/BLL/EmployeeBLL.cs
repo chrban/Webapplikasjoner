@@ -36,6 +36,10 @@ namespace Kaffeplaneten.BLL
         {
             return _employeeDAL.find(id);
         }
+        public Boolean delete(int id)
+        {
+            return _employeeDAL.delete(id);
+        }
         public bool update(EmployeeModel employeeModel)//Oppdaterer employeen som har personID lik employeeModel.personID
         {
             _loggingBLL.logToUser("Oppdaterte ansatt: " + employeeModel.username + " (AnsattID: " + employeeModel.employeeID + ")");

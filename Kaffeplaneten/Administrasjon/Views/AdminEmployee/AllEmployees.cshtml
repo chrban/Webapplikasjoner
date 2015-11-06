@@ -5,39 +5,45 @@
 @Html.AntiForgeryToken()
 @Html.ValidationSummary(true)
 @Html.Action("HeaderAndMenuBar", "Layout")
-<h2>Liste over alle ansatte: </h2>
-<div class="container">
-    <table class="table table-hover">
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.employeeID)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.firstName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.lastName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.phone)
-            </th>
-        </tr>
-        @foreach (var item in Model)
-        {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.employeeID)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.firstName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.lastName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.phone)
-            </td>
-         </tr>   
-         }
-        </table>
+<div class="container container-fluid col-md-offset-3 col-md-6">
+    <div class="panel-default col-md-offset6 col-md-12">
+        <div id="navbar" class="collapse navbar-collapse" style="background-color: #5d3d1f">
+            @Html.Action("EmployeeAdminBar", "Layout")
+            <div class="panel-heading" style="text-align: center;">
+                <h2 style="color: #eee;">Liste over alle ansatte:</h2>
+            </div>
+        </div>
+        
+            <div class="row col-md-offset-1">
+                <div class=" col-md-3">
+                    <strong>AnsattID</strong>
+                </div>
+                <div class="col-md-3">
+                    <strong>@Html.DisplayNameFor(model => model.firstName)</strong>
+                </div>
+                <div class="col-md-3">
+                    <strong>@Html.DisplayNameFor(model => model.lastName)</strong>
+                </div>
+                <div class="col-md-3">
+                    <strong>@Html.DisplayNameFor(model => model.phone)</strong>
+                </div>
+            </div>
+            <div class="row col-md-offset-1">
+                @foreach (var item in Model)
+                 {
+                    <div class="col-md-3">
+                        @Html.DisplayFor(modelItem => item.employeeID)
+                    </div>
+                    <div class="col-md-3">
+                        @Html.DisplayFor(modelItem => item.firstName)
+                    </div>
+                    <div class="col-md-3">
+                        @Html.DisplayFor(modelItem => item.lastName)
+                    </div>
+                    <div class="col-md-3">
+                        @Html.DisplayFor(modelItem => item.phone)
+                    </div>
+                }
+            </div>
+        </div>
     </div>

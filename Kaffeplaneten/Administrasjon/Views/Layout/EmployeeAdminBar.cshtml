@@ -1,0 +1,14 @@
+﻿
+@{
+    ViewBag.Title = "EmployeeAdminBar";
+}
+
+<div class="btn-group col-md-offset-1 col-md-12" role="group">
+    <ul class="nav navbar-nav">
+        <li style=" background-color: #5d3d1f; font-size: 20px;">@Html.ActionLink("Opprett ny ansatt", "createEmployee", "AdminEmployee", new { area = "" }, new { @class = "navbar-brand" })</li>
+        <li style="background-color: #5d3d1f">@Html.ActionLink("Fjern ansatt", "deleteEmployee", "AdminEmployee", new { area = "" }, new { @class = "navbar-brand" })</li>
+        <li style="background-color: #5d3d1f">@Html.ActionLink("Vis alle ansatte", "AllEmployees", "AdminEmployee", new { area = "" }, new { @class = "navbar-brand" })</li>
+    </ul>
+
+</div>
+

@@ -9,6 +9,7 @@ namespace Kaffeplaneten.DAL
         EmployeeModel find(string email);
         EmployeeModel find(int id);
         bool update(EmployeeModel employeeModel);
+        bool delete(int id);
         List<EmployeeModel> getAllEmployees();
     }
 }

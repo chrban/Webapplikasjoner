@@ -23,6 +23,11 @@ namespace Administrasjon.Controllers
             return PartialView(user);
         }
 
+        public ActionResult EmployeeAdminBar()
+        {
+            return PartialView();
+        }
+
         public ActionResult Home(EmployeeModel emp)
         {
             return View(emp);

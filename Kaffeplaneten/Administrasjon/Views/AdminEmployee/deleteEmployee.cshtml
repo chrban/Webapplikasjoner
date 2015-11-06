@@ -1,0 +1,40 @@
+﻿
+@{
+    ViewBag.Title = "deleteEmployee";
+}
+
+@Html.AntiForgeryToken()
+@Html.ValidationSummary(true)
+@Html.Action("HeaderAndMenuBar", "Layout")
+<div class="container container-fluid col-md-offset-3 col-md-6">
+    <div class="panel-default col-md-offset6 col-md-12">
+        <div id="navbar" class="collapse navbar-collapse" style="background-color: #5d3d1f">
+            @Html.Action("EmployeeAdminBar", "Layout")
+            <div class="panel-heading" style="text-align: center;">
+                <h2 style="color: #eee;">Fjern ansatt:</h2>
+            </div>
+        </div>
+
+        <div class="row col-md-offset-1">
+            <div class=" col-md-3">
+                <strong>Skriv inn bruker:</strong>
+            </div>
+            <div class="col-md-3">
+                <div class="input-group input-group-lg">
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-earphone"></span>
+                    </span>
+                    <strong><input class="form-control" type="text" placeholder="Skriv inn brukernavn" /></strong>
+                </div>
+            </div>
+            <div style="color: red"><h3>@Session["noUser"]</h3></div>
+            <div style="color: red"><h3>@Session["isDeleted"]</h3></div>
+            <div style="color: red"><h3>@Session["cantDelete"]</h3></div>
+            <div class="panel-footer panel-default col-md-offset6 col-md-12">
+                <input type="submit" value="Slett ansatt" class="btn btn-success" />
+            </div>
+                
+
+        </div>
+    </div>
+</div>

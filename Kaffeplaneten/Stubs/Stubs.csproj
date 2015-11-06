@@ -45,8 +45,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CustomerDALStub.cs" />
-    <Compile Include="EmployeeDALStup.cs" />
-    <Compile Include="OrderDALStup.cs" />
+    <Compile Include="EmployeeDALStub.cs" />
+    <Compile Include="OrderDALStub.cs" />
     <Compile Include="ProductDALStub.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UserDALStub.cs" />
