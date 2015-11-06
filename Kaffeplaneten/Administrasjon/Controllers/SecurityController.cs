@@ -60,6 +60,7 @@ namespace Administrasjon.Controllers
 
                     Session["firstname"] = Emp.firstName;
                     Session["lastname"] = Emp.lastName;
+                    Session["username"] = user.username;
                     return RedirectToAction("Home", "Layout");
                 }
                 Session["Feilmelding"] = "Finner ikke brukerepost";
@@ -91,6 +92,7 @@ namespace Administrasjon.Controllers
             Session["databaseAdmin"] = null;
             Session["firstname"] = null;
             Session["lastname"] = null;
+            Session["username"] = null;
             return RedirectToAction("Loginview");
         }
     }

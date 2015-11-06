@@ -11,106 +11,189 @@
     @Html.ValidationSummary(true)
     @Html.Action("HeaderAndMenuBar", "Layout")
 
-    <div class="container-fluid">
+    <div class="container container-fluid col-md-offset-2 col-md-6">
 
-        <div class="panel-default col-md-offset-3 col-md-6">
-                <div class="panel-heading">
+        <div class="panel-default col-md-offset6 col-md-12">
+                <div class="panel-heading" style="text-align: center;">
                     <h3>Brukerregistrering</h3>
                 </div>
         </div>
-            <div class="panel-primary">
+        <div class="panel-primary">
                 <div class="panel-body">
-                    <div class="col-md-offset-3 col-md-6">
                         <table class="table table-bordered">
                             <tr>
-                                <td>
-                                    <div class="col-lg-12 input-group">
-                                            <div class="input-group input-group-lg">
-                                                <span class="input-group-addon">
-                                                    <span class="glyphicon glyphicon-user"></span>
-                                                </span>
-                                                @Html.TextBoxFor(model => model.firstName, new { @class = "form-control", placeholder = (@Html.DisplayNameFor(model => model.firstName)) })
-                                            </div>
-                                        </div>
-                                </td>
-                                <td>@Html.ValidationMessageFor(model => model.firstName)</td>
-                            </tr>
-                            <tr>
-                                <td>
+                                <td class="col-md-offset4 col-md-6">
                                     <div class="col-lg-12 input-group">
                                         <div class="input-group input-group-lg">
                                             <span class="input-group-addon">
                                                 <span class="glyphicon glyphicon-user"></span>
                                             </span>
-                                            @Html.TextBoxFor(model => model.lastName, new { @class = "form-control", placeholder = (@Html.DisplayNameFor(model => model.lastName)) })
+                                            @Html.TextBoxFor(model => model.firstName, new { @class = "form-control", id = "firstname", onchange = "validate_firstname()", placeholder = (@Html.DisplayNameFor(model => model.firstName)) })
+                                            <div style="display:none" id="checkFirstname">
+                                                <span class="input-group-addon">
+                                                    <span style="color:chartreuse" class="glyphicon glyphicon-ok"></span>
+                                                </span>
+                                            </div>
+                                            <div style="color: red"><div id="valFirstname" style="display:none;"><h4>Du må ha stor forbokstav og fornavnet må være lengre enn 3 bokstaver. Max-lengde er 50</h4></div><h4>@Html.ValidationMessageFor(model => model.firstName)</h4></div>
+                                        </div>
+                                     </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="col-md-offset4 col-md-6">
+                                    <div class="col-lg-12 input-group">
+                                        <div class="input-group input-group-lg">
+                                            <span class="input-group-addon">
+                                                <span class="glyphicon glyphicon-user"></span>
+                                            </span>
+                                            @Html.TextBoxFor(model => model.lastName, new { @class = "form-control", id = "lastname", onchange = "validate_lastname()", placeholder = (@Html.DisplayNameFor(model => model.lastName)) })<div style="color: red"></div>
+                                            <div style="display:none" id="checkLastname">
+                                                <span class="input-group-addon">
+                                                    <span style="color:chartreuse" class="glyphicon glyphicon-ok"></span>
+                                                </span>
+                                            </div>
+                                            <div style="color: red"><div id="valLastname" style="display:none;"><h4>Du må ha stor forbokstav og fornavnet må være lengre enn 3 bokstaver. Max-lengde er 50</h4></div><h4>@Html.ValidationMessageFor(model => model.lastName)</h4></div>
                                         </div>
                                     </div>
                                 </td>
-                                <td>@Html.ValidationMessageFor(model => model.lastName)</td>
                             </tr>
                             <tr>
-                                <td>
+                                <td class="col-md-offset4 col-md-6">
                                     <div class="col-lg-12 input-group">
                                         <div class="input-group input-group-lg">
                                             <span class="input-group-addon">
                                                 <span class="glyphicon glyphicon-envelope"></span>
                                             </span>
-                                            @Html.TextBoxFor(model => model.email, new { @class = "form-control", placeholder = (@Html.DisplayNameFor(model => model.email)) })
+                                            @Html.TextBoxFor(model => model.email, new { @class = "form-control", id = "username", onchange = "validate_username()", placeholder = (@Html.DisplayNameFor(model => model.email)) })<div style="color: red"></div>
+                                            <div style="display:none" id="checkusername">
+                                                <span class="input-group-addon">
+                                                    <span style="color:chartreuse" class="glyphicon glyphicon-ok"></span>
+                                                </span>
+                                            </div>
+                                            <div style="color: red"><div id="valusername" style="display:none;"><h4>Feil ved opprettelse av epost. Eksempel på struktur: 'Ola@nordmann.no'</h4></div><h4>@Html.ValidationMessageFor(model => model.email)</h4></div>
+
                                         </div>
                                     </div>
                                 </td>
-                                <td>@Html.ValidationMessageFor(model => model.email)</td>
                             </tr>
                             <tr>
-                                <td>
+                                <td class="col-md-offset4 col-md-6">
                                     <div class="col-lg-12 input-group">
                                         <div class="input-group input-group-lg">
                                             <span class="input-group-addon">
                                                 <span class="glyphicon glyphicon-lock"></span>
                                             </span>
-                                            @Html.PasswordFor(model => model.password, new { @class = "form-control", placeholder = (@Html.DisplayNameFor(model => model.password)) })
+                                            @Html.PasswordFor(model => model.password, new { @class = "form-control", id = "password", onchange = "validate_password()", placeholder = (@Html.DisplayNameFor(model => model.password)) })<div style="color: red"></div>
+                                            <div style="display:none" id="checkpassword">
+                                                <span class="input-group-addon">
+                                                    <span style="color:chartreuse" class="glyphicon glyphicon-ok"></span>
+                                                </span>
+                                            </div>
+                                            <div style="color: red"><div id="valpassword" style="display:none;"><h4>Passordet må ha minst 1 stor bokstav, små bokstaver og tall</h4></div><h4>@Html.ValidationMessageFor(model => model.password)</h4></div>
                                         </div>
                                     </div>
                                 </td>
-                                <td>@Html.ValidationMessageFor(model => model.password)</td>
                             </tr>
                             <tr>
-                                <td>
+                                <td class="col-md-offset4 col-md-6">
                                     <div class="col-lg-12 input-group">
                                         <div class="input-group input-group-lg">
                                             <span class="input-group-addon">
                                                 <span class="glyphicon glyphicon-lock"></span>
                                             </span>
-                                            @Html.PasswordFor(model => model.passwordVerifier, new { @class = "form-control", placeholder = (@Html.DisplayNameFor(model => model.passwordVerifier)) })
+                                            @Html.PasswordFor(model => model.passwordVerifier, new { @class = "form-control", id = "passwordverifier", onchange = "validate_passwordVerifier()", placeholder = (@Html.DisplayNameFor(model => model.passwordVerifier)) })<div style="color: red"></div>
+                                            <div style="display:none" id="checkpasswordverifier">
+                                                <span class="input-group-addon">
+                                                    <span style="color:chartreuse" class="glyphicon glyphicon-ok"></span>
+                                                </span>
+                                            </div>
+                                            <div style="color: red"><div id="valpasswordverifier" style="display:none;"><h4>Passordet er ikke likt!</h4></div><h4>@Html.ValidationMessageFor(model => model.passwordVerifier)</h4></div><h4>Verifiser passord</h4>
+
                                         </div>
                                     </div>
                                 </td>
-                                <td>@Html.ValidationMessageFor(model => model.passwordVerifier)</td>
                             </tr>
                             <tr>
-                                <td>
+                                <td class="col-md-offset4 col-md-6">
                                     <div class="col-lg-12 input-group">
                                         <div class="input-group input-group-lg">
                                             <span class="input-group-addon">
                                                 <span class="glyphicon glyphicon-earphone"></span>
                                             </span>
-                                            @Html.TextBoxFor(model => model.phone, new { @class = "form-control", placeholder = (@Html.DisplayNameFor(model => model.phone)) })
+                                            @Html.TextBoxFor(model => model.phone, new { @class = "form-control", id = "phone", onchange = "validate_phone()", placeholder = (@Html.DisplayNameFor(model => model.phone)) })<div style="color: red"></div>
+                                            <div style="display:none" id="checkphone">
+                                                <span class="input-group-addon">
+                                                    <span style="color:chartreuse" class="glyphicon glyphicon-ok"></span>
+                                                </span>
+                                            </div>
+                                            <div style="color: red"><div id="valphone" style="display:none;"><h4>Telefonnummeret må være 8 siffer langt</h4></div><h4>@Html.ValidationMessageFor(model => model.phone)</h4></div>
+
                                         </div>
                                     </div>
                                 </td>
-                                <td>@Html.ValidationMessageFor(model => model.phone)</td>
+                            </tr>
+                            <tr>
+                                <td class="col-md-offset1 col-md-12">
+                                    <div class="col-lg-12 input-group">
+                                        <div class="input-group input-group-lg">
+                                            <span class="input-group-addon">
+                                                <span class="glyphicon glyphicon-ok-circle"></span>
+                                            </span>
+                                            <input type="text" class="form-control" readonly="readonly" value="Samme levering og betalingsadresse?" /><input class="form-control" type="checkbox" id="checkbox" onclick="sameAdress(this)" />
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="col-md-offset4 col-md-6">
+                                    <div class="col-lg-12 input-group">
+                                        <div class="input-group input-group-lg">
+                                            <span class="input-group-addon">
+                                                <span class="glyphicon glyphicon-home"></span>
+                                            </span>
+                                            @Html.TextBoxFor(model => model.adress, new { id = "adress", onchange = "validate_adress()", @class = "form-control", placeholder = (@Html.DisplayNameFor(model => model.adress)) })
+                                            <div style="display:none" id="checkadress">
+                                                <span class="input-group-addon">
+                                                    <span style="color:chartreuse" class="glyphicon glyphicon-ok"></span>
+                                                </span>
+                                            </div>
+                                            <div style="color: red"><div id="valadress" style="display:none;"><h4>Adresse må oppgis</h4></div><h4>@Html.ValidationMessageFor(model => model.adress)</h4></div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="col-md-offset4 col-md-6">
+                                    <div class="col-lg-12 input-group">
+                                        <div class="input-group input-group-lg">
+                                            <span class="input-group-addon">
+                                                <span class="glyphicon glyphicon-tag"></span>
+                                            </span>
+                                            @Html.TextBoxFor(model => model.zipCode, new { id = "zipcode", onchange = "validate_zipcode()", @class = "form-control", placeholder = (@Html.DisplayNameFor(model => model.zipCode)) })
+                                            <div style="display:none" id="checkzipcode">
+                                                <span class="input-group-addon">
+                                                    <span style="color:chartreuse" class="glyphicon glyphicon-ok"></span>
+                                                </span>
+                                            </div>
+                                            <div style="color: red"><div id="valzipcode" style="display:none;"><h4>Postnr må være 4 siffer!</h4></div><h4>@Html.ValidationMessageFor(model => model.zipCode)</h4></div>
+                                        </div>
+                                    </div>
+                                </td>
                             </tr>
                             <tr>
                                 <td>
                                     <div class="col-lg-12 input-group">
                                         <div class="input-group input-group-lg">
                                             <span class="input-group-addon">
-                                                <span class="glyphicon glyphicon-ok"></span>
+                                                <span class="glyphicon glyphicon-king"></span>
                                             </span>
-                                            <input type="text" class="form-control" style="font-size: 14px;" readonly="readonly" placeholder="Samme betaling og leveringsadresse?"/>
-                                            <span class="input-group-addon">
-                                                <input type="checkbox" id="checkbox"onclick="sameAdress(this)" />
-                                            </span>
+                                            @Html.TextBoxFor(model => model.province, new { id = "province", onchange = "validate_province()", @class = "form-control", placeholder = (@Html.DisplayNameFor(model => model.province)) })
+                                            <div style="display:none" id="checkprovince">
+                                                <span class="input-group-addon">
+                                                    <span style="color:chartreuse" class="glyphicon glyphicon-ok"></span>
+                                                </span>
+                                            </div>
+                                            <div style="color: red"><div id="valprovince" style="display:none;"><h4>By/tettsted må oppgis</h4></div><h4>@Html.ValidationMessageFor(model => model.province)</h4></div>
                                         </div>
                                     </div>
                                 </td>
@@ -122,11 +205,16 @@
                                             <span class="input-group-addon">
                                                 <span class="glyphicon glyphicon-home"></span>
                                             </span>
-                                            @Html.TextBoxFor(model => model.adress, new { id = "adress", @class = "form-control", placeholder = (@Html.DisplayNameFor(model => model.adress)) })
+                                            @Html.TextBoxFor(model => model.payAdress, new { id = "payAdress", onchange = "validate_Payadress()", @class = "form-control", placeholder = (@Html.DisplayNameFor(model => model.payAdress)) })
+                                            <div style="display:none" id="checkPayadress">
+                                                <span class="input-group-addon">
+                                                    <span style="color:chartreuse" class="glyphicon glyphicon-ok"></span>
+                                                </span>
+                                            </div>
+                                            <div style="color: red"><div id="valPayadress" style="display:none;"><h4>Betalingsadresse må oppgis</h4></div><h4>@Html.ValidationMessageFor(model => model.payAdress)</h4></div>
                                         </div>
                                     </div>
                                 </td>
-                                <td>@Html.ValidationMessageFor(model => model.adress)</td>
                             </tr>
                             <tr>
                                 <td>
@@ -135,11 +223,16 @@
                                             <span class="input-group-addon">
                                                 <span class="glyphicon glyphicon-tag"></span>
                                             </span>
-                                            @Html.TextBoxFor(model => model.zipCode, new { id = "zipcode", @class = "form-control", placeholder = (@Html.DisplayNameFor(model => model.zipCode)) })
+                                            @Html.TextBoxFor(model => model.payZipcode, new { id = "payZipcode", onchange = "validate_Payzipcode()", @class = "form-control", placeholder = (@Html.DisplayNameFor(model => model.payZipcode)) })
+                                            <div style="display:none" id="checkPayzipcode">
+                                                <span class="input-group-addon">
+                                                    <span style="color:chartreuse" class="glyphicon glyphicon-ok"></span>
+                                                </span>
+                                            </div>
+                                            <div style="color: red"><div id="valPayzipcode" style="display:none;"><h4>Betalinspostnummer må oppgis</h4></div><h4>@Html.ValidationMessageFor(model => model.payZipcode)</h4></div>
                                         </div>
                                     </div>
                                 </td>
-                                <td>@Html.ValidationMessageFor(model => model.zipCode)</td>
                             </tr>
                             <tr>
                                 <td>
@@ -148,50 +241,16 @@
                                             <span class="input-group-addon">
                                                 <span class="glyphicon glyphicon-king"></span>
                                             </span>
-                                            @Html.TextBoxFor(model => model.province, new { id = "province", @class = "form-control", placeholder = (@Html.DisplayNameFor(model => model.province)) })
+                                            @Html.TextBoxFor(model => model.payProvince, new { id = "payProvince", onchange = "validate_Payprovince()", @class = "form-control", placeholder = (@Html.DisplayNameFor(model => model.payProvince)) })
+                                            <div style="display:none" id="checkPayprovince">
+                                                <span class="input-group-addon">
+                                                    <span style="color:chartreuse" class="glyphicon glyphicon-ok"></span>
+                                                </span>
+                                            </div>
+                                            <div style="color: red"><div id="valPayprovince" style="display:none;"><h4>BetalingsBy/tettsted må oppgis</h4></div><h4>@Html.ValidationMessageFor(model => model.payProvince)</h4></div>
                                         </div>
                                     </div>
                                 </td>
-                                <td>@Html.ValidationMessageFor(model => model.province)</td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="col-lg-12 input-group">
-                                        <div class="input-group input-group-lg">
-                                            <span class="input-group-addon">
-                                                <span class="glyphicon glyphicon-home"></span>
-                                            </span>
-                                            @Html.TextBoxFor(model => model.payAdress, new { id = "payAdress", @class = "form-control", placeholder = (@Html.DisplayNameFor(model => model.payAdress)) })
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>@Html.ValidationMessageFor(model => model.payAdress)</td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="col-lg-12 input-group">
-                                        <div class="input-group input-group-lg">
-                                            <span class="input-group-addon">
-                                                <span class="glyphicon glyphicon-tag"></span>
-                                            </span>
-                                            @Html.TextBoxFor(model => model.payZipcode, new { id = "payZipcode", @class = "form-control", placeholder = (@Html.DisplayNameFor(model => model.payZipcode)) })
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>@Html.ValidationMessageFor(model => model.payZipcode)</td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="col-lg-12 input-group">
-                                        <div class="input-group input-group-lg">
-                                            <span class="input-group-addon">
-                                                <span class="glyphicon glyphicon-king"></span>
-                                            </span>
-                                            @Html.TextBoxFor(model => model.payProvince, new { id = "payProvince", @class = "form-control", placeholder = (@Html.DisplayNameFor(model => model.payProvince)) })
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>@Html.ValidationMessageFor(model => model.payProvince)</td>
                             </tr>
 
                         </table>
@@ -202,11 +261,240 @@
                     </div>
                 </div>
             </div>
-          </div>
+}
+<script type="text/javascript">
+    function validate_firstname() {
+        regEx = /[A-ZÆØÅ][a-zæøå ,.'-]{2,50}/;
+        OK = regEx.test($("#firstname").val());
+        if (!OK) {
+            document.getElementById("firstname").style.borderColor = "red";
+            document.getElementById("firstname").style.borderWidth = "3px";
+            $("#valFirstname").show();
+            $("#checkFirstname").hide();
+        }
+        else {
+            $("#valFirstname").hide();
+            $("#checkFirstname").show();
+            document.getElementById("firstname").style.borderColor = "chartreuse";
+            document.getElementById("firstname").style.borderWidth = "3px";
+        }
+    }
 
+    function validate_lastname() {
+        regEx = /[A-ZÆØÅ][a-zæøå ,.'-]{2,50}/;
+        OK = regEx.test($("#lastname").val());
+        if (!OK) {
+            document.getElementById("lastname").style.borderColor = "red";
+            document.getElementById("lastname").style.borderWidth = "3px";
+            $("#valLastname").show();
+            $("#checkLastname").hide();
+        }
+        else {
+            document.getElementById("lastname").style.borderColor = "chartreuse";
+            document.getElementById("lastname").style.borderWidth = "3px";
+            $("#valLastname").hide();
+            $("#checkLastname").show();
+        }
+    }
+    function validate_username() {
+        
+        regEx = /^([A-Za-z0-9._%+-]+@@[A-Za-z0-9.-]+\.[A-Za-z]{2,4})$/;
+        OK = regEx.test($("#username").val());
+        if (!OK) {
 
-                }
+            $("#valusername").show();
+            $("#checkusername").hide();
+            document.getElementById("username").style.borderColor = "red";
+            document.getElementById("username").style.borderWidth = "3px";
+        }
+        else {
+            document.getElementById("username").style.borderColor = "chartreuse";
+            document.getElementById("username").style.borderWidth = "3px";
+            $("#valusername").hide();
+            $("#checkusername").show();
+        }
+    }
 
+    function validate_phone() {
+        regEx = /^[0-9]{8}$/;
+        OK = regEx.test($("#phone").val());
+        if (!OK) {
+            $("#valphone").show();
+            $("#checkphone").hide();
+            document.getElementById("phone").style.borderColor = "red";
+            document.getElementById("phone").style.borderWidth = "3px";
+        }
+        else {
+            document.getElementById("phone").style.borderColor = "chartreuse";
+            document.getElementById("phone").style.borderWidth = "3px";
+            $("#valphone").hide();
+            $("#checkphone").show();
+        }
+    }
+    function validate_password() {
+        regEx = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
+        OK = regEx.test($("#password").val());
+        if (!OK) {
+            $("#valpassword").show();
+            $("#checkpassword").hide();
+            document.getElementById("password").style.borderColor = "red";
+            document.getElementById("password").style.borderWidth = "3px";
+        }
+        else {
+            document.getElementById("password").style.borderColor = "chartreuse";
+            document.getElementById("password").style.borderWidth = "3px";
+            $("#valpassword").hide();
+            $("#checkpassword").show();
+        }
+    }
+    function validate_passwordVerifier() {
+        if (!($("#password").val() == $("#passwordverifier").val())) {
+            $("#valpasswordverifier").show();
+            $("#checkpasswordverifier").hide();
+            document.getElementById("passwordverifier").style.borderColor = "red";
+            document.getElementById("passwordverifier").style.borderWidth = "3px";
+        }
+        else {
+            document.getElementById("passwordverifier").style.borderColor = "chartreuse";
+            document.getElementById("passwordverifier").style.borderWidth = "3px";
+            $("#valpasswordverifier").hide();
+            $("#checkpasswordverifier").show();
+        }
+    }
+    function validate_adress() {
+        regEx = /[A-ZÆØÅ][a-zæøå ,.'-]{2,50}/;
+        OK = regEx.test($("#adress").val());
+        if (!OK) {
+            document.getElementById("adress").style.borderColor = "red";
+            document.getElementById("adress").style.borderWidth = "3px";
+            $("#valadress").show();
+            $("#checkadress").hide();
+        }
+        else {
+            document.getElementById("adress").style.borderColor = "chartreuse";
+            document.getElementById("adress").style.borderWidth = "3px";
+            $("#valadress").hide();
+            $("#checkadress").show();
+        }
+    }
+    function validate_zipcode() {
+        regEx = /^[0-9]{4}$/;
+        OK = regEx.test($("#zipcode").val());
+        if (!OK) {
+            document.getElementById("zipcode").style.borderColor = "red";
+            document.getElementById("zipcode").style.borderWidth = "3px";
+            $("#valzipcode").show();
+            $("#checkzipcode").hide();
+        }
+        else {
+            document.getElementById("zipcode").style.borderColor = "chartreuse";
+            document.getElementById("zipcode").style.borderWidth = "3px";
+            $("#valzipcode").hide();
+            $("#checkzipcode").show();
+        }
+    }
+    function validate_province() {
+        regEx = /[A-ZÆØÅ][a-zæøå ,.'-]{2,50}/;
+        OK = regEx.test($("#province").val());
+        if (!OK) {
+            document.getElementById("province").style.borderColor = "red";
+            document.getElementById("province").style.borderWidth = "3px";
+            $("#valprovince").show();
+            $("#checkprovince").hide();
+        }
+        else {
+            document.getElementById("province").style.borderColor = "chartreuse";
+            document.getElementById("province").style.borderWidth = "3px";
+            $("#valprovince").hide();
+            $("#checkprovince").show();
+        }
+    }
+    function validate_Payadress() {
+        regEx = /[A-ZÆØÅ][a-zæøå ,.'-]{2,50}/;
+        OK = regEx.test($("#payAdress").val());
+        if (!OK) {
+            document.getElementById("payAdress").style.borderColor = "red";
+            document.getElementById("payAdress").style.borderWidth = "3px";
+            $("#valPayadress").show();
+            $("#checkPayadress").hide();
+        }
+        else {
+            document.getElementById("payAdress").style.borderColor = "chartreuse";
+            document.getElementById("payAdress").style.borderWidth = "3px";
+            $("#valPayadress").hide();
+            $("#checkPayadress").show();
+        }
+    }
+    function validate_Payzipcode() {
+        regEx = /^[0-9]{4}$/;
+        OK = regEx.test($("#payZipcode").val());
+        if (!OK) {
+            document.getElementById("payZipcode").style.borderColor = "red";
+            document.getElementById("payZipcode").style.borderWidth = "3px";
+            $("#valPayzipcode").show();
+            $("#checkPayzipcode").hide();
+        }
+        else {
+            document.getElementById("payZipcode").style.borderColor = "chartreuse";
+            document.getElementById("payZipcode").style.borderWidth = "3px";
+            $("#valPayzipcode").hide();
+            $("#checkPayzipcode").show();
+        }
+    }
+    function validate_Payprovince() {
+        regEx = /[A-ZÆØÅ][a-zæøå ,.'-]{2,50}/;
+        OK = regEx.test($("#Payprovince").val());
+        if (!OK) {
+            document.getElementById("payProvince").style.borderColor = "red";
+            document.getElementById("payProvince").style.borderWidth = "3px";
+            $("#valPayprovince").show();
+            $("#checkPayprovince").hide();
+        }
+        else {
+            document.getElementById("payProvince").style.borderColor = "chartreuse";
+            document.getElementById("payProvince").style.borderWidth = "3px";
+            $("#valPayprovince").hide();
+            $("#checkPayprovince").show();
+        }
+    }
 
+    function hideJavacriptValidations() {
+        $("#valFirstname").hide();
+        $("#checkFirstname").hide();
 
+        $("#valLastname").hide();
+        $("#checkLastname").hide();
+
+        $("#valusername").hide();
+        $("#checkusername").hide();
+
+        $("#valphone").hide();
+        $("#checkphone").hide();
+
+        $("#valpassword").hide();
+        $("#checkpassword").hide();
+
+        $("#valpasswordverifier").hide();
+        $("#checkpasswordverifier").hide();
+
+        $("#valadress").hide();
+        $("#checkadress").hide();
+
+        $("#valzipcode").hide();
+        $("#checkzipcode").hide();
+
+        $("#valprovince").hide();
+        $("#checkprovince").hide();
+
+        $("#valPayadress").hide();
+        $("#checkPayadress").hide();
+
+        $("#valPayzipcode").hide();
+        $("#checkPayzipcode").hide();
+
+        $("#valPayprovince").hide();
+        $("#checkPayprovince").hide();
+    }
+
+</script>
 

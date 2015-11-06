@@ -3,6 +3,7 @@
 @{
     ViewBag.Title = "Endre kundeinformasjon";
 }
+@Html.Action("HeaderAndMenuBar", "Layout")
 
     <div class="container">
     <h2>Rediger kundeinformasjon</h2>
@@ -12,7 +13,7 @@
         @Html.AntiForgeryToken()
 
         <div class="form-horizontal">
-            <h4>Customers</h4>
+            
             <hr />
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 

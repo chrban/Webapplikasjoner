@@ -1,0 +1,14 @@
+﻿@model List<Kaffeplaneten.Models.OrderModel>
+@Html.Action("HeaderAndMenuBar", "Layout")
+@{
+    ViewBag.Title = "AllOrders";
+}
+
+
+<div class="container">
+    @foreach (var o in Model)
+    {
+        @Html.Partial("OrderView", o)
+    }
+
+</div>

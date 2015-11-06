@@ -279,7 +279,7 @@ namespace Kaffeplaneten.BLL
             var employee = createSuperEmployee();
             var user = createSuperUser();
             var temp = new EmployeeBLL();
-            if (temp.find(employee.username) != null)
+            if (temp.find(user.username) != null)
                 return;
             var tempEmpBLL = new EmployeeBLL();
             var tempUserBLL = new UserBLL();
@@ -339,6 +339,12 @@ namespace Kaffeplaneten.BLL
             customerModel.email = "Trond@tronno.rønning";
             customerModel.adress = "Tronnoland";
             return customerBLL.update(customerModel);
+        }
+
+        public static bool deleteCustomerTest(int id)
+        {
+            var customerBLL = new CustomerBLL();
+            return customerBLL.delete(id);
         }
 
     }

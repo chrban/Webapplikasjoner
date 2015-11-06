@@ -46,7 +46,7 @@
                                 bool productAdmin = (bool)Session["productAdmin"];
                                 bool databaseAdmin = (bool)Session["databaseAdmin"];
 
-                                <li role="presentation"><span class="navbaricons glyphicon glyphicon-home"></span>@Html.ActionLink("Home", "Home", "LayoutController", new { area = "" }, new { @class = "navbar-brand" })</li>
+                                <li role="presentation"><span class="navbaricons glyphicon glyphicon-home"></span>@Html.ActionLink("Home", "Home", "Layout", new { area = "" }, new { @class = "navbar-brand" })</li>
                                 if (employeeAdmin)
                                 {
                                     <li role="presentation"><span class="navbaricons glyphicon glyphicon-user"></span>@Html.ActionLink("Ansattredigering", "createEmployee", "AdminEmployee", new { area = "" }, new { @class = "navbar-brand" })</li>

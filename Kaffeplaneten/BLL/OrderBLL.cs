@@ -29,13 +29,6 @@ namespace Kaffeplaneten.BLL
             _loggingBLL.logToUser("Bestilte ordre: " + orderModel.orderNr);
             return _orderDAL.add(orderModel);
         }
-        public bool addProductOrders(OrderModel orderModel)/*Legger ProductOrders inn i databasen. OrderNr og pruductID-ene må være med i modellen*/
-        {
-            _loggingBLL.logToDatabase(orderModel.orderNr + " ble lagt til i databasen.");
-            _loggingBLL.logToUser("La til produkt ordre: " + orderModel.orderNr);
-            return _orderDAL.addProductOrders(orderModel);            
-        }
-
         public OrderModel find(int nr)//Henter ut en OrderModel fra en ordre med ordreNr lik nr
         {
             return _orderDAL.find(nr);
@@ -46,9 +39,19 @@ namespace Kaffeplaneten.BLL
             return _orderDAL.findOrders(id);
         }//end findOrders()
 
+        public List<OrderModel> findOrders(CustomerModel customerModel)
+        {
+            return _orderDAL.findOrders(customerModel);
+        }
+
         public List<OrderModel> allOrders()
         {
             return _orderDAL.allOrders();
+        }
+
+        public bool cancelOrder(int nr)
+        {
+            return _orderDAL.cancelOrder(nr);
         }
     } //end namespace
 }//end class

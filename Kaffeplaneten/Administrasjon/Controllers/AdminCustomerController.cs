@@ -82,6 +82,21 @@ namespace Administrasjon.Controllers
             }
 
         }
+        public ActionResult Details(int id)
+        {
+            var customerList = _customerBLL.allCustomers();
+            foreach (var i in customerList)
+            {
+                if (i.customerID == id)
+                {
+                    Session["tempCID"] = id;
+                    return View(i);
+                }
+            }
+
+            return RedirectToAction("AllCustomers");
+
+        }
 
       
     }

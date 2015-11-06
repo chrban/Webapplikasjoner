@@ -7,7 +7,7 @@
     <h2>Kunder i databasen</h2>
     <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
 
-    <table class="table table-hover">
+    <table class="table table-hover table-striped">
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.customerID)
@@ -28,13 +28,13 @@
                 @Html.DisplayNameFor(model => model.province)
             </th>
             <th>
-                 Buttons
+                 
             </th>
             <th></th>
         </tr>
         @foreach (var item in Model)
         {
-            <tr>
+            <tr onclick="location.href='@Url.Action("Details", "AdminCustomer", new { id = item.customerID })'">
                 <td>
                     @Html.DisplayFor(modelItem => item.customerID)
                 </td>
@@ -54,8 +54,9 @@
                     @Html.DisplayFor(modelItem => item.province)
                 </td>
                 <td>
-                    @Html.ActionLink("Rediger", "Edit", "AdminCustomer", new { id = item.customerID}, new { @class = "btn btn-default btn-xs" })
-
+                    @Html.ActionLink("Rediger", "Edit", "AdminCustomer", new { id = item.customerID }, new { @class = "btn btn-default btn-xs" })
+                    @Html.ActionLink("Detaljer", "Details", "AdminCustomer", new { id = item.customerID }, new { @class = "btn btn-default btn-xs" })
+                    @Html.ActionLink("Kundebestillinger", "findOrders", "AdminOrder", new { id = item.customerID }, new { @class = "btn btn-default btn-xs" })
                     <button class="btn btn-danger btn-xs" data-toggle="modal" data-target="#modalDelete-@Html.DisplayFor(modelItem => item.customerID)">Slett</button>
                 </td>
 
@@ -75,7 +76,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-info" data-dismiss="modal">Avbryt</button>
-                            @Html.ActionLink("Slett", "Delete", "AdminCustomer", new { id = item.customerID }, null)
+                            @Html.ActionLink("Slett", "Delete", "AdminCustomer", new { id = item.customerID }, new { @class = "btn btn-danger " })
                         </div>
                     </div>
                 </div>
