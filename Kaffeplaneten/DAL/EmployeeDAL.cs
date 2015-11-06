@@ -12,6 +12,14 @@ namespace Kaffeplaneten.DAL
 {
     public class EmployeeDAL : IEmployeeDAL
     {
+
+        private LoggingDAL _logging;
+
+        public EmployeeDAL()
+        {
+            _logging = new LoggingDAL();
+        }
+
         public bool add(EmployeeModel employeeModel)//Legger employee inn i datatbasen
         {
             using (var db = new CustomerContext())
@@ -49,6 +57,7 @@ namespace Kaffeplaneten.DAL
                                                     validationError.ErrorMessage);
                         }
                     }//end foreach
+                    _logging.logToDatabase("FEIL: Databasevalidering når ansatt skulle bli lagt inn fikk feil!");
                     return false;
                 }//end catch
             }//end using
@@ -72,6 +81,7 @@ namespace Kaffeplaneten.DAL
                 }
                 catch (Exception)
                 {
+                    _logging.logToDatabase("FEIL: Klarte ikke finne ansatt med epost:" + email);
                     return null;
                 }
             }
@@ -105,6 +115,7 @@ namespace Kaffeplaneten.DAL
                 catch (Exception ex)
                 {
                     /*Viser nyttig informasjon om alle excetions i debug.out. Avslutter programmet*/
+                    _logging.logToDatabase("FEIL: Klarte ikke finne ansatt med ansattID:" + id);
                     Debug.WriteLine("\nERROR!\nMelding:\n" + ex.Message + "\nInner exception:" + ex.InnerException + "\nKastet fra\n" + ex.TargetSite + "\nTrace:\n" + ex.StackTrace);
                     Trace.TraceInformation("Property: {0} Error: {1}", ex.Source, ex.InnerException);
                     //Environment.Exit(1);
@@ -135,6 +146,7 @@ namespace Kaffeplaneten.DAL
                 }
                 catch (Exception)
                 {
+                    _logging.logToDatabase("FEIL: Klarte ikke hente ut alle ansatte!");
                 }
                 return null;
             }
@@ -168,10 +180,35 @@ namespace Kaffeplaneten.DAL
                 }//emd try
                 catch (Exception ex)
                 {
+                    _logging.logToDatabase("FEIL: Klarte ikke oppdatere ansatt!");
                     Debug.WriteLine("\nERROR!\nMelding:\n" + ex.Message + "\nInner exception:" + ex.InnerException + "\nKastet fra\n" + ex.TargetSite + "\nTrace:\n" + ex.StackTrace);
                     Trace.TraceInformation("Property: {0} Error: {1}", ex.Source, ex.InnerException);
                 }
             }//end using
+            return false;
+        }
+
+        public bool delete(int id)
+        {
+            using (var db = new CustomerContext())
+            {
+                try
+                {
+                    Users delUser = (from u in db.Users where u.personID == id select u).Single();
+                    Employees delEmployee= (from e in db.Employees where e.personID == id select e).Single();
+                    db.Users.Remove(delUser);
+                    db.Employees.Remove(delEmployee);
+                    //Adress, Orders og ProductOrder slettes automatisk
+                    db.SaveChanges();
+                    Debug.WriteLine(delEmployee.firstName + "Er slettet");
+                    return true;
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine("\nERROR!\nMelding:\n" + ex.Message + "\nInner exception:" + ex.InnerException + "\nKastet fra\n" + ex.TargetSite + "\nTrace:\n" + ex.StackTrace);
+                    Trace.TraceInformation("Property: {0} Error: {1}", ex.Source, ex.InnerException);
+                }
+            }
             return false;
         }
     }//end namespace
