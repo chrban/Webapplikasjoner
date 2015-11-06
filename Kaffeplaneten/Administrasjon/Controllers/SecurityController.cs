@@ -47,26 +47,26 @@ namespace Administrasjon.Controllers
                 if(Emp != null)
                 {
 
-                    if(Session["employeeAdmin"] == null)
-                        Session["employeeAdmin"] = Emp.employeeAdmin;
-                    if(Session["customerAdmin"]== null)
-                        Session["customerAdmin"] = Emp.customerAdmin;
-                    if (Session["orderAdmin"] == null)
-                        Session["orderAdmin"] = Emp.orderAdmin;
-                    if (Session["productAdmin"] == null)
-                        Session["productAdmin"] = Emp.productAdmin;
-                    if (Session["databaseAdmin"] == null)
-                        Session["databaseAdmin"] = Emp.databaseAdmin;
+                    if(Session[employeeAdmin] == null)
+                        Session[employeeAdmin] = Emp.employeeAdmin;
+                    if(Session[customerAdmin]== null)
+                        Session[customerAdmin] = Emp.customerAdmin;
+                    if (Session[orderAdmin] == null)
+                        Session[orderAdmin] = Emp.orderAdmin;
+                    if (Session[productAdmin] == null)
+                        Session[productAdmin] = Emp.productAdmin;
+                    if (Session[databaseAdmin] == null)
+                        Session[databaseAdmin] = Emp.databaseAdmin;
 
-                    Session["firstname"] = Emp.firstName;
-                    Session["lastname"] = Emp.lastName;
-                    Session["username"] = user.username;
+                    Session[firstname] = Emp.firstName;
+                    Session[lastname] = Emp.lastName;
+                    Session[username] = user.username;
                     return RedirectToAction("Home", "Layout");
                 }
-                Session["Feilmelding"] = "Finner ikke brukerepost";
+                Session[Feilmelding] = "Finner ikke brukerepost";
                 return View();
             }
-            Session["Feilmelding"] = "Feil i brukernavn eller passord";
+            Session[Feilmelding] = "Feil i brukernavn eller passord";
             return View();
        
         }
@@ -85,14 +85,14 @@ namespace Administrasjon.Controllers
         public ActionResult LoggedOut()
         {
             Session[LOGGED_INN] = null;
-            Session["employeeAdmin"] = null;
-            Session["customerAdmin"] = null;
-            Session["orderAdmin"] = null;
-            Session["productAdmin"] = null;
-            Session["databaseAdmin"] = null;
-            Session["firstname"] = null;
-            Session["lastname"] = null;
-            Session["username"] = null;
+            Session[employeeAdmin] = null;
+            Session[customerAdmin] = null;
+            Session[orderAdmin] = null;
+            Session[productAdmin] = null;
+            Session[databaseAdmin] = null;
+            Session[firstname] = null;
+            Session[lastname] = null;
+            Session[username] = null;
             return RedirectToAction("Loginview");
         }
     }

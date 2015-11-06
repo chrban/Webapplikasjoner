@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using Kaffeplaneten.BLL;
 using Kaffeplaneten.Models;
 using System.Diagnostics;
+using System.Text;
 
 namespace Administrasjon.Controllers
 {
@@ -77,20 +78,39 @@ namespace Administrasjon.Controllers
         }
 
         [HttpPost]
-        public ActionResult deleteEmployee(string username)
+        public ActionResult deleteEmployee(EmployeeModel employee)
         {
-            if (!ModelState.IsValid)
-                return View();
-            var user = _userBLL.get(username);
-            if (user == null)
+            Session["cantDelete"] = null;
+            Session["noUser"] = null;
+            Session["isDeleted"] = null;
+            var user = _employeeBLL.find(employee.employeeID);
+            if (user == null) //sjekker om bruker finnes
             {
                 Session["noUser"] = "Brukereposten eksisterer ikke!";
-                return View(username);
+                return View();
             }
-            bool deleted = _employeeBLL.delete(user.ID);
+            if(user.username.Equals(Session["username"])) //Sjekker om det er en selv
+            {
+                Session["cantDelete"] = "Ikke lov å slette seg selv fra ansatte";
+                return View();
+            }
+            if(user.employeeAdmin && user.customerAdmin && user.productAdmin && user.orderAdmin && user.databaseAdmin)
+            {
+                Session["cantDelete"] = "Du kan ikke slette en hovedadministrator fra systemet. Personen har alle rettigheter.";
+                return View();
+            }
+
+            bool deleted = _employeeBLL.delete(user.employeeID);
             if (deleted)
             {
-                Session["isDeleted"] = user.username + " er fjernet som ansatt!";
+                StringBuilder sb = new StringBuilder();
+                sb.Append("Du har nå fjernet: ");
+                sb.Append(user.firstName);
+                sb.Append(" ");
+                sb.Append(user.lastName);
+                sb.Append("\n med Brukernavn: ");
+                sb.Append(user.username);
+                Session["isDeleted"] = sb.ToString();
                 return View();
             }
             Session["cantDelete"] = "Kunne ikke slette brukeren!";

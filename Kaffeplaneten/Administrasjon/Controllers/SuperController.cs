@@ -9,13 +9,17 @@ namespace Administrasjon.Controllers
 {
     public class SuperController : Controller
     {
-        public const string SHOPPING_CART = "ShoppingCart";
+        public const string employeeAdmin = "employeeAdmin";
+        public const string customerAdmin = "customerAdmin";
+        public const string orderAdmin = "orderAdmin";
+        public const string productAdmin = "productAdmin";
+        public const string databaseAdmin = "databaseAdmin";
+        public const string firstname = "firstname";
+        public const string lastname = "lastname";
+        public const string username = "username";
+        public const string Feilmelding = "Feilmelding";
         public const string LOGGED_INN = "LoggedInn";
-        public const string PRODUCT_LIST = "ProductList";
-        public const string UNIQUE_CATEGORIES = "UniqueCategories";
-        public const string INITIAL_LOAD = "INITIAL";
-        public const string CUSTOMER = "Customer";
-        public const string Employee = "Employee";
+        public const string Employee = "Employee";   
         public ActionResult Index()
         {
             return View();
