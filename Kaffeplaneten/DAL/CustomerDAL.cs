@@ -63,11 +63,7 @@ namespace Kaffeplaneten.DAL
                     streetName = IncCustomer.adress,
                     province = IncCustomer.province
                 };
-
-
                 addAdress(adressModel);
-
-                Debug.WriteLine("SAVEDCHANGED CONFIRMED");
             }
             //Ulike adresser
             else

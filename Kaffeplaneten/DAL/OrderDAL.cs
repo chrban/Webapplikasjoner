@@ -161,7 +161,7 @@ namespace Kaffeplaneten.DAL
                                   where o.personID == customerModel.customerID ||
                                   o.Customers.email.Equals(customerModel.email) ||
                                   o.Customers.phone.Equals(customerModel.phone)
-                                  select o).ToList();
+                                  select o).OrderBy(o => o.orderNr).ToList();
                     foreach (var o in orders)
                         orderModelList.Add(createOrderModel(o));
                     return orderModelList;
