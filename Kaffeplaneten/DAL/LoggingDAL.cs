@@ -149,6 +149,13 @@ namespace Kaffeplaneten.DAL
             return allMessages;
         }
 
+        public JArray parseToArray(string log)
+        {
+            string entireLog = File.ReadAllText(log) + "]";
+            JArray a = JArray.Parse(entireLog);
+            return a;
+        }
+
         public bool createLog(string type)
         {
             if (type.Equals(LOG_DATABASE))

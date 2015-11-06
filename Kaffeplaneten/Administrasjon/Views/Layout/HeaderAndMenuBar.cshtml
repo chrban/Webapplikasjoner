@@ -10,6 +10,10 @@
     <title>@ViewBag.Title - Administrasjon kaffeplaneten</title>
     <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <script src="~/Scripts/jquery-1.11.3.min.js"></script>
+    <script src="~/Scripts/jquery.bootgrid.js"></script>
+    <script src="~/Scripts/jquery.bootgrid.fa.js"></script>
+    <link href="~/Scripts/jquery.bootgrid.css" rel="stylesheet" />
     <script src="~/Scripts/modernizr-2.6.2.js"></script>
 </head>
 
@@ -61,7 +65,7 @@
                                 }
                                 if (databaseAdmin)
                                 {
-                                    <li role="presentation"><span class="navbaricons glyphicon glyphicon-list-alt"></span>@Html.ActionLink("Database", "", "", new { @class = "navbar-brand" })</li>
+                                    <li role="presentation"><span class="navbaricons glyphicon glyphicon-list-alt"></span>@Html.ActionLink("Database", "Logging", "AdminLogging", new { area = "" }, new { @class = "navbar-brand" })</li>
                                 }
                                 <li><span class="navbaricons glyphicon glyphicon-log-out"></span>@Html.ActionLink("Logg Ut", "LoggedOut", "Security", new { area = "" }, new { @class = "navbar-brand" })</li>
                             }
@@ -74,8 +78,6 @@
     </nav>
 </header>
 
-
-<script src="~/Scripts/jquery-1.10.2.min.js"></script>
 <script src="~/Scripts/bootstrap.min.js"></script>
 <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
 <script src="~/Scripts/JavascriptFunksjoner.js"></script>

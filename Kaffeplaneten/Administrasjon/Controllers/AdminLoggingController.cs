@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using Kaffeplaneten.BLL;
 using Newtonsoft.Json.Linq;
+using System.Diagnostics;
 
 namespace Administrasjon.Controllers
 {
@@ -18,19 +19,19 @@ namespace Administrasjon.Controllers
         }
 
         // GET: AdminLogging
-        public ActionResult Index()
+        public ActionResult Logging()
         {
             return View();
         }
 
-        [HttpGet]
-        public List<JObject> getInteractionMessages()
+        [HttpPost]
+        public JArray getInteractionMessages()
         {
             return _loggingBLL.getInteractionMessages();
         }
 
-        [HttpGet]
-        public List<JObject> getDatabaseMessages()
+        [HttpPost]
+        public JArray getDatabaseMessages()
         {
             return _loggingBLL.getDatabaseMessages();
         }

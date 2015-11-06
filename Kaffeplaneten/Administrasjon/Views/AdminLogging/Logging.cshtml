@@ -1,0 +1,77 @@
+﻿
+@{
+    ViewBag.Title = "Logs";
+}
+@Html.Action("HeaderAndMenuBar", "Layout")
+
+<script src="~/Scripts/jquery-1.11.3.min.js"></script>
+<script src="~/Scripts/jquery.bootgrid.js"></script>
+<script src="~/Scripts/jquery.bootgrid.fa.js"></script>
+<link href="~/Scripts/jquery.bootgrid.css" rel="stylesheet" />
+
+<div class="container">
+    <h2>User Log:</h2>
+    <table id="grid-basic" class="table table-condensed table-hover table-striped">
+    </table>
+    <h2>Database Log:</h2>
+    <table id="grid-database" class="table table-condensed table-hover table-striped"></table>
+</div>
+
+<script type="text/javascript">
+    getInteraction();
+    getDatabase();
+
+    function getInteraction() {
+        $.ajax({
+            type: "POST",
+            url: "/AdminLogging/getInteractionMessages",
+            data: "{}",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            async: false,
+            success: function (response) {
+                var messages = response;
+                $('#grid-basic').empty();
+                $('#grid-basic').append("<thead><tr><th data-column-id=\"Date\" data-order=\"asc\">Date</th><th data-column-id=\"UserID\">UserID</th><th data-column-id=\"User\">User</th><th data-column-id=\"Action\">Log</th></tr></thead><tbody>");
+                $.each(messages, function (index, message) {
+                    $('#grid-basic').append('<tr><td>' + message.Date + '</td><td>' +
+                                            message.UserID + '</td><td>' +
+                                            message.User + '</td><td>' +
+                                            message.Action + '</td>' +
+                                            '</tr>');
+                });
+                $('#grid-basic').append("</tbody>");
+                $("#grid-basic").bootgrid('reload');
+            },
+            failure: function (msg) {
+                $('#grid-basic').text(msg);
+            }
+        });
+    };
+
+    function getDatabase() {
+        $.ajax({
+            type: "POST",
+            url: "/AdminLogging/getDatabaseMessages",
+            data: "{}",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            async: false,
+            success: function (response) {
+                var messages = response;
+                $('#grid-database').empty();
+                $('#grid-database').append("<thead><tr><th data-column-id=\"Date\" data-order=\"asc\">Date</th><th data-column-id=\"Action\">Log</th></tr></thead><tbody>");
+                $.each(messages, function (index, message) {
+                    $('#grid-database').append('<tr><td>' + message.Date + '</td><td>' +
+                                            message.Action + '</td>' +
+                                            '</tr>');
+                });
+                $('#grid-database').append("</tbody>");
+                $("#grid-database").bootgrid('reload');
+            },
+            failure: function (msg) {
+                $('#grid-database').text(msg);
+            }
+        });
+    };
+</script>

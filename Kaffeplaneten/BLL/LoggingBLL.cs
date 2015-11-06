@@ -28,25 +28,14 @@ namespace Kaffeplaneten.BLL
             return _loggingDAL.logToDatabase(action);
         }
 
-        // Find messages with certain criteria.
-        // Needs to be done.
-        public JObject findInDatabaseLog(string criteria)
+        public JArray getInteractionMessages()
         {
-            return _loggingDAL.findInDatabaseLog(criteria);
-        }
-        public JObject findInInteractionLog(string criteria)
-        {
-            return _loggingDAL.findInInteractionLog(criteria);
+            return _loggingDAL.parseToArray(_loggingDAL.LOG_INTERACTION);
         }
 
-        public List<JObject> getInteractionMessages()
+        public JArray getDatabaseMessages()
         {
-            return _loggingDAL.parseLogFile(_loggingDAL.LOG_INTERACTION);
-        }
-
-        public List<JObject> getDatabaseMessages()
-        {
-            return _loggingDAL.parseLogFile(_loggingDAL.LOG_DATABASE);
+            return _loggingDAL.parseToArray(_loggingDAL.LOG_DATABASE);
         }
 
         public bool createLog(string type)
