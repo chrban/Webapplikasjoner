@@ -24,7 +24,7 @@ namespace Kaffeplaneten.BLL
         }
         public bool add(EmployeeModel employeeModel)//Legger employee inn i datatbasen
         {
-            _loggingBLL.logToUser("La til ny ansatt: " + employeeModel.username + " (" + employeeModel.employeeID + ")");
+            _loggingBLL.logToUser("La til ny ansatt: " + employeeModel.username);
             return _employeeDAL.add(employeeModel);
         }
 
@@ -38,7 +38,7 @@ namespace Kaffeplaneten.BLL
         }
         public bool update(EmployeeModel employeeModel)//Oppdaterer employeen som har personID lik employeeModel.personID
         {
-            _loggingBLL.logToUser("Oppdaterte ansatt: " + employeeModel.username + " (" + employeeModel.employeeID + ")");
+            _loggingBLL.logToUser("Oppdaterte ansatt: " + employeeModel.username + " (AnsattID: " + employeeModel.employeeID + ")");
             return _employeeDAL.update(employeeModel);
         }
         public List<EmployeeModel> getAllEmployees()
