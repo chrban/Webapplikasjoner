@@ -45,6 +45,40 @@
         
         </div>
 }
+
+<button class="btn btn-default " data-toggle="modal" data-target="#modalForgotPw">Glemt passord</button>
+
+
+<!--modalForgotPw-->
+<div class="modal fade" id="modalForgotPw" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Glemt passord</h4>
+            </div>
+            <div id="forgotBody" class="modal-body">
+                <div class="col-md-offset-4 col-md-12">
+                    <div class="input-group input-group-lg">
+                        <span class="input-group-addon">
+                            <span class="glyphicon glyphicon-envelope"></span>
+                        </span>
+                        @Html.TextBoxFor(userModel => userModel.username, new { @class = "form-control ErrorUsername", id = "forgotPW", placeholder = (@Html.DisplayNameFor(userModel => userModel.username)) })
+                        <div id="valUsername" style="color: red;"><h3>@Html.ValidationMessageFor(userModel => userModel.username)</h3></div>
+                    </div>
+                    <div class="input-group input-group-lg">
+                        <div id="pWfeedback"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+
+                <button type="button" class="btn btn-info" data-dismiss="modal">Lukk</button>
+                <button type="button" onclick="forgot()" class="btn btn-primary">Senddd</button>
+            </div>
+        </div>
+    </div>
+</div>
           
 
               

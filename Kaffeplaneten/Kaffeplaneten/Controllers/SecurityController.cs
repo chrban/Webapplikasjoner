@@ -70,5 +70,25 @@ namespace Kaffeplaneten.Controllers
             Session[CUSTOMER] = null;
             return RedirectToAction("Loginview");
         }
+
+        public string ForgotPassword(string email)
+        {
+            var user = _userBLL.get(email);
+            var tempPW = _userBLL.randomPassord();
+
+
+            if (_userBLL.get(email) == null)
+            {
+                return "NF";
+            }
+            else
+            {
+                _userBLL.resetPassword(user, base.getHash(tempPW));
+
+                _userBLL.sendMail(user.username, user.ID.ToString(), "Glemt passord", "Logg inn med midlertidig passord: " + tempPW + "  -Hilsen KaffePlaneten");
+                return tempPW;
+            }
+
+        }
     }
 }

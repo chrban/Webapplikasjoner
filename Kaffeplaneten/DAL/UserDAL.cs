@@ -159,5 +159,52 @@ namespace Kaffeplaneten.DAL
                 return null;
             }//end using
         }//end get()
+
+        public bool resetPassword(UserModel userModel ,byte[] randomPW)
+        {
+            using (var db = new CustomerContext())
+            {
+                Debug.WriteLine("motatt random pw: " + randomPW);
+
+                userModel.passwordHash = randomPW;
+                try
+                {
+                    var user = db.Users.Find(userModel.ID);
+
+                    if (user == null)//tester om brukeren finnes
+                        return false;
+
+                    var customer = db.Customers.Find(userModel.ID);
+                    if (customer == null)//tester om kunden finnes
+                        return false;
+
+                    if (!userModel.username.Equals(user.username))
+                    {
+                        var email = (from p in db.Users
+                                     where p.username.Equals(userModel.username)
+                                     select p).FirstOrDefault();
+                        if (email != null)//tester om epostadressen finnes fra før
+                            return false;
+
+                        user.username = userModel.username;
+                    }
+                    user.password = userModel.passwordHash;
+                    db.SaveChanges();
+                    Debug.WriteLine("Gjennom!");
+
+                    return true;
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine("\nERROR!\nMelding:\n" + ex.Message + "\nInner exception:" + ex.InnerException + "\nKastet fra\n" + ex.TargetSite + "\nTrace:\n" + ex.StackTrace);
+                    Trace.TraceInformation("Property: {0} Error: {1}", ex.Source, ex.InnerException);
+                }
+                return false;
+            }
+
+            
+        }
+
+
     }//end namespace
 }//end class
