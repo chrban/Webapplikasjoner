@@ -14,10 +14,12 @@ namespace Administrasjon.Controllers
     {
 
         private ProductBLL _productBLL;
+        private LoggingBLL _loggingBLL;
 
         public AdminProductController()
         {
             _productBLL = new ProductBLL();
+            _loggingBLL = new LoggingBLL();
         }
         public AdminProductController(ProductBLL productBLL)
         {
@@ -61,6 +63,8 @@ namespace Administrasjon.Controllers
 
             if (_productBLL.update(productModel))
             {
+                _loggingBLL.logToUser("Oppdaterte produkt: " + productModel.productName, (EmployeeModel)Session["Employee"]);
+                _loggingBLL.logToDatabase("Produkt " + productModel.productName + " ble oppdatert.");
                 return RedirectToAction("AllProducts");
             }
             else 
@@ -74,7 +78,9 @@ namespace Administrasjon.Controllers
         {
              if (_productBLL.delete(id))
              {
-                 return RedirectToAction("AllProducts");
+                _loggingBLL.logToUser("Slettet produkt med ProduktID: " + id, (EmployeeModel)Session["Employee"]);
+                _loggingBLL.logToDatabase("Produkt med ID:" + id + " ble slettet fra databasen.");
+                return RedirectToAction("AllProducts");
              }
              else
              {
@@ -95,6 +101,8 @@ namespace Administrasjon.Controllers
 
             if (_productBLL.add(newProduct))
             {
+                _loggingBLL.logToUser("La til produkt '" + newProduct.productName + "' i databasen.", (EmployeeModel)Session["Employee"]);
+                _loggingBLL.logToDatabase("Produkt " + " ble lagt til i databasen.");
                 return RedirectToAction("AllProducts");
 
             }
@@ -103,7 +111,6 @@ namespace Administrasjon.Controllers
                 return View();
 
             }
-            
 
         }
 

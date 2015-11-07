@@ -63,16 +63,16 @@ function forgot() {
             }
             else {
 
-            $("#forgotBody").empty();
-            $("#forgotBody").attr('class', 'alert alert-success');
-            $("#forgotBody").append("Midelrtidig passord sent til" + inUser + '<br/>');
-            $("#forgotBody").append("(TestingPuposeOnly - Så slipper du å sjekke mailen: "+retur+" )");
+                $("#forgotBody").empty();
+                $("#forgotBody").attr('class', 'alert alert-success');
+                $("#forgotBody").append("Midelrtidig passord sent til" + inUser + '<br/>');
+                $("#forgotBody").append("(TestingPuposeOnly - Så slipper du å sjekke mailen: " + retur);
             }
         }
         , error: function (retur) {
             $("#pWfeedback").empty();
             $("#pWfeedback").attr('class', 'alert alert-danger');
-            $("#pWfeedback").html("Finner ikke bruker: "+inUser);
+            $("#pWfeedback").html("Finner ikke bruker: " + inUser);
         }
     });
 

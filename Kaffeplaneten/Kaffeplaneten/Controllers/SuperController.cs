@@ -1,6 +1,7 @@
 ﻿using Kaffeplaneten.Models;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -34,15 +35,18 @@ namespace Kaffeplaneten.Controllers
         private static byte[] createHash(string incPassword)
         {
             var algorithm = System.Security.Cryptography.SHA512.Create();
-            byte[] incData, outData;
-            incData = System.Text.Encoding.ASCII.GetBytes(incPassword);
-            outData = algorithm.ComputeHash(incData);
+            byte[] incData, outData = null;
+            if (incPassword != null)
+            {
+                incData = System.Text.Encoding.ASCII.GetBytes(incPassword);
+                outData = algorithm.ComputeHash(incData);
+            }
             return outData;
         }
 
         public byte[] getHash(string incPassword)
         {
-           return createHash(incPassword);
+            return createHash(incPassword);
         }
     }
 }   

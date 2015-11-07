@@ -15,16 +15,19 @@ namespace Administrasjon.Controllers
     {
         private UserBLL _userBLL;
         private EmployeeBLL _EmployeeBLL;
+        private LoggingBLL _loggingBLL;
 
         public SecurityController()
         {
             _userBLL = new UserBLL();
             _EmployeeBLL = new EmployeeBLL();
+            _loggingBLL = new LoggingBLL();
         }
         public SecurityController(EmployeeBLL employeeBLL, UserBLL userBLL)
         {
             _EmployeeBLL = employeeBLL;
             _userBLL = userBLL;
+            _loggingBLL = new LoggingBLL();
         }
         public ActionResult Loginview()
         {
@@ -48,6 +51,7 @@ namespace Administrasjon.Controllers
             {
                 Session[LOGGED_INN] = true;
                 ViewBag.LoggedOn = true;
+                _loggingBLL.logToUser("Logget seg på systemet.", (EmployeeModel)Session["Employee"]);
                 EmployeeModel Emp = _EmployeeBLL.find(user.username);
                 if(Emp != null)
                 {
@@ -72,6 +76,8 @@ namespace Administrasjon.Controllers
                 return View();
             }
             Session[Feilmelding] = "Feil i brukernavn eller passord";
+            CustomerModel nothing = null;
+            _loggingBLL.logToUser("Prøvde å logge seg inn på systemet med feil brukernavn/passord.", nothing);
             return View();
        
         }
@@ -104,21 +110,18 @@ namespace Administrasjon.Controllers
         public string ForgotPassword(string email)
         {
             var user = _userBLL.get(email);
-            var tempPW = _userBLL.randomPassord();
-            
 
-            if (_userBLL.get(email) == null)
+            if (user != null)
             {
-                return "NF";
+                string tempPW = _userBLL.randomPassord(); 
+                var hashetPw = base.getHash(tempPW);
+                if (_userBLL.resetPassword(user, hashetPw,false)) // lykkes i lage nytt pw
+                {
+                    _userBLL.sendMail(user.username, user.ID.ToString(), "Glemt passord", "Logg inn med midlertidig passord: " + tempPW + "  -Hilsen KaffePlaneten");
+                    return tempPW;
+                }
             }
-            else
-            {
-                _userBLL.resetPassword(user, base.getHash(tempPW));
-
-                _userBLL.sendMail(user.username, user.ID.ToString(), "Glemt passord", "Logg inn med midlertidig passord: " + tempPW + "  -Hilsen KaffePlaneten");
-                return tempPW;
-            }
-
+            return "NF"; //bruker ikke funnet 
         }
 
     }

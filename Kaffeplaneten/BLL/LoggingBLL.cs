@@ -20,9 +20,14 @@ namespace Kaffeplaneten.BLL
             _loggingDAL = new LoggingDAL();
         }
 
-        public bool logToUser(string action) {
-            return _loggingDAL.logToUser(action);
+        public bool logToUser(string action, CustomerModel model) {
+            return _loggingDAL.logToUser(action, model);
         }
+        public bool logToUser(string action, EmployeeModel model)
+        {
+            return _loggingDAL.logToUser(action, model);
+        }
+
         public bool logToDatabase(string action)
         {
             return _loggingDAL.logToDatabase(action);

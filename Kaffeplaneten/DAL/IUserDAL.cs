@@ -9,6 +9,6 @@ namespace Kaffeplaneten.DAL
         UserModel get(int id);
         bool update(UserModel userModel);
         bool verifyUser(UserModel userModel);
-        bool resetPassword(UserModel user, byte[] randomPW);
+        bool resetPassword(UserModel user, byte[] randomPW, bool customer);
     }
 }

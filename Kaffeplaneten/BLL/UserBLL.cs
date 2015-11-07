@@ -28,8 +28,6 @@ namespace Kaffeplaneten.BLL
         }
         public bool add(UserModel userModel)//Legger en Users inn i databasen
         {
-            _loggingBLL.logToUser("Opprettet: " + userModel.username);
-            _loggingBLL.logToDatabase("Ny bruker ble lagt til: " + userModel.username);
             return _userDAL.add(userModel);
         }
 
@@ -39,8 +37,6 @@ namespace Kaffeplaneten.BLL
         }
         public bool update(UserModel userModel)//Oppdaterer Users data med dataen i userModel
         {
-            _loggingBLL.logToUser("Oppdaterte bruker: " + userModel.username + " (BrukerID: " + userModel.ID + ")");
-            _loggingBLL.logToDatabase("Bruker: " + userModel.username + " (BrukerID: " + userModel.ID + ") ble oppdatert.");
             return _userDAL.update(userModel);
         }
 
@@ -52,14 +48,10 @@ namespace Kaffeplaneten.BLL
         {
             return _userDAL.get(id);
         }//end get()
-        public bool resetPassword(UserModel user, byte[] randomPW)
+        public bool resetPassword(UserModel user, byte[] randomPW, bool customer)
         {
 
-
-            return _userDAL.resetPassword(user, randomPW);
-
-           
-            
+            return _userDAL.resetPassword(user, randomPW, customer);
         }
 
         public string randomPassord()
@@ -72,6 +64,7 @@ namespace Kaffeplaneten.BLL
             {
                 randomPassword.Append(valid[rnd.Next(valid.Length)]);
             }
+            
             var randomPW = randomPassword.ToString();
                 return randomPW;
         }
