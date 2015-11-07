@@ -15,11 +15,13 @@ namespace Administrasjon.Controllers
     {
         private EmployeeBLL _employeeBLL;
         private UserBLL _userBLL;
+        private LoggingBLL _loggingBLL;
 
         public AdminEmployeeController()
         {
             _employeeBLL = new EmployeeBLL();
             _userBLL = new UserBLL();
+            _loggingBLL = new LoggingBLL();
         }
         public AdminEmployeeController(EmployeeBLL employeeBLL, UserBLL userBLL)
         {
@@ -75,6 +77,7 @@ namespace Administrasjon.Controllers
                 Session["userError"] = "Feil ved registrering av bruker";
                 return View(employee);
             }
+            _loggingBLL.logToUser("La til ny ansatt: " + employeeModel.username, (EmployeeModel)Session["Employee"]);
             return RedirectToAction("AllEmployees", "AdminEmployee");
         }
         public ActionResult deleteEmployee()
@@ -116,9 +119,11 @@ namespace Administrasjon.Controllers
                 sb.Append("\n med Brukernavn: ");
                 sb.Append(user.username);
                 Session["isDeleted"] = sb.ToString();
+                _loggingBLL.logToUser("Slettet ansatt: " + employee.username, (EmployeeModel)Session["Employee"]);
                 return View();
             }
             Session["cantDelete"] = "Kunne ikke slette brukeren!";
+            _loggingBLL.logToDatabase("FEIL: Kunne ikke slette ansatt: " + employee.username);
             return View();
         }
     }

@@ -15,16 +15,19 @@ namespace Administrasjon.Controllers
     {
         private UserBLL _userBLL;
         private EmployeeBLL _EmployeeBLL;
+        private LoggingBLL _loggingBLL;
 
         public SecurityController()
         {
             _userBLL = new UserBLL();
             _EmployeeBLL = new EmployeeBLL();
+            _loggingBLL = new LoggingBLL();
         }
         public SecurityController(EmployeeBLL employeeBLL, UserBLL userBLL)
         {
             _EmployeeBLL = employeeBLL;
             _userBLL = userBLL;
+            _loggingBLL = new LoggingBLL();
         }
         public ActionResult Loginview()
         {
@@ -48,6 +51,7 @@ namespace Administrasjon.Controllers
             {
                 Session[LOGGED_INN] = true;
                 ViewBag.LoggedOn = true;
+                _loggingBLL.logToUser("Logget seg på systemet.", (EmployeeModel)Session["Employee"]);
                 EmployeeModel Emp = _EmployeeBLL.find(user.username);
                 if(Emp != null)
                 {
@@ -72,6 +76,8 @@ namespace Administrasjon.Controllers
                 return View();
             }
             Session[Feilmelding] = "Feil i brukernavn eller passord";
+            CustomerModel nothing = null;
+            _loggingBLL.logToUser("Prøvde å logge seg inn på systemet med feil brukernavn/passord.", nothing);
             return View();
        
         }

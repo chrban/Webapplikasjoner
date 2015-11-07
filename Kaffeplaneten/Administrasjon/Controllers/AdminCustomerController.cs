@@ -11,14 +11,13 @@ namespace Administrasjon.Controllers
 {
     public class AdminCustomerController : Controller
     {
-
-
-
         private CustomerBLL _customerBLL;
+        private LoggingBLL _loggingBLL;
 
         public AdminCustomerController()
         {
             _customerBLL = new CustomerBLL();
+            _loggingBLL = new LoggingBLL();
         }
         public AdminCustomerController(CustomerBLL customerBLL)
         {
@@ -61,6 +60,8 @@ namespace Administrasjon.Controllers
 
             if (_customerBLL.update(customerModel))
             {
+                _loggingBLL.logToUser("Oppdaterte bruker: " + customerModel.email + " (BrukerID: " + customerModel.customerID + ")", (EmployeeModel)Session["Employee"]);
+                _loggingBLL.logToDatabase("Bruker oppdatert: " + customerModel.email + " (BrukerID: " + customerModel.customerID + ")");
                 return RedirectToAction("AllCustomers");
             }
             else

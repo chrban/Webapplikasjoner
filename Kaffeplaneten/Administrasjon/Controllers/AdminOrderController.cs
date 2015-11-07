@@ -1,4 +1,5 @@
 ﻿using Kaffeplaneten.BLL;
+using Kaffeplaneten.Models;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -12,10 +13,12 @@ namespace Administrasjon.Controllers
     {
 
         private OrderBLL _orderBLL;
+        private LoggingBLL _loggingBLL;
 
         public AdminOrderController()
         {
             _orderBLL = new OrderBLL();
+            _loggingBLL = new LoggingBLL();
         }
         public AdminOrderController(OrderBLL orderBLL)
         {
@@ -36,6 +39,8 @@ namespace Administrasjon.Controllers
 
             if (_orderBLL.cancelOrder(nr))
             {
+                _loggingBLL.logToDatabase("Slettet ordre: " + nr);
+                _loggingBLL.logToUser("Slettet ordre: " + nr, (EmployeeModel)Session["Employee"]);
                 return RedirectToAction("AllOrders");
             }
             return RedirectToAction("AllOrders");

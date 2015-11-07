@@ -45,11 +45,12 @@ namespace Kaffeplaneten.Controllers
                 Session[LOGGED_INN] = true;
                 ViewBag.LoggedOn = true;
                 Session[CUSTOMER] = _customerBLL.find(user.username);
-                _LoggingBLL.logToUser("Logget inn i systemet.");
+                _LoggingBLL.logToUser("Logget inn i systemet.", (CustomerModel)Session[CUSTOMER]);
                 return RedirectToAction("AllProducts", "Product", user.username);
             }
             ModelState.AddModelError("", "Feil brukernavn eller passord");
-            _LoggingBLL.logToUser("Prøvde å logge seg inn på systemet med feil brukernavn/passord.");
+            CustomerModel nothing = null;
+            _LoggingBLL.logToUser("Prøvde å logge seg inn på systemet med feil brukernavn/passord.", nothing);
             return View();
         }
         public ActionResult LoggedIn()

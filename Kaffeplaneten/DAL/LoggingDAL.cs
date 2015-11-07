@@ -17,49 +17,60 @@ namespace Kaffeplaneten.DAL
         public string LOG_DATABASE = AppDomain.CurrentDomain.BaseDirectory + "\\log_database.txt";
         public string LOG_INTERACTION = AppDomain.CurrentDomain.BaseDirectory + "..\\log_interaction.txt";
 
-        public bool logToUser(string message)
+        public bool logToUser(string message, CustomerModel model)
         {
             createLog(LOG_INTERACTION);
-            CustomerModel user;
-            EmployeeModel employee;
             string logLine = "";
-                if (HttpContext.Current.Session == null || HttpContext.Current.Session["LoggedInn"] == null || (bool)HttpContext.Current.Session["LoggedInn"] == false)
-                {
-                    user = new CustomerModel()
-                    {
-                        customerID = 0,
-                        firstName = "Anonymous",
-                        lastName = "",
-                        email = "Anonymous"
-                    };
-                    logLine = ",{ " +
-                                "\"Date\": \"" + DateTime.Now.ToString("h:mm:ss tt") + "\"," +
-                                "\"UserID\": \"" + user.customerID + "\"," +
-                                "\"User\": \"" + user.firstName + " " + user.lastName + "\"," +
-                                "\"Action\": \"" + message + "\" }";
-                }
-                else if ((bool)HttpContext.Current.Session["LoggedInn"] == true && HttpContext.Current.Session["Customer"] != null)
-                {
-                    user = (CustomerModel)HttpContext.Current.Session["Customer"];
-                    logLine = ",{ " +
-                                 "\"Date\": \"" + DateTime.Now.ToString("h:mm:ss tt") + "\"," +
-                                 "\"UserID\": \"" + user.customerID + "\"," +
-                                 "\"User\": \"" + user.firstName + " " + user.lastName + "\"," +
-                                 "\"Action\": \"" + message + "\" }";
-                }
-                else if ((bool)HttpContext.Current.Session["LoggedInn"] == true && HttpContext.Current.Session["Customer"] == null)
-                {
-                    logLine = ",{ " +
-                             "\"Date\": \"" + DateTime.Now.ToString("h:mm:ss tt") + "\"," +
-                             "\"UserID\": \"" + (string)HttpContext.Current.Session["username"] + "\"," +
-                             "\"User\": \"" + (string)HttpContext.Current.Session["firstname"] + " " + (string)HttpContext.Current.Session["lastname"] + "\"," +
-                             "\"Action\": \"" + message + "\" }";
-                }
-            else
+            if(model == null)
             {
+                model = new CustomerModel()
+                {
+                    customerID = 0,
+                    firstName = "Anonymous",
+                    lastName = "",
+                    email = "Anonymous"
+                };
             }
-        
+            logLine = ",{ " +
+                        "\"Date\": \"" + DateTime.Now.ToString("h:mm:ss tt") + "\"," +
+                        "\"UserID\": \"" + model.customerID + "\"," +
+                        "\"User\": \"" + model.firstName + " " + model.lastName + "\"," +
+                        "\"Action\": \"" + message + "\" }";
+            try
+            {
+                using (StreamWriter logWriter = File.AppendText(LOG_INTERACTION))
+                {
+                    logWriter.WriteLine(logLine);
+                    logWriter.Close();
+                    return true;
+                }
+            }
+            catch (Exception)
+            {
+                System.Console.WriteLine("ERROR: COULD NOT LOG ACTION TO USER.");
+                return false;
+            }
+        }
 
+        public bool logToUser(string message, EmployeeModel model)
+        {
+            createLog(LOG_INTERACTION);
+            string logLine = "";
+            if (model == null)
+            {
+                model = new EmployeeModel()
+                {
+                    employeeID = 0,
+                    firstName = "Anonymous",
+                    lastName = "",
+                    username = "Anonymous (Employee)"
+                };
+            }
+            logLine = ",{ " +
+             "\"Date\": \"" + DateTime.Now.ToString("h:mm:ss tt") + "\"," +
+             "\"UserID\": \"" + model.username + "\"," +
+             "\"User\": \"" + model.firstName + " " + model.lastName + "\"," +
+             "\"Action\": \"" + message + "\" }";
             try
             {
                 using (StreamWriter logWriter = File.AppendText(LOG_INTERACTION))

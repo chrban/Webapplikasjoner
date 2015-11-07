@@ -11,20 +11,16 @@ namespace Kaffeplaneten.BLL
     public class EmployeeBLL
     {
         private IEmployeeDAL _employeeDAL;
-        private LoggingBLL _loggingBLL;
         public EmployeeBLL(IEmployeeDAL iEmployeeDAL)
         {
             _employeeDAL = iEmployeeDAL;
-            _loggingBLL = new LoggingBLL();
         }
         public EmployeeBLL()
         {
             _employeeDAL = new EmployeeDAL();
-            _loggingBLL = new LoggingBLL();
         }
         public bool add(EmployeeModel employeeModel)//Legger employee inn i datatbasen
         {
-            _loggingBLL.logToUser("La til ny ansatt: " + employeeModel.username);
             return _employeeDAL.add(employeeModel);
         }
 
@@ -42,7 +38,6 @@ namespace Kaffeplaneten.BLL
         }
         public bool update(EmployeeModel employeeModel)//Oppdaterer employeen som har personID lik employeeModel.personID
         {
-            _loggingBLL.logToUser("Oppdaterte ansatt: " + employeeModel.username + " (AnsattID: " + employeeModel.employeeID + ")");
             return _employeeDAL.update(employeeModel);
         }
         public List<EmployeeModel> getAllEmployees()
