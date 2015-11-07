@@ -107,7 +107,7 @@ namespace Administrasjon.Controllers
 
             if (user != null)
             {
-                string tempPW = _userBLL.randomPassord();
+                string tempPW = _userBLL.randomPassord(); 
                 var hashetPw = base.getHash(tempPW);
                 if (_userBLL.resetPassword(user, hashetPw,false)) // lykkes i lage nytt pw
                 {
