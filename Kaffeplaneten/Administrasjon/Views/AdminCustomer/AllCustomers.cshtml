@@ -34,25 +34,27 @@
         </tr>
         @foreach (var item in Model)
         {
-            <tr onclick="location.href='@Url.Action("Details", "AdminCustomer", new { id = item.customerID })'">
-                <td>
+            <tr>
+              
+                <td onclick="location.href='@Url.Action("Details", "AdminCustomer", new { id = item.customerID })'">
                     @Html.DisplayFor(modelItem => item.customerID)
                 </td>
-                <td>
+                <td onclick="location.href='@Url.Action("Details", "AdminCustomer", new { id = item.customerID })'">
                     @Html.DisplayFor(modelItem => item.firstName)
                 </td>
-                <td>
+                <td onclick="location.href='@Url.Action("Details", "AdminCustomer", new { id = item.customerID })'">
                     @Html.DisplayFor(modelItem => item.lastName)
                 </td>
-                <td>
+                <td onclick="location.href='@Url.Action("Details", "AdminCustomer", new { id = item.customerID })'">
                     @Html.DisplayFor(modelItem => item.email)
                 </td>
-                <td>
+                <td onclick="location.href='@Url.Action("Details", "AdminCustomer", new { id = item.customerID })'">
                     @Html.DisplayFor(modelItem => item.adress)
                 </td>
-                <td>
+                <td onclick="location.href='@Url.Action("Details", "AdminCustomer", new { id = item.customerID })'">
                     @Html.DisplayFor(modelItem => item.province)
                 </td>
+
                 <td>
                     @Html.ActionLink("Rediger", "Edit", "AdminCustomer", new { id = item.customerID }, new { @class = "btn btn-default btn-xs" })
                     @Html.ActionLink("Detaljer", "Details", "AdminCustomer", new { id = item.customerID }, new { @class = "btn btn-default btn-xs" })

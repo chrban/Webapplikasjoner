@@ -44,9 +44,6 @@ function putInCart(id) {
     $('#quantity').val(1);
 }
 
-$(document).ready(function(){
-    $('[datatoggle="popover"]').popover();
-});
 
 
     function sameAdress() {

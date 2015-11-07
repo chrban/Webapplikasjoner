@@ -1,0 +1,34 @@
+﻿@using Microsoft.Web.Helpers;
+@{
+    ViewBag.Title = "Uploader";
+}
+
+@Html.Action("HeaderAndMenuBar", "Layout")
+@{
+    var fileName = "";
+    if (IsPost)
+    {
+        var fileSavePath = "";
+        var uploadedFile = Request.Files[0];
+        fileName = Path.GetFileName(uploadedFile.FileName);
+        fileSavePath = (AppDomain.CurrentDomain.BaseDirectory + "\\..\\img\\" +
+          fileName);
+        uploadedFile.SaveAs(fileSavePath);
+    }
+}
+
+<div class="content">
+    <h1>Filopplaster: </h1>
+
+    @FileUpload.GetHtml(
+        initialNumberOfFiles: 1,
+        allowMoreFilesToBeAdded: false,
+        includeFormTag: true,
+        uploadText: "Last opp")
+    @if (IsPost)
+    {
+        <span>Fil ble lastet opp!</span><br />
+    }
+
+    @Html.ActionLink("Tilbake", "AllProducts")
+</div>

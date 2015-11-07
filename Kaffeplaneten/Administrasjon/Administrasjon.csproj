@@ -103,7 +103,7 @@
     </Reference>
     <Reference Include="WebMatrix.WebData, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebPages.WebData.3.2.3\lib\net45\WebMatrix.WebData.dll</HintPath>
-      <Private>True</Private>
+      <Private>False</Private>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -185,6 +185,8 @@
     <Content Include="Views\AdminLogging\Logging.cshtml" />
     <Content Include="Views\Layout\EmployeeAdminBar.cshtml" />
     <Content Include="Views\AdminEmployee\deleteEmployee.cshtml" />
+    <Content Include="Views\AdminProduct\Details.cshtml" />
+    <Content Include="Views\AdminProduct\Uploader.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

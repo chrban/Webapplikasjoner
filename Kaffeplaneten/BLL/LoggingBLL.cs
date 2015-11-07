@@ -30,11 +30,13 @@ namespace Kaffeplaneten.BLL
 
         public JArray getInteractionMessages()
         {
+            createLog(_loggingDAL.LOG_INTERACTION);         // SAFETYNET
             return _loggingDAL.parseToArray(_loggingDAL.LOG_INTERACTION);
         }
 
         public JArray getDatabaseMessages()
         {
+            createLog(_loggingDAL.LOG_DATABASE);        // SAFETYNET
             return _loggingDAL.parseToArray(_loggingDAL.LOG_DATABASE);
         }
 
