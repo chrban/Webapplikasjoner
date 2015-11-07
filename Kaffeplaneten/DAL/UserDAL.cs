@@ -160,11 +160,11 @@ namespace Kaffeplaneten.DAL
             }//end using
         }//end get()
 
-        public bool resetPassword(UserModel userModel ,byte[] randomPW)
+        public bool resetPassword(UserModel userModel ,byte[] randomPW, bool customer )
         {
             using (var db = new CustomerContext())
             {
-                Debug.WriteLine("motatt random pw: " + randomPW);
+                Debug.WriteLine( randomPW + " motatt random pw: " + Encoding.Default.GetString(randomPW) );    
 
                 userModel.passwordHash = randomPW;
                 try
@@ -174,9 +174,26 @@ namespace Kaffeplaneten.DAL
                     if (user == null)//tester om brukeren finnes
                         return false;
 
-                    var customer = db.Customers.Find(userModel.ID);
-                    if (customer == null)//tester om kunden finnes
-                        return false;
+                    if (customer)
+                    {
+                        var customerID = db.Customers.Find(userModel.ID);
+
+                        if (customerID == null)//tester om kunden finnes
+                        {
+
+                            return false;
+                        }
+
+                    }
+                    else
+                    {
+                        var empID = db.Employees.Find(userModel.ID);
+                        if (empID == null)//tester om kunden finnes
+                        {
+                            return false;
+                        }
+                    }
+
 
                     if (!userModel.username.Equals(user.username))
                     {
@@ -188,6 +205,7 @@ namespace Kaffeplaneten.DAL
 
                         user.username = userModel.username;
                     }
+                    
                     user.password = userModel.passwordHash;
                     db.SaveChanges();
                     Debug.WriteLine("Gjennom!");
@@ -200,11 +218,10 @@ namespace Kaffeplaneten.DAL
                     Trace.TraceInformation("Property: {0} Error: {1}", ex.Source, ex.InnerException);
                 }
                 return false;
-            }
+            }//end using
+
 
             
-        }
-
-
+        }//end resetPassword
     }//end namespace
 }//end class

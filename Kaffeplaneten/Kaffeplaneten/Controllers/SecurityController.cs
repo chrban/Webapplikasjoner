@@ -47,6 +47,7 @@ namespace Kaffeplaneten.Controllers
                 Session[CUSTOMER] = _customerBLL.find(user.username);
                 _LoggingBLL.logToUser("Logget inn i systemet.", (CustomerModel)Session[CUSTOMER]);
                 return RedirectToAction("AllProducts", "Product", user.username);
+
             }
             ModelState.AddModelError("", "Feil brukernavn eller passord");
             CustomerModel nothing = null;
@@ -71,25 +72,21 @@ namespace Kaffeplaneten.Controllers
             Session[CUSTOMER] = null;
             return RedirectToAction("Loginview");
         }
-
         public string ForgotPassword(string email)
         {
             var user = _userBLL.get(email);
-            var tempPW = _userBLL.randomPassord();
 
-
-            if (_userBLL.get(email) == null)
+            if (user != null)
             {
-                return "NF";
-            }
-            else
+                string tempPW = _userBLL.randomPassord();
+                var hashetPw = base.getHash(tempPW);
+                if (_userBLL.resetPassword(user, hashetPw,true)) // lykkes i lage nytt pw 
             {
-                _userBLL.resetPassword(user, base.getHash(tempPW));
-
                 _userBLL.sendMail(user.username, user.ID.ToString(), "Glemt passord", "Logg inn med midlertidig passord: " + tempPW + "  -Hilsen KaffePlaneten");
                 return tempPW;
             }
-
+            }
+            return "NF"; //bruker ikke funnet 
         }
     }
 }

@@ -34,6 +34,7 @@ namespace Administrasjon.Controllers
         }
         private static byte[] createHash(string incPassword)
         {
+            Debug.WriteLine("CreateHash ADMIN");
             var algorithm = System.Security.Cryptography.SHA512.Create();
             byte[] incData, outData = null;
             if (incPassword != null)
@@ -46,6 +47,7 @@ namespace Administrasjon.Controllers
 
         public byte[] getHash(string incPassword)
         {
+            Debug.WriteLine("Hashemetdoete ADMIN");
             return createHash(incPassword);
         }
 
