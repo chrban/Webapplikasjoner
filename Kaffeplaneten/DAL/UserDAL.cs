@@ -160,7 +160,7 @@ namespace Kaffeplaneten.DAL
             }//end using
         }//end get()
 
-        public bool resetPassword(UserModel userModel ,byte[] randomPW)
+        public bool resetPassword(UserModel userModel ,byte[] randomPW, bool customer )
         {
             using (var db = new CustomerContext())
             {
@@ -174,9 +174,26 @@ namespace Kaffeplaneten.DAL
                     if (user == null)//tester om brukeren finnes
                         return false;
 
-                    var customer = db.Customers.Find(userModel.ID);
-                    if (customer == null)//tester om kunden finnes
-                        return false;
+                    if (customer)
+                    {
+                        var customerID = db.Customers.Find(userModel.ID);
+
+                        if (customerID == null)//tester om kunden finnes
+                        {
+
+                            return false;
+                        }
+
+                    }
+                    else
+                    {
+                        var empID = db.Employees.Find(userModel.ID);
+                        if (empID == null)//tester om kunden finnes
+                        {
+                            return false;
+                        }
+                    }
+
 
                     if (!userModel.username.Equals(user.username))
                     {
@@ -188,6 +205,7 @@ namespace Kaffeplaneten.DAL
 
                         user.username = userModel.username;
                     }
+                    
                     user.password = userModel.passwordHash;
                     db.SaveChanges();
                     Debug.WriteLine("Gjennom!");

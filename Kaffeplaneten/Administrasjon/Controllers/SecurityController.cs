@@ -109,7 +109,7 @@ namespace Administrasjon.Controllers
             {
                 string tempPW = _userBLL.randomPassord();
                 var hashetPw = base.getHash(tempPW);
-                if (_userBLL.resetPassword(user, hashetPw)) // lykkes i lage nytt pw
+                if (_userBLL.resetPassword(user, hashetPw,false)) // lykkes i lage nytt pw
                 {
                     _userBLL.sendMail(user.username, user.ID.ToString(), "Glemt passord", "Logg inn med midlertidig passord: " + tempPW + "  -Hilsen KaffePlaneten");
                     return tempPW;
