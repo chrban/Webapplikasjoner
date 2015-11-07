@@ -38,7 +38,7 @@ namespace Kaffeplaneten.Controllers
 
         [HttpPost]
         public ActionResult Loginview(UserModel user)
-        {
+        {   
             user.passwordHash = base.getHash(user.password);
             if (_userBLL.verifyUser(user))
             {
