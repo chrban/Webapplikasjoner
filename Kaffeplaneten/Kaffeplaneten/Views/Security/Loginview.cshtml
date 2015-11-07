@@ -19,13 +19,13 @@
                                 <h3>Innlogging:</h3>
                            </div>
                         <div class="panel-body">
-                                <div class="col-md-offset-3 col-md-6">
+                                <div class="col-md-offset-4 col-md-12">
                                     <div class="input-group input-group-lg">
                                     <span class="input-group-addon">
                                         <span class="glyphicon glyphicon-envelope"></span>
                                     </span>
                                     @Html.TextBoxFor(userModel => userModel.username, new { @class = "form-control", placeholder = (@Html.DisplayNameFor(userModel => userModel.username)) })
-                                    @Html.ValidationMessageFor(userModel => userModel.username)
+                                        <div id="valUsername" style="color: red;"><h3>@Html.ValidationMessageFor(userModel => userModel.username)</h3></div>
                                 </div>
 
                                 <div class="input-group input-group-lg">
@@ -33,8 +33,9 @@
                                         <span class="glyphicon glyphicon-lock"></span>
                                     </span>
                                     @Html.PasswordFor(userModel => userModel.password, new { @class = "form-control", placeholder = (@Html.DisplayNameFor(userModel => userModel.password)) })
-                                    @Html.ValidationMessageFor(userModel => userModel.password)
+                                    <div id="valPassword" style="color: red;"><h3>@Html.ValidationMessageFor(userModel => userModel.password)</h3></div>
                                 </div>
+                                <div style="color: red"><h3>@Session["Feilmelding"]</h3></div>
                             </div>
                         </div>
                      <div class="panel-footer">
