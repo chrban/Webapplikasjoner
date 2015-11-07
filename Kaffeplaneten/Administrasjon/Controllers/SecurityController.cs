@@ -21,6 +21,11 @@ namespace Administrasjon.Controllers
             _userBLL = new UserBLL();
             _EmployeeBLL = new EmployeeBLL();
         }
+        public SecurityController(EmployeeBLL employeeBLL, UserBLL userBLL)
+        {
+            _EmployeeBLL = employeeBLL;
+            _userBLL = userBLL;
+        }
         public ActionResult Loginview()
         {
             if (Session[LOGGED_INN] == null)

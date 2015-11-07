@@ -14,8 +14,13 @@ namespace Administrasjon.Controllers
 
         private LoggingBLL _loggingBLL;
 
-        public AdminLoggingController(){
+        public AdminLoggingController()
+        {
             _loggingBLL = new LoggingBLL();
+        }
+        public AdminLoggingController(LoggingBLL loggingBLL)
+        {
+            _loggingBLL = loggingBLL;
         }
 
         // GET: AdminLogging

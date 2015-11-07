@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 using Kaffeplaneten.DAL;
 using Kaffeplaneten.Models;
 
-namespace Stubs
+namespace Kaffeplaneten.Stubs
 {
-    class OrderDALStub : IOrderDAL
+    public class OrderDALStub : IOrderDAL
     {
         public bool add(OrderModel orderModel)
         {
@@ -35,6 +35,8 @@ namespace Stubs
 
         public OrderModel find(int nr)
         {
+            if (nr < 0)
+                return null;
             var orderModel = new OrderModel();
             orderModel.customerID = 1;
             orderModel.orderNr = 1;

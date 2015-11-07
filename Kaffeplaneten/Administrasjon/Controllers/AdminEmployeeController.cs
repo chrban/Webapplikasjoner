@@ -21,6 +21,11 @@ namespace Administrasjon.Controllers
             _employeeBLL = new EmployeeBLL();
             _userBLL = new UserBLL();
         }
+        public AdminEmployeeController(EmployeeBLL employeeBLL, UserBLL userBLL)
+        {
+            _employeeBLL = employeeBLL;
+            _userBLL = userBLL;
+        }
         public ActionResult AllEmployees()
         {
             var EmployeeList = _employeeBLL.getAllEmployees();

@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 using Kaffeplaneten.DAL;
 using Kaffeplaneten.Models;
 
-namespace Stubs
+namespace Kaffeplaneten.Stubs
 {
-    class UserDALStub : IUserDAL
+    public class UserDALStub : IUserDAL
     {
         public bool add(UserModel userModel)
         {
@@ -19,6 +19,8 @@ namespace Stubs
 
         public UserModel get(int id)
         {
+            if (id < 0)
+                return null;
             var userModel = new UserModel();
             userModel.ID = 1;
             userModel.password = "123456789";
@@ -28,6 +30,8 @@ namespace Stubs
 
         public UserModel get(string email)
         {
+            if (email == "@kaffeplaneten.no")
+                return null;
             return get(1);
         }
 

@@ -17,6 +17,10 @@ namespace Administrasjon.Controllers
         {
             _orderBLL = new OrderBLL();
         }
+        public AdminOrderController(OrderBLL orderBLL)
+        {
+            _orderBLL = orderBLL;
+        }
 
         public ActionResult AllOrders()
         {

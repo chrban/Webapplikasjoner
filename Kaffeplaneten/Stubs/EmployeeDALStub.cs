@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 using Kaffeplaneten.DAL;
 using Kaffeplaneten.Models;
 
-namespace Stubs
+namespace Kaffeplaneten.Stubs
 {
-    class EmployeeDALStub : IEmployeeDAL
+    public class EmployeeDALStub : IEmployeeDAL
     {
         public bool add(EmployeeModel employeeModel)
         {
@@ -32,19 +32,38 @@ namespace Stubs
 
         public EmployeeModel find(int id)
         {
+            if (id < 0)
+                return null;
             var employeeModel = new EmployeeModel();
+            employeeModel.employeeID = 1;
             employeeModel.firstName = "Ola";
             employeeModel.lastName = "Nordmann";
             employeeModel.phone = "12345678";
+            employeeModel.customerAdmin = false;
+            employeeModel.databaseAdmin = false;
+            employeeModel.orderAdmin = true;
+            employeeModel.employeeAdmin = false;
+            employeeModel.password = "123456789";
+            employeeModel.productAdmin = false;
+            employeeModel.username = "Ola";
             return employeeModel;
         }
 
         public EmployeeModel find(string email)
         {
+            if (email == "@kaffeplaneten.no")
+                return null;
             var employeeModel = new EmployeeModel();
+            employeeModel.employeeID = 1;
             employeeModel.firstName = "Ola";
             employeeModel.lastName = "Nordmann";
             employeeModel.phone = "12345678";
+            employeeModel.customerAdmin = false;
+            employeeModel.databaseAdmin = false;
+            employeeModel.employeeAdmin = false;
+            employeeModel.password = "123456789";
+            employeeModel.productAdmin = false;
+            employeeModel.username = "Ola";
             return employeeModel;
         }
 
@@ -60,6 +79,8 @@ namespace Stubs
 
         public string getProvince(string zipCode)
         {
+            if (zipCode == "")
+                return "";
             return "Oslo";
         }
 
@@ -71,6 +92,8 @@ namespace Stubs
         }
         public bool delete(int id)
         {
+            if (id < 0)
+                return false;
             return true;
         }
     }

@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 using Kaffeplaneten.DAL;
 using Kaffeplaneten.Models;
 
-namespace Stubs
+namespace Kaffeplaneten.Stubs
 {
-    class CustomerDALStub : ICustomerDAL
+    public class CustomerDALStub : ICustomerDAL
     {
         public bool add(CustomerModel IncCustomer)
         {
@@ -50,7 +50,10 @@ namespace Stubs
 
         public CustomerModel find(int id)
         {
+            if (id < 0)
+                return null;
             var customerModel = new CustomerModel();
+            customerModel.customerID = 1;
             customerModel.firstName = "Ola";
             customerModel.lastName = "Nordmann";
             customerModel.payAdress = "Osloveien 1";
@@ -66,6 +69,8 @@ namespace Stubs
 
         public CustomerModel find(string email)
         {
+            if (email == "")
+                return null;
             var customerModel = new CustomerModel();
             customerModel.firstName = "Ola";
             customerModel.lastName = "Nordmann";
@@ -82,6 +87,8 @@ namespace Stubs
 
         public string getProvince(string zipCode)
         {
+            if (zipCode == "")
+                return "";
             return "Oslo";
         }
 

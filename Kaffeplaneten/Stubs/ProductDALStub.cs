@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 using Kaffeplaneten.DAL;
 using Kaffeplaneten.Models;
 
-namespace Stubs
+namespace Kaffeplaneten.Stubs
 {
-    class ProductDALStub : IProductDAL
+    public class ProductDALStub : IProductDAL
     {
         public bool add(ProductModel productModel)
         {
@@ -26,6 +26,8 @@ namespace Stubs
 
         public ProductModel find(int id)
         {
+            if (id < 0)
+                return null;
             var productModel = new ProductModel();
             productModel.category = "Kaffe";
             productModel.description = "God kaffe";

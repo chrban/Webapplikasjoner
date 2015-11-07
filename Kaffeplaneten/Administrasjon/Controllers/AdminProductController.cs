@@ -19,6 +19,10 @@ namespace Administrasjon.Controllers
         {
             _productBLL = new ProductBLL();
         }
+        public AdminProductController(ProductBLL productBLL)
+        {
+            _productBLL = productBLL;
+        }
 
         public ActionResult AllProducts()
         {

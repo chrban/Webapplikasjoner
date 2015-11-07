@@ -20,6 +20,10 @@ namespace Administrasjon.Controllers
         {
             _customerBLL = new CustomerBLL();
         }
+        public AdminCustomerController(CustomerBLL customerBLL)
+        {
+            _customerBLL = customerBLL;
+        }
 
 
         public ActionResult Index()
@@ -41,15 +45,11 @@ namespace Administrasjon.Controllers
 
         public ActionResult Edit(int id)
         {
-
-            var customerList = _customerBLL.allCustomers();
-            foreach(var i in customerList)
+            var customerModel = _customerBLL.find(id);
+            if (customerModel != null)
             {
-                if (i.customerID == id)
-                {
-                    Session["tempCID"] = id;
-                    return View(i);
-                }
+                Session["tempCID"] = id;
+                return View(customerModel);
             }
             return View();
         }
@@ -57,7 +57,7 @@ namespace Administrasjon.Controllers
         [HttpPost]
         public ActionResult Edit(CustomerModel customerModel)
         {
-            customerModel.customerID = (Int32)Session["tempCID"];
+            customerModel.customerID = (int)Session["tempCID"];
 
             if (_customerBLL.update(customerModel))
             {
@@ -84,14 +84,11 @@ namespace Administrasjon.Controllers
         }
         public ActionResult Details(int id)
         {
-            var customerList = _customerBLL.allCustomers();
-            foreach (var i in customerList)
+            var customerModel = _customerBLL.find(id);
+            if (customerModel != null)
             {
-                if (i.customerID == id)
-                {
-                    Session["tempCID"] = id;
-                    return View(i);
-                }
+                Session["tempCID"] = id;
+                return View(customerModel);
             }
 
             return RedirectToAction("AllCustomers");
