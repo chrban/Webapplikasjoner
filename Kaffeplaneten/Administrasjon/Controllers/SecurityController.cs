@@ -95,5 +95,27 @@ namespace Administrasjon.Controllers
             Session[username] = null;
             return RedirectToAction("Loginview");
         }
+
+        public string ForgotPassword(string email)
+        {
+            Debug.WriteLine("Forgt password metoden er called" + email);
+
+            var user = _userBLL.get(email);
+            var tempPW = "Ikke Initialisert";
+
+            if (_userBLL.get(email) == null)
+            {
+                tempPW = "NOTFOUND";
+            }
+            else
+            {
+                Debug.WriteLine("Fant bruker i database " + email  + "username " + user.username);
+                tempPW = _userBLL.resetPassword(user);
+
+            }
+
+            return tempPW;
+        }
+
     }
 }

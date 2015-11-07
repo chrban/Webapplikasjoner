@@ -50,5 +50,27 @@ namespace Kaffeplaneten.BLL
         {
             return _userDAL.get(id);
         }//end get()
+        public string resetPassword(UserModel user)
+        {
+
+            int length = 9;
+            const string valid = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+            StringBuilder randomPassword = new StringBuilder();
+            Random rnd = new Random();
+            while (0 < length--)
+            {
+                randomPassword.Append(valid[rnd.Next(valid.Length)]);
+            }
+            var randomPW = randomPassword.ToString();
+            if(_userDAL.resetPassword(user, randomPW))//passord er nullstillt, sender med temp passord
+            {
+                return randomPW;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
     }//end namespace
 }//end class

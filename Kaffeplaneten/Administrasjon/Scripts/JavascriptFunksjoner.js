@@ -44,6 +44,43 @@ function putInCart(id) {
     $('#quantity').val(1);
 }
 
+
+
+function forgot() {
+    var inUser = $('#forgotPW').val();
+
+    $.ajax({
+        url: "/Security/ForgotPassword",
+        type: 'POST',
+        data: {
+            email: inUser
+        }, success: function (retur) {
+
+            if (retur == 'NOTFOUND') {
+                $("#pWfeedback").empty();
+                $("#pWfeedback").attr('class', 'alert alert-danger');
+                $("#pWfeedback").html("Finner ikke bruker: " + inUser);
+            }
+            else {
+
+            $("#forgotBody").empty();
+            $("#forgotBody").attr('class', 'alert alert-success');
+            $("#forgotBody").append("Brukernavn: " + inUser);
+            $("#forgotBody").append("Midelrtidig passord: ");
+            $("#forgotBody").append(retur);
+            }
+        }
+        , error: function (retur) {
+            $("#pWfeedback").empty();
+            $("#pWfeedback").attr('class', 'alert alert-danger');
+            $("#pWfeedback").html("Finner ikke bruker: "+inUser);
+        }
+    });
+
+}
+
+
+
 $(document).ready(function(){
     $('[datatoggle="popover"]').popover();
 });
