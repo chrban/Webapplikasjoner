@@ -76,6 +76,7 @@ namespace Kaffeplaneten.Controllers
             var user = _userBLL.get(email);
             var tempPW = _userBLL.randomPassord();
 
+
             if (_userBLL.get(email) == null)
             {
                 return "NF";
@@ -84,7 +85,8 @@ namespace Kaffeplaneten.Controllers
             {
                 _userBLL.resetPassword(user, base.getHash(tempPW));
 
-              return tempPW;
+                _userBLL.sendMail(user.username, user.ID.ToString(), "Glemt passord", "Logg inn med midlertidig passord: " + tempPW + "  -Hilsen KaffePlaneten");
+                return tempPW;
             }
 
         }

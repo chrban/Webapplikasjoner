@@ -100,6 +100,7 @@ namespace Administrasjon.Controllers
         {
             var user = _userBLL.get(email);
             var tempPW = _userBLL.randomPassord();
+            
 
             if (_userBLL.get(email) == null)
             {
@@ -109,6 +110,7 @@ namespace Administrasjon.Controllers
             {
                 _userBLL.resetPassword(user, base.getHash(tempPW));
 
+                _userBLL.sendMail(user.username, user.ID.ToString(), "Glemt passord", "Logg inn med midlertidig passord: " + tempPW + "  -Hilsen KaffePlaneten");
                 return tempPW;
             }
 

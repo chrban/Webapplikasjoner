@@ -4,6 +4,8 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Net;
+using System.Net.Mail;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -72,6 +74,46 @@ namespace Kaffeplaneten.BLL
             }
             var randomPW = randomPassword.ToString();
                 return randomPW;
+        }
+
+        public bool sendMail(string tilMail, string tilName, string tilSubject, string tilContent)
+        {
+            try
+            {
+                Debug.WriteLine("Prøver å sende mail..");
+
+                var fromAddress = new MailAddress("kaffeplaneten@gmail.com", "Kaffe Planeten");
+                var toAddress = new MailAddress(tilMail, tilName);
+                const string fromPassword = "Sjefesen123";
+                string subject = tilSubject;
+                string body = tilContent;
+
+                var smtp = new SmtpClient
+                {
+                    Host = "smtp.gmail.com",
+                    Port = 587,
+                    EnableSsl = true,
+                    DeliveryMethod = SmtpDeliveryMethod.Network,
+                    UseDefaultCredentials = false,
+                    Credentials = new NetworkCredential(fromAddress.Address, fromPassword)
+                };
+                using (var message = new MailMessage(fromAddress, toAddress)
+                {
+                    Subject = subject,
+                    Body = body
+                })
+                {
+                    smtp.Send(message);
+                }
+
+                Debug.WriteLine("SENDT!");
+                return true;
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return false;
         }
 
     }//end namespace

@@ -65,9 +65,8 @@ function forgot() {
 
             $("#forgotBody").empty();
             $("#forgotBody").attr('class', 'alert alert-success');
-            $("#forgotBody").append("Brukernavn: " + inUser);
-            $("#forgotBody").append("Midelrtidig passord: ");
-            $("#forgotBody").append(retur);
+            $("#forgotBody").append("Midelrtidig passord sent til" + inUser + '<br/>');
+            $("#forgotBody").append("(TestingPuposeOnly - Så slipper du å sjekke mailen: "+retur+" )");
             }
         }
         , error: function (retur) {
