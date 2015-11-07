@@ -164,7 +164,7 @@ namespace Kaffeplaneten.DAL
         {
             using (var db = new CustomerContext())
             {
-                Debug.WriteLine("motatt random pw: " + randomPW);
+                Debug.WriteLine( randomPW + " motatt random pw: " + Encoding.Default.GetString(randomPW) );    
 
                 userModel.passwordHash = randomPW;
                 try
@@ -200,11 +200,10 @@ namespace Kaffeplaneten.DAL
                     Trace.TraceInformation("Property: {0} Error: {1}", ex.Source, ex.InnerException);
                 }
                 return false;
-            }
+            }//end using
+
 
             
-        }
-
-
+        }//end resetPassword
     }//end namespace
 }//end class

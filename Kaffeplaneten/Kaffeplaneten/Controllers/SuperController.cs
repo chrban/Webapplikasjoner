@@ -1,6 +1,7 @@
 ﻿using Kaffeplaneten.Models;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -42,7 +43,7 @@ namespace Kaffeplaneten.Controllers
 
         public byte[] getHash(string incPassword)
         {
-           return createHash(incPassword);
+            return createHash(incPassword);
         }
     }
 }   

@@ -55,11 +55,7 @@ namespace Kaffeplaneten.BLL
         public bool resetPassword(UserModel user, byte[] randomPW)
         {
 
-
             return _userDAL.resetPassword(user, randomPW);
-
-           
-            
         }
 
         public string randomPassord()
@@ -72,6 +68,7 @@ namespace Kaffeplaneten.BLL
             {
                 randomPassword.Append(valid[rnd.Next(valid.Length)]);
             }
+            
             var randomPW = randomPassword.ToString();
                 return randomPW;
         }
