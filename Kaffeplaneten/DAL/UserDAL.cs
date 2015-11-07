@@ -160,12 +160,13 @@ namespace Kaffeplaneten.DAL
             }//end using
         }//end get()
 
-        public bool resetPassword(UserModel userModel ,string randomPW)
+        public bool resetPassword(UserModel userModel ,byte[] randomPW)
         {
             using (var db = new CustomerContext())
             {
                 Debug.WriteLine("motatt random pw: " + randomPW);
-                userModel.passwordHash = createHash(randomPW);
+
+                userModel.passwordHash = randomPW;
                 try
                 {
                     var user = db.Users.Find(userModel.ID);
@@ -204,15 +205,6 @@ namespace Kaffeplaneten.DAL
             
         }
 
-
-        private static byte[] createHash(string incPassword)
-        {
-            var algorithm = System.Security.Cryptography.SHA512.Create();
-            byte[] incData, outData;
-            incData = System.Text.Encoding.ASCII.GetBytes(incPassword);
-            outData = algorithm.ComputeHash(incData);
-            return outData;
-        }
 
     }//end namespace
 }//end class

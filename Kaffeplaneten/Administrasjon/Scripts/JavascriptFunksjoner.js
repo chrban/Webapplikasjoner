@@ -56,7 +56,7 @@ function forgot() {
             email: inUser
         }, success: function (retur) {
 
-            if (retur == 'NOTFOUND') {
+            if (retur == 'NF') {
                 $("#pWfeedback").empty();
                 $("#pWfeedback").attr('class', 'alert alert-danger');
                 $("#pWfeedback").html("Finner ikke bruker: " + inUser);
