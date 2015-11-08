@@ -51,8 +51,8 @@ namespace Administrasjon.Controllers
             if (!ModelState.IsValid)
                 return View();
             string username = employee.username + "@kaffeplaneten.no";
-            var employeeModel = _userBLL.get(username);
-            if (employeeModel != null)
+            var userModel = _userBLL.get(username);
+            if (userModel != null)
             {
                 Session["userExists"] = "Brukernavn(Epost) du prøver å registere finnes allerede!";
                 return View(employee);
@@ -68,17 +68,17 @@ namespace Administrasjon.Controllers
                 Session["employeeError"] = "Feil ved registrering av ansatt";
                 return View(employee);
             }
-            employeeModel = new UserModel();
-            employeeModel.username = username;
-            employeeModel.passwordHash = base.getHash(employee.password);
-            employeeModel.ID = employee.employeeID;
+            userModel = new UserModel();
+            userModel.username = username;
+            userModel.passwordHash = base.getHash(employee.password);
+            userModel.ID = employee.employeeID;
 
-            if (!_userBLL.add(employeeModel)) //registrerer ny bruker
+            if (!_userBLL.add(userModel)) //registrerer ny bruker
             {
                 Session["userError"] = "Feil ved registrering av bruker";
                 return View(employee);
             }
-            _loggingBLL.logToUser("La til ny ansatt: " + employeeModel.username, (EmployeeModel)Session["Employee"]);
+            _loggingBLL.logToUser("La til ny ansatt: " + userModel.username, (EmployeeModel)Session["Employee"]);
             return RedirectToAction("AllEmployees", "AdminEmployee");
         }
         public ActionResult deleteEmployee()

@@ -13,7 +13,6 @@ namespace Administrasjon.Controllers
         {
             if (Session[LOGGED_INN] != null && (bool)Session[LOGGED_INN])
                 ViewBag.Inlogged = true;
-
             ViewBag.notInlogged = false;
             return PartialView(user);
         }

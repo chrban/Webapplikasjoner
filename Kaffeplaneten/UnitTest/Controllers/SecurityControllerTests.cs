@@ -34,7 +34,7 @@ namespace Administrasjon.Controllers.Tests
         {
             //Arrange
             var controller = MockHttpSession.getMoqSecurityController();
-            controller.Session[SuperController.LOGGED_INN] = false;
+            controller.Session[SuperController.LOGGED_INN] = null;
             //Act
             var result = (ViewResult)controller.Loginview();
             //Assert

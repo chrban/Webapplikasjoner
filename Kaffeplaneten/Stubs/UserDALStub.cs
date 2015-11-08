@@ -30,7 +30,7 @@ namespace Kaffeplaneten.Stubs
 
         public UserModel get(string email)
         {
-            if (email == "@kaffeplaneten.no")
+            if (email.Equals("@kaffeplaneten.no") || email.Equals("false@kaffeplaneten.no"))
                 return null;
             return get(1);
         }
