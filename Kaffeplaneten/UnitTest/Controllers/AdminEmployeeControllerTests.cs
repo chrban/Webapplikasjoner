@@ -17,11 +17,6 @@ namespace Administrasjon.Controllers.Tests
     [TestClass()]
     public class AdminEmployeeControllerTests
     {
-        //Arrange
-        
-        //Act
-
-        //Assert
         [TestMethod()]
         public void AllEmployeesTest()
         {

@@ -9,7 +9,7 @@ using System.Web.Mvc;
 
 namespace Administrasjon.Controllers
 {
-    public class AdminOrderController : Controller
+    public class AdminOrderController : SuperController
     {
 
         private OrderBLL _orderBLL;
@@ -31,8 +31,7 @@ namespace Administrasjon.Controllers
             //egentlig helt dust metode om ikke den knytter ordre til kunde..
             var orders = _orderBLL.allOrders();
             if(orders!=null)
-            return View(orders);
-
+                return View(orders);
             return View();
         }
         public ActionResult cancelOrder(int nr)

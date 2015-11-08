@@ -101,8 +101,13 @@
   <ItemGroup>
     <Compile Include="Controllers\AdminCustomerControllerTests.cs" />
     <Compile Include="Controllers\AdminEmployeeControllerTests.cs" />
+    <Compile Include="Controllers\AdminLoggingControllerTests.cs" />
+    <Compile Include="Controllers\AdminOrderControllerTests.cs" />
+    <Compile Include="Controllers\AdminProductControllerTests.cs" />
+    <Compile Include="Controllers\LayoutControllerTests.cs" />
+    <Compile Include="Controllers\SecurityControllerTests.cs" />
+    <Compile Include="Controllers\SuperControllerTests.cs" />
     <Compile Include="MockHttpSession.cs" />
-    <Compile Include="UnitTest1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -39,5 +39,41 @@ namespace UnitTest
             controller.ControllerContext = context.Object;
             return controller;
         }
+        public static AdminProductController getMoqAdminProductController()
+        {
+            var context = new Mock<ControllerContext>();
+            var session = new MockHttpSession();
+            context.Setup(m => m.HttpContext.Session).Returns(session);
+            var controller = new AdminProductController(new ProductBLL(new ProductDALStub()), new LoggingBLL(new LoggingDALStub()));
+            controller.ControllerContext = context.Object;
+            return controller;
+        }
+        public static LayoutController getMoqLayoutController()
+        {
+            var context = new Mock<ControllerContext>();
+            var session = new MockHttpSession();
+            context.Setup(m => m.HttpContext.Session).Returns(session);
+            var controller = new LayoutController();
+            controller.ControllerContext = context.Object;
+            return controller;
+        }
+        public static SecurityController getMoqSecurityController()
+        {
+            var context = new Mock<ControllerContext>();
+            var session = new MockHttpSession();
+            context.Setup(m => m.HttpContext.Session).Returns(session);
+            var controller = new SecurityController(new EmployeeBLL(new EmployeeDALStub()), new UserBLL(new UserDALStub()), new LoggingBLL(new LoggingDALStub()));
+            controller.ControllerContext = context.Object;
+            return controller;
+        }
+        public static SuperController getMoqSuperController()
+        {
+            var context = new Mock<ControllerContext>();
+            var session = new MockHttpSession();
+            context.Setup(m => m.HttpContext.Session).Returns(session);
+            var controller = new SuperController();
+            controller.ControllerContext = context.Object;
+            return controller;
+        }
     }
 }

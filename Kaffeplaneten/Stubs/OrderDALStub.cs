@@ -46,6 +46,8 @@ namespace Kaffeplaneten.Stubs
 
         public List<OrderModel> findOrders(int id)
         {
+            if (id < 0)
+                return null;
             var list = new List<OrderModel>();
             list.Add(find(1));
             list.Add(find(1));
@@ -55,6 +57,8 @@ namespace Kaffeplaneten.Stubs
         }
         public List<OrderModel> findOrders(CustomerModel customerModel)
         {
+            if (customerModel.customerID < 0)
+                return null;
             var list = new List<OrderModel>();
             list.Add(find(1));
             list.Add(find(1));

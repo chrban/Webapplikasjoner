@@ -90,9 +90,6 @@ namespace Kaffeplaneten.DAL
                     var user = db.Users.Find(userModel.ID);
                     if (user == null)//tester om brukeren finnes
                         return false;
-                    var customer = db.Customers.Find(userModel.ID);
-                    if (customer == null)//tester om kunden finnes
-                        return false;
                     if(!userModel.username.Equals(user.username))
                     {
                         var email = (from p in db.Users
