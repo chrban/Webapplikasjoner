@@ -182,11 +182,39 @@ namespace Kaffeplaneten.DAL
                 try
                 {
                     var orders = (from o in db.Orders select o).ToList();
+                    var orderModel = new OrderModel();
 
-                    foreach ( var o in orders)
+                    foreach ( var o in orders) // finner alle ordre
                     {
-                        orderList.Add(find(o.orderNr));
-                    }
+                        orderModel.orderNr = o.orderNr;
+                        orderModel.customerID = o.personID;
+                        var productOrders = (from p in db.ProductOrders where p.orderNr == o.orderNr select p).ToList();
+                        orderModel.total = 0;
+                        var productDAL = new ProductDAL();
+
+                        foreach (var p in productOrders)//legger produktene til i order modellen
+                        {
+                            if(p.productID == o.orderNr)
+                            {
+                                var product = db.Products.Find(p.productID);
+                                var productModel = new ProductModel(); //oppretter produktModel
+
+                                productModel.productID = product.productID;
+                                productModel.productName = product.productName;
+                                productModel.price = p.price;
+                                productModel.imageURL = product.imageURL;
+                                productModel.description = product.description;
+                                productModel.category = product.category;
+                                productModel.stock = product.stock;
+                                productModel.quantity = p.quantity;
+                                orderModel.products.Add(productModel);//legger produktmodel inn i ordremodell
+                                orderModel.total += p.price;
+
+                            }//end if
+
+                        }//end 2. for
+                            orderList.Add(orderModel);
+                    }//end 1. for
                     return orderList;
                 }
                 catch (Exception ex)
@@ -226,6 +254,9 @@ namespace Kaffeplaneten.DAL
             }
         }
 
+
+
+      
 
 
     } //end namespace
