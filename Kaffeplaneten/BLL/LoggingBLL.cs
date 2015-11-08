@@ -57,10 +57,5 @@ namespace Kaffeplaneten.BLL
         {
             return _loggingDAL.createLog(type);
         }
-
-        public void outputLog()
-        {
-            _loggingDAL.outputLogToConsole();
-        }
     }
 }
