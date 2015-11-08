@@ -55,11 +55,11 @@ namespace Administrasjon.Controllers
                 if(Emp != null)
                 {
                     Session[Employee] = Emp;
-                    Session[employeeAdmin] = Emp.employeeAdmin;
-                    Session[customerAdmin] = Emp.customerAdmin;
-                    Session[orderAdmin] = Emp.orderAdmin;
-                    Session[productAdmin] = Emp.productAdmin;
-                    Session[databaseAdmin] = Emp.databaseAdmin;
+                        Session[employeeAdmin] = Emp.employeeAdmin;
+                        Session[customerAdmin] = Emp.customerAdmin;
+                        Session[orderAdmin] = Emp.orderAdmin;
+                        Session[productAdmin] = Emp.productAdmin;
+                        Session[databaseAdmin] = Emp.databaseAdmin;
 
                     Session[firstname] = Emp.firstName;
                     Session[lastname] = Emp.lastName;
@@ -78,7 +78,7 @@ namespace Administrasjon.Controllers
         public ActionResult LoggedIn()
         {
             if (Session[LOGGED_INN] != null && (bool)Session[LOGGED_INN])
-                return View();
+                    return View();
             return RedirectToAction("index");
         }
         public ActionResult LoggedOut()
@@ -98,13 +98,17 @@ namespace Administrasjon.Controllers
         public string ForgotPassword(string email)
         {
             var user = _userBLL.get(email);
+            var tempPW = _userBLL.randomPassord();
 
-            if (user != null)
+
+            if (_userBLL.get(email) == null)
             {
-                string tempPW = _userBLL.randomPassord(); 
+                string tempPW = _userBLL.randomPassord();
                 var hashetPw = getHash(tempPW);
                 if (_userBLL.resetPassword(user, hashetPw, false)) // lykkes i lage nytt pw
                 {
+                    _userBLL.resetPassword(user, base.getHash(tempPW));
+
                     _userBLL.sendMail(user.username, user.ID.ToString(), "Glemt passord", "Logg inn med midlertidig passord: " + tempPW + "  -Hilsen KaffePlaneten");
                     return tempPW;
                 }
