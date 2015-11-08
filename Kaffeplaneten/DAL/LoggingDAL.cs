@@ -106,6 +106,28 @@ namespace Kaffeplaneten.DAL
             return false;
         }
 
+        public override bool logToDatabase(Exception ex)
+        {
+            createLog(LOG_DATABASE);                            // Checks for log existence.
+            string logLine = ",{ " +
+                                  "\"Date\": \"" + DateTime.Now.ToString("h:mm:ss tt") + "\"," +
+                                  "\"Action\": \"FEIL: " + ex + "\" }";
+            try
+            {
+                using (StreamWriter logWriter = File.AppendText(LOG_DATABASE))
+                {
+                    logWriter.WriteLine(logLine);
+                    logWriter.Close();
+                    return true;
+                }
+            }
+            catch (Exception)
+            {
+                System.Console.WriteLine("ERROR: COULD NOT LOG DATABASE ACTION.");
+                return false;
+            }
+        }
+
         // Find messages with certain criteria.
         // Needs to be done.
         public override JObject findInDatabaseLog(string criteria)
