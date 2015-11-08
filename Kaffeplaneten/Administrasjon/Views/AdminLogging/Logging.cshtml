@@ -1,6 +1,6 @@
 ﻿
 @{
-    ViewBag.Title = "Logs";
+    ViewBag.Title = "Logger - KaffeplanetenAdmin";
 }
 @Html.Action("HeaderAndMenuBar", "Layout")
 
@@ -32,7 +32,7 @@
             success: function (response) {
                 var messages = response;
                 $('#grid-basic').empty();
-                $('#grid-basic').append("<thead><tr><th data-column-id=\"Date\" data-order=\"asc\">Date</th><th data-column-id=\"UserID\">UserID</th><th data-column-id=\"User\">User</th><th data-column-id=\"Action\">Log</th></tr></thead><tbody>");
+                $('#grid-basic').append("<thead><tr><th data-column-id=\"Date\" data-order=\"asc\">Dato:</th><th data-column-id=\"UserID\">Bruker ID:</th><th data-column-id=\"User\">Brukernavn:</th><th data-column-id=\"Action\">Logg:</th></tr></thead><tbody>");
                 $.each(messages, function (index, message) {
                     $('#grid-basic').append('<tr><td>' + message.Date + '</td><td>' +
                                             message.UserID + '</td><td>' +
@@ -60,7 +60,7 @@
             success: function (response) {
                 var messages = response;
                 $('#grid-database').empty();
-                $('#grid-database').append("<thead><tr><th data-column-id=\"Date\" data-order=\"asc\">Date</th><th data-column-id=\"Action\">Log</th></tr></thead><tbody>");
+                $('#grid-database').append("<thead><tr><th data-column-id=\"Date\" data-order=\"asc\">Dato:</th><th data-column-id=\"Action\">Logg:</th></tr></thead><tbody>");
                 $.each(messages, function (index, message) {
                     $('#grid-database').append('<tr><td>' + message.Date + '</td><td>' +
                                             message.Action + '</td>' +
