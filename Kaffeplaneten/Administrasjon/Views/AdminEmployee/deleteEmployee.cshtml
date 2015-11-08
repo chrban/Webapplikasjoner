@@ -17,28 +17,31 @@
                 </div>
             </div>
 
-            <div class="row col-md-offset-1">
-                <div class=" col-md-3">
-                    <strong>Skriv inn bruker:</strong>
-                </div>
-                <div class="col-md-offset4 col-md-6">
-                    <div class="input-group input-group-lg">
-                        <span class="input-group-addon">
-                            <span class="glyphicon glyphicon-user"></span>
-                        </span>
-                        @Html.TextBoxFor(model => model.employeeID, new { @class = "form-control", placeholder = (@Html.DisplayNameFor(model => model.employeeID)) })
+            <div class="panel-primary">
+                <div class="panel-body">
+                    <div class="row col-md-offset-1">
+                        <div class=" col-md-3">
+                            <strong>Skriv inn bruker:</strong>
+                        </div>
+                        <div class="col-md-offset4 col-md-6">
+                            <div class="input-group input-group-lg">
+                                <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-user"></span>
+                                </span>
+                                @Html.TextBoxFor(model => model.employeeID, new { @class = "form-control", placeholder = (@Html.DisplayNameFor(model => model.employeeID)) })
+                            </div>
+                        </div>
+                        <strong>AnsattID finner du i ansattlisten ved å trykke på vis ansatte.</strong>
+                        <div style="color: red"><h3>@Session["noUser"]</h3></div>
+                        <div style="color: chartreuse"><h3>@Session["isDeleted"]</h3></div>
+                        <div style="color: red"><h3>@Session["cantDelete"]</h3></div>
+                  </div>
+                   <div class="panel-footer panel-default col-md-offset6 col-md-12">
+                        <input type="submit" value="Slett ansatt" class="btn btn-success" />
                     </div>
                 </div>
-                <strong>AnsattID finner du i ansattlisten ved å trykke på vis ansatte.</strong>
-                <div style="color: red"><h3>@Session["noUser"]</h3></div>
-                <div style="color: chartreuse"><h3>@Session["isDeleted"]</h3></div>
-                <div style="color: red"><h3>@Session["cantDelete"]</h3></div>
-                <div class="panel-footer panel-default col-md-offset6 col-md-12">
-                    <input type="submit" value="Slett ansatt" class="btn btn-success" />
-                </div>             
-
+                </div>
             </div>
         </div>
-    </div>
-}
- 
+            }
+
