@@ -16,7 +16,6 @@ namespace Kaffeplaneten.DAL
         public abstract bool logToDatabase(Exception ex);
         public abstract bool logToUser(string message, EmployeeModel model);
         public abstract bool logToUser(string message, CustomerModel model);
-        public abstract void outputLogToConsole();
         public abstract List<JObject> parseLogFile(string log);
         public abstract JArray parseToArray(string log);
     }

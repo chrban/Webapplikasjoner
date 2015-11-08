@@ -8,7 +8,7 @@ function createCart() {
 
         },
         error: function () {
-            alert("ERROR: Shopping Cart was not created...");
+
         }
     });
 }
