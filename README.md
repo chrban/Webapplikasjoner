@@ -4,10 +4,14 @@ Prosjektet Kaffeplaneten en nettside med nettbutikk funksjonalitet. Nettsiden ha
 
 Prosjektet Administrasjon er en nettside med administrativ funksjonalitet som tar for seg alt av endringer tilknyttet nettsiden kaffeplaneten. Her kan administrator ut ifra sine rettigheter, lese alt av brukerinterkasjon i databaselogg, endre produkter, endre/kansellere ordrer og slette ansatte. Når man registrerer en ansatt kan man her sette hvilke av disse rettighetene den respektive ansatte skal kunne få tilgang til. 
 ##Til opplysning:
-Oppstart-siden for administrason-nettsiden viser en innloggingsside. Derfor trenger man på forhånd en hardkodet "superbruker"
+Oppstart-siden for administrason-nettsiden viser en innloggingsside. Derfor trenger man på forhånd en hardkodet/forhåndsdefinert "superbruker"
 for å logge inn som vi har her:
-#Brukernavn: sjefledersen@kaffeplaneten.no
-#Passord: Sjefesen123
+#Brukernavn: 
+sjefledersen@kaffeplaneten.no
+#Passord: 
+Sjefesen123
+
+Denne trenger man å bruke første gangen for å kunne ha mulighet til å registrere nye ansatte og sette rettigheter.
 ##Prosjektstruktur
 ###Database:
 CustomerContext.cs innholder Code First filen til databasen. Filen ligger i Models mappen.
