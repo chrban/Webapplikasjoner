@@ -23,7 +23,7 @@ namespace Administrasjon.Controllers.Tests
         {
             //Arrange
             var controller = MockHttpSession.getMoqLayoutController();
-            controller.Session[SuperController.LOGGED_INN] = true;
+            controller.Session["LoggedInn"] = true;
             var userModel = new UserModel();
             userModel.ID = 1;
             userModel.password = "123456789";
@@ -36,27 +36,6 @@ namespace Administrasjon.Controllers.Tests
             Assert.AreEqual(resultModel.ID, userModel.ID);
             Assert.AreEqual(resultModel.password, userModel.password);
             Assert.AreEqual(resultModel.username, userModel.username);
-
-        }
-        [TestMethod()]
-        public void HeaderAndMenuBarTestNotLoggedInn()
-        {
-            //Arrange
-            var controller = MockHttpSession.getMoqLayoutController();
-            controller.Session[SuperController.LOGGED_INN] = false;
-            var userModel = new UserModel();
-            userModel.ID = 1;
-            userModel.password = "123456789";
-            userModel.username = "Ola@nordmann.no";
-            //Act
-            var result = (PartialViewResult)controller.HeaderAndMenuBar(userModel);
-            var resultModel = (UserModel)result.Model;
-            //Assert
-            Assert.AreEqual(result.ViewName, "");
-            Assert.AreEqual(resultModel.ID, userModel.ID);
-            Assert.AreEqual(resultModel.password, userModel.password);
-            Assert.AreEqual(resultModel.username, userModel.username);
-
         }
 
         [TestMethod()]

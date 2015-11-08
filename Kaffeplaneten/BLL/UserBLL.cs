@@ -48,11 +48,6 @@ namespace Kaffeplaneten.BLL
         {
             return _userDAL.get(id);
         }//end get()
-        public bool resetPassword(UserModel user, byte[] randomPW, bool customer)
-        {
-
-            return _userDAL.resetPassword(user, randomPW, customer);
-        }
 
         public string randomPassord()
         {
@@ -102,7 +97,7 @@ namespace Kaffeplaneten.BLL
                 Debug.WriteLine("SENDT!");
                 return true;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
 
             }

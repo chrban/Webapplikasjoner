@@ -90,6 +90,7 @@ namespace Kaffeplaneten.DAL
                     var user = db.Users.Find(userModel.ID);
                     if (user == null)//tester om brukeren finnes
                         return false;
+                    user.person = db.Persons.Find(userModel.ID);
                     if(!userModel.username.Equals(user.username))
                     {
                         var email = (from p in db.Users
@@ -99,14 +100,22 @@ namespace Kaffeplaneten.DAL
                             return false;
                         user.username = userModel.username;
                     }
+                    user.password = null;
                     user.password = userModel.passwordHash;
                     db.SaveChanges();
                     return true;
                 }
-                catch (Exception ex)
+                catch (DbEntityValidationException dbEx)
                 {
-                    Debug.WriteLine("\nERROR!\nMelding:\n" + ex.Message + "\nInner exception:" + ex.InnerException + "\nKastet fra\n" + ex.TargetSite + "\nTrace:\n" + ex.StackTrace);
-                    Trace.TraceInformation("Property: {0} Error: {1}", ex.Source, ex.InnerException);
+                    foreach (var validationErrors in dbEx.EntityValidationErrors)
+                    {
+                        foreach (var validationError in validationErrors.ValidationErrors)
+                        {
+                            Trace.TraceInformation("Property: {0} Error: {1}",
+                                                    validationError.PropertyName,
+                                                    validationError.ErrorMessage);
+                        }
+                    }
                 }
                 return false;
             }
@@ -156,69 +165,5 @@ namespace Kaffeplaneten.DAL
                 return null;
             }//end using
         }//end get()
-
-        public bool resetPassword(UserModel userModel ,byte[] randomPW, bool customer )
-        {
-            using (var db = new CustomerContext())
-            {
-                Debug.WriteLine( randomPW + " motatt random pw: " + Encoding.Default.GetString(randomPW) );    
-
-                userModel.passwordHash = randomPW;
-                try
-                {
-                    var user = db.Users.Find(userModel.ID);
-
-                    if (user == null)//tester om brukeren finnes
-                        return false;
-
-                    if (customer)
-                    {
-                        var customerID = db.Customers.Find(userModel.ID);
-
-                        if (customerID == null)//tester om kunden finnes
-                        {
-
-                            return false;
-                        }
-
-                    }
-                    else
-                    {
-                        var empID = db.Employees.Find(userModel.ID);
-                        if (empID == null)//tester om kunden finnes
-                        {
-                            return false;
-                        }
-                    }
-
-
-                    if (!userModel.username.Equals(user.username))
-                    {
-                        var email = (from p in db.Users
-                                     where p.username.Equals(userModel.username)
-                                     select p).FirstOrDefault();
-                        if (email != null)//tester om epostadressen finnes fra før
-                            return false;
-
-                        user.username = userModel.username;
-                    }
-                    
-                    user.password = userModel.passwordHash;
-                    db.SaveChanges();
-                    Debug.WriteLine("Gjennom!");
-
-                    return true;
-                }
-                catch (Exception ex)
-                {
-                    Debug.WriteLine("\nERROR!\nMelding:\n" + ex.Message + "\nInner exception:" + ex.InnerException + "\nKastet fra\n" + ex.TargetSite + "\nTrace:\n" + ex.StackTrace);
-                    Trace.TraceInformation("Property: {0} Error: {1}", ex.Source, ex.InnerException);
-                }
-                return false;
-            }//end using
-
-
-            
-        }//end resetPassword
     }//end namespace
 }//end class

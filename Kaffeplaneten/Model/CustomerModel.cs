@@ -30,12 +30,18 @@ namespace Kaffeplaneten.Models
         [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$")]
         [Display(Name = "Passord:")]
         public string password { get; set; }
-        public bool passwordStrength { get; set; }
+
 
         [Display(Name = "Gjenta valgt passord")]
         [Required(ErrorMessage = "Passordet må gjentas!")]
         [CompareAttribute("password", ErrorMessage = "Passordene er ikke like")]
         public string passwordVerifier { get; set; }
+
+        [Required(ErrorMessage = "Passord må oppgis")]
+        [StringLength(50, MinimumLength = 8, ErrorMessage = "Passordet må inneholde minimum 8 tegn")]
+        [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$")]
+        [Display(Name = "Gammelt passord:")]
+        public string oldPassword { get; set; }
 
 
         [Display(Name = "Telefon: ")]

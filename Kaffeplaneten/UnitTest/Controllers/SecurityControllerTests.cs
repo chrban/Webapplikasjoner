@@ -34,7 +34,7 @@ namespace Administrasjon.Controllers.Tests
         {
             //Arrange
             var controller = MockHttpSession.getMoqSecurityController();
-            controller.Session[SuperController.LOGGED_INN] = false;
+            controller.Session[SuperController.LOGGED_INN] = null;
             //Act
             var result = (ViewResult)controller.Loginview();
             //Assert
@@ -141,6 +141,17 @@ namespace Administrasjon.Controllers.Tests
             var result = controller.ForgotPassword(epost);
             //Assert
             Assert.AreEqual(result, "NF");
+        }
+        [TestMethod()]
+        public void ForgotPasswordTestNotFailed()
+        {
+            //Arrange
+            var controller = MockHttpSession.getMoqSecurityController();
+            var epost = "false";
+            //Act
+            var result = controller.ForgotPassword(epost);
+            //Assert
+            Assert.AreNotEqual(result, "");
         }
     }
 }

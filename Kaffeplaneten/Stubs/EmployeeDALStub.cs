@@ -12,7 +12,7 @@ namespace Kaffeplaneten.Stubs
     {
         public bool add(EmployeeModel employeeModel)
         {
-            if (employeeModel.firstName != "")
+            if (!employeeModel.firstName.Equals(""))
                 return true;
             return false;
         }
@@ -46,12 +46,22 @@ namespace Kaffeplaneten.Stubs
             employeeModel.password = "123456789";
             employeeModel.productAdmin = false;
             employeeModel.username = "Ola";
+            if (id==2)
+            {
+                employeeModel.databaseAdmin = true;
+                employeeModel.customerAdmin = true;
+                employeeModel.productAdmin = true;
+                employeeModel.employeeAdmin = true;
+
+            }
+            if (id == 3)
+                employeeModel.employeeID = -1;
             return employeeModel;
         }
 
         public EmployeeModel find(string email)
         {
-            if (email == "@kaffeplaneten.no")
+            if (email.Equals("@kaffeplaneten.no"))
                 return null;
             var employeeModel = new EmployeeModel();
             employeeModel.employeeID = 1;

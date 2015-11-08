@@ -9,8 +9,9 @@ using Kaffeplaneten.BLL;
 using Kaffeplaneten.Stubs;
 using System.Web.Mvc;
 using Kaffeplaneten.Models;
-using System.Web;
 using Moq;
+using System.Web;
+using UnitTest;
 
 namespace Administrasjon.Controllers.Tests
 {
@@ -73,6 +74,19 @@ namespace Administrasjon.Controllers.Tests
         }
 
         [TestMethod()]
+        public void createEmployeeTestNotValid()
+        {
+            //Arrange
+            var controller = new AdminEmployeeController(new EmployeeBLL(new EmployeeDALStub()), new UserBLL(new UserDALStub()), new LoggingBLL(new LoggingDALStub()));
+            controller.ViewData.ModelState.AddModelError("feil", "testfeil");
+            //Act
+            var result = (ViewResult)controller.createEmployee(new EmployeeModel());
+            //Assert
+            Assert.AreEqual(result.ViewName, "");
+            Assert.IsTrue(result.ViewData.ModelState.Count == 1);
+        }
+
+        [TestMethod()]
         public void createEmployeeTestFalseUsername()
         {
             //Arrange
@@ -111,7 +125,45 @@ namespace Administrasjon.Controllers.Tests
 
         }
         [TestMethod()]
-        public void createEmployeeTestFalseName()
+        public void createEmployeeTestExixstingEmployee()
+        {
+            //Arrange
+            var context = new Mock<ControllerContext>();
+            var session = new Mock<HttpSessionStateBase>();
+            context.Setup(m => m.HttpContext.Session).Returns(session.Object);
+            var controller = new AdminEmployeeController(new EmployeeBLL(new EmployeeDALStub()), new UserBLL(new UserDALStub()), new LoggingBLL(new LoggingDALStub()));
+            controller.ControllerContext = context.Object;
+            var employeeModel = new EmployeeModel();
+            employeeModel.employeeID = 1;
+            employeeModel.firstName = "Ola";
+            employeeModel.lastName = "Nordmann";
+            employeeModel.phone = "12345678";
+            employeeModel.orderAdmin = true;
+            employeeModel.customerAdmin = false;
+            employeeModel.databaseAdmin = false;
+            employeeModel.employeeAdmin = false;
+            employeeModel.password = "123456789";
+            employeeModel.productAdmin = false;
+            employeeModel.username = "false";
+            //Act
+            var result = (ViewResult)controller.createEmployee(employeeModel);
+            var resultModel = (EmployeeModel)result.Model;
+            //Assert
+            Assert.AreEqual(result.ViewName, "");
+            Assert.AreEqual(employeeModel.firstName, resultModel.firstName);
+            Assert.AreEqual(employeeModel.customerAdmin, resultModel.customerAdmin);
+            Assert.AreEqual(employeeModel.databaseAdmin, resultModel.databaseAdmin);
+            Assert.AreEqual(employeeModel.employeeAdmin, resultModel.employeeAdmin);
+            Assert.AreEqual(employeeModel.employeeID, resultModel.employeeID);
+            Assert.AreEqual(employeeModel.lastName, resultModel.lastName);
+            Assert.AreEqual(employeeModel.orderAdmin, resultModel.orderAdmin);
+            Assert.AreEqual(employeeModel.password, resultModel.password);
+            Assert.AreEqual(employeeModel.phone, resultModel.phone);
+            Assert.AreEqual(employeeModel.username, resultModel.username);
+
+        }
+        [TestMethod()]
+        public void createEmployeeTestEmployeeAddFail()
         {
             //Arrange
             var context = new Mock<ControllerContext>();
@@ -124,13 +176,13 @@ namespace Administrasjon.Controllers.Tests
             employeeModel.firstName = "";
             employeeModel.lastName = "Nordmann";
             employeeModel.phone = "12345678";
-            employeeModel.customerAdmin = false;
             employeeModel.orderAdmin = true;
+            employeeModel.customerAdmin = false;
             employeeModel.databaseAdmin = false;
             employeeModel.employeeAdmin = false;
             employeeModel.password = "123456789";
             employeeModel.productAdmin = false;
-            employeeModel.username = "Ola";
+            employeeModel.username = "";
             //Act
             var result = (ViewResult)controller.createEmployee(employeeModel);
             var resultModel = (EmployeeModel)result.Model;
@@ -146,9 +198,10 @@ namespace Administrasjon.Controllers.Tests
             Assert.AreEqual(employeeModel.password, resultModel.password);
             Assert.AreEqual(employeeModel.phone, resultModel.phone);
             Assert.AreEqual(employeeModel.username, resultModel.username);
+
         }
         [TestMethod()]
-        public void createEmployeeTestUserError()
+        public void createEmployeeTestUserAddFail()
         {
             //Arrange
             var context = new Mock<ControllerContext>();
@@ -158,16 +211,16 @@ namespace Administrasjon.Controllers.Tests
             controller.ControllerContext = context.Object;
             var employeeModel = new EmployeeModel();
             employeeModel.employeeID = -1;
-            employeeModel.firstName = "";
+            employeeModel.firstName = "Ola";
             employeeModel.lastName = "Nordmann";
             employeeModel.phone = "12345678";
-            employeeModel.customerAdmin = false;
             employeeModel.orderAdmin = true;
+            employeeModel.customerAdmin = false;
             employeeModel.databaseAdmin = false;
             employeeModel.employeeAdmin = false;
             employeeModel.password = "123456789";
             employeeModel.productAdmin = false;
-            employeeModel.username = "Ola";
+            employeeModel.username = "";
             //Act
             var result = (ViewResult)controller.createEmployee(employeeModel);
             var resultModel = (EmployeeModel)result.Model;
@@ -183,7 +236,9 @@ namespace Administrasjon.Controllers.Tests
             Assert.AreEqual(employeeModel.password, resultModel.password);
             Assert.AreEqual(employeeModel.phone, resultModel.phone);
             Assert.AreEqual(employeeModel.username, resultModel.username);
+
         }
+
         [TestMethod()]
         public void createEmployeeTestTrue()
         {
@@ -233,7 +288,7 @@ namespace Administrasjon.Controllers.Tests
             var controller = new AdminEmployeeController(new EmployeeBLL(new EmployeeDALStub()), new UserBLL(new UserDALStub()), new LoggingBLL(new LoggingDALStub()));
             controller.ControllerContext = context.Object;
             var employeeModel = new EmployeeModel();
-            employeeModel.employeeID = 1;
+            employeeModel.employeeID = -1;
             employeeModel.firstName = "Ola";
             employeeModel.lastName = "Nordmann";
             employeeModel.phone = "12345678";
@@ -245,7 +300,7 @@ namespace Administrasjon.Controllers.Tests
             employeeModel.productAdmin = false;
             employeeModel.username = "Ola";
             //Act
-            var result = (ViewResult)controller.createEmployee(employeeModel);
+            var result = (ViewResult)controller.deleteEmployee(employeeModel);
             var resultModel = (EmployeeModel)result.Model;
             //Assert
             Assert.AreEqual(result.ViewName, "");
@@ -260,7 +315,7 @@ namespace Administrasjon.Controllers.Tests
             var controller = new AdminEmployeeController(new EmployeeBLL(new EmployeeDALStub()), new UserBLL(new UserDALStub()), new LoggingBLL(new LoggingDALStub()));
             controller.ControllerContext = context.Object;
             var employeeModel = new EmployeeModel();
-            employeeModel.employeeID = 1;
+            employeeModel.employeeID = 2;
             employeeModel.firstName = "Ola";
             employeeModel.lastName = "Nordmann";
             employeeModel.phone = "12345678";
@@ -287,7 +342,7 @@ namespace Administrasjon.Controllers.Tests
             var controller = new AdminEmployeeController(new EmployeeBLL(new EmployeeDALStub()), new UserBLL(new UserDALStub()), new LoggingBLL(new LoggingDALStub()));
             controller.ControllerContext = context.Object;
             var employeeModel = new EmployeeModel();
-            employeeModel.employeeID = -1;
+            employeeModel.employeeID = 3;
             employeeModel.firstName = "Ola";
             employeeModel.lastName = "Nordmann";
             employeeModel.phone = "12345678";
@@ -328,6 +383,32 @@ namespace Administrasjon.Controllers.Tests
             employeeModel.username = "";
 
             context.Setup(m => m.HttpContext.Session).Returns(session.Object);
+            //Act
+            var result = (ViewResult)controller.deleteEmployee(employeeModel);
+            var resultModel = (EmployeeModel)result.Model;
+            //Assert
+            Assert.AreEqual(result.ViewName, "");
+        }
+        [TestMethod()]
+        public void deleteEmployeeTestActiveUser()
+        {
+            //Arrange
+            var controller = MockHttpSession.getMoqAdminEmployeeController();
+            controller.Session["username"] = "Ola";
+
+            var employeeModel = new EmployeeModel();
+            employeeModel.employeeID = 1;
+            employeeModel.firstName = "Ola";
+            employeeModel.lastName = "Nordmann";
+            employeeModel.phone = "12345678";
+            employeeModel.customerAdmin = false;
+            employeeModel.databaseAdmin = false;
+            employeeModel.employeeAdmin = false;
+            employeeModel.password = "123456789";
+            employeeModel.orderAdmin = true;
+            employeeModel.productAdmin = false;
+            employeeModel.username = "";
+
             //Act
             var result = (ViewResult)controller.deleteEmployee(employeeModel);
             var resultModel = (EmployeeModel)result.Model;

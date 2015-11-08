@@ -30,9 +30,13 @@ namespace Kaffeplaneten.Stubs
 
         public UserModel get(string email)
         {
-            if (email == "@kaffeplaneten.no")
+            if (email.Equals("@kaffeplaneten.no") || email.Equals("false@kaffeplaneten.no"))
                 return null;
-            return get(1);
+            var userModel = new UserModel();
+            userModel.ID = 1;
+            userModel.password = "123456789";
+            userModel.username = email;
+            return userModel;
         }
 
         public bool resetPassword(UserModel user, byte[] randomPW)
@@ -42,15 +46,10 @@ namespace Kaffeplaneten.Stubs
             return true;
         }
 
-        public bool resetPassword(UserModel user, byte[] randomPW, bool customer)
-        {
-            if (user.ID < 0)
-                return false;
-            return true;
-        }
-
         public bool update(UserModel userModel)
         {
+            if (userModel.username.Equals("false"))
+                return false;
             if (userModel.ID > 0)
                 return true;
             return false;
