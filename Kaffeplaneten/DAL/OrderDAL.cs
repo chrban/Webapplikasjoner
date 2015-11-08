@@ -36,10 +36,7 @@ namespace Kaffeplaneten.DAL
                 }
                 catch (Exception ex)
                 {
-                    _logging.logToDatabase("FEIL: Klarte ikke å opprette ordre! Detaljert feilmelding: " + ex);
-                    Debug.WriteLine("\nERROR!\nMelding:\n" + ex.Message + "\nInner exception:" + ex.InnerException + "\nKastet fra\n" + ex.TargetSite + "\nTrace:\n" + ex.StackTrace);
-                    Trace.TraceInformation("Property: {0} Error: {1}", ex.Source, ex.InnerException);
-                    
+                    _logging.logToDatabase(ex);
                 }
                 return false;
             }
@@ -71,9 +68,7 @@ namespace Kaffeplaneten.DAL
                     }
                 catch (Exception ex)
                 {
-                    _logging.logToDatabase("FEIL: Klarte ikke å opprette produktordre! Detaljert feilmelding: " + ex);
-                    Debug.WriteLine("\nERROR!\nMelding:\n" + ex.Message + "\nInner exception:" + ex.InnerException + "\nKastet fra\n" + ex.TargetSite + "\nTrace:\n" + ex.StackTrace);
-                    Trace.TraceInformation("Property: {0} Error: {1}", ex.Source, ex.InnerException);
+                    _logging.logToDatabase(ex);
                 }
                 return false;
             }
@@ -93,10 +88,7 @@ namespace Kaffeplaneten.DAL
                 }
                 catch (Exception ex)
                 {
-                    _logging.logToDatabase("FEIL: Klarte ikke å finne ordre med ordrenummer lik: " + nr + ". Detaljert feilmelding: " + ex);
-                    Debug.WriteLine("\nERROR!\nMelding:\n" + ex.Message + "\nInner exception:" + ex.InnerException + "\nKastet fra\n" + ex.TargetSite + "\nSource:\n" + ex.Source);
-                    Trace.TraceInformation("Property: {0} Error: {1}", ex.Source, ex.InnerException);
-                    //Environment.Exit(1);
+                    _logging.logToDatabase(ex);
                 }
             }
             return null;
@@ -130,9 +122,7 @@ namespace Kaffeplaneten.DAL
                 }
                 catch (Exception ex)
                 {
-                    _logging.logToDatabase("FEIL: Klarte ikke å lage ordremodell! Detaljert feilmelding: " + ex);
-                    Debug.WriteLine("\nERROR!\nMelding:\n" + ex.Message + "\nInner exception:" + ex.InnerException + "\nKastet fra\n" + ex.TargetSite + "\nSource:\n" + ex.Source);
-                    Trace.TraceInformation("Property: {0} Error: {1}", ex.Source, ex.InnerException);
+                    _logging.logToDatabase(ex);
                 }
             }
             return null;
@@ -154,9 +144,7 @@ namespace Kaffeplaneten.DAL
                 }
                 catch (Exception ex)
                 {
-                    _logging.logToDatabase("FEIL: Klarte ikke å finne ordre fra kunde med kundeID: " + id + ". Detaljert feilmelding: " + ex);
-                    Debug.WriteLine("\nERROR!\nMelding:\n" + ex.Message + "\nInner exception:" + ex.InnerException + "\nKastet fra\n" + ex.TargetSite + "\nTrace:\n" + ex.StackTrace);
-                    Trace.TraceInformation("Property: {0} Error: {1}", ex.Source, ex.InnerException);
+                    _logging.logToDatabase(ex);
                 }
             }//end using
             return null;
@@ -180,9 +168,7 @@ namespace Kaffeplaneten.DAL
                 }
                 catch (Exception ex)
                 {
-                    _logging.logToDatabase("FEIL: Klarte ikke å finne ordre fra kunde. Detaljert feilmelding: " + ex);
-                    Debug.WriteLine("\nERROR!\nMelding:\n" + ex.Message + "\nInner exception:" + ex.InnerException + "\nKastet fra\n" + ex.TargetSite + "\nTrace:\n" + ex.StackTrace);
-                    Trace.TraceInformation("Property: {0} Error: {1}", ex.Source, ex.InnerException);
+                    _logging.logToDatabase(ex);
                 }
                 return null;
             }
@@ -205,9 +191,7 @@ namespace Kaffeplaneten.DAL
                 }
                 catch (Exception ex)
                 {
-                    _logging.logToDatabase("FEIL: Klarte ikke å hente alle ordre fra database! Detaljert feilmelding: " + ex);
-                    Debug.WriteLine("\nERROR!\nMelding:\n" + ex.Message + "\nInner exception:" + ex.InnerException + "\nKastet fra\n" + ex.TargetSite + "\nTrace:\n" + ex.StackTrace);
-                    Trace.TraceInformation("Property: {0} Error: {1}", ex.Source, ex.InnerException);
+                    _logging.logToDatabase(ex);
                 }
             }
             return null;
@@ -236,9 +220,7 @@ namespace Kaffeplaneten.DAL
                 }
                 catch (Exception ex)
                 {
-                    _logging.logToDatabase("FEIL: Klarte ikke å kansellere ordre med ordrenummer: " + nr + " Detaljert feilmelding: " + ex);
-                    Debug.WriteLine("\nERROR!\nMelding:\n" + ex.Message + "\nInner exception:" + ex.InnerException + "\nKastet fra\n" + ex.TargetSite + "\nTrace:\n" + ex.StackTrace);
-                    Trace.TraceInformation("Property: {0} Error: {1}", ex.Source, ex.InnerException);
+                    _logging.logToDatabase(ex);
                 }
                 return false;
             }

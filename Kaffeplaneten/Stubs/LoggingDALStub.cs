@@ -32,6 +32,13 @@ namespace Kaffeplaneten.Stubs
             return new JObject("Melding");
         }
 
+        public override bool logToDatabase(Exception ex)
+        {
+            if (ex == null)
+                return false;
+            return true;
+        }
+
         public override bool logToDatabase(string message)
         {
             if (message == "")

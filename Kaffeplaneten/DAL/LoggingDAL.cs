@@ -53,8 +53,8 @@ namespace Kaffeplaneten.DAL
             catch (Exception)
             {
                 System.Console.WriteLine("ERROR: COULD NOT LOG ACTION TO USER.");
-                return false;
             }
+            return false;
         }
 
         public override bool logToUser(string message, EmployeeModel model)
@@ -94,8 +94,8 @@ namespace Kaffeplaneten.DAL
             catch (Exception)
             {
                 System.Console.WriteLine("ERROR: COULD NOT LOG ACTION TO USER.");
-                return false;
             }
+           return false;
         }
         public override bool logToDatabase(string message)
         {
@@ -115,8 +115,8 @@ namespace Kaffeplaneten.DAL
             catch (Exception)
             {
                 System.Console.WriteLine("ERROR: COULD NOT LOG DATABASE ACTION.");
-                return false;
             }
+            return false;
         }
 
         public override bool logToDatabase(Exception ex)

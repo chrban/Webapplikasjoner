@@ -15,7 +15,8 @@ namespace Kaffeplaneten.BLL
         }
         public static void addProducts()
         {
-            var _logging = new LoggingBLL().logToDatabase("Startet datacreator.");
+            var _logging = new LoggingBLL();
+            _logging.logToDatabase("Startet datacreator.");
             try
             {
                 var products = new ProductBLL();
@@ -41,8 +42,7 @@ namespace Kaffeplaneten.BLL
             }
             catch (Exception ex)
             {
-                Debug.WriteLine("\nERROR!\nMelding:\n" + ex.Message + "\nInner exception:" + ex.InnerException + "\nKastet fra\n" + ex.TargetSite + "\nTrace:\n" + ex.StackTrace);
-                Trace.TraceInformation("Property: {0} Error: {1}", ex.Source, ex.InnerException);
+                _logging.logToDatabase(ex);
             }
         }
 
