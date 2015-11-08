@@ -45,23 +45,14 @@ namespace Kaffeplaneten.DAL
                     newEmployee = db.Employees.Add(newEmployee);
                     db.SaveChanges();
                     employeeModel.employeeID = newEmployee.personID;//Lagrer personID i modellen for senere bruk
+                    return true;
                 }
                 catch (DbEntityValidationException dbEx)
                 {
-                    foreach (var validationErrors in dbEx.EntityValidationErrors)
-                    {
-                        foreach (var validationError in validationErrors.ValidationErrors)
-                        {
-                            Trace.TraceInformation("Property: {0} Error: {1}",
-                                                    validationError.PropertyName,
-                                                    validationError.ErrorMessage);
-                        }
-                    }//end foreach
                     _logging.logToDatabase("FEIL: Databasevalidering når ansatt skulle bli lagt inn fikk feil!");
-                    return false;
                 }//end catch
             }//end using
-            return true;
+            return false;
         }
 
         public EmployeeModel find(string email)//Henter ut navn på bruker med brukernavn lik email
@@ -82,8 +73,8 @@ namespace Kaffeplaneten.DAL
                 catch (Exception)
                 {
                     _logging.logToDatabase("FEIL: Klarte ikke finne ansatt med epost:" + email);
-                    return null;
                 }
+                    return null;
             }
         }
         public EmployeeModel find(int id)//Henter ut en EmployeeModel for employee med personID lik id

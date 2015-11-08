@@ -53,10 +53,10 @@ namespace Kaffeplaneten.DAL
                         }
                     }//end foreach
                     _logging.logToDatabase("FEIL: Klarte opprette kunde med epost: " + IncCustomer.email + ". Feil med databasevalidering!");
-                    return false;
                 }//end catch
+                return false;
             }//end using
-            
+
             //Legger til adresser
             //Sjekker om adressene er like
             if (IncCustomer.payAdress.Equals(IncCustomer.adress))
@@ -120,8 +120,8 @@ namespace Kaffeplaneten.DAL
                 catch (Exception)
                 {
                     _logging.logToDatabase("FEIL: Klarte ikke finne kunde med epost lik: " + email + ".");
-                    return null;
                 }
+                return null;
             }
         }
         public CustomerModel find(int id)//Henter ut en CustomerModel for customer med customerID lik id
