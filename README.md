@@ -28,6 +28,10 @@ Alle kontrollerklassene ligger i Controllers mappen. Diss styrer dataflyten mell
 ####View:
 De ulike viewene er organisert i undermapper i Views mappen. 
 ###Annet
+
+####Versjonskontroll:
+Vi har benyttet Github og opprettet issues(merkelappproblemer) for alt av funksjonalitet, design ol. som er tilknyttet oppgaven. Vi har brukt git gjennom Visual til å push'e, pull'e og merge mellom oss. Ettersom vi benytter .Net-serveren til
+skolen med innlogging har vi ikke ønsket å gjøre repoet åpent for offentligheten da det er mange bots der ute som kan misbruke dette. Hvis det ønskes tilgang er det bare å si fra til en av oss slik at vi kan invitere.
 ####DataCreator:
 DataCreator har metode for å generere data til databasen. Brukes til å fylle databasen med produkter. Klassen har også metoder for å generere testdata.
 ####SuperController:
