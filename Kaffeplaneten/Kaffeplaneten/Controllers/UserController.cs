@@ -91,7 +91,6 @@ namespace Kaffeplaneten.Controllers
             userModel.username = customerModel.email;
             if (customerModel.password != null)//tester om passord skal endres
             {
-                Debug.WriteLine("her: " + customerModel.password);
                 userModel.passwordHash = getHash(customerModel.password);
             }
 
