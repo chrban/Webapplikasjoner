@@ -151,43 +151,6 @@ namespace Kaffeplaneten.DAL
                 return null;
             }
         }
-        public bool update(EmployeeModel employeeModel)//Oppdaterer employeen som har personID lik employeeModel.personID
-        {
-            using (var db = new CustomerContext())
-            {
-                try
-                {
-                    var employee = (from c in db.Employees
-                                    where c.personID == employeeModel.employeeID
-                                    select c).FirstOrDefault();
-                    if (employee == null)//tester om employeen finnes
-                        return false;
-
-                    //Persondataendring:
-                    employee.email = employeeModel.username;
-                    employee.firstName = employeeModel.firstName;
-                    employee.lastName = employeeModel.lastName;
-                    employee.phone = employeeModel.phone;
-                    employee.customerAdmin = employeeModel.customerAdmin;
-                    employee.databaseAdmin = employeeModel.orderAdmin;
-                    employee.employeeAdmin = employeeModel.employeeAdmin;
-                    employee.productAdmin = employeeModel.productAdmin;
-
-                    employee.users.username = employeeModel.username;
-                    db.SaveChanges();
-
-                    return true;
-                }//emd try
-                catch (Exception ex)
-                {
-                    _logging.logToDatabase("FEIL: Klarte ikke oppdatere ansatt!");
-                    Debug.WriteLine("\nERROR!\nMelding:\n" + ex.Message + "\nInner exception:" + ex.InnerException + "\nKastet fra\n" + ex.TargetSite + "\nTrace:\n" + ex.StackTrace);
-                    Trace.TraceInformation("Property: {0} Error: {1}", ex.Source, ex.InnerException);
-                }
-            }//end using
-            return false;
-        }
-
         public bool delete(int id)
         {
             using (var db = new CustomerContext())

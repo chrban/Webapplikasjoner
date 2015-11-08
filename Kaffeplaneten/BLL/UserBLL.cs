@@ -72,7 +72,7 @@ namespace Kaffeplaneten.BLL
 
                 var fromAddress = new MailAddress("kaffeplaneten@gmail.com", "Kaffe Planeten");
                 var toAddress = new MailAddress(tilMail, tilName);
-                const string fromPassword = "Sjefesen123";
+                string fromPassword = "Sjefesen123";
                 string subject = tilSubject;
                 string body = tilContent;
 
