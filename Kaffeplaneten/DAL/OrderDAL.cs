@@ -140,20 +140,19 @@ namespace Kaffeplaneten.DAL
                                  select o).ToList();
                     foreach (var o in orders)//legger order modellene inn i listen
                         orderModelList.Add(find(o.orderNr));
+                    return orderModelList;
                 }
                 catch (Exception ex)
                 {
                     _logging.logToDatabase(ex);
                 }
             }//end using
-            return orderModelList;
+            return null;
         }//end findOrders()
 
         public List<OrderModel> findOrders(CustomerModel customerModel)
         {
             var orderModelList = new List<OrderModel>();
-            if (customerModel == null)
-                return orderModelList;
             using(var db = new CustomerContext())
             {
                 try
@@ -165,12 +164,13 @@ namespace Kaffeplaneten.DAL
                                   select o).OrderBy(o => o.orderNr).ToList();
                     foreach (var o in orders)
                         orderModelList.Add(createOrderModel(o));
+                    return orderModelList;
                 }
                 catch (Exception ex)
                 {
                     _logging.logToDatabase(ex);
                 }
-                return orderModelList;
+                return null;
             }
         }
 
@@ -187,13 +187,14 @@ namespace Kaffeplaneten.DAL
                     {
                         orderList.Add(find(o.orderNr));
                     }
+                    return orderList;
                 }
                 catch (Exception ex)
                 {
                     _logging.logToDatabase(ex);
                 }
             }
-            return orderList;
+            return null;
         }
 
         public bool cancelOrder(int nr)

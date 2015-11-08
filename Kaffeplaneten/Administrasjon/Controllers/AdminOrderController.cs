@@ -25,10 +25,14 @@ namespace Administrasjon.Controllers
             _orderBLL = orderBLL;
             _loggingBLL = loggingBLL;
         }
-        public ActionResult CustomerOrders(int id = 0)
+
+        public ActionResult AllOrders()
         {
-            var orders = _orderBLL.findOrders(id);
-            return View(orders);
+            //egentlig helt dust metode om ikke den knytter ordre til kunde..
+            var orders = _orderBLL.allOrders();
+            if(orders!=null)
+                return View(orders);
+            return View();
         }
         public ActionResult cancelOrder(int nr)
         {
