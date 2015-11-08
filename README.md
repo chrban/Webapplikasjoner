@@ -6,9 +6,9 @@ Prosjektet Administrasjon er en nettside med administrativ funksjonalitet som ta
 ##Til opplysning:
 Oppstart-siden for administrason-nettsiden viser en innloggingsside. Derfor trenger man på forhånd en hardkodet/forhåndsdefinert "superbruker"
 for å logge inn som vi har her:
-#Brukernavn: 
+####Brukernavn: 
 sjefledersen@kaffeplaneten.no
-#Passord: 
+####Passord: 
 Sjefesen123
 
 Denne trenger man å bruke første gangen for å kunne ha mulighet til å registrere nye ansatte og sette rettigheter.
