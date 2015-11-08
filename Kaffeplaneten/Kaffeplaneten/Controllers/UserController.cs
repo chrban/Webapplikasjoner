@@ -34,28 +34,28 @@ namespace Kaffeplaneten.Controllers
             if (!ModelState.IsValid)
                 return View();
 
-            var customerModel = _userBLL.get(newCustomer.email);
-            if (customerModel != null)//tester om en bruker med samme epost finnes fra før
+            var userModel = _userBLL.get(newCustomer.email);
+            if (userModel != null)//tester om en bruker med samme epost finnes fra før
             {
                 ModelState.AddModelError("", "Eposten du prøver å registrere finnes allerede. Vennligst benytt en annen adresse");
-                _loggingBLL.logToUser("Prøvde å registrere seg med eksisterende epost: " + customerModel.username, (CustomerModel)Session[CUSTOMER]);
+                _loggingBLL.logToUser("Prøvde å registrere seg med eksisterende epost: " + userModel.username, (CustomerModel)Session[CUSTOMER]);
                 return View(newCustomer);
             }
             if (!_customerBLL.add(newCustomer))//registrerer ny customer
             {
                 ModelState.AddModelError("", "Feil ved registrering av bruker");
-                _loggingBLL.logToUser("Fikk en feil ved registrering av brukernavn: " + customerModel.username, (CustomerModel)Session[CUSTOMER]);
+                _loggingBLL.logToUser("Fikk en feil ved registrering av brukernavn: " + userModel.username, (CustomerModel)Session[CUSTOMER]);
                 return View(newCustomer);
             }
-            customerModel = new UserModel();
-            customerModel.username = newCustomer.email;
-            customerModel.passwordHash = base.getHash(newCustomer.password);
-            customerModel.ID = newCustomer.customerID;
+            userModel = new UserModel();
+            userModel.username = newCustomer.email;
+            userModel.passwordHash = getHash(newCustomer.password);
+            userModel.ID = newCustomer.customerID;
 
-            if (!_userBLL.add(customerModel))//registrerer ny user
+            if (!_userBLL.add(userModel))//registrerer ny user
             {
                 ModelState.AddModelError("", "Feil ved registrering av bruker");
-                _loggingBLL.logToUser("Fikk en feil ved registrering av brukernavn: " + customerModel.username, (CustomerModel)Session[CUSTOMER]);
+                _loggingBLL.logToUser("Fikk en feil ved registrering av brukernavn: " + userModel.username, (CustomerModel)Session[CUSTOMER]);
                 return View(newCustomer);
             }
 
@@ -89,8 +89,11 @@ namespace Kaffeplaneten.Controllers
 
             var userModel = _userBLL.get(customerModel.customerID);//henter ut user modellen
             userModel.username = customerModel.email;
-            if (!(customerModel.password == null))//tester om passord skal endres
-                userModel.passwordHash = base.getHash(customerModel.password);
+            if (customerModel.password != null)//tester om passord skal endres
+            {
+                Debug.WriteLine("her: " + customerModel.password);
+                userModel.passwordHash = getHash(customerModel.password);
+            }
 
             if (!_userBLL.update(userModel))//registrerer endinger i user
             {

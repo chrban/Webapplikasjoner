@@ -97,21 +97,16 @@ namespace Administrasjon.Controllers
 
         public string ForgotPassword(string email)
         {
-            var user = _userBLL.get(email);
-            var tempPW = _userBLL.randomPassord();
+            var userModel = _userBLL.get(email);
+            if (userModel == null)
+                return "NF"; //bruker ikke funnet 
 
-
-            if (_userBLL.get(email) == null)
+            string tempPW = _userBLL.randomPassord();
+            userModel.passwordHash = getHash(tempPW);
+            if (_userBLL.update(userModel)) // lykkes i lage nytt pw
             {
-                string tempPW = _userBLL.randomPassord();
-                var hashetPw = getHash(tempPW);
-                if (_userBLL.resetPassword(user, hashetPw, false)) // lykkes i lage nytt pw
-                {
-                    _userBLL.resetPassword(user, base.getHash(tempPW));
-
-                    _userBLL.sendMail(user.username, user.ID.ToString(), "Glemt passord", "Logg inn med midlertidig passord: " + tempPW + "  -Hilsen KaffePlaneten");
-                    return tempPW;
-                }
+                _userBLL.sendMail(userModel.username, userModel.ID.ToString(), "Glemt passord", "Logg inn med midlertidig passord: " + tempPW + "  -Hilsen KaffePlaneten");
+                return tempPW;
             }
             return "NF"; //bruker ikke funnet 
         }

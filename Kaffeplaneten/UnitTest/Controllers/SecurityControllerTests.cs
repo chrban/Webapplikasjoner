@@ -142,5 +142,16 @@ namespace Administrasjon.Controllers.Tests
             //Assert
             Assert.AreEqual(result, "NF");
         }
+        [TestMethod()]
+        public void ForgotPasswordTestNotFailed()
+        {
+            //Arrange
+            var controller = MockHttpSession.getMoqSecurityController();
+            var epost = "false";
+            //Act
+            var result = controller.ForgotPassword(epost);
+            //Assert
+            Assert.AreNotEqual(result, "");
+        }
     }
 }
