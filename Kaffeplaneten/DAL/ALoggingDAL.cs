@@ -13,6 +13,7 @@ namespace Kaffeplaneten.DAL
         public abstract JObject findInDatabaseLog(string criteria);
         public abstract JObject findInInteractionLog(string criteria);
         public abstract bool logToDatabase(string message);
+        public abstract bool logToDatabase(Exception ex);
         public abstract bool logToUser(string message, EmployeeModel model);
         public abstract bool logToUser(string message, CustomerModel model);
         public abstract void outputLogToConsole();
