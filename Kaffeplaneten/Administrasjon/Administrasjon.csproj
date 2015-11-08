@@ -178,7 +178,7 @@
     <Content Include="Views\Layout\Home.cshtml" />
     <Content Include="Views\AdminCustomer\AllCustomers.cshtml" />
     <Content Include="Views\AdminCustomer\Edit.cshtml" />
-    <Content Include="Views\AdminOrder\AllOrders.cshtml" />
+    <Content Include="Views\AdminOrder\CustomerOrders.cshtml" />
     <Content Include="Views\AdminEmployee\createEmployee.cshtml" />
     <Content Include="Views\AdminEmployee\AllEmployees.cshtml" />
     <Content Include="Views\Shared\HelpView.cshtml" />

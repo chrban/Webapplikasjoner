@@ -32,7 +32,7 @@ namespace Administrasjon.Controllers.Tests
             list.Add(orderModel);
             list.Add(orderModel);
             //Act
-            var result = (ViewResult)controller.AllOrders();
+            var result = (ViewResult)controller.customerOrders();
             var resultList = (List<OrderModel>)result.Model;
             //Assert
             Assert.AreEqual(result.ViewName, "");
