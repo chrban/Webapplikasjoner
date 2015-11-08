@@ -9,6 +9,7 @@ using System.Web.Security;
 using System.IO;
 using System.Web.SessionState;
 using System.Diagnostics;
+using System.Web.Hosting;
 
 namespace Kaffeplaneten
 {

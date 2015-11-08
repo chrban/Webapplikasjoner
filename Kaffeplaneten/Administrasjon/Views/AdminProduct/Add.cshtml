@@ -2,8 +2,13 @@
 
 @{
     ViewBag.Title = "Add";
-    string[] files = System.IO.Directory.GetFiles((AppDomain.CurrentDomain.BaseDirectory + "\\..\\img\\"));
-    var combobox = files.ToList();
+    string[] files = System.IO.Directory.GetFiles((AppDomain.CurrentDomain.BaseDirectory + "Content\\img\\"));
+    var filenames = new List<String>();
+    foreach(var i in files)
+    {
+        filenames.Add(Path.GetFileName(i));
+    }
+    var combobox = filenames.ToList();
 }
 @Html.Action("HeaderAndMenuBar", "Layout")
 
