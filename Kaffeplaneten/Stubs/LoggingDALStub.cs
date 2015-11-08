@@ -60,11 +60,6 @@ namespace Kaffeplaneten.Stubs
             return true;
         }
 
-        public override void outputLogToConsole()
-        {
-            
-        }
-
         public override List<JObject> parseLogFile(string log)
         {
             var list = new List<JObject>();
