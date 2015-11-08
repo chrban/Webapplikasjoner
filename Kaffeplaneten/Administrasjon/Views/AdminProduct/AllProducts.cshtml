@@ -60,7 +60,7 @@
                     Description..
                 </td>
                 <td onclick="location.href='@Url.Action("Details", "AdminProduct", new { id = item.productID })'">
-                    <img src="~/Content/img/Logo-Admin.png" alt="@Html.DisplayFor(modelItem => item.imageURL) FIKSE BILDER GLOBALT" style="width:50px;height:50px">
+                    <img src="~/Content/img/@item.imageURL" style="height:50px;width:50px;">
                 </td>
                 <td>
                     @Html.ActionLink("Rediger", "Edit", "AdminProduct", new { id = item.productID },  new { @class = "btn btn-default btn-xs" })

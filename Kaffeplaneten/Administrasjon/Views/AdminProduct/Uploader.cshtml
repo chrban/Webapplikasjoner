@@ -9,11 +9,15 @@
     if (IsPost)
     {
         var fileSavePath = "";
+        var storePath = "";
         var uploadedFile = Request.Files[0];
         fileName = Path.GetFileName(uploadedFile.FileName);
-        fileSavePath = (AppDomain.CurrentDomain.BaseDirectory + "\\..\\img\\" +
+        fileSavePath = (AppDomain.CurrentDomain.BaseDirectory + "\\Content\\img\\" +
           fileName);
+        storePath = (AppDomain.CurrentDomain.BaseDirectory + "\\..\\Kaffeplaneten\\Content\\img\\" +
+  fileName);
         uploadedFile.SaveAs(fileSavePath);
+        uploadedFile.SaveAs(storePath);
     }
 }
 
