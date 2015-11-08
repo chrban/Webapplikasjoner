@@ -41,12 +41,14 @@ namespace Kaffeplaneten.Controllers
                 _loggingBLL.logToUser("Prøvde å registrere seg med eksisterende epost: " + userModel.username, (CustomerModel)Session[CUSTOMER]);
                 return View(newCustomer);
             }
+
             if (!_customerBLL.add(newCustomer))//registrerer ny customer
             {
                 ModelState.AddModelError("", "Feil ved registrering av bruker");
-                _loggingBLL.logToUser("Fikk en feil ved registrering av brukernavn: " + userModel.username, (CustomerModel)Session[CUSTOMER]);
+                _loggingBLL.logToUser("Fikk en feil ved registrering av brukernavn: " + newCustomer.email, (CustomerModel)Session[CUSTOMER]);
                 return View(newCustomer);
             }
+
             userModel = new UserModel();
             userModel.username = newCustomer.email;
             userModel.passwordHash = getHash(newCustomer.password);

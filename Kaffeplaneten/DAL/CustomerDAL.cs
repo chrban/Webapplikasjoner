@@ -41,20 +41,11 @@ namespace Kaffeplaneten.DAL
                     db.SaveChanges();
                     IncCustomer.customerID = newCustomer.personID;//Lagrer customerID i modellen for senere bruk
                 }
-                catch (DbEntityValidationException dbEx)
+                catch (Exception ex)
                 {
-                    foreach (var validationErrors in dbEx.EntityValidationErrors)
-                    {
-                        foreach (var validationError in validationErrors.ValidationErrors)
-                        {
-                            Trace.TraceInformation("Property: {0} Error: {1}",
-                                                    validationError.PropertyName,
-                                                    validationError.ErrorMessage);
-                        }
-                    }//end foreach
-                    _logging.logToDatabase("FEIL: Klarte opprette kunde med epost: " + IncCustomer.email + ". Feil med databasevalidering!");
-                }//end catch
-                return false;
+                    _logging.logToDatabase(ex);
+                    return false;
+                }
             }//end using
 
             //Legger til adresser
@@ -117,9 +108,9 @@ namespace Kaffeplaneten.DAL
                     return find(temp.personID);
 
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    _logging.logToDatabase("FEIL: Klarte ikke finne kunde med epost lik: " + email + ".");
+                    _logging.logToDatabase(ex);
                 }
                 return null;
             }
@@ -166,11 +157,7 @@ namespace Kaffeplaneten.DAL
                 }//end try
                 catch (Exception ex)
                 {
-                    /*Viser nyttig informasjon om alle excetions i debug.out. Avslutter programmet*/
-                    _logging.logToDatabase("FEIL: Klarte ikke finne kunde med KundeID: " + id + ". Detaljert feilmelding: " + ex);
-                    Debug.WriteLine("\nERROR!\nMelding:\n" + ex.Message + "\nInner exception:" + ex.InnerException + "\nKastet fra\n" + ex.TargetSite + "\nTrace:\n" + ex.StackTrace);
-                    Trace.TraceInformation("Property: {0} Error: {1}", ex.Source, ex.InnerException);
-                    //Environment.Exit(1);
+                    _logging.logToDatabase(ex);
                 }
             }//end using
             return null;
@@ -221,9 +208,7 @@ namespace Kaffeplaneten.DAL
                 }//emd try
                 catch (Exception ex)
                 {
-                    _logging.logToDatabase("FEIL: Klarte ikke oppdatere kunde med KundeID: " + customerModel.customerID + ". Detaljert feilmelding: " + ex);
-                    Debug.WriteLine("\nERROR!\nMelding:\n" + ex.Message + "\nInner exception:" + ex.InnerException + "\nKastet fra\n" + ex.TargetSite + "\nTrace:\n" + ex.StackTrace);
-                    Trace.TraceInformation("Property: {0} Error: {1}", ex.Source, ex.InnerException);
+                    _logging.logToDatabase(ex);
                 }
             }//end using
             return false;
@@ -242,9 +227,7 @@ namespace Kaffeplaneten.DAL
                 }
                 catch (Exception ex)
                 {
-                    _logging.logToDatabase("FEIL: Klarte ikke finne postnummer lik " + zipCode + ". Detaljert feilmelding: " + ex);
-                    Debug.WriteLine("\nERROR!\nMelding:\n" + ex.Message + "\nInner exception:" + ex.InnerException + "\nKastet fra\n" + ex.TargetSite + "\nTrace:\n" + ex.StackTrace);
-                    Trace.TraceInformation("Property: {0} Error: {1}", ex.Source, ex.InnerException);
+                    _logging.logToDatabase(ex);
                 }
             }//end using
             return null;
@@ -298,9 +281,7 @@ namespace Kaffeplaneten.DAL
                 }
                 catch (Exception ex)
                 {
-                    _logging.logToDatabase("FEIL: Klarte ikke legge til ny addresse. Detaljert feilmelding: " + ex);
-                    Debug.WriteLine("\nERROR!\nMelding:\n" + ex.Message + "\nInner exception:" + ex.InnerException + "\nKastet fra\n" + ex.TargetSite + "\nTrace:\n" + ex.StackTrace);
-                    Trace.TraceInformation("Property: {0} Error: {1}", ex.Source, ex.InnerException);
+                    _logging.logToDatabase(ex);
                 }
                 return false;
             }
@@ -326,10 +307,7 @@ namespace Kaffeplaneten.DAL
                 }
                 catch (Exception ex)
                 {
-                    _logging.logToDatabase("FEIL: Klarte ikke legge til nytt fylke. Detaljert feilmelding: " + ex);
-                    Debug.WriteLine("\nERROR!\nMelding:\n" + ex.Message + "\nInner exception:" + ex.InnerException + "\nKastet fra\n" + ex.TargetSite + "\nTrace:\n" + ex.StackTrace);
-                    Trace.TraceInformation("Property: {0} Error: {1}", ex.Source, ex.InnerException);
-                    //Environment.Exit(1);
+                    _logging.logToDatabase(ex);
                 }
             }
             return false;
@@ -354,9 +332,7 @@ namespace Kaffeplaneten.DAL
                 }
                 catch (Exception ex)
                 {
-                    _logging.logToDatabase("FEIL: Klarte ikke hente ut alle kunder! Detaljert feilmelding: " + ex);
-                    Debug.WriteLine("\nERROR!\nMelding:\n" + ex.Message + "\nInner exception:" + ex.InnerException + "\nKastet fra\n" + ex.TargetSite + "\nTrace:\n" + ex.StackTrace);
-                    Trace.TraceInformation("Property: {0} Error: {1}", ex.Source, ex.InnerException);
+                    _logging.logToDatabase(ex);
                 }
                 return null;
             }
@@ -379,9 +355,7 @@ namespace Kaffeplaneten.DAL
                 }
                 catch (Exception ex)
                 {
-                    _logging.logToDatabase("FEIL: Klarte ikke slette kunde med KundeID: " + id + " Detaljert feilmelding: " + ex);
-                    Debug.WriteLine("\nERROR!\nMelding:\n" + ex.Message + "\nInner exception:" + ex.InnerException + "\nKastet fra\n" + ex.TargetSite + "\nTrace:\n" + ex.StackTrace);
-                    Trace.TraceInformation("Property: {0} Error: {1}", ex.Source, ex.InnerException);
+                    _logging.logToDatabase(ex);
                 }
             }
             return false;

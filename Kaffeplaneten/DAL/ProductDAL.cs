@@ -9,6 +9,11 @@ namespace Kaffeplaneten.DAL
 {
     public class ProductDAL : IProductDAL
     {
+        LoggingDAL _logging;
+        public ProductDAL()
+        {
+            _logging = new LoggingDAL();
+        }
         //Henter alle produkter fra databasen og oppretter liste av modelobjekter 
         public List<ProductModel> getAllProducts()
         {
@@ -36,8 +41,9 @@ namespace Kaffeplaneten.DAL
                     }
                     return ProductList;
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
+                    _logging.logToDatabase(ex);
                 }
                 return null;
             }
@@ -59,10 +65,11 @@ namespace Kaffeplaneten.DAL
                     db.SaveChanges();
                     return true;
                 }
-                catch(Exception)
+                catch (Exception ex)
                 {
+                    _logging.logToDatabase(ex);
                 }
-                    return false;
+                return false;
             }
         }
         public bool updateQuantity(ProductModel productModel)//Oppdaterer lagerstatur på produkt. Bruker productModel.stock som ny verdi
@@ -82,8 +89,9 @@ namespace Kaffeplaneten.DAL
                     db.SaveChanges();
                     return true;
                 }
-                catch(Exception)
+                catch (Exception ex)
                 {
+                    _logging.logToDatabase(ex);
                 }
                 return false;
             }
@@ -107,8 +115,9 @@ namespace Kaffeplaneten.DAL
                     productModel.stock = product.stock;
                     return productModel;
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
+                    _logging.logToDatabase(ex);
                 }
                 return null;
             }
@@ -134,8 +143,7 @@ namespace Kaffeplaneten.DAL
                 }
                 catch (Exception ex)
                 {
-                    Debug.WriteLine("\nERROR!\nMelding:\n" + ex.Message + "\nInner exception:" + ex.InnerException + "\nKastet fra\n" + ex.TargetSite + "\nTrace:\n" + ex.StackTrace);
-                    Trace.TraceInformation("Property: {0} Error: {1}", ex.Source, ex.InnerException);
+                    _logging.logToDatabase(ex);
                 }
             }
             return false;
@@ -156,17 +164,10 @@ namespace Kaffeplaneten.DAL
                 }
                 catch (Exception ex)
                 {
-                    Debug.WriteLine("\nERROR!\nMelding:\n" + ex.Message + "\nInner exception:" + ex.InnerException + "\nKastet fra\n" + ex.TargetSite + "\nTrace:\n" + ex.StackTrace);
-                    Trace.TraceInformation("Property: {0} Error: {1}", ex.Source, ex.InnerException);
+                    _logging.logToDatabase(ex);
                 }
             }
             return false;
         }
-
-
-
-       
-
-
     }
 }

@@ -47,10 +47,10 @@ namespace Kaffeplaneten.DAL
                     employeeModel.employeeID = newEmployee.personID;//Lagrer personID i modellen for senere bruk
                     return true;
                 }
-                catch (DbEntityValidationException dbEx)
+                catch (Exception ex)
                 {
-                    _logging.logToDatabase("FEIL: Databasevalidering når ansatt skulle bli lagt inn fikk feil!");
-                }//end catch
+                    _logging.logToDatabase(ex);
+                }
             }//end using
             return false;
         }
@@ -70,11 +70,11 @@ namespace Kaffeplaneten.DAL
                     return find(temp.personID);
 
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    _logging.logToDatabase("FEIL: Klarte ikke finne ansatt med epost:" + email);
+                    _logging.logToDatabase(ex);
                 }
-                    return null;
+                return null;
             }
         }
         public EmployeeModel find(int id)//Henter ut en EmployeeModel for employee med personID lik id
@@ -105,11 +105,7 @@ namespace Kaffeplaneten.DAL
                 }//end try
                 catch (Exception ex)
                 {
-                    /*Viser nyttig informasjon om alle excetions i debug.out. Avslutter programmet*/
-                    _logging.logToDatabase("FEIL: Klarte ikke finne ansatt med ansattID:" + id);
-                    Debug.WriteLine("\nERROR!\nMelding:\n" + ex.Message + "\nInner exception:" + ex.InnerException + "\nKastet fra\n" + ex.TargetSite + "\nTrace:\n" + ex.StackTrace);
-                    Trace.TraceInformation("Property: {0} Error: {1}", ex.Source, ex.InnerException);
-                    //Environment.Exit(1);
+                    _logging.logToDatabase(ex);
                 }
             }//end using
             return null;
@@ -135,9 +131,9 @@ namespace Kaffeplaneten.DAL
                         }
                     return EmployeeList;
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    _logging.logToDatabase("FEIL: Klarte ikke hente ut alle ansatte!");
+                    _logging.logToDatabase(ex);
                 }
                 return null;
             }
@@ -158,8 +154,7 @@ namespace Kaffeplaneten.DAL
                 }
                 catch (Exception ex)
                 {
-                    Debug.WriteLine("\nERROR!\nMelding:\n" + ex.Message + "\nInner exception:" + ex.InnerException + "\nKastet fra\n" + ex.TargetSite + "\nTrace:\n" + ex.StackTrace);
-                    Trace.TraceInformation("Property: {0} Error: {1}", ex.Source, ex.InnerException);
+                    _logging.logToDatabase(ex);
                 }
             }
             return false;
