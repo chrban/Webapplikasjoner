@@ -26,7 +26,7 @@ namespace Administrasjon.Controllers.Tests
         public void AllEmployeesTest()
         {
             //Arrange
-            var controller = new AdminEmployeeController(new EmployeeBLL(new EmployeeDALStub()), new UserBLL(new UserDALStub()));
+            var controller = new AdminEmployeeController(new EmployeeBLL(new EmployeeDALStub()), new UserBLL(new UserDALStub()), new LoggingBLL(new LoggingDALStub()));
             var list = new List<EmployeeModel>();
             var employeeModel = new EmployeeModel();
             employeeModel.employeeID = 1;
@@ -70,7 +70,7 @@ namespace Administrasjon.Controllers.Tests
         public void createEmployeeTest()
         {
             //Arrange
-            var controller = new AdminEmployeeController(new EmployeeBLL(new EmployeeDALStub()), new UserBLL(new UserDALStub()));
+            var controller = new AdminEmployeeController(new EmployeeBLL(new EmployeeDALStub()), new UserBLL(new UserDALStub()), new LoggingBLL(new LoggingDALStub()));
             //Act
             var result = (ViewResult)controller.createEmployee();
             //Assert
@@ -84,7 +84,7 @@ namespace Administrasjon.Controllers.Tests
             var context = new Mock<ControllerContext>();
             var session = new Mock<HttpSessionStateBase>();
             context.Setup(m => m.HttpContext.Session).Returns(session.Object);
-            var controller = new AdminEmployeeController(new EmployeeBLL(new EmployeeDALStub()), new UserBLL(new UserDALStub()));
+            var controller = new AdminEmployeeController(new EmployeeBLL(new EmployeeDALStub()), new UserBLL(new UserDALStub()), new LoggingBLL(new LoggingDALStub()));
             controller.ControllerContext = context.Object;
             var employeeModel = new EmployeeModel();
             employeeModel.employeeID = 1;
@@ -97,7 +97,7 @@ namespace Administrasjon.Controllers.Tests
             employeeModel.employeeAdmin = false;
             employeeModel.password = "123456789";
             employeeModel.productAdmin = false;
-            employeeModel.username = "";
+            employeeModel.username = "Ola";
             //Act
             var result = (ViewResult)controller.createEmployee(employeeModel);
             var resultModel = (EmployeeModel)result.Model;
@@ -122,7 +122,7 @@ namespace Administrasjon.Controllers.Tests
             var context = new Mock<ControllerContext>();
             var session = new Mock<HttpSessionStateBase>();
             context.Setup(m => m.HttpContext.Session).Returns(session.Object);
-            var controller = new AdminEmployeeController(new EmployeeBLL(new EmployeeDALStub()), new UserBLL(new UserDALStub()));
+            var controller = new AdminEmployeeController(new EmployeeBLL(new EmployeeDALStub()), new UserBLL(new UserDALStub()), new LoggingBLL(new LoggingDALStub()));
             controller.ControllerContext = context.Object;
             var employeeModel = new EmployeeModel();
             employeeModel.employeeID = 1;
@@ -159,7 +159,7 @@ namespace Administrasjon.Controllers.Tests
             var context = new Mock<ControllerContext>();
             var session = new Mock<HttpSessionStateBase>();
             context.Setup(m => m.HttpContext.Session).Returns(session.Object);
-            var controller = new AdminEmployeeController(new EmployeeBLL(new EmployeeDALStub()), new UserBLL(new UserDALStub()));
+            var controller = new AdminEmployeeController(new EmployeeBLL(new EmployeeDALStub()), new UserBLL(new UserDALStub()), new LoggingBLL(new LoggingDALStub()));
             controller.ControllerContext = context.Object;
             var employeeModel = new EmployeeModel();
             employeeModel.employeeID = -1;
@@ -196,7 +196,7 @@ namespace Administrasjon.Controllers.Tests
             var context = new Mock<ControllerContext>();
             var session = new Mock<HttpSessionStateBase>();
             context.Setup(m => m.HttpContext.Session).Returns(session.Object);
-            var controller = new AdminEmployeeController(new EmployeeBLL(new EmployeeDALStub()), new UserBLL(new UserDALStub()));
+            var controller = new AdminEmployeeController(new EmployeeBLL(new EmployeeDALStub()), new UserBLL(new UserDALStub()), new LoggingBLL(new LoggingDALStub()));
             controller.ControllerContext = context.Object;
             var employeeModel = new EmployeeModel();
             employeeModel.employeeID = 1;
@@ -209,29 +209,19 @@ namespace Administrasjon.Controllers.Tests
             employeeModel.employeeAdmin = false;
             employeeModel.password = "123456789";
             employeeModel.productAdmin = false;
-            employeeModel.username = "Ola";
+            employeeModel.username = "";
             //Act
-            var result = (ViewResult)controller.createEmployee(employeeModel);
-            var resultModel = (EmployeeModel)result.Model;
+            var result = (RedirectToRouteResult)controller.createEmployee(employeeModel);
             //Assert
-            Assert.AreEqual(result.ViewName, "");
-            Assert.AreEqual(employeeModel.firstName, resultModel.firstName);
-            Assert.AreEqual(employeeModel.customerAdmin, resultModel.customerAdmin);
-            Assert.AreEqual(employeeModel.databaseAdmin, resultModel.databaseAdmin);
-            Assert.AreEqual(employeeModel.employeeAdmin, resultModel.employeeAdmin);
-            Assert.AreEqual(employeeModel.employeeID, resultModel.employeeID);
-            Assert.AreEqual(employeeModel.lastName, resultModel.lastName);
-            Assert.AreEqual(employeeModel.orderAdmin, resultModel.orderAdmin);
-            Assert.AreEqual(employeeModel.password, resultModel.password);
-            Assert.AreEqual(employeeModel.phone, resultModel.phone);
-            Assert.AreEqual(employeeModel.username, resultModel.username);
+            Assert.AreEqual(result.RouteName, "");
+            Assert.AreEqual(result.RouteValues.Values.First(), "AllEmployees");
         }
 
         [TestMethod()]
         public void deleteEmployeeTest()
         {
             //Arrange
-            var controller = new AdminEmployeeController(new EmployeeBLL(new EmployeeDALStub()), new UserBLL(new UserDALStub()));
+            var controller = new AdminEmployeeController(new EmployeeBLL(new EmployeeDALStub()), new UserBLL(new UserDALStub()), new LoggingBLL(new LoggingDALStub()));
             //Act
             var result = (ViewResult)controller.deleteEmployee();
             //Assert
@@ -245,7 +235,7 @@ namespace Administrasjon.Controllers.Tests
             var context = new Mock<ControllerContext>();
             var session = new Mock<HttpSessionStateBase>();
             context.Setup(m => m.HttpContext.Session).Returns(session.Object);
-            var controller = new AdminEmployeeController(new EmployeeBLL(new EmployeeDALStub()), new UserBLL(new UserDALStub()));
+            var controller = new AdminEmployeeController(new EmployeeBLL(new EmployeeDALStub()), new UserBLL(new UserDALStub()), new LoggingBLL(new LoggingDALStub()));
             controller.ControllerContext = context.Object;
             var employeeModel = new EmployeeModel();
             employeeModel.employeeID = 1;
@@ -272,7 +262,7 @@ namespace Administrasjon.Controllers.Tests
             var context = new Mock<ControllerContext>();
             var session = new Mock<HttpSessionStateBase>();
             context.Setup(m => m.HttpContext.Session).Returns(session.Object);
-            var controller = new AdminEmployeeController(new EmployeeBLL(new EmployeeDALStub()), new UserBLL(new UserDALStub()));
+            var controller = new AdminEmployeeController(new EmployeeBLL(new EmployeeDALStub()), new UserBLL(new UserDALStub()), new LoggingBLL(new LoggingDALStub()));
             controller.ControllerContext = context.Object;
             var employeeModel = new EmployeeModel();
             employeeModel.employeeID = 1;
@@ -287,7 +277,7 @@ namespace Administrasjon.Controllers.Tests
             employeeModel.orderAdmin = true;
             employeeModel.username = "";
             //Act
-            var result = (ViewResult)controller.createEmployee(employeeModel);
+            var result = (ViewResult)controller.deleteEmployee(employeeModel);
             var resultModel = (EmployeeModel)result.Model;
             //Assert
             Assert.AreEqual(result.ViewName, "");
@@ -299,7 +289,7 @@ namespace Administrasjon.Controllers.Tests
             var context = new Mock<ControllerContext>();
             var session = new Mock<HttpSessionStateBase>();
             context.Setup(m => m.HttpContext.Session).Returns(session.Object);
-            var controller = new AdminEmployeeController(new EmployeeBLL(new EmployeeDALStub()), new UserBLL(new UserDALStub()));
+            var controller = new AdminEmployeeController(new EmployeeBLL(new EmployeeDALStub()), new UserBLL(new UserDALStub()), new LoggingBLL(new LoggingDALStub()));
             controller.ControllerContext = context.Object;
             var employeeModel = new EmployeeModel();
             employeeModel.employeeID = -1;
@@ -314,7 +304,7 @@ namespace Administrasjon.Controllers.Tests
             employeeModel.productAdmin = false;
             employeeModel.username = "";
             //Act
-            var result = (ViewResult)controller.createEmployee(employeeModel);
+            var result = (ViewResult)controller.deleteEmployee(employeeModel);
             var resultModel = (EmployeeModel)result.Model;
             //Assert
             Assert.AreEqual(result.ViewName, "");
@@ -326,7 +316,7 @@ namespace Administrasjon.Controllers.Tests
             var context = new Mock<ControllerContext>();
             var session = new Mock<HttpSessionStateBase>();
             context.Setup(m => m.HttpContext.Session).Returns(session.Object);
-            var controller = new AdminEmployeeController(new EmployeeBLL(new EmployeeDALStub()), new UserBLL(new UserDALStub()));
+            var controller = new AdminEmployeeController(new EmployeeBLL(new EmployeeDALStub()), new UserBLL(new UserDALStub()), new LoggingBLL(new LoggingDALStub()));
             controller.ControllerContext = context.Object;
 
             var employeeModel = new EmployeeModel();
@@ -344,7 +334,7 @@ namespace Administrasjon.Controllers.Tests
 
             context.Setup(m => m.HttpContext.Session).Returns(session.Object);
             //Act
-            var result = (ViewResult)controller.createEmployee(employeeModel);
+            var result = (ViewResult)controller.deleteEmployee(employeeModel);
             var resultModel = (EmployeeModel)result.Model;
             //Assert
             Assert.AreEqual(result.ViewName, "");

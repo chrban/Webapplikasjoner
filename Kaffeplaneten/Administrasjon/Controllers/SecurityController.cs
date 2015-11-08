@@ -23,11 +23,11 @@ namespace Administrasjon.Controllers
             _EmployeeBLL = new EmployeeBLL();
             _loggingBLL = new LoggingBLL();
         }
-        public SecurityController(EmployeeBLL employeeBLL, UserBLL userBLL)
+        public SecurityController(EmployeeBLL employeeBLL, UserBLL userBLL, LoggingBLL loggingBLL)
         {
             _EmployeeBLL = employeeBLL;
             _userBLL = userBLL;
-            _loggingBLL = new LoggingBLL();
+            _loggingBLL = loggingBLL;
         }
         public ActionResult Loginview()
         {

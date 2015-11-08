@@ -42,6 +42,13 @@ namespace Kaffeplaneten.Stubs
             return true;
         }
 
+        public bool resetPassword(UserModel user, byte[] randomPW, bool customer)
+        {
+            if (user.ID < 0)
+                return false;
+            return true;
+        }
+
         public bool update(UserModel userModel)
         {
             if (userModel.ID > 0)

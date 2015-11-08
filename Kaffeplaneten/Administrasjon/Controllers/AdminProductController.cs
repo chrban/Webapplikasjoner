@@ -21,9 +21,10 @@ namespace Administrasjon.Controllers
             _productBLL = new ProductBLL();
             _loggingBLL = new LoggingBLL();
         }
-        public AdminProductController(ProductBLL productBLL)
+        public AdminProductController(ProductBLL productBLL, LoggingBLL logginBLL)
         {
             _productBLL = productBLL;
+            _loggingBLL = logginBLL;
         }
 
         public ActionResult AllProducts()

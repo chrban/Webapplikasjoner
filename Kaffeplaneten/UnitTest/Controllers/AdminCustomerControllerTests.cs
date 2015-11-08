@@ -11,6 +11,7 @@ using System.Web.Mvc;
 using Kaffeplaneten.Models;
 using System.Web;
 using Moq;
+using UnitTest;
 
 namespace Administrasjon.Controllers.Tests
 {
@@ -21,7 +22,7 @@ namespace Administrasjon.Controllers.Tests
         public void IndexTest()
         {
             //Arrange
-            var controller = new AdminCustomerController(new CustomerBLL(new CustomerDALStub()));
+            var controller = new AdminCustomerController(new CustomerBLL(new CustomerDALStub()), new LoggingBLL(new LoggingDALStub()));
             //Act
             var result = (ViewResult)controller.Index();
             //Assert
@@ -32,7 +33,7 @@ namespace Administrasjon.Controllers.Tests
         public void AllCustomersTestOK()
         {
             //Arrange
-            var controller = new AdminCustomerController(new CustomerBLL(new CustomerDALStub()));
+            var controller = new AdminCustomerController(new CustomerBLL(new CustomerDALStub()), new LoggingBLL(new LoggingDALStub()));
             var list = new List<CustomerModel>();
             var customerModel = new CustomerModel();
             customerModel.customerID = 1;
@@ -82,7 +83,7 @@ namespace Administrasjon.Controllers.Tests
             var context = new Mock<ControllerContext>();
             var session = new Mock<HttpSessionStateBase>();
             context.Setup(m => m.HttpContext.Session).Returns(session.Object);
-            var controller = new AdminCustomerController(new CustomerBLL(new CustomerDALStub()));
+            var controller = new AdminCustomerController(new CustomerBLL(new CustomerDALStub()), new LoggingBLL(new LoggingDALStub()));
             controller.ControllerContext = context.Object;
             var customerModel = new CustomerModel();
             customerModel.customerID = 1;
@@ -121,7 +122,7 @@ namespace Administrasjon.Controllers.Tests
         public void EditTestFalse()
         {
             //Arrange
-            var controller = new AdminCustomerController(new CustomerBLL(new CustomerDALStub()));
+            var controller = new AdminCustomerController(new CustomerBLL(new CustomerDALStub()), new LoggingBLL(new LoggingDALStub()));
 
             //Act
             var result = (ViewResult)controller.Edit(-1);
@@ -132,11 +133,7 @@ namespace Administrasjon.Controllers.Tests
         public void EditTestPostTrue()
         {
             //Arrange
-            var context = new Mock<ControllerContext>();
-            var session = new Mock<HttpSessionStateBase>();
-            context.Setup(m => m.HttpContext.Session).Returns(session.Object);
-            var controller = new AdminCustomerController(new CustomerBLL(new CustomerDALStub()));
-            controller.ControllerContext = context.Object;
+            var controller = MockHttpSession.getMoqAdminCustomerController();
             var customerModel = new CustomerModel();
             customerModel.customerID = 1;
             customerModel.firstName = "Ola";
@@ -150,6 +147,8 @@ namespace Administrasjon.Controllers.Tests
             customerModel.zipCode = "1234";
             customerModel.adress = "Osloveien 1";
             //Act
+            controller.Session["Employee"] = new EmployeeModel();
+            controller.Session["tempCID"] = 1;
             var result = (RedirectToRouteResult)controller.Edit(customerModel);
             //Assert
             Assert.AreEqual(result.RouteName, "");
@@ -159,14 +158,10 @@ namespace Administrasjon.Controllers.Tests
         public void EditTestPostFalse()
         {
             //Arrange
-            var context = new Mock<ControllerContext>();
-            var session = new Mock<HttpSessionStateBase>();
-            context.Setup(m => m.HttpContext.Session).Returns(session.Object);
-            var controller = new AdminCustomerController(new CustomerBLL(new CustomerDALStub()));
-            controller.ControllerContext = context.Object;
+            var controller = MockHttpSession.getMoqAdminCustomerController();
             var customerModel = new CustomerModel();
             customerModel.customerID = -1;
-            customerModel.firstName = "Ola";
+            customerModel.firstName = "";
             customerModel.lastName = "Nordmann";
             customerModel.payAdress = "Osloveien 1";
             customerModel.payProvince = "Oslo";
@@ -177,6 +172,8 @@ namespace Administrasjon.Controllers.Tests
             customerModel.zipCode = "1234";
             customerModel.adress = "Osloveien 1";
             //Act
+            controller.Session["tempCID"] = 1;
+            controller.Session["Employee"] = new EmployeeModel();
             var result = (ViewResult)controller.Edit(customerModel);
             //Assert
             Assert.AreEqual(result.ViewName, "");
@@ -186,7 +183,7 @@ namespace Administrasjon.Controllers.Tests
         public void DeleteTestTrue()
         {
             //Arrange
-            var controller = new AdminCustomerController(new CustomerBLL(new CustomerDALStub()));
+            var controller = new AdminCustomerController(new CustomerBLL(new CustomerDALStub()), new LoggingBLL(new LoggingDALStub()));
 
             //Act
             var result = (RedirectToRouteResult)controller.Delete(1);
@@ -198,7 +195,7 @@ namespace Administrasjon.Controllers.Tests
         public void DeleteTestFalse()
         {
             //Arrange
-            var controller = new AdminCustomerController(new CustomerBLL(new CustomerDALStub()));
+            var controller = new AdminCustomerController(new CustomerBLL(new CustomerDALStub()), new LoggingBLL(new LoggingDALStub()));
 
             //Act
             var result = (ViewResult)controller.Delete(-1);
@@ -213,7 +210,7 @@ namespace Administrasjon.Controllers.Tests
             var context = new Mock<ControllerContext>();
             var session = new Mock<HttpSessionStateBase>();
             context.Setup(m => m.HttpContext.Session).Returns(session.Object);
-            var controller = new AdminCustomerController(new CustomerBLL(new CustomerDALStub()));
+            var controller = new AdminCustomerController(new CustomerBLL(new CustomerDALStub()), new LoggingBLL(new LoggingDALStub()));
             controller.ControllerContext = context.Object;
             var customerModel = new CustomerModel();
             customerModel.customerID = 1;
@@ -250,7 +247,7 @@ namespace Administrasjon.Controllers.Tests
         public void DetailsTestFalse()
         {
             //Arrange
-            var controller = new AdminCustomerController(new CustomerBLL(new CustomerDALStub()));
+            var controller = new AdminCustomerController(new CustomerBLL(new CustomerDALStub()), new LoggingBLL(new LoggingDALStub()));
 
             //Act
             var result = (RedirectToRouteResult)controller.Details(-1);

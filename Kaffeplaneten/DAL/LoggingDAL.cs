@@ -12,12 +12,10 @@ using System.Web;
 
 namespace Kaffeplaneten.DAL
 {
-    public class LoggingDAL
+    public class LoggingDAL:ALoggingDAL
     {
-        public string LOG_DATABASE = AppDomain.CurrentDomain.BaseDirectory + "\\log_database.txt";
-        public string LOG_INTERACTION = AppDomain.CurrentDomain.BaseDirectory + "..\\log_interaction.txt";
 
-        public bool logToUser(string message, CustomerModel model)
+        public override bool logToUser(string message, CustomerModel model)
         {
             createLog(LOG_INTERACTION);
             string logLine = "";
@@ -52,7 +50,7 @@ namespace Kaffeplaneten.DAL
             }
         }
 
-        public bool logToUser(string message, EmployeeModel model)
+        public override bool logToUser(string message, EmployeeModel model)
         {
             createLog(LOG_INTERACTION);
             string logLine = "";
@@ -86,7 +84,7 @@ namespace Kaffeplaneten.DAL
                 return false;
             }
         }
-        public bool logToDatabase(string message)
+        public override bool logToDatabase(string message)
         {
             createLog(LOG_DATABASE);                            // Checks for log existence.
             string logLine = ",{ " +
@@ -111,7 +109,7 @@ namespace Kaffeplaneten.DAL
 
         // Find messages with certain criteria.
         // Needs to be done.
-        public JObject findInDatabaseLog(string criteria)
+        public override JObject findInDatabaseLog(string criteria)
         {
             List<JObject> log = parseLogFile(LOG_DATABASE);
             foreach(JObject message in log)
@@ -126,7 +124,7 @@ namespace Kaffeplaneten.DAL
             }
             return null;
         }
-        public JObject findInInteractionLog(string criteria)
+        public override JObject findInInteractionLog(string criteria)
         {
             List<JObject> log = parseLogFile(LOG_INTERACTION);
             foreach (JObject message in log)
@@ -142,7 +140,7 @@ namespace Kaffeplaneten.DAL
             return null;
         }
 
-        public List<JObject> parseLogFile(string log)
+        public override List<JObject> parseLogFile(string log)
         {
             string entireLog = File.ReadAllText(log) + "]";
             JArray a = JArray.Parse(entireLog);
@@ -155,14 +153,14 @@ namespace Kaffeplaneten.DAL
             return allMessages;
         }
 
-        public JArray parseToArray(string log)
+        public override JArray parseToArray(string log)
         {
             string entireLog = File.ReadAllText(log) + "]";
             JArray a = JArray.Parse(entireLog);
             return a;
         }
 
-        public bool createLog(string type)
+        public override bool createLog(string type)
         {
             if (type.Equals(LOG_DATABASE))
             {
@@ -201,7 +199,7 @@ namespace Kaffeplaneten.DAL
             return false;
         }
 
-        public void outputLogToConsole()
+        public override void outputLogToConsole()
         {
             List<JObject> log = parseLogFile(LOG_INTERACTION);
             foreach (JObject message in log)

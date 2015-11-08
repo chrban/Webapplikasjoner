@@ -13,11 +13,15 @@ namespace Kaffeplaneten.BLL
 {
     public class LoggingBLL
     {
-        private LoggingDAL _loggingDAL;
+        private ALoggingDAL _loggingDAL;
 
         public LoggingBLL()
         {
             _loggingDAL = new LoggingDAL();
+        }
+        public LoggingBLL(ALoggingDAL loggingDAL)
+        {
+            _loggingDAL = loggingDAL;
         }
 
         public bool logToUser(string action, CustomerModel model) {

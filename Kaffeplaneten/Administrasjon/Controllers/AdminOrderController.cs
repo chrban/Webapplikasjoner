@@ -20,9 +20,10 @@ namespace Administrasjon.Controllers
             _orderBLL = new OrderBLL();
             _loggingBLL = new LoggingBLL();
         }
-        public AdminOrderController(OrderBLL orderBLL)
+        public AdminOrderController(OrderBLL orderBLL, LoggingBLL loggingBLL)
         {
             _orderBLL = orderBLL;
+            _loggingBLL = loggingBLL;
         }
 
         public ActionResult AllOrders()

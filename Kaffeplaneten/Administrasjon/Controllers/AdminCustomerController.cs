@@ -19,12 +19,11 @@ namespace Administrasjon.Controllers
             _customerBLL = new CustomerBLL();
             _loggingBLL = new LoggingBLL();
         }
-        public AdminCustomerController(CustomerBLL customerBLL)
+        public AdminCustomerController(CustomerBLL customerBLL, LoggingBLL loggingBLL)
         {
             _customerBLL = customerBLL;
+            _loggingBLL = loggingBLL;
         }
-
-
         public ActionResult Index()
         {
             return View();
