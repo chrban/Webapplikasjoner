@@ -57,7 +57,7 @@ namespace Kaffeplaneten.Controllers
             if (orderModel == null)
             {
                 ModelState.AddModelError("", "Orderen er allerede registrert");
-                _loggingBLL.logToUser("Prøvde å legge til ny ordre som allerede var registrert.");
+                _loggingBLL.logToUser("Prøvde å legge til ny ordre som allerede var registrert.", (CustomerModel)Session[CUSTOMER]);
                 return View(new OrderModel());
             }
             if(!saveOrder(orderModel))
@@ -73,6 +73,8 @@ namespace Kaffeplaneten.Controllers
             if (orderModel == null)
                 return false;
             Session[SHOPPING_CART] = null;
+            _loggingBLL.logToDatabase("Kunde: " + orderModel.customerID + " bestilte ny ordre som ble lagt til i databasen.");
+            _loggingBLL.logToUser("Bestilte en ny ordre.", (CustomerModel)Session[CUSTOMER]);
             return _orderBLL.add(orderModel);
         }
     }

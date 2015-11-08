@@ -11,13 +11,8 @@ namespace Administrasjon.Controllers
     {
         public ActionResult HeaderAndMenuBar(UserModel user)
         {
-            if (Session[LOGGED_INN] != null)
-            {
-                if ((bool)Session[LOGGED_INN])
-                {
-                    ViewBag.Inlogged = true;
-                }
-            }
+            if (Session[LOGGED_INN] != null && (bool)Session[LOGGED_INN])
+                ViewBag.Inlogged = true;
 
             ViewBag.notInlogged = false;
             return PartialView(user);
@@ -32,8 +27,5 @@ namespace Administrasjon.Controllers
         {
             return View(emp);
         }
-
-       
     }
-
 }

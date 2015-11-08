@@ -15,16 +15,19 @@ namespace Administrasjon.Controllers
     {
         private UserBLL _userBLL;
         private EmployeeBLL _EmployeeBLL;
+        private LoggingBLL _loggingBLL;
 
         public SecurityController()
         {
             _userBLL = new UserBLL();
             _EmployeeBLL = new EmployeeBLL();
+            _loggingBLL = new LoggingBLL();
         }
-        public SecurityController(EmployeeBLL employeeBLL, UserBLL userBLL)
+        public SecurityController(EmployeeBLL employeeBLL, UserBLL userBLL, LoggingBLL loggingBLL)
         {
             _EmployeeBLL = employeeBLL;
             _userBLL = userBLL;
+            _loggingBLL = loggingBLL;
         }
         public ActionResult Loginview()
         {
@@ -51,40 +54,31 @@ namespace Administrasjon.Controllers
                 EmployeeModel Emp = _EmployeeBLL.find(user.username);
                 if(Emp != null)
                 {
-
-                    if(Session[employeeAdmin] == null)
+                    Session[Employee] = Emp;
                         Session[employeeAdmin] = Emp.employeeAdmin;
-                    if(Session[customerAdmin]== null)
                         Session[customerAdmin] = Emp.customerAdmin;
-                    if (Session[orderAdmin] == null)
                         Session[orderAdmin] = Emp.orderAdmin;
-                    if (Session[productAdmin] == null)
                         Session[productAdmin] = Emp.productAdmin;
-                    if (Session[databaseAdmin] == null)
                         Session[databaseAdmin] = Emp.databaseAdmin;
 
                     Session[firstname] = Emp.firstName;
                     Session[lastname] = Emp.lastName;
                     Session[username] = user.username;
+                    _loggingBLL.logToUser("Logget seg på systemet.", (EmployeeModel)Session["Employee"]);
                     return RedirectToAction("Home", "Layout");
                 }
                 Session[Feilmelding] = "Finner ikke brukerepost";
                 return View();
             }
             Session[Feilmelding] = "Feil i brukernavn eller passord";
+            _loggingBLL.logToUser("Prøvde å logge seg inn på systemet med feil brukernavn/passord.", (EmployeeModel)null);
             return View();
        
         }
         public ActionResult LoggedIn()
         {
-            if (Session[LOGGED_INN] != null)
-            {
-                bool loggetInn = (bool)Session[LOGGED_INN];
-                if (loggetInn)
-                {
+            if (Session[LOGGED_INN] != null && (bool)Session[LOGGED_INN])
                     return View();
-                }
-            }
             return RedirectToAction("index");
         }
         public ActionResult LoggedOut()
@@ -105,21 +99,21 @@ namespace Administrasjon.Controllers
         {
             var user = _userBLL.get(email);
             var tempPW = _userBLL.randomPassord();
-            
+
 
             if (_userBLL.get(email) == null)
             {
-                return "NF";
-            }
-            else
-            {
+                string tempPW = _userBLL.randomPassord(); 
+                var hashetPw = getHash(tempPW);
+                if (_userBLL.resetPassword(user, hashetPw, false)) // lykkes i lage nytt pw
+                {
                 _userBLL.resetPassword(user, base.getHash(tempPW));
 
-                _userBLL.sendMail(user.username, user.ID.ToString(), "Glemt passord", "Logg inn med midlertidig passord: " + tempPW + "  -Hilsen KaffePlaneten");
-                return tempPW;
-            }
+                    _userBLL.sendMail(user.username, user.ID.ToString(), "Glemt passord", "Logg inn med midlertidig passord: " + tempPW + "  -Hilsen KaffePlaneten");
+                    return tempPW;
+                }
 
         }
 
     }
-}   
+}

@@ -25,8 +25,6 @@ namespace Kaffeplaneten.BLL
         }
         public bool add(CustomerModel IncCustomer)//Legger customer inn i datatbasen
         {
-            _loggingBLL.logToUser("Opprettet bruker: " + IncCustomer.email);
-            _loggingBLL.logToDatabase("Bruker lagt til i database: " + IncCustomer.email);
             return _customerDAL.add(IncCustomer);
         }
 
@@ -41,8 +39,6 @@ namespace Kaffeplaneten.BLL
 
         public bool update(CustomerModel customerModel)//Oppdaterer customeren som har customerID lik customerModel.customerID
         {
-            _loggingBLL.logToUser("Oppdaterte bruker: " + customerModel.email + " (BrukerID: " + customerModel.customerID + ")");
-            _loggingBLL.logToDatabase("Bruker oppdatert: " + customerModel.email + " (BrukerID: " + customerModel.customerID + ")");
             return _customerDAL.update(customerModel);
         }
 

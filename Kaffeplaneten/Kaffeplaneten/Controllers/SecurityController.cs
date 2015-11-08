@@ -38,22 +38,20 @@ namespace Kaffeplaneten.Controllers
 
         [HttpPost]
         public ActionResult Loginview(UserModel user)
-        {   
+        {
             user.passwordHash = base.getHash(user.password);
             if (_userBLL.verifyUser(user))
             {
                 Session[LOGGED_INN] = true;
                 ViewBag.LoggedOn = true;
                 Session[CUSTOMER] = _customerBLL.find(user.username);
-                if(Session[CUSTOMER] != null)
-                {
-                    _LoggingBLL.logToUser("Logget inn i systemet.");
-                    return RedirectToAction("AllProducts", "Product", user.username);
+                _LoggingBLL.logToUser("Logget inn i systemet.", (CustomerModel)Session[CUSTOMER]);
+                return RedirectToAction("AllProducts", "Product", user.username);
 
-                }
             }
-            Session["Feilmelding"] = "Finner ikke brukerepost";
-            _LoggingBLL.logToUser("Prøvde å logge seg inn på systemet med feil brukernavn/passord.");
+            ModelState.AddModelError("", "Feil brukernavn eller passord");
+            CustomerModel nothing = null;
+            _LoggingBLL.logToUser("Prøvde å logge seg inn på systemet med feil brukernavn/passord.", nothing);
             return View();
         }
         public ActionResult LoggedIn()
@@ -77,16 +75,16 @@ namespace Kaffeplaneten.Controllers
         public string ForgotPassword(string email)
         {
             var user = _userBLL.get(email);
-            
+
             if (user != null)
             {
                 string tempPW = _userBLL.randomPassord();
                 var hashetPw = base.getHash(tempPW);
-                if (_userBLL.resetPassword(user, hashetPw,true)) // lykkes i lage nytt pw
-                {
-                    _userBLL.sendMail(user.username, user.ID.ToString(), "Glemt passord", "Logg inn med midlertidig passord: " + tempPW + "  -Hilsen KaffePlaneten");
-                    return tempPW;
-                }
+                if (_userBLL.resetPassword(user, hashetPw,true)) // lykkes i lage nytt pw 
+            {
+                _userBLL.sendMail(user.username, user.ID.ToString(), "Glemt passord", "Logg inn med midlertidig passord: " + tempPW + "  -Hilsen KaffePlaneten");
+                return tempPW;
+            }
             }
             return "NF"; //bruker ikke funnet 
         }

@@ -1,4 +1,5 @@
 ﻿using Kaffeplaneten.BLL;
+using Kaffeplaneten.Models;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -8,18 +9,21 @@ using System.Web.Mvc;
 
 namespace Administrasjon.Controllers
 {
-    public class AdminOrderController : Controller
+    public class AdminOrderController : SuperController
     {
 
         private OrderBLL _orderBLL;
+        private LoggingBLL _loggingBLL;
 
         public AdminOrderController()
         {
             _orderBLL = new OrderBLL();
+            _loggingBLL = new LoggingBLL();
         }
-        public AdminOrderController(OrderBLL orderBLL)
+        public AdminOrderController(OrderBLL orderBLL, LoggingBLL loggingBLL)
         {
             _orderBLL = orderBLL;
+            _loggingBLL = loggingBLL;
         }
 
         public ActionResult AllOrders()
@@ -27,8 +31,7 @@ namespace Administrasjon.Controllers
             //egentlig helt dust metode om ikke den knytter ordre til kunde..
             var orders = _orderBLL.allOrders();
             if(orders!=null)
-            return View(orders);
-
+                return View(orders);
             return View();
         }
         public ActionResult cancelOrder(int nr)
@@ -36,6 +39,8 @@ namespace Administrasjon.Controllers
 
             if (_orderBLL.cancelOrder(nr))
             {
+                _loggingBLL.logToDatabase("Slettet ordre: " + nr);
+                _loggingBLL.logToUser("Slettet ordre: " + nr, (EmployeeModel)Session["Employee"]);
                 return RedirectToAction("AllOrders");
             }
             return RedirectToAction("AllOrders");

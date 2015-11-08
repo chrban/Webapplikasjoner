@@ -14,14 +14,17 @@ namespace Administrasjon.Controllers
     {
 
         private ProductBLL _productBLL;
+        private LoggingBLL _loggingBLL;
 
         public AdminProductController()
         {
             _productBLL = new ProductBLL();
+            _loggingBLL = new LoggingBLL();
         }
-        public AdminProductController(ProductBLL productBLL)
+        public AdminProductController(ProductBLL productBLL, LoggingBLL logginBLL)
         {
             _productBLL = productBLL;
+            _loggingBLL = logginBLL;
         }
 
         public ActionResult AllProducts()
@@ -39,28 +42,24 @@ namespace Administrasjon.Controllers
 
         public ActionResult Edit(int id)
         {
-            var ProductList = _productBLL.getAllProducts();
-            foreach(var i in ProductList)
-            {
-                if(i.productID==id)
-                {
-                    UniqueCategory();
-                    Session["tempPID"] = id;
+            var productModel = _productBLL.find(id);
+            if (productModel == null)
+                return View();
+            UniqueCategory();
+            Session["tempPID"] = id;
                     
-                    return View(i);
-                }
-            }
-
-            return View();
+            return View(productModel);
         }
 
         [HttpPost]
         public ActionResult Edit(ProductModel productModel)
         {
-            productModel.productID = (Int32)Session["tempPID"];
+            productModel.productID = (int)Session["tempPID"];
 
             if (_productBLL.update(productModel))
             {
+                _loggingBLL.logToUser("Oppdaterte produkt: " + productModel.productName, (EmployeeModel)Session["Employee"]);
+                _loggingBLL.logToDatabase("Produkt " + productModel.productName + " ble oppdatert.");
                 return RedirectToAction("AllProducts");
             }
             else 
@@ -74,7 +73,9 @@ namespace Administrasjon.Controllers
         {
              if (_productBLL.delete(id))
              {
-                 return RedirectToAction("AllProducts");
+                _loggingBLL.logToUser("Slettet produkt med ProduktID: " + id, (EmployeeModel)Session["Employee"]);
+                _loggingBLL.logToDatabase("Produkt med ID:" + id + " ble slettet fra databasen.");
+                return RedirectToAction("AllProducts");
              }
              else
              {
@@ -95,6 +96,8 @@ namespace Administrasjon.Controllers
 
             if (_productBLL.add(newProduct))
             {
+                _loggingBLL.logToUser("La til produkt '" + newProduct.productName + "' i databasen.", (EmployeeModel)Session["Employee"]);
+                _loggingBLL.logToDatabase("Produkt " + " ble lagt til i databasen.");
                 return RedirectToAction("AllProducts");
 
             }
@@ -103,28 +106,19 @@ namespace Administrasjon.Controllers
                 return View();
 
             }
-            
 
         }
 
         public ActionResult Details(int id)
         {
-            var ProductList = _productBLL.getAllProducts();
-            foreach (var i in ProductList)
-            {
-                if (i.productID == id)
-                {
-                    return View(i);
-                }
-            }
-
-            return RedirectToAction("AllProducts");
-
-
+            var productModel = _productBLL.find(id);
+            if(productModel==null)
+                return RedirectToAction("AllProducts");
+            return View(productModel);
         }
 
 
-        public void UniqueCategory()
+        private void UniqueCategory()
         {
             var uniqeCategories = new List<String>();
             var ProductList = _productBLL.getAllProducts();

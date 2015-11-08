@@ -12,54 +12,28 @@ using System.Web;
 
 namespace Kaffeplaneten.DAL
 {
-    public class LoggingDAL
+    public class LoggingDAL:ALoggingDAL
     {
-        public string LOG_DATABASE = AppDomain.CurrentDomain.BaseDirectory + "\\log_database.txt";
-        public string LOG_INTERACTION = AppDomain.CurrentDomain.BaseDirectory + "..\\log_interaction.txt";
 
-        public bool logToUser(string message)
+        public override bool logToUser(string message, CustomerModel model)
         {
             createLog(LOG_INTERACTION);
-            CustomerModel user;
-            EmployeeModel employee;
             string logLine = "";
-                if (HttpContext.Current.Session == null || HttpContext.Current.Session["LoggedInn"] == null || (bool)HttpContext.Current.Session["LoggedInn"] == false)
-                {
-                    user = new CustomerModel()
-                    {
-                        customerID = 0,
-                        firstName = "Anonymous",
-                        lastName = "",
-                        email = "Anonymous"
-                    };
-                    logLine = ",{ " +
-                                "\"Date\": \"" + DateTime.Now.ToString("h:mm:ss tt") + "\"," +
-                                "\"UserID\": \"" + user.customerID + "\"," +
-                                "\"User\": \"" + user.firstName + " " + user.lastName + "\"," +
-                                "\"Action\": \"" + message + "\" }";
-                }
-                else if ((bool)HttpContext.Current.Session["LoggedInn"] == true && HttpContext.Current.Session["Customer"] != null)
-                {
-                    user = (CustomerModel)HttpContext.Current.Session["Customer"];
-                    logLine = ",{ " +
-                                 "\"Date\": \"" + DateTime.Now.ToString("h:mm:ss tt") + "\"," +
-                                 "\"UserID\": \"" + user.customerID + "\"," +
-                                 "\"User\": \"" + user.firstName + " " + user.lastName + "\"," +
-                                 "\"Action\": \"" + message + "\" }";
-                }
-                else if ((bool)HttpContext.Current.Session["LoggedInn"] == true && HttpContext.Current.Session["Customer"] == null)
-                {
-                    logLine = ",{ " +
-                             "\"Date\": \"" + DateTime.Now.ToString("h:mm:ss tt") + "\"," +
-                             "\"UserID\": \"" + (string)HttpContext.Current.Session["username"] + "\"," +
-                             "\"User\": \"" + (string)HttpContext.Current.Session["firstname"] + " " + (string)HttpContext.Current.Session["lastname"] + "\"," +
-                             "\"Action\": \"" + message + "\" }";
-                }
-            else
+            if(model == null)
             {
+                model = new CustomerModel()
+                {
+                    customerID = 0,
+                    firstName = "Anonymous",
+                    lastName = "",
+                    email = "Anonymous"
+                };
             }
-        
-
+            logLine = ",{ " +
+                        "\"Date\": \"" + DateTime.Now.ToString("h:mm:ss tt") + "\"," +
+                        "\"UserID\": \"" + model.customerID + "\"," +
+                        "\"User\": \"" + model.firstName + " " + model.lastName + "\"," +
+                        "\"Action\": \"" + message + "\" }";
             try
             {
                 using (StreamWriter logWriter = File.AppendText(LOG_INTERACTION))
@@ -75,7 +49,42 @@ namespace Kaffeplaneten.DAL
                 return false;
             }
         }
-        public bool logToDatabase(string message)
+
+        public override bool logToUser(string message, EmployeeModel model)
+        {
+            createLog(LOG_INTERACTION);
+            string logLine = "";
+            if (model == null)
+            {
+                model = new EmployeeModel()
+                {
+                    employeeID = 0,
+                    firstName = "Anonymous",
+                    lastName = "",
+                    username = "Anonymous (Employee)"
+                };
+            }
+            logLine = ",{ " +
+             "\"Date\": \"" + DateTime.Now.ToString("h:mm:ss tt") + "\"," +
+             "\"UserID\": \"" + model.username + "\"," +
+             "\"User\": \"" + model.firstName + " " + model.lastName + "\"," +
+             "\"Action\": \"" + message + "\" }";
+            try
+            {
+                using (StreamWriter logWriter = File.AppendText(LOG_INTERACTION))
+                {
+                    logWriter.WriteLine(logLine);
+                    logWriter.Close();
+                    return true;
+                }
+            }
+            catch (Exception)
+            {
+                System.Console.WriteLine("ERROR: COULD NOT LOG ACTION TO USER.");
+                return false;
+            }
+        }
+        public override bool logToDatabase(string message)
         {
             createLog(LOG_DATABASE);                            // Checks for log existence.
             string logLine = ",{ " +
@@ -100,7 +109,7 @@ namespace Kaffeplaneten.DAL
 
         // Find messages with certain criteria.
         // Needs to be done.
-        public JObject findInDatabaseLog(string criteria)
+        public override JObject findInDatabaseLog(string criteria)
         {
             List<JObject> log = parseLogFile(LOG_DATABASE);
             foreach(JObject message in log)
@@ -115,7 +124,7 @@ namespace Kaffeplaneten.DAL
             }
             return null;
         }
-        public JObject findInInteractionLog(string criteria)
+        public override JObject findInInteractionLog(string criteria)
         {
             List<JObject> log = parseLogFile(LOG_INTERACTION);
             foreach (JObject message in log)
@@ -131,7 +140,7 @@ namespace Kaffeplaneten.DAL
             return null;
         }
 
-        public List<JObject> parseLogFile(string log)
+        public override List<JObject> parseLogFile(string log)
         {
             string entireLog = File.ReadAllText(log) + "]";
             JArray a = JArray.Parse(entireLog);
@@ -144,14 +153,14 @@ namespace Kaffeplaneten.DAL
             return allMessages;
         }
 
-        public JArray parseToArray(string log)
+        public override JArray parseToArray(string log)
         {
             string entireLog = File.ReadAllText(log) + "]";
             JArray a = JArray.Parse(entireLog);
             return a;
         }
 
-        public bool createLog(string type)
+        public override bool createLog(string type)
         {
             if (type.Equals(LOG_DATABASE))
             {
@@ -190,7 +199,7 @@ namespace Kaffeplaneten.DAL
             return false;
         }
 
-        public void outputLogToConsole()
+        public override void outputLogToConsole()
         {
             List<JObject> log = parseLogFile(LOG_INTERACTION);
             foreach (JObject message in log)

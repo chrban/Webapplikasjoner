@@ -63,6 +63,7 @@
     <Compile Include="EmployeeDAL.cs" />
     <Compile Include="ICustomerDAL.cs" />
     <Compile Include="IEmployeeDAL.cs" />
+    <Compile Include="ALoggingDAL.cs" />
     <Compile Include="IOrderDAL.cs" />
     <Compile Include="IProductDAL.cs" />
     <Compile Include="IUserDAL.cs" />

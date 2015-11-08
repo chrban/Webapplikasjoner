@@ -11,21 +11,19 @@ namespace Administrasjon.Controllers
 {
     public class AdminCustomerController : Controller
     {
-
-
-
         private CustomerBLL _customerBLL;
+        private LoggingBLL _loggingBLL;
 
         public AdminCustomerController()
         {
             _customerBLL = new CustomerBLL();
+            _loggingBLL = new LoggingBLL();
         }
-        public AdminCustomerController(CustomerBLL customerBLL)
+        public AdminCustomerController(CustomerBLL customerBLL, LoggingBLL loggingBLL)
         {
             _customerBLL = customerBLL;
+            _loggingBLL = loggingBLL;
         }
-
-
         public ActionResult Index()
         {
             return View();
@@ -61,6 +59,8 @@ namespace Administrasjon.Controllers
 
             if (_customerBLL.update(customerModel))
             {
+                _loggingBLL.logToUser("Oppdaterte bruker: " + customerModel.email + " (BrukerID: " + customerModel.customerID + ")", (EmployeeModel)Session["Employee"]);
+                _loggingBLL.logToDatabase("Bruker oppdatert: " + customerModel.email + " (BrukerID: " + customerModel.customerID + ")");
                 return RedirectToAction("AllCustomers");
             }
             else
