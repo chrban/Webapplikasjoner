@@ -9,6 +9,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Diagnostics;
 using System.Web;
+using System.Net;
 
 namespace Kaffeplaneten.DAL
 {
@@ -21,12 +22,18 @@ namespace Kaffeplaneten.DAL
             string logLine = "";
             if(model == null)
             {
+
+                string strHostName = System.Net.Dns.GetHostName();
+
+                IPHostEntry ipEntry = System.Net.Dns.GetHostEntry(strHostName);
+
+                string ipaddress = ipEntry.AddressList[2].ToString();
                 model = new CustomerModel()
                 {
                     customerID = 0,
-                    firstName = "Anonymous",
+                    firstName = ipaddress,
                     lastName = "",
-                    email = "Anonymous"
+                    email = "Anonym"
                 };
             }
             logLine = ",{ " +
@@ -54,14 +61,20 @@ namespace Kaffeplaneten.DAL
         {
             createLog(LOG_INTERACTION);
             string logLine = "";
-            if (model == null)
+            if (model == null)                                                  // Dersom personen er anonym vil dette skje.
             {
+                
+                string strHostName = System.Net.Dns.GetHostName();
+
+                IPHostEntry ipEntry = System.Net.Dns.GetHostEntry(strHostName);
+
+                string ipaddress = ipEntry.AddressList[2].ToString();
                 model = new EmployeeModel()
                 {
                     employeeID = 0,
-                    firstName = "Anonymous",
+                    firstName = ipaddress,
                     lastName = "",
-                    username = "Anonymous (Employee)"
+                    username = "Anonym (Ansatt)"
                 };
             }
             logLine = ",{ " +
@@ -192,7 +205,7 @@ namespace Kaffeplaneten.DAL
                     {
                         logWriter.WriteLine("[ { " +
                                             "\"Date\": \"" + DateTime.Now.ToString("h:mm:ss tt") + "\"," +
-                                            "\"Action\": \"" + "Logging has begun " + "\"" +
+                                            "\"Action\": \"" + "Logging har startet " + "\"" +
                                             " }");
                         logWriter.Close();
                         return true;
@@ -210,7 +223,7 @@ namespace Kaffeplaneten.DAL
                                   "\"Date\": \"" + DateTime.Now.ToString("h:mm:ss tt") + "\"," +
                                   "\"UserID\": \"" + "System" + "\"," +
                                   "\"User\": \"" + "System" + "\"," +
-                                  "\"Action\": \"" + "Logging has begun " + "\"" +
+                                  "\"Action\": \"" + "Logging har startet. " + "\"" +
                                     " }");
                         logWriter.Close();
                         return true;
@@ -218,24 +231,6 @@ namespace Kaffeplaneten.DAL
                 }
             }
             return false;
-        }
-
-        public override void outputLogToConsole()
-        {
-            List<JObject> log = parseLogFile(LOG_INTERACTION);
-            foreach (JObject message in log)
-            {
-                Debug.WriteLine("");
-                Debug.WriteLine("==============");
-                Debug.WriteLine("");
-                foreach (JProperty p in message.Properties())
-                {
-                    Debug.WriteLine("Log: " + p.Name + ": " + p.Value);
-                }
-                Debug.WriteLine("");
-                Debug.WriteLine("==============");
-                Debug.WriteLine("");
-            }
         }
     }
 }

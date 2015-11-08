@@ -1293,10 +1293,10 @@
          **/
         labels: {
             all: "All",
-            infos: "Showing {{ctx.start}} to {{ctx.end}} of {{ctx.total}} entries",
-            loading: "Loading...",
-            noResults: "No results found!",
-            refresh: "Refresh",
+            infos: "Viser {{ctx.start}} til {{ctx.end}} av totalt {{ctx.total}} innlegg",
+            loading: "Laster...",
+            noResults: "Ingen resultater!",
+            refresh: "Oppdater",
             search: "Search"
         },
 
