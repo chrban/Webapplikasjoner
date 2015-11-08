@@ -9,6 +9,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Diagnostics;
 using System.Web;
+using System.Net;
 
 namespace Kaffeplaneten.DAL
 {
@@ -21,10 +22,16 @@ namespace Kaffeplaneten.DAL
             string logLine = "";
             if(model == null)
             {
+
+                string strHostName = System.Net.Dns.GetHostName();
+
+                IPHostEntry ipEntry = System.Net.Dns.GetHostEntry(strHostName);
+
+                string ipaddress = ipEntry.AddressList[2].ToString();
                 model = new CustomerModel()
                 {
                     customerID = 0,
-                    firstName = "Anonymous",
+                    firstName = ipaddress,
                     lastName = "",
                     email = "Anonymous"
                 };
@@ -54,12 +61,18 @@ namespace Kaffeplaneten.DAL
         {
             createLog(LOG_INTERACTION);
             string logLine = "";
-            if (model == null)
+            if (model == null)                                                  // Dersom personen er anonym vil dette skje.
             {
+                
+                string strHostName = System.Net.Dns.GetHostName();
+
+                IPHostEntry ipEntry = System.Net.Dns.GetHostEntry(strHostName);
+
+                string ipaddress = ipEntry.AddressList[2].ToString();
                 model = new EmployeeModel()
                 {
                     employeeID = 0,
-                    firstName = "Anonymous",
+                    firstName = ipaddress,
                     lastName = "",
                     username = "Anonymous (Employee)"
                 };
