@@ -147,6 +147,8 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
+    <None Include="Properties\PublishProfiles\AdminKaffeplaneten %282%29.pubxml" />
+    <None Include="Properties\PublishProfiles\AdminKaffeplaneten.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.11.3.min.map" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
@@ -177,7 +179,6 @@
     <Content Include="Views\AdminCustomer\AllCustomers.cshtml" />
     <Content Include="Views\AdminCustomer\Edit.cshtml" />
     <Content Include="Views\AdminOrder\AllOrders.cshtml" />
-    <Content Include="Views\AdminOrder\OrderView.cshtml" />
     <Content Include="Views\AdminEmployee\createEmployee.cshtml" />
     <Content Include="Views\AdminEmployee\AllEmployees.cshtml" />
     <Content Include="Views\Shared\HelpView.cshtml" />
