@@ -1,6 +1,19 @@
-#Kaffeplaneten
-##Beskrivelse av prosjektet:
-Prosjektet er en nettside med nettbutikk funksjonalitet. Nettsiden har funksjonalitet for brukerregistrering, innlogging,  oppdatering av brukerdata, visning og kjøp av produkter, og visning av tidligere kjøp. Prosjektet er laget med Visual Studio 2015 i MVC .NET.
+#Kaffeplaneten og Administrasjon-kaffeplaneten
+##Beskrivelse av prosjektene:
+Prosjektet Kaffeplaneten en nettside med nettbutikk funksjonalitet. Nettsiden har funksjonalitet for brukerregistrering, innlogging,  oppdatering av brukerdata, visning og kjøp av produkter, og visning av tidligere kjøp. Prosjektet er laget med Visual Studio 2015 i MVC .NET.
+
+Prosjektet Administrasjon er en nettside med administrativ funksjonalitet som tar for seg alt av endringer tilknyttet nettsiden kaffeplaneten. Her kan administrator ut ifra sine rettigheter, lese alt av brukerinterkasjon i databaselogg, endre produkter, endre/kansellere ordrer og slette ansatte. Når man registrerer en ansatt kan man her sette hvilke av disse rettighetene den respektive ansatte skal kunne få tilgang til. 
+
+Vi har valgt å legge disse som to separerte prosjekter da det skaper mer ryddighet og oversikt over de forskjellige modulene, samt ved muligheten til å legge prosjektene på forskjellig serverer/områder for å spre belastningen.
+##Til opplysning:
+Oppstart-siden for administrason-nettsiden viser en innloggingsside. Derfor trenger man på forhånd en hardkodet/forhåndsdefinert "superbruker"
+for å logge inn som vi har her:
+####Brukernavn: 
+sjefledersen@kaffeplaneten.no
+####Passord: 
+Sjefesen123
+
+Denne trenger man å bruke første gangen for å kunne ha mulighet til å registrere nye ansatte og sette rettigheter.
 ##Prosjektstruktur
 ###Database:
 CustomerContext.cs innholder Code First filen til databasen. Filen ligger i Models mappen.
@@ -15,10 +28,14 @@ Alle kontrollerklassene ligger i Controllers mappen. Diss styrer dataflyten mell
 ####View:
 De ulike viewene er organisert i undermapper i Views mappen. 
 ###Annet
+
+####Versjonskontroll:
+Vi har benyttet Github og opprettet issues(merkelappproblemer) for alt av funksjonalitet, design ol. som er tilknyttet oppgaven. Vi har brukt git gjennom Visual til å push'e, pull'e og merge mellom oss. Ettersom vi benytter .Net-serveren til
+skolen med innlogging har vi ikke ønsket å gjøre repoet åpent for offentligheten da det er mange bots der ute som kan misbruke dette. Hvis det ønskes tilgang er det bare å si fra til en av oss slik at vi kan invitere.
 ####DataCreator:
 DataCreator har metode for å generere data til databasen. Brukes til å fylle databasen med produkter. Klassen har også metoder for å generere testdata.
-####SuperController:
-Vi valgte å ha en egen SuperController alle kontrollerene arver fra. 
+####SuperControllere:
+Vi valgte å ha en SuperControllere i begge prosjektene som alle kontrollerene arver fra. 
 Dette gjør det mulig å ha felles metoder alle kontrollerene har tilgang til. Vi valgte også å opprette en const string for hver Session variabel vi bruker. 
 Dette sikrer mot skrivefeil i Session stringen. Disse ligger også i SuperController.cs.
 ####Kodespråk:
