@@ -1,4 +1,4 @@
-#Kaffeplaneten
+#Kaffeplaneten og Administrasjon-kaffeplaneten
 ##Beskrivelse av prosjektene:
 Prosjektet Kaffeplaneten en nettside med nettbutikk funksjonalitet. Nettsiden har funksjonalitet for brukerregistrering, innlogging,  oppdatering av brukerdata, visning og kjøp av produkter, og visning av tidligere kjøp. Prosjektet er laget med Visual Studio 2015 i MVC .NET.
 
@@ -34,8 +34,8 @@ Vi har benyttet Github og opprettet issues(merkelappproblemer) for alt av funksj
 skolen med innlogging har vi ikke ønsket å gjøre repoet åpent for offentligheten da det er mange bots der ute som kan misbruke dette. Hvis det ønskes tilgang er det bare å si fra til en av oss slik at vi kan invitere.
 ####DataCreator:
 DataCreator har metode for å generere data til databasen. Brukes til å fylle databasen med produkter. Klassen har også metoder for å generere testdata.
-####SuperController:
-Vi valgte å ha en egen SuperController alle kontrollerene arver fra. 
+####SuperControllere:
+Vi valgte å ha en SuperControllere i begge prosjektene som alle kontrollerene arver fra. 
 Dette gjør det mulig å ha felles metoder alle kontrollerene har tilgang til. Vi valgte også å opprette en const string for hver Session variabel vi bruker. 
 Dette sikrer mot skrivefeil i Session stringen. Disse ligger også i SuperController.cs.
 ####Kodespråk:
