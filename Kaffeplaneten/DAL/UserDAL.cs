@@ -11,6 +11,11 @@ namespace Kaffeplaneten.DAL
 {
     public class UserDAL : IUserDAL
     {
+        LoggingDAL _logging;
+        public UserDAL()
+        {
+            _logging = new LoggingDAL();
+        }
         public bool add(UserModel userModel)//Legger en Users inn i databasen
         {
             using (var db = new CustomerContext())
@@ -48,8 +53,7 @@ namespace Kaffeplaneten.DAL
                 }
                 catch (Exception ex)
                 {
-                    Debug.WriteLine("\nERROR!\nMelding:\n" + ex.Message + "\nInner exception:" + ex.InnerException + "\nKastet fra\n" + ex.TargetSite + "\nTrace:\n" + ex.StackTrace);
-                    Trace.TraceInformation("Property: {0} Error: {1}", ex.Source, ex.InnerException);
+                    _logging.logToDatabase(ex);
                 }
                 return false;
             }//end using
@@ -75,8 +79,7 @@ namespace Kaffeplaneten.DAL
                 }
                 catch (Exception ex)
                 {
-                    Debug.WriteLine("\nERROR!\nMelding:\n" + ex.Message + "\nInner exception:" + ex.InnerException + "\nKastet fra\n" + ex.TargetSite + "\nTrace:\n" + ex.StackTrace);
-                    Trace.TraceInformation("Property: {0} Error: {1}", ex.Source, ex.InnerException);
+                    _logging.logToDatabase(ex);
                 }
                 return null;
             }
@@ -105,17 +108,9 @@ namespace Kaffeplaneten.DAL
                     db.SaveChanges();
                     return true;
                 }
-                catch (DbEntityValidationException dbEx)
+                catch (Exception ex)
                 {
-                    foreach (var validationErrors in dbEx.EntityValidationErrors)
-                    {
-                        foreach (var validationError in validationErrors.ValidationErrors)
-                        {
-                            Trace.TraceInformation("Property: {0} Error: {1}",
-                                                    validationError.PropertyName,
-                                                    validationError.ErrorMessage);
-                        }
-                    }
+                    _logging.logToDatabase(ex);
                 }
                 return false;
             }
@@ -136,8 +131,7 @@ namespace Kaffeplaneten.DAL
                 }
                 catch (Exception ex)
                 {
-                    Debug.WriteLine("\nERROR!\nMelding:\n" + ex.Message + "\nInner exception:" + ex.InnerException + "\nKastet fra\n" + ex.TargetSite + "\nTrace:\n" + ex.StackTrace);
-                    Trace.TraceInformation("Property: {0} Error: {1}", ex.Source, ex.InnerException);
+                    _logging.logToDatabase(ex);
                 }
                 return false;
             }//end using
@@ -159,8 +153,7 @@ namespace Kaffeplaneten.DAL
                 }
                 catch (Exception ex)
                 {
-                    Debug.WriteLine("\nERROR!\nMelding:\n" + ex.Message + "\nInner exception:" + ex.InnerException + "\nKastet fra\n" + ex.TargetSite + "\nTrace:\n" + ex.StackTrace);
-                    Trace.TraceInformation("Property: {0} Error: {1}", ex.Source, ex.InnerException);
+                    _logging.logToDatabase(ex);
                 }
                 return null;
             }//end using

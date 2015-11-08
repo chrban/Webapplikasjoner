@@ -36,6 +36,10 @@ namespace Kaffeplaneten.BLL
         {
             return _loggingDAL.logToDatabase(action);
         }
+        public bool logToDatabase(Exception ex)
+        {
+            return _loggingDAL.logToDatabase(ex);
+        }
 
         public JArray getInteractionMessages()
         {

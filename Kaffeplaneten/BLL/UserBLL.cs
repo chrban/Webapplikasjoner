@@ -95,9 +95,9 @@ namespace Kaffeplaneten.BLL
 
                 return true;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
+                _loggingBLL.logToDatabase(ex);
             }
             return false;
         }
