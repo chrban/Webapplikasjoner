@@ -38,7 +38,7 @@ namespace Kaffeplaneten.DAL
             }
             logLine = ",{ " +
                         "\"Date\": \"" + DateTime.Now.ToString("h:mm:ss tt") + "\"," +
-                        "\"UserID\": \"" + model.customerID + "\"," +
+                        "\"UserID\": \"" + model.email + "\"," +
                         "\"User\": \"" + model.firstName + " " + model.lastName + "\"," +
                         "\"Action\": \"" + message + "\" }";
             try
