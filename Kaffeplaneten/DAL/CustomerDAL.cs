@@ -375,7 +375,6 @@ namespace Kaffeplaneten.DAL
                     db.Customers.Remove(delCustomer);
                     //Adress, Orders og ProductOrder slettes automatisk
                     db.SaveChanges();
-                    Debug.WriteLine(delCustomer.firstName + "Er slettet");
                     return true;
                 }
                 catch (Exception ex)

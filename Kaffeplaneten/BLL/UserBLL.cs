@@ -68,7 +68,6 @@ namespace Kaffeplaneten.BLL
         {
             try
             {
-                Debug.WriteLine("Prøver å sende mail..");
 
                 var fromAddress = new MailAddress("kaffeplaneten@gmail.com", "Kaffe Planeten");
                 var toAddress = new MailAddress(tilMail, tilName);
@@ -94,7 +93,6 @@ namespace Kaffeplaneten.BLL
                     smtp.Send(message);
                 }
 
-                Debug.WriteLine("SENDT!");
                 return true;
             }
             catch (Exception)

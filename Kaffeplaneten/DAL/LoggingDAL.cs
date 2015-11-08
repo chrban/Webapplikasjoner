@@ -95,7 +95,6 @@ namespace Kaffeplaneten.DAL
                 using (StreamWriter logWriter = File.AppendText(LOG_DATABASE))
                 {
                     logWriter.WriteLine(logLine);
-                    Debug.WriteLine("TESTED: " + message);
                     logWriter.Close();
                     return true;
                 }
