@@ -163,7 +163,6 @@ namespace Kaffeplaneten.DAL
                     db.Employees.Remove(delEmployee);
                     //Adress, Orders og ProductOrder slettes automatisk
                     db.SaveChanges();
-                    Debug.WriteLine(delEmployee.firstName + "Er slettet");
                     return true;
                 }
                 catch (Exception ex)

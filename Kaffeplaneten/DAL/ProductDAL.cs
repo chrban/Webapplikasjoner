@@ -61,8 +61,8 @@ namespace Kaffeplaneten.DAL
                 }
                 catch(Exception)
                 {
-                    return false;
                 }
+                    return false;
             }
         }
         public bool updateQuantity(ProductModel productModel)//Oppdaterer lagerstatur på produkt. Bruker productModel.stock som ny verdi
@@ -84,8 +84,8 @@ namespace Kaffeplaneten.DAL
                 }
                 catch(Exception)
                 {
-                    return false;
                 }
+                return false;
             }
         }
         public ProductModel find(int id)//Henter ut produkt med id lik id
@@ -109,15 +109,14 @@ namespace Kaffeplaneten.DAL
                 }
                 catch (Exception)
                 {
-                    return null;
                 }
+                return null;
             }
         }
 
 
         public bool update(ProductModel _productModel)
         {
-            Debug.WriteLine("i DAl : " + _productModel.productID);
             using (var db = new CustomerContext())
             {
                 try
@@ -152,7 +151,6 @@ namespace Kaffeplaneten.DAL
                     Products slett = (from p in db.Products where p.productID == id select p).Single();
                     db.Products.Remove(slett);
                     db.SaveChanges();
-                    Debug.WriteLine(slett.productName + "Er slettet");
                     return true;
 
                 }

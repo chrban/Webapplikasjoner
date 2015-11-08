@@ -64,7 +64,6 @@ namespace Administrasjon.Controllers
             }
             else 
             {
-                Debug.WriteLine("EDIT FEILER");
                 return View();
             }
         }
