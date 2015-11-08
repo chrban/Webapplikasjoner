@@ -10,10 +10,10 @@
 <link href="~/Scripts/jquery.bootgrid.css" rel="stylesheet" />
 
 <div class="container">
-    <h2>User Log:</h2>
+    <h2>Brukerlogg:</h2>
     <table id="grid-basic" class="table table-condensed table-hover table-striped">
     </table>
-    <h2>Database Log:</h2>
+    <h2>Databaselogg:</h2>
     <table id="grid-database" class="table table-condensed table-hover table-striped"></table>
 </div>
 
@@ -32,7 +32,7 @@
             success: function (response) {
                 var messages = response;
                 $('#grid-basic').empty();
-                $('#grid-basic').append("<thead><tr><th data-column-id=\"Date\" data-order=\"asc\">Dato:</th><th data-column-id=\"UserID\">Bruker ID:</th><th data-column-id=\"User\">Brukernavn:</th><th data-column-id=\"Action\">Logg:</th></tr></thead><tbody>");
+                $('#grid-basic').append("<thead><tr><th data-column-id=\"Date\" data-order=\"asc\">Dato:</th><th data-column-id=\"UserID\">Brukernavn:</th><th data-column-id=\"User\">Navn:</th><th data-column-id=\"Action\">Logg:</th></tr></thead><tbody>");
                 $.each(messages, function (index, message) {
                     $('#grid-basic').append('<tr><td>' + message.Date + '</td><td>' +
                                             message.UserID + '</td><td>' +

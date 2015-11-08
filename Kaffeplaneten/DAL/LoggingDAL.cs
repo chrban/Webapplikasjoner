@@ -38,7 +38,7 @@ namespace Kaffeplaneten.DAL
             }
             logLine = ",{ " +
                         "\"Date\": \"" + DateTime.Now.ToString("h:mm:ss tt") + "\"," +
-                        "\"UserID\": \"" + model.customerID + "\"," +
+                        "\"UserID\": \"" + model.email + "\"," +
                         "\"User\": \"" + model.firstName + " " + model.lastName + "\"," +
                         "\"Action\": \"" + message + "\" }";
             try
@@ -124,7 +124,7 @@ namespace Kaffeplaneten.DAL
             createLog(LOG_DATABASE);                            // Checks for log existence.
             string logLine = ",{ " +
                                   "\"Date\": \"" + DateTime.Now.ToString("h:mm:ss tt") + "\"," +
-                                  "\"Action\": \"FEIL: " + ex + "\" }";
+                                  "\"Action\": \"FEIL: " + ex.Message + "\" }";
             try
             {
                 using (StreamWriter logWriter = File.AppendText(LOG_DATABASE))
