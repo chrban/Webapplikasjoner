@@ -94,12 +94,6 @@ namespace Kaffeplaneten.Stubs
             return "Oslo";
         }
 
-        public bool update(EmployeeModel employeeModel)
-        {
-            if (employeeModel.firstName != "")
-                return true;
-            return false;
-        }
         public bool delete(int id)
         {
             if (id < 0)
