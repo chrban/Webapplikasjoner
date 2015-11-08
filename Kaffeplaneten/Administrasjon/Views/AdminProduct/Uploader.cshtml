@@ -16,8 +16,13 @@
           fileName);
         storePath = (AppDomain.CurrentDomain.BaseDirectory + "\\..\\Kaffeplaneten\\Content\\img\\" +
   fileName);
-        uploadedFile.SaveAs(fileSavePath);
-        uploadedFile.SaveAs(storePath);
+        try {
+            uploadedFile.SaveAs(fileSavePath);
+            uploadedFile.SaveAs(storePath);
+        } catch(Exception e)
+        {
+            <span>FEIL: Fil ble ikke lastet opp...</span>
+        }
     }
 }
 
