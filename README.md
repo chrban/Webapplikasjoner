@@ -23,6 +23,16 @@ Dette gjør det mulig å ha felles metoder alle kontrollerene har tilgang til. V
 Dette sikrer mot skrivefeil i Session stringen. Disse ligger også i SuperController.cs.
 ####Kodespråk:
 Vi har valgt å kun bruke engelsk i koden. Dette er god kodepraksis da man ikke skal behøve å være norsk for å forstå koden. Kommentarer er på norsk. 
+####Unit Tester
+-	Alle metoder, med unntak av konstruktør, er gjennomtestet i Admininstrsjonprosjektet.
+-	Metoder som er avhengig av Sessions er testet ved hjelp av Moq. MockHttpSession.cs inneholder get metoder for kontrollere som implementerer Moq slik at Session kan brukes for testing. 
+Kilde til MockHttpSession koden: http://www.dontpaniclabs.com/blog/post/2011/03/22/testing-session-in-mvc-in-four-lines-of-code/
+Valgte å bruke dette da det gir en ryddig løsning og gir støtte for å teste på Sessions i både kontroller og test metode. Så ikke løsningen på Fronter før etter denne var implementert og ser ingen grunn til å bytte. 
+-	ViewBag verdier er ikke testet. Finner ingen enkel måte å kontrollere disse på, ser heller ikke behovet da de brukes til sende data til viewet og ikke har noen funksjonell betydning for programflyten.
+-	Kontrollerne i Kaffeplaneten prosjektet er ikke testet da disse hører til forrige oppgave. Dette fører til at enkelte metoder i BLL og Stub versjonene av DAL som kun brukes av Kaffeplaneten, ikke blir testet. 
+-	Stub klassene ligger i et eget prosjekt, Stubs. Interfacene ligger i DAL.
+-	Alle DAL og Stubs implementerer et interface slik at dependency injection kan brukes. Unntaket er LoggingDAL.cs og LoggingDALStub.cs. Disse bruker et par const stringer og er arver derfor den abstrakte klassen ALoggingDAL.cs. 
+
 ##Laget av:
 Magnus Johan Knalstad, s198760
 <br />
