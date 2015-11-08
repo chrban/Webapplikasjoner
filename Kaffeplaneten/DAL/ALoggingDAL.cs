@@ -7,7 +7,7 @@ namespace Kaffeplaneten.DAL
 {
     public abstract class ALoggingDAL
     {
-        public string LOG_DATABASE = AppDomain.CurrentDomain.BaseDirectory + "\\log_database.txt";
+        public string LOG_DATABASE = AppDomain.CurrentDomain.BaseDirectory + "..\\log_database.txt";
         public string LOG_INTERACTION = AppDomain.CurrentDomain.BaseDirectory + "..\\log_interaction.txt";
         public abstract bool createLog(string type);
         public abstract JObject findInDatabaseLog(string criteria);
